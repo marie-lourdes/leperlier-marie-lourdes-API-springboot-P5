@@ -1,5 +1,5 @@
 package com.safetynet.api.repository;
 
-public interface FireStationRepositoy {
+public interface IPersonRepository {
 
 }
