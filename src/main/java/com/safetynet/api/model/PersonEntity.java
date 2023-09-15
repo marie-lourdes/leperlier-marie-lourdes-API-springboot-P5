@@ -1,7 +1,7 @@
 package com.safetynet.api.model;
 
 public class PersonEntity {
-	// @NonNull to check or throw NullPointerException
+
 	private String id;
 	private String firstName;
 	private String lastName;
