@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-// initilize attributs of class with constructor and arg
-@RequiredArgsConstructor
+/* initilize attributs of class with constructor and arg
+@RequiredArgsConstructor*/
 //create getter with name of attributs
 @Accessors(fluent = true) @Getter
 @Setter
