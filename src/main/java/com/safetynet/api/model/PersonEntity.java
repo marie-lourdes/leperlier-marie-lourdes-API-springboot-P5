@@ -8,6 +8,9 @@ public class PersonEntity {
 	private String address;
 	private int zip;
 	private String city;
+	private String phone;
+	private String email;
+
 	public String getId() {
 		return id;
 	}
@@ -71,23 +74,7 @@ public class PersonEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	private String phone;
-	private String email;
-
-	public PersonEntity(String id, String firstName, String lastName, String address, int zip, String city,
-			String phone, String email) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.zip = zip;
-		this.city = city;
-		this.phone = phone;
-		this.email = email;
-
-	}
-
+	
 	// jsonnitter?
 	@Override
 	public String toString() {
