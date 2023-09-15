@@ -1,6 +1,7 @@
 package com.safetynet.api.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -10,15 +11,16 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true) @Getter
 @Setter
 public class PersonEntity {
-	
-		  private String id;
-		  private String firstName;
-		  private String lastName;
-		  private String address;
-		  private int zip;
-		  private String city;
-		  private String phone;
-		  private String email;
+
+	//@NonNull to check or throw NullPointerException
+		  private @NonNull String id;
+		  private @NonNull String firstName;
+		  private @NonNull String lastName;
+		  private @NonNull String address;
+		  private @NonNull int zip;
+		  private @NonNull String city;
+		  private @NonNull String phone;
+		  private @NonNull String email;
 
 		  @Override
 		  public String toString() {
