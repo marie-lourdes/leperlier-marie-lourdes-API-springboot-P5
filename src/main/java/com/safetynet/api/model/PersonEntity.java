@@ -10,6 +10,29 @@ public class PersonEntity {
 	private String city;
 	private String phone;
 	private String email;
+	private int age;
+	
+	public PersonEntity() {}
+	
+	public PersonEntity( String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	public PersonEntity( String firstName, String lastName,String address, String phone) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address= address;
+		this.phone= phone;
+	}
+	
+	public PersonEntity( String lastName, int age, String address, String phone) {
+		
+		this.lastName = lastName;
+		this.age= age;
+		this.address= address;
+		this.phone= phone;
+	}
 
 	public String getId() {
 		return id;
@@ -73,6 +96,14 @@ public class PersonEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 	// jsonnitter?
