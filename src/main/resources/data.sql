@@ -1,3 +1,6 @@
+create user 'springuser'@'%' identified by 'ThePassword';
+GRANT ALL PRIVILEGES ON {nom_bdd}.* TO 'springuser'@'%';
+FLUSH PRIVILEGES;
 /* Setting up PROD DB */
 create database prod;
 use prod;
@@ -28,13 +31,15 @@ MEDICATIONS VARCHAR NOT NULL,
  
 commit;
 
-/* Setting up TEST DB */
 create database test;
 use test;
 
 create table firestation(
 STATION_NUMBER int PRIMARY KEY AUTO_INCREMENT,
 ADDRESS VARCHAR(250) NOT NULL);
+
+insert into firestation(STATION_NUMBER,ADRESS) values(1,' adress station number');
+
 
 create table person(
 NAME VARCHAR(250) NOT NULL PRIMARY KEY,
@@ -58,3 +63,5 @@ FOREIGN KEY (NAME)
 REFERENCES person(NAME));
  
 commit;
+/* Setting up TEST DB */
+
