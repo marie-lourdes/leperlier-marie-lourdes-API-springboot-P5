@@ -18,7 +18,7 @@ public class PersonController {
 	  @Autowired
 	    private  PersonService personService;
 
-	  @PostMapping(path="/add") // Map ONLY POST Requests
+	  @PostMapping(value="/add") // Map ONLY POST Requests
 	  public @ResponseBody Person addNewUser (
 			  @RequestParam String id,
 			  @RequestParam String name,
@@ -45,7 +45,7 @@ public class PersonController {
 	    return n;
 	  }
 
-	  @GetMapping(path="/all")
+	  @GetMapping("/all")
 	  public @ResponseBody Iterable<Person> getAllUsers() {
 	    // This returns a JSON or XML with the users
 	    return     personService.getEmployees();
