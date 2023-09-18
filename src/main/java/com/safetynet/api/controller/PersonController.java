@@ -18,7 +18,7 @@ public class PersonController {
 	  @Autowired
 	    private  PersonService personService;
 
-	  @PostMapping(value="/add") // Map ONLY POST Requests
+	 @PostMapping(value="/add") // Map ONLY POST Requests
 	  public @ResponseBody Person addNewUser (
 			  @RequestParam String id,
 			  @RequestParam String name,
