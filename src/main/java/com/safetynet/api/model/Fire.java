@@ -5,5 +5,5 @@ import java.util.List;
 public class Fire {
   private String address;
   private List<ResidentNearFire> listOfResidentNearFire;
-  private MedicalReportEntity medicalReports;
+  private MedicalReport medicalReports;
 }

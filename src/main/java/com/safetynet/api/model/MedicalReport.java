@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-public class MedicalReportEntity {
+public class MedicalReport {
 	
 	private String id;
 	private String firstName;

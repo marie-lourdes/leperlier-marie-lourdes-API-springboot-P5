@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-public class FireStationEntity {
+public class FireStation {
 	private int id;
 	private String address;
 	private int stationNumber;
