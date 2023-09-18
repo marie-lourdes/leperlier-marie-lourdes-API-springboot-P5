@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-public class Child extends PersonEntity {
+public class Child extends Person {
 	private  String firstName;
 	private  String lastName;
 	private int age;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.PersonEntity;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.IPersonRepository;
 
 @RestController // This means that this class is a Controller
@@ -21,20 +21,34 @@ public class PersonController {
 	  private  IPersonRepository personRepository;
 
 	  @PostMapping(path="/add") // Map ONLY POST Requests
-	  public @ResponseBody String addNewUser (@RequestParam String name
-	      , @RequestParam String email) {
+	  public @ResponseBody String addNewUser (
+			  @RequestParam String id,
+			  @RequestParam String name,
+			  @RequestParam String name2, 
+			  @RequestParam String address,
+			  @RequestParam String city,
+			  @RequestParam int zip,
+			  @RequestParam String phone,
+			  @RequestParam String email 
+	    ) {
 	    // @ResponseBody means the returned String is the response, not a view name
 	    // @RequestParam means it is a parameter from the GET or POST request
 
-	   PersonEntity n = new PersonEntity();
+	   Person n = new Person();
+	    n.setId(id);
 	    n.setFirstName(name);
+	    n.setLastName(name2);
+	    n.setAddress(address);
+	    n.setCity(city);
+	    n.setZip(zip);
+	    n.setPhone(phone);
 	    n.setEmail(email);
 	    personRepository.save(n);
 	    return "Saved";
 	  }
 
 	  @GetMapping(path="/all")
-	  public @ResponseBody Iterable<PersonEntity> getAllUsers() {
+	  public @ResponseBody Iterable<Person> getAllUsers() {
 	    // This returns a JSON or XML with the users
 	    return     personRepository.findAll();
 	  }

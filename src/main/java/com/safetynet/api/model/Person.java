@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 @Entity 
-public class PersonEntity {
+public class Person {
 	 @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
@@ -17,29 +17,29 @@ public class PersonEntity {
 	private String city;
 	private String phone;
 	private String email;
-	private int age;
+	//private int age;
 	
-	public PersonEntity() {}
+	public Person() {}
 	
-	public PersonEntity( String firstName, String lastName) {
+	public Person( String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 	
-	public PersonEntity( String firstName, String lastName,String address, String phone) {
+	public Person( String firstName, String lastName,String address, String phone) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address= address;
 		this.phone= phone;
 	}
 	
-	public PersonEntity( String lastName, int age, String address, String phone) {
+	/*public Person( String lastName, int age, String address, String phone) {
 		
 		this.lastName = lastName;
 		this.age= age;
 		this.address= address;
 		this.phone= phone;
-	}
+	}*/
 
 	public String getId() {
 		return id;
@@ -105,19 +105,19 @@ public class PersonEntity {
 		this.email = email;
 	}
 	
-	public int getAge() {
+	/*public int getAge() {
 		return age;
 	}
 
 	public void setAge(int age) {
 		this.age = age;
-	}
+	}*/
 	
 	// jsonnitter?
 	@Override
 	public String toString() {
 
-		return "Person{" + "id=" + id + ", first name='" + firstName + '\'' + ", last name=" + lastName + ", address="
+		return "Person{" + "id=" + id+ ", first name='" + firstName + '\'' + ", last name=" + lastName + ", address="
 				+ address + ", zip=" + zip + ", city=" + city + ", phone=" + phone + ", email=" + email + '}';
 	}
 

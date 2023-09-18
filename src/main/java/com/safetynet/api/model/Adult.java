@@ -1,6 +1,6 @@
 package com.safetynet.api.model;
 
-public class Adult extends PersonEntity {
+public class Adult extends Person {
 	private  String firstName;
 	private  String lastName;
 	private int age;

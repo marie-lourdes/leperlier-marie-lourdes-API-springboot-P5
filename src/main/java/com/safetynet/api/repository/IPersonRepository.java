@@ -1,8 +1,8 @@
 package com.safetynet.api.repository;
 import org.springframework.data.repository.CrudRepository;
 
-import com.safetynet.api.model.PersonEntity;
-public interface IPersonRepository extends CrudRepository<PersonEntity, Integer>{
+import com.safetynet.api.model.Person;
+public interface IPersonRepository extends CrudRepository<Person, Integer>{
 
 
 

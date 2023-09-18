@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.Map;
 
-public class ResidentOfStationNumber extends PersonEntity {
+public class ResidentOfStationNumber extends Person {
 	private Map<String,Integer> listOfPhoneOfResident;
 	private int stationNumber;
 	
