@@ -1,6 +1,7 @@
 create user 'springuser'@'%' identified by 'ThePassword';
-GRANT ALL PRIVILEGES ON {nom_bdd}.* TO 'springuser'@'%';
+GRANT ALL PRIVILEGES ON {prod}.* TO 'springuser'@'%';
 FLUSH PRIVILEGES;
+
 /* Setting up PROD DB */
 create database prod;
 use prod;
@@ -25,8 +26,6 @@ FIRST_NAME VARCHAR(250) NOT NULL,
 LAST_NAME VARCHAR(250) NOT NULL,
 BIRTHDATE DATE  NOT NULL,
 MEDICATIONS VARCHAR NOT NULL);
- 
- insert into person(ID,FIRST_NAME,LAST_NAME,ADDRESS, CITY,ZIP,PHONE,EMAIL) values("millie melusine","millie","melusine","adresse1","vill1",74535,"64532-531223","jtkr@jrj.com");
  
 commit;
 

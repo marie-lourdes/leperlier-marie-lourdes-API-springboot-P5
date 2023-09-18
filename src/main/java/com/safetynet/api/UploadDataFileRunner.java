@@ -1,7 +1,9 @@
 package com.safetynet.api;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UploadDataFileRunner implements CommandLineRunner {
 
 	@Override
