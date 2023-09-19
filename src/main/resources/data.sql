@@ -1,6 +1,7 @@
 create user 'springuser'@'%' identified by 'ThePassword';
-GRANT ALL PRIVILEGES ON {nom_bdd}.* TO 'springuser'@'%';
+GRANT ALL PRIVILEGES ON {prod}.* TO 'springuser'@'%';
 FLUSH PRIVILEGES;
+
 /* Setting up PROD DB */
 create database prod;
 use prod;
@@ -10,7 +11,7 @@ STATION_NUMBER int PRIMARY KEY AUTO_INCREMENT,
 ADDRESS VARCHAR(250) NOT NULL);
 
 create table person(
-ID VARCHAR(250) NOT NULL PRIMARY KEY,
+ID int   PRIMARY KEY AUTO_INCREMENT,
 FIRST_NAME VARCHAR(250) NOT NULL,
 LAST_NAME VARCHAR(250) NOT NULL,
 ADDRESS VARCHAR(250) NOT NULL,
@@ -20,14 +21,13 @@ PHONE VARCHAR(250) NOT NULL,
 EMAIL VARCHAR(250) NOT NULL);
 
 create table medicalreport(
-NAME VARCHAR(250) NOT NULL PRIMARY KEY,
+ID int   PRIMARY KEY  AUTO_INCREMENT,
+NAME VARCHAR(250) NOT NULL
 FIRST_NAME VARCHAR(250) NOT NULL,
 LAST_NAME VARCHAR(250) NOT NULL,
 BIRTHDATE DATE  NOT NULL,
 MEDICATIONS VARCHAR NOT NULL);
- 
- insert into person(ID,FIRST_NAME,LAST_NAME,ADDRESS, CITY,ZIP,PHONE,EMAIL) values("millie melusine","millie","melusine","adresse1","vill1",74535,"64532-531223","jtkr@jrj.com");
- 
+
 commit;
 
 /* Setting up TEST  DB */
@@ -56,5 +56,3 @@ BIRTHDATE DATE  NOT NULL,
 MEDICATIONS VARCHAR NOT NULL);
  
 commit;
-
-
