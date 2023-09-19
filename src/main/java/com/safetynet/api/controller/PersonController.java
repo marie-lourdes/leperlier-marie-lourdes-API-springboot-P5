@@ -12,42 +12,42 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @RestController // This means that this class is a Controller
-@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
+@RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
 public class PersonController {
 
-	  @Autowired
-	    private  PersonService personService;
+	@Autowired
+	private PersonService personService;
 
-	 @PostMapping(value="/add") // Map ONLY POST Requests
-	  public Person addNewUser (
-			  @RequestParam String firstName,
-			  @RequestParam String lastName, 
-			  @RequestParam String address,
-			  @RequestParam String city,
-			  @RequestParam int zip,
-			  @RequestParam String phone,
-			  @RequestParam String email 
-	    ) {
-	    // @ResponseBody means the returned String is the response, not a view name
-	    // @RequestParam means it is a parameter from the GET or POST request, 
-		 //@RequestParam param a indiquer dans postman et les test WebMvcTest
+	@PostMapping(value = "/add") // Map ONLY POST Requests
+	public Person addNewUser(@RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam String address, @RequestParam String city, @RequestParam int zip, @RequestParam String phone,
+			@RequestParam String email) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request,
+		// @RequestParam param a indiquer dans postman et les test WebMvcTest
+//try {
+		Person n = new Person();
+		n.setFirstName(firstName);
+		n.setLastName(lastName);
+		n.setAddress(address);
+		n.setCity(city);
+		n.setZip(zip);
+		n.setPhone(phone);
+		n.setEmail(email);
+		personService.savePerson(n);
+		return n;
+//}
+		/*
+		 * catch(jakarta.validation.ConstraintViolationException e) { return
+		 * e.getMessage(); }
+		 */
 
-	   Person n = new Person();
-	    n.setFirstName(firstName);
-	    n.setLastName(lastName);
-	    n.setAddress(address);
-	    n.setCity(city);
-	    n.setZip(zip);
-	    n.setPhone(phone);
-	    n.setEmail(email);
-	    personService.savePerson(n);
-	    return n;
-	  }
+	}
 
-	  @GetMapping("/all")
-	  public @ResponseBody Iterable<Person> getAllUsers() {
-	    // This returns a JSON or XML with the users
-	    return     personService.getEmployees();
-	  }
+	@GetMapping("/all")
+	public @ResponseBody Iterable<Person> getAllUsers() {
+		// This returns a JSON or XML with the users
+		return personService.getEmployees();
+	}
 
 }

@@ -1,32 +1,44 @@
 package com.safetynet.api.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.Pattern;
 
 @Entity 
 @Table(name="person")
 public class Person {
 	@Id
-	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données
+	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données :generationtype uuid
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	
-	 @Column(name="first_name")
+	@Column(name="first_name")
 	private String firstName;
-	 @Column(name="last_name")
+	
+	@Column(name="last_name")
 	private String lastName;
+	
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="zip")
 	private int zip;
+	
+	@Column(name="city")
 	private String city;
+	
+	@Column(name="phone")
 	private String phone;
+	
+	@Pattern( regexp ="^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*" 
+	        + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+	@Column(name="email", unique=true)
 	private String email;
+	
 	//private int age;
 	
 	/*public Person() {}
