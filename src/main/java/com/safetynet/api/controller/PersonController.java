@@ -29,7 +29,8 @@ public class PersonController {
 			  @RequestParam String email 
 	    ) {
 	    // @ResponseBody means the returned String is the response, not a view name
-	    // @RequestParam means it is a parameter from the GET or POST request
+	    // @RequestParam means it is a parameter from the GET or POST request, 
+		 //@RequestParam param a indiquer dans postman et les test WebMvcTest
 
 	   Person n = new Person();
 	    n.setFirstName(firstName);
