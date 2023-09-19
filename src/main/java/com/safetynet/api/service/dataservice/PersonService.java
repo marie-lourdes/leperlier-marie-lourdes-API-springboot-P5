@@ -17,7 +17,7 @@ public class PersonService {
 	    }
 
 	    
-	    public Person saveEmployee(Person person) {
+	    public Person savePerson(Person person) {
 	        Person savedPerson = personRepository.save(person);
 	        return savedPerson;
 	    }

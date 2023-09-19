@@ -26,7 +26,7 @@ public class Person {
 	private String email;
 	//private int age;
 	
-	public Person() {}
+	/*public Person() {}
 	
 	public Person( String firstName, String lastName) {
 		this.firstName = firstName;
@@ -38,7 +38,7 @@ public class Person {
 		this.lastName = lastName;
 		this.address= address;
 		this.phone= phone;
-	}
+	}*/
 	
 	/*public Person( String lastName, int age, String address, String phone) {
 		

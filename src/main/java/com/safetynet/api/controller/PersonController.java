@@ -19,10 +19,10 @@ public class PersonController {
 	    private  PersonService personService;
 
 	 @PostMapping(value="/add") // Map ONLY POST Requests
-	  public @ResponseBody Person addNewUser (
+	  public Person addNewUser (
 			  @RequestParam String id,
-			  @RequestParam String name,
-			  @RequestParam String name2, 
+			  @RequestParam String firstName,
+			  @RequestParam String lastName, 
 			  @RequestParam String address,
 			  @RequestParam String city,
 			  @RequestParam int zip,
@@ -34,14 +34,14 @@ public class PersonController {
 
 	   Person n = new Person();
 	    n.setId(id);
-	    n.setFirstName(name);
-	    n.setLastName(name2);
+	    n.setFirstName(firstName);
+	    n.setLastName(lastName);
 	    n.setAddress(address);
 	    n.setCity(city);
 	    n.setZip(zip);
 	    n.setPhone(phone);
 	    n.setEmail(email);
-	    personService.saveEmployee(n);
+	    personService.savePerson(n);
 	    return n;
 	  }
 
