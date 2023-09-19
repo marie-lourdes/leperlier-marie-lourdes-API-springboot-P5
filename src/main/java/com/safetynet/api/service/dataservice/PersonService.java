@@ -16,8 +16,12 @@ public class PersonService {
     }
 
     public Person saveOnePerson(Person person) {
-        Person savedPerson = personRepository.save(person);
-        return savedPerson;
+       return personRepository.save(person);
+        
+    }
+    
+    public void deleteOnePersonByName(Person person ) {
+        personRepository.delete(person);
     }
     
 }
