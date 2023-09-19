@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.safetynet.api.model.Person;
 @Repository
-public interface IPersonRepository extends CrudRepository<Person, String>{
+public interface IPersonRepository extends CrudRepository<Person, Long>{
 
 }
 
