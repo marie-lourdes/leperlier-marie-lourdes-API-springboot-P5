@@ -11,16 +11,13 @@ public class PersonService {
 	@Autowired
     private IPersonRepository personRepository;
 
- 
     public Iterable<Person> getAllPersons() {
         return personRepository.findAll();
     }
 
-    
     public Person saveOnePerson(Person person) {
         Person savedPerson = personRepository.save(person);
         return savedPerson;
     }
     
- 
 }
