@@ -20,8 +20,8 @@ public class PersonService {
         
     }
     
-    public void deleteOnePersonByName(Person person ) {
-        personRepository.delete(person);
+    public void deleteOnePersonByName(String name ) {
+        personRepository.deleteById(name);
     }
     
 }
