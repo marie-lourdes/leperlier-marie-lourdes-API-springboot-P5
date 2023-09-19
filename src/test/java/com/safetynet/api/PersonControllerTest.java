@@ -36,7 +36,6 @@ class PersonControllerTest {
 			// WHEN
 			final MvcResult result = mockMvc.perform(
 					MockMvcRequestBuilders.post("/demo/add")
-							.param("id", "marie leperlier ")
 							.param("firstName", "marie")
 							.param("lastName", "leperlier")
 							.param("address", "address2")

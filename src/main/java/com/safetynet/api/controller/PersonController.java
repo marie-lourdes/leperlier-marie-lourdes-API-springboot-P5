@@ -20,7 +20,6 @@ public class PersonController {
 
 	 @PostMapping(value="/add") // Map ONLY POST Requests
 	  public Person addNewUser (
-			  @RequestParam String id,
 			  @RequestParam String firstName,
 			  @RequestParam String lastName, 
 			  @RequestParam String address,
@@ -33,7 +32,6 @@ public class PersonController {
 	    // @RequestParam means it is a parameter from the GET or POST request
 
 	   Person n = new Person();
-	    n.setId(id);
 	    n.setFirstName(firstName);
 	    n.setLastName(lastName);
 	    n.setAddress(address);
