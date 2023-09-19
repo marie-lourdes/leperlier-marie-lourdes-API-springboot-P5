@@ -1,7 +1,9 @@
 package com.safetynet.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +36,7 @@ public class PersonController {
 		n.setZip(zip);
 		n.setPhone(phone);
 		n.setEmail(email);
-		personService.savePerson(n);
+		personService.saveOnePerson(n);
 		return n;
 //}
 		/*
@@ -45,9 +47,17 @@ public class PersonController {
 	}
 
 	@GetMapping("/all")
-	public @ResponseBody Iterable<Person> getAllUsers() {
+	public @ResponseBody Iterable<Person> getAllPersons() {
 		// This returns a JSON or XML with the users
-		return personService.getEmployees();
+		return personService.getAllPersons();
+	}
+	
+	@DeleteMapping("/delete/:name")
+	public String deleteOnePersonByName (@PathVariable String name) {
+		
+		//if(name == @RequestParam name ){
+			personService.deleteOnePersonByName(name);
+	     }
 	}
 
 }
