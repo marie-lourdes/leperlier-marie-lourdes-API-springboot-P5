@@ -1,9 +1,11 @@
 package com.safetynet.api.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +16,13 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @RestController // This means that this class is a Controller
-@RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
+//@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
 
-	@PostMapping(value = "/add") // Map ONLY POST Requests
+	@PostMapping(value = "/person") // Map ONLY POST Requests
 	public Person addNewUser(@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String address, @RequestParam String city, @RequestParam int zip, @RequestParam String phone,
 			@RequestParam String email) {
@@ -46,18 +48,27 @@ public class PersonController {
 
 	}
 
-	@GetMapping("/all")
-	public @ResponseBody Iterable<Person> getAllPersons() {
+	@GetMapping("/person")
+	public @ResponseBody List<Person> getAllPersons() {
 		// This returns a JSON or XML with the users
 		return personService.getAllPersons();
 	}
 	
-	@DeleteMapping("/delete/:name")
-	public String deleteOnePersonByName (@PathVariable String name) {
+	@DeleteMapping("/person")
+	public String deleteOnePersonByName (@RequestParam String firstName, @RequestParam String lastName) {
+		List <Person> persons =(List<Person>) personService.getAllPersons();
+		Person element ;
+		persons.forEach(elem->{ 
+			
+			    String firstNamePerson =elem.getFirstName(); 
+			    String lastNamePerson =elem.getLastName()	;
+		    if(firstNamePerson.contains(firstName) &&  lastNamePerson.contains(lastName)  ) {
+		    	personService.deleteOnePersonByName((long) elem.getId()); 
+		       // element = elem;
+		    }
 		
-		//if(name == @RequestParam name ){
-			personService.deleteOnePersonByName(name);
-	     }
+			});
+		return " sucessfull request, person deleted";
 	}
 
 }
