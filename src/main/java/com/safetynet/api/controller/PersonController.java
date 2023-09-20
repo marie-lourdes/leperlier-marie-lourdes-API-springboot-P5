@@ -57,16 +57,13 @@ public class PersonController {
 	@DeleteMapping("/person")
 	public 	ResponseEntity<Long> deleteOnePersonByName (@RequestParam String firstName, @RequestParam String lastName) {
 		List <Person> persons =(List<Person>) personService.getAllPersons();
-	//	Person element ;
 		persons.forEach(elem->{ 
 			
 			    String firstNamePerson =elem.getFirstName(); 
 			    String lastNamePerson =elem.getLastName()	;
 		    if(firstNamePerson.contains(firstName) &&  lastNamePerson.contains(lastName)  ) {
-		    	personService.deleteOnePersonByName(elem); 
-		       // element = elem;
-		    }
-		
+		    	personService.deleteOnePersonByName(elem);     
+		    }	
 			});
 		
 		return  new ResponseEntity<>(HttpStatus.ACCEPTED);
