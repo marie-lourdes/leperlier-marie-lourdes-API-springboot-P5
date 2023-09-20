@@ -1,13 +1,13 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,20 +55,22 @@ public class PersonController {
 	}
 	
 	@DeleteMapping("/person")
-	public String deleteOnePersonByName (@RequestParam String firstName, @RequestParam String lastName) {
+	public 	ResponseEntity<Long> deleteOnePersonByName (@RequestParam String firstName, @RequestParam String lastName) {
 		List <Person> persons =(List<Person>) personService.getAllPersons();
-		Person element ;
+	//	Person element ;
 		persons.forEach(elem->{ 
 			
 			    String firstNamePerson =elem.getFirstName(); 
 			    String lastNamePerson =elem.getLastName()	;
 		    if(firstNamePerson.contains(firstName) &&  lastNamePerson.contains(lastName)  ) {
-		    	personService.deleteOnePersonByName((long) elem.getId()); 
+		    	personService.deleteOnePersonByName(elem); 
 		       // element = elem;
 		    }
 		
 			});
-		return " sucessfull request, person deleted";
+		
+		return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+		
 	}
 
 }

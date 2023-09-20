@@ -22,10 +22,10 @@ public class PersonService {
         
     }
     
-    public void deleteOnePersonByName( Long id) {
+    public void deleteOnePersonByName( Person person) {
     	
     	
-       personRepository.deleteById(id );
+       personRepository.delete(person);
         //return "Sucessfull request, person deleted";
     }
 	    
