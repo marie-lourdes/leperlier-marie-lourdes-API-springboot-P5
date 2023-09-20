@@ -1,13 +1,17 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +56,27 @@ public class PersonController {
 	public @ResponseBody List<Person> getAllPersons() {
 		// This returns a JSON or XML with the users
 		return personService.getAllPersons();
+	}
+	
+	@GetMapping("/person/{id}")
+	public Optional<Person>getOnePerson(@PathVariable Long id) {
+		// This returns a JSON or XML with the users
+		return personService.getOnePersonById(id);
+	}
+	
+	@PutMapping("/person/{id}")
+	public Optional<Person> updateOnePersonById(@PathVariable Long id,@RequestBody Person personModified) {
+		 Optional<Person>	personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(() -> new NullPointerException(" an error has occured,this person"+id+"don't exist, try again ")));
+		 if(id ==personFoundById.get().getId() ) {
+		 personFoundById.get().setFirstName(personModified.getFirstName()); 
+		 personFoundById.get().setLastName(personModified.getLastName()); 
+		 personFoundById.get().setAddress(personModified.getAddress()); 
+		 personFoundById.get().setZip(personModified.getZip()); 
+		 personFoundById.get().setCity(personModified.getCity());
+		 personFoundById.get().setPhone(personModified.getPhone()); 
+		 personService.saveOnePerson( personFoundById.get()); 
+		 }
+		 return personFoundById; 
 	}
 	
 	@DeleteMapping("/person")
