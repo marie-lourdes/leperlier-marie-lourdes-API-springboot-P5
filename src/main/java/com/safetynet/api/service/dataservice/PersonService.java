@@ -1,5 +1,6 @@
 package com.safetynet.api.service.dataservice;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +12,19 @@ public class PersonService {
 	@Autowired
     private IPersonRepository personRepository;
 
-    public Iterable<Person> getAllPersons() {
-        return personRepository.findAll();
+    public List<Person> getAllPersons() {
+        return (List<Person>) personRepository.findAll();
     }
 
     public Person saveOnePerson(Person person) {
-       return personRepository.save(person);
-        
+       return personRepository.save(person);       
     }
     
-    public void deleteOnePersonByName(String name ) {
-        personRepository.deleteById(name);
+    public void deleteOnePersonByName( Person person) {
+    		
+       personRepository.delete(person);
+        //return "Sucessfull request, person deleted";
     }
-    
+	    
+	    
 }
