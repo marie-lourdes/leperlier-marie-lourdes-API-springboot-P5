@@ -66,7 +66,7 @@ public class PersonController {
 		    }	
 			});
 		
-		return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+		return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 	}
 
