@@ -1,6 +1,8 @@
 package com.safetynet.api.service.dataservice;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,20 @@ public class PersonService {
         return (List<Person>) personRepository.findAll();
     }
 
+    public  Optional<Person> getOnePersonById(Long id) {
+        return  personRepository.findById(id);
+    }
+    
     public Person saveOnePerson(Person person) {
        return personRepository.save(person);       
     }
     
-    public void deleteOnePersonByName( Person person) {
-    		
+    public  Person updateOnePersonById(Person person, Long id) {	   
+        return personRepository.save(person);       
+     }
+    
+    public void deleteOnePersonByName( Person person) { 		
        personRepository.delete(person);
-        //return "Sucessfull request, person deleted";
     }
 	    
 	    
