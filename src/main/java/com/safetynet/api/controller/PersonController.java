@@ -28,8 +28,8 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	@PostMapping(value = "/person")
-	public Person createPerson( @RequestBody  Person personCreated) {
+	@PostMapping("/person")
+	public Person createPerson( @Valid @RequestBody  Person personCreated) {
 //try {
 		Person n = new Person();
 		n.setFirstName(personCreated.getFirstName());
@@ -46,7 +46,6 @@ public class PersonController {
 		 * catch(jakarta.validation.ConstraintViolationException e) { return
 		 * e.getMessage(); }
 		 */
-
 	}
 
 	@GetMapping("/person")
@@ -55,10 +54,8 @@ public class PersonController {
 		try {
 			allPersons  = personService.getAllPersons();
 		}catch (NullPointerException  e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace(); 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return allPersons;
@@ -71,19 +68,19 @@ public class PersonController {
 		return personFoundById;
 	}
 
-	// l id , le nom et pénom ne sont pas modifiable
+	// l id , le nom et prénom ne sont pas modifiables
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById(@PathVariable Long id, @RequestBody Person personModified) {
+	public Optional<Person> updateOnePersonById(@PathVariable Long id,@Valid @RequestBody Person personModified) {
 		Optional<Person> personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
 				() -> new NullPointerException(" an error has occured,this person" + id + "don't exist, try again ")));
 		if (id == personFoundById.get().getId()) {
 			personFoundById.get().setAddress(personModified.getAddress());
 			personFoundById.get().setZip(personModified.getZip());
 			personFoundById.get().setCity(personModified.getCity());
-			personFoundById.get().setPhone(personModified.getPhone());
+			personFoundById.get().setPhone(personModified.getPhone());		
 			personService.savePerson(personFoundById.get());
 		}
-		
+	
 		return personFoundById;
 	}
 
