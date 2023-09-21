@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@RestController // This means that this class is a Controller
+@RestController 
 //@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 
