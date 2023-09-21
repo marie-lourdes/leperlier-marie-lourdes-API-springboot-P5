@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Pattern;
 @Entity 
 @Table(name="person")
 public class Person {
+	private final String REGEX_P = "^(.+)@(\\S+)$";
 	@Id
 	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données :generationtype uuid
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -34,8 +35,7 @@ public class Person {
 	@Column(name="phone")
 	private String phone;
 	
-	@Pattern( regexp ="^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*" 
-	        + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+	@Pattern( regexp = REGEX_P)
 	@Column(name="email", unique=true)
 	private String email;
 	
