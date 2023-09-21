@@ -52,9 +52,7 @@ public class FireStationController {
 	}
 	
 	@PutMapping("/firestation/{id}")
-	public Optional<FireStation> updateOneFireStationById(@PathVariable Long id,@Valid @RequestBody FireStation fireStationModified) {
-		/*Optional<FireStation> fireStationFoundById  = Optional.ofNullable(fireStationService.getOneFireStationById(id).orElseThrow(
-				() -> new NullPointerException(" an error has occured,this firestation" + id + "doesn't exist, try again ")));*/
+	public Optional<FireStation> updateOneFireStationById(@PathVariable Long id,@Valid @RequestBody FireStation fireStationModified) {	
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		if (id == fireStationFoundById.get().getId()) {
 			fireStationFoundById.get().setStationNumber(fireStationModified.getStationNumber());

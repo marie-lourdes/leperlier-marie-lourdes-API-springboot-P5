@@ -23,16 +23,16 @@ public class Person {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="my_address")
+	@Column(name="address")
 	private String address;
 	
-	@Column(name="my_zip")
+	@Column(name="zip")
 	private Long zip;
 	
-	@Column(name="my_city")
+	@Column(name="city")
 	private String city;
 	
-	@Column(name="my_phone")
+	@Column(name="phone")
 	private String phone;
 	
 	@Pattern( regexp = REGEX_P)
