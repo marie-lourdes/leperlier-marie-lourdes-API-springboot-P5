@@ -31,15 +31,15 @@ public class PersonController {
 	@PostMapping("/person")
 	public Person createPerson( @Valid @RequestBody  Person personCreated) {
 //try {
-		Person n = new Person();
-		n.setFirstName(personCreated.getFirstName());
-		n.setLastName(personCreated.getLastName());
-		n.setAddress(personCreated.getAddress());
-		n.setCity(personCreated.getCity());
-		n.setZip(personCreated.getZip());
-		n.setPhone(personCreated.getPhone());
-		n.setEmail(personCreated.getEmail());
-	return	personService.savePerson(n);
+		Person person = new Person();
+		person.setFirstName(personCreated.getFirstName());
+		person.setLastName(personCreated.getLastName());
+		person.setAddress(personCreated.getAddress());
+		person.setCity(personCreated.getCity());
+		person.setZip(personCreated.getZip());
+		person.setPhone(personCreated.getPhone());
+		person.setEmail(personCreated.getEmail());
+	return	personService.savePerson(person);
 		
 //}
 		/*
