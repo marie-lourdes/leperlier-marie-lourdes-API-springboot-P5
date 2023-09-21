@@ -55,7 +55,9 @@ public class FireStationController {
 	public Optional<FireStation> updateOneFireStationById(@PathVariable Long id,@Valid @RequestBody FireStation fireStationModified) {	
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		if (id == fireStationFoundById.get().getId()) {
-			fireStationFoundById.get().setStationNumber(fireStationModified.getStationNumber());
+			//if(fireStationModified.getStationNumber() != null)
+			//fireStationFoundById.get().setStationNumber(fireStationModified.getStationNumber());
+			if(fireStationModified.getAddress() != null)
 			fireStationFoundById.get().setAddress(fireStationModified.getAddress());		
 			fireStationService.saveFireStation(fireStationFoundById.get());
 		}

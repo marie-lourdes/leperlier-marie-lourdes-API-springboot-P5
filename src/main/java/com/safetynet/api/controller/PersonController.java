@@ -71,14 +71,20 @@ public class PersonController {
 	// l id , le nom et prénom ne sont pas modifiables
 	
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById(@PathVariable Long id, @RequestBody Person personModified) {
+	public Optional<Person> updateOnePersonById( @RequestBody Person personModified,@PathVariable Long id) {
 		Optional<Person> personFoundById = this. getOnePerson(id);
 
 		if (id == personFoundById.get().getId()) {
+			if(personModified.getAddress() != null)
 			personFoundById.get().setAddress(personModified.getAddress());
+			if(personModified.getZip() != null)
 			personFoundById.get().setZip(personModified.getZip());
+			if(personModified.getCity() != null)
 			personFoundById.get().setCity(personModified.getCity());
+			if(personModified.getPhone() != null)
 			personFoundById.get().setPhone(personModified.getPhone());
+			if(personModified.getEmail() != null)
+			personFoundById.get().setEmail(personModified.getEmail());
 			personService.savePerson(personFoundById.get());
 		}
 		return personFoundById;
