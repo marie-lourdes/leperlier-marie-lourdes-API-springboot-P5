@@ -22,7 +22,7 @@ public class PersonService {
         return  personRepository.findById(id);
     }
     
-    public Person saveOnePerson(Person person) {
+    public Person savePerson(Person person) {
        return personRepository.save(person);       
     }
     
