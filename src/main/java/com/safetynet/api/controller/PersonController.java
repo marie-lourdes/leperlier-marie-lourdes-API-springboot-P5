@@ -64,15 +64,33 @@ public class PersonController {
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
 		Optional<Person> personFoundById  = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
-				() -> new NullPointerException(" an error has occured,this person" + id + "don't exist, try again ")));
+				() -> new NullPointerException(" an error has occured,this person" + id + "doesn't exist, try again ")));
 		return personFoundById;
 	}
 
 	// l id , le nom et prénom ne sont pas modifiables
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById(@PathVariable Long id,@Valid @RequestBody Person personModified) {
-		Optional<Person> personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
-				() -> new NullPointerException(" an error has occured,this person" + id + "don't exist, try again ")));
+		public Optional<Person> updateOnePersonById(@PathVariable Long id,@RequestParam String address, @RequestParam String city, @RequestParam int zip, @RequestParam String phone,
+				@RequestParam String email) {
+			// @ResponseBody means the returned String is the response, not a view name
+			// @RequestParam means it is a parameter from the GET or POST request,
+			// @RequestParam param a indiquer dans postman et les test WebMvcTest
+			Optional<Person> personFoundById = this. getOnePerson(id);
+			if (id == personFoundById.get().getId()) {
+				
+				
+				personFoundById.get().setAddress(address);
+				personFoundById.get().setCity(city);
+				personFoundById.get().setZip(zip);
+				personFoundById.get().setPhone(phone);
+				personFoundById.get().setEmail(email);
+				personService.savePerson(personFoundById.get());
+			}
+			
+			return personFoundById;
+	/*	Optional<Person> personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
+				() -> new NullPointerException(" an error has occured,this person" + id + "doesn't exist, try again ")));
+	
 		if (id == personFoundById.get().getId()) {
 			personFoundById.get().setAddress(personModified.getAddress());
 			personFoundById.get().setZip(personModified.getZip());
@@ -81,7 +99,7 @@ public class PersonController {
 			personService.savePerson(personFoundById.get());
 		}
 	
-		return personFoundById;
+		return personFoundById;*/
 	}
 
 	@DeleteMapping("/person")

@@ -7,7 +7,8 @@ create database prod;
 use prod;
 
 create table firestation(
-STATION_NUMBER int PRIMARY KEY,
+ID int   PRIMARY KEY AUTO_INCREMENT,
+STATION_NUMBER int NOT NULL,
 ADDRESS VARCHAR(250) NOT NULL);
 
 create table person(

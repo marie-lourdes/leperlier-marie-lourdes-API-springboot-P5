@@ -13,25 +13,23 @@ import jakarta.persistence.Table;
 @Table(name = "firestation")
 public class FireStation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private  int id;
+	
 	@Column(name = "station_number")
-	private int stationNumber;
+	private int stationNumber ;
 
 	@Column(name = "address")
 	private String address;
-
 
 	/*
 	 * private Integer numberOfAdult; private Integer numberOfChild;
 	 */
 
-	/*public int getId() {
+	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}*/
+	
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
 	 * setNumberOfAdult(Integer numberOfAdult) { this.numberOfAdult = numberOfAdult;

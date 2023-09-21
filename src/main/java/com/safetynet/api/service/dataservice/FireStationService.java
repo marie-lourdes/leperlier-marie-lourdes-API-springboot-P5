@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.repository.IFireStationRepository;
 
+@Service
 public class FireStationService {
 	@Autowired
     private IFireStationRepository fireStationRepository;

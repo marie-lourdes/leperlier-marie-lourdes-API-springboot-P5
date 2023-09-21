@@ -26,8 +26,8 @@ public class PersonService {
        return personRepository.save(person);       
     }
     
-    public  Person updateOnePersonById(Person person, Long id) {	   
-        return personRepository.save(person);       
+    public List<Person> updateOnePersonById(List<Person> person, Long id) {	   
+        return (List<Person>) personRepository.saveAll( person);       
      }
     
     public void deleteOnePersonByName( Person person) { 		
