@@ -14,7 +14,7 @@ public class PersonService {
 	@Autowired
     private IPersonRepository personRepository;
 
-    public List<Person> getAllPersons() {
+    public List<Person> getAllPersons()   {
         return (List<Person>) personRepository.findAll();
     }
 
@@ -33,6 +33,5 @@ public class PersonService {
     public void deleteOnePersonByName( Person person) { 		
        personRepository.delete(person);
     }
-	    
-	    
+	    	    
 }
