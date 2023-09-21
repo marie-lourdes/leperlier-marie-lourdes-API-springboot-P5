@@ -15,7 +15,7 @@ public class Person {
 	@Id
 	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données :generationtype uuid
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -23,16 +23,16 @@ public class Person {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="address")
+	@Column(name="my_address")
 	private String address;
 	
-	@Column(name="zip")
-	private int zip;
+	@Column(name="my_zip")
+	private Long zip;
 	
-	@Column(name="city")
+	@Column(name="my_city")
 	private String city;
 	
-	@Column(name="phone")
+	@Column(name="my_phone")
 	private String phone;
 	
 	@Pattern( regexp = REGEX_P)
@@ -63,14 +63,10 @@ public class Person {
 		this.phone= phone;
 	}*/
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -95,11 +91,11 @@ public class Person {
 		this.address = address;
 	}
 
-	public int getZip() {
+	public Long getZip() {
 		return zip;
 	}
 
-	public void setZip(int zip) {
+	public void setZip(Long zip) {
 		this.zip = zip;
 	}
 
