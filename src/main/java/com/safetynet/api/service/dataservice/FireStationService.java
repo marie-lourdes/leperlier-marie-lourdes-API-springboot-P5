@@ -28,7 +28,7 @@ public class FireStationService {
         return fireStationRepository.save(fireStation);       
      }
     
-    public void deleteOnePersonByName( FireStation fireStation ){ 		
+    public void deleteOnePersonById( FireStation fireStation ){ 		
         fireStationRepository.delete(fireStation);
      }
 }
