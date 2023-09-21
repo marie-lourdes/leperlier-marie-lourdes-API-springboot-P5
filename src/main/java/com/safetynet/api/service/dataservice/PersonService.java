@@ -18,16 +18,15 @@ public class PersonService {
         return (List<Person>) personRepository.findAll();
     }
     
-   public  Optional<Person> getOnePersonById(Long id) {
+    public  Optional<Person> getOnePersonById(Long id) {
         return  personRepository.findById(id);
     }
-
-    public Person saveOnePerson(Person person) {
+    
+    public Person savePerson(Person person) {
        return personRepository.save(person);       
     }
     
-    public  Person updateOnePersonByName(Person person, Long id) {
-   
+    public  Person updateOnePersonById(Person person, Long id) {	   
         return personRepository.save(person);       
      }
     

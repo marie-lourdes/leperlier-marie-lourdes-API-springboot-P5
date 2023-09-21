@@ -84,4 +84,8 @@ public class MedicalReport {
 		this.allergies = allergies;
 	}
 
+
 }
+
+
+

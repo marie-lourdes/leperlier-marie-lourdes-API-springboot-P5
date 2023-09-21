@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.api.model.Person;
 @Repository
 public interface IPersonRepository extends CrudRepository<Person, Long>{
+
  /* default  Person findOnePerson(Iterable<Person> persons) {
 	  // return 
    };*/

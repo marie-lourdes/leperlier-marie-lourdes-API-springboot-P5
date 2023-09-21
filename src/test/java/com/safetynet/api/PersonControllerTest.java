@@ -25,7 +25,7 @@ class PersonControllerTest {
 
 	    @Test
 	    public void testGetPerson() throws Exception {
-	        mockMvc.perform(get("/demo/all"))
+	        mockMvc.perform(get("/person"))
 	            .andExpect(status().isOk());
 
 	    }
@@ -35,7 +35,7 @@ class PersonControllerTest {
 		
 			// WHEN
 			final MvcResult result = mockMvc.perform(
-					MockMvcRequestBuilders.post("/demo/add")
+					MockMvcRequestBuilders.post("/person")
 							.param("firstName", "marie")
 							.param("lastName", "leperlier")
 							.param("address", "address2")

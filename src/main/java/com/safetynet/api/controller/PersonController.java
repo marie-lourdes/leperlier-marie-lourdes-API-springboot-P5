@@ -19,20 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
+
 @RestController // This means that this class is a Controller
 //@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
-
-	@PostMapping(value = "/person") // Map ONLY POST Requests
-	public Person addNewUser(@RequestParam String firstName, @RequestParam String lastName,
+	
+	@PostMapping(value = "/person") // Map ONLY POST Requests	
+	public Person createPerson(@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String address, @RequestParam String city, @RequestParam int zip, @RequestParam String phone,
 			@RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request,
-		// @RequestParam param a indiquer dans postman et les test WebMvcTest
+	// @ResponseBody means the returned String is the response, not a view name
+	// @RequestParam means it is a parameter from the GET or POST request,
+	// @RequestParam param a indiquer dans postman et les test WebMvcTest
 //try {
 		Person n = new Person();
 		n.setFirstName(firstName);
@@ -42,7 +43,7 @@ public class PersonController {
 		n.setZip(zip);
 		n.setPhone(phone);
 		n.setEmail(email);
-		personService.saveOnePerson(n);
+		personService.savePerson(n);
 		return n;
 //}
 		/*
@@ -67,14 +68,13 @@ public class PersonController {
 	@PutMapping("/person/{id}")
 	public Optional<Person> updateOnePersonById(@PathVariable Long id,@RequestBody Person personModified) {
 		 Optional<Person>	personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(() -> new NullPointerException(" an error has occured,this person"+id+"don't exist, try again ")));
+		
 		 if(id ==personFoundById.get().getId() ) {
-		 personFoundById.get().setFirstName(personModified.getFirstName()); 
-		 personFoundById.get().setLastName(personModified.getLastName()); 
 		 personFoundById.get().setAddress(personModified.getAddress()); 
 		 personFoundById.get().setZip(personModified.getZip()); 
 		 personFoundById.get().setCity(personModified.getCity());
 		 personFoundById.get().setPhone(personModified.getPhone()); 
-		 personService.saveOnePerson( personFoundById.get()); 
+		 personService.savePerson( personFoundById.get()); 
 		 }
 		 return personFoundById; 
 	}
@@ -82,8 +82,8 @@ public class PersonController {
 	@DeleteMapping("/person")
 	public 	ResponseEntity<Long> deleteOnePersonByName (@RequestParam String firstName, @RequestParam String lastName) {
 		List <Person> persons =(List<Person>) personService.getAllPersons();
-		persons.forEach(elem->{ 
-			
+	
+		persons.forEach(elem->{ 			
 			    String firstNamePerson =elem.getFirstName(); 
 			    String lastNamePerson =elem.getLastName()	;
 		    if(firstNamePerson.contains(firstName) &&  lastNamePerson.contains(lastName)  ) {
@@ -96,3 +96,5 @@ public class PersonController {
 	}
 
 }
+
+
