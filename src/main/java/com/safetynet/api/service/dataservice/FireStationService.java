@@ -20,7 +20,7 @@ public class FireStationService {
         return  fireStationRepository.findById(id);
     }
     
-    public FireStation saveOneFireStation(FireStation fireStation) {
+    public FireStation saveFireStation(FireStation fireStation) {
        return fireStationRepository.save(fireStation);       
     }
     
