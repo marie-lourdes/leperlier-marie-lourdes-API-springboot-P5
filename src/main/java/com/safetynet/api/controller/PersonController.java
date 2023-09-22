@@ -29,7 +29,7 @@ public class PersonController {
 	private PersonService personService;
 
 	@PostMapping("/person")
-	public Person createPerson( @Valid @RequestBody  Person personCreated) {
+	public Person createPerson(@Valid @RequestBody Person personCreated) {
 //try {
 		Person person = new Person();
 		person.setFirstName(personCreated.getFirstName());
@@ -39,8 +39,8 @@ public class PersonController {
 		person.setZip(personCreated.getZip());
 		person.setPhone(personCreated.getPhone());
 		person.setEmail(personCreated.getEmail());
-	return	personService.savePerson(person);
-		
+		return personService.savePerson(person);
+
 //}
 		/*
 		 * catch(jakarta.validation.ConstraintViolationException e) { return
@@ -50,12 +50,12 @@ public class PersonController {
 
 	@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() {
-		List<Person> allPersons =null;
+		List<Person> allPersons = null;
 		try {
-			allPersons  = personService.getAllPersons();
-		}catch (NullPointerException  e) {
-			e.printStackTrace(); 
-		}catch (Exception e) {
+			allPersons = personService.getAllPersons();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return allPersons;
@@ -63,44 +63,45 @@ public class PersonController {
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
-		Optional<Person> personFoundById  = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
-				() -> new NullPointerException(" an error has occured,this person" + id + "doesn't exist, try again ")));
+		Optional<Person> personFoundById = Optional
+				.ofNullable(personService.getOnePersonById(id).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this person" + id + "doesn't exist, try again ")));
 		return personFoundById;
 	}
 
 	// l id , le nom et prénom ne sont pas modifiables
-	
+
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById( @RequestBody Person personModified,@PathVariable Long id) {
-		Optional<Person> personFoundById = this. getOnePerson(id);
+	public Optional<Person> updateOnePersonById(@RequestBody Person personModified, @PathVariable Long id) {
+		Optional<Person> personFoundById = this.getOnePerson(id);
 
 		if (id == personFoundById.get().getId()) {
-			if(personModified.getAddress() != null)
-			personFoundById.get().setAddress(personModified.getAddress());
-			if(personModified.getZip() != null)
-			personFoundById.get().setZip(personModified.getZip());
-			if(personModified.getCity() != null)
-			personFoundById.get().setCity(personModified.getCity());
-			if(personModified.getPhone() != null)
-			personFoundById.get().setPhone(personModified.getPhone());
-			if(personModified.getEmail() != null)
-			personFoundById.get().setEmail(personModified.getEmail());
+			if (personModified.getAddress() != null)
+				personFoundById.get().setAddress(personModified.getAddress());
+			if (personModified.getZip() != null)
+				personFoundById.get().setZip(personModified.getZip());
+			if (personModified.getCity() != null)
+				personFoundById.get().setCity(personModified.getCity());
+			if (personModified.getPhone() != null)
+				personFoundById.get().setPhone(personModified.getPhone());
+			if (personModified.getEmail() != null)
+				personFoundById.get().setEmail(personModified.getEmail());
 			personService.savePerson(personFoundById.get());
 		}
 		return personFoundById;
 	}
 
 	@DeleteMapping("/person")
-	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {		 
-		 List<Person> persons = (List<Person>) personService.getAllPersons();
-			persons.forEach(elem -> {
-				String firstNamePerson = elem.getFirstName();
-				String lastNamePerson = elem.getLastName();
-				if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName)) {
-					personService.deleteOnePersonByName(elem);
-				
-				}	
-	});
-			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
+		List<Person> persons = (List<Person>) personService.getAllPersons();
+		persons.forEach(elem -> {
+			String firstNamePerson = elem.getFirstName();
+			String lastNamePerson = elem.getLastName();
+			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName)) {
+				personService.deleteOnePersonByName(elem);
+
+			}
+		});
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
-}		
+}

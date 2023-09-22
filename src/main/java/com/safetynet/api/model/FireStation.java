@@ -14,11 +14,11 @@ import jakarta.persistence.Table;
 @Table(name = "firestation")
 public class FireStation {
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private  Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Column(name = "station_number")
-	private Long stationNumber ;
+	private Long stationNumber;
 
 	@Column(name = "address")
 	private String address;
@@ -26,22 +26,26 @@ public class FireStation {
 	/*
 	 * private Integer numberOfAdult; private Integer numberOfChild;
 	 */
-   public  FireStation(){}
-   public FireStation(Long id,String address) {
-	   this.id= id;
-	   this.address=address;
-	  
-   }
-   
-   public FireStation(Long id,Long stationNumber) {
-	   this.id= id;
-	   this.stationNumber= stationNumber;
-	   
-   }
+
+	public FireStation() {
+	}
+
+	public FireStation(Long id, String address) {
+		this.id = id;
+		this.address = address;
+
+	}
+
+	public FireStation(Long id, Long stationNumber) {
+		this.id = id;
+		this.stationNumber = stationNumber;
+
+	}
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
 	 * setNumberOfAdult(Integer numberOfAdult) { this.numberOfAdult = numberOfAdult;
