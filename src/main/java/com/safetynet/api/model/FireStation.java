@@ -1,6 +1,7 @@
 package com.safetynet.api.model;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +26,18 @@ public class FireStation {
 	/*
 	 * private Integer numberOfAdult; private Integer numberOfChild;
 	 */
-
+   public  FireStation(){}
+   public FireStation(Long id,String address) {
+	   this.id= id;
+	   this.address=address;
+	  
+   }
+   
+   public FireStation(Long id,Long stationNumber) {
+	   this.id= id;
+	   this.stationNumber= stationNumber;
+	   
+   }
 	public Long getId() {
 		return id;
 	}

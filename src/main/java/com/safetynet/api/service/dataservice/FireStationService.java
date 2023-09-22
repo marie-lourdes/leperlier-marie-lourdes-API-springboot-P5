@@ -1,5 +1,6 @@
 package com.safetynet.api.service.dataservice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,14 @@ public class FireStationService {
     public  FireStation updateOneFireStationById(FireStation fireStation, Long id) {	   
         return fireStationRepository.save(fireStation);       
      }
-    
-    public void deleteOnePersonById( FireStation fireStation ){ 		
-        fireStationRepository.delete(fireStation);
+ 
+    public void deleteStationNumberFireStation(FireStation fireStation, Long id){ 
+    	fireStationRepository.deleteById(id);
+    	/*List<String> listOfFireStation = new ArrayList<String>();
+    	listOfFireStation.add(fireStation.getStationNumber().toString());
+    	listOfFireStation.add(fireStation.getAddress());
+   	listOfFireStation.remove(0);
+   	return listOfFireStation;
+        //fireStationRepository.deleteById(id);*/
      }
 }
