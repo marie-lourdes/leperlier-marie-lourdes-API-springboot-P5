@@ -1,5 +1,7 @@
 package com.safetynet.api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +11,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "medicalreport")
-public class MedicalReport {
+@Table(name = "medicalrecords")
+public class MedicalRecord {
 	// this regex date require 0 in format date
 	private final String REGEX_P = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
 
@@ -28,11 +30,11 @@ public class MedicalReport {
 	@Column(name = "birthdate")
 	private String birthdate;
 
-	/*
-	 * @Column(name = "medications") private List<String> medications;
-	 * 
-	 * @Column(name = "allergies") private List<String> allergies;
-	 */
+/*	@Column(name = "medications")
+	private List<String> medications;
+
+	@Column(name = "allergies")
+	private List<String> allergies;*/
 
 	public Long getId() {
 		return id;
@@ -66,16 +68,20 @@ public class MedicalReport {
 		this.birthdate = birthdate;
 	}
 
-	/*
-	 * public List<String> getMedications() { return medications; }
-	 * 
-	 * public void setMedications(List<String> medications) { this.medications =
-	 * medications; }
-	 * 
-	 * public List<String> getAllergies() { return allergies; }
-	 * 
-	 * public void setAllergies(List<String> allergies) { this.allergies =
-	 * allergies; }
-	 */
+/*	public List<String> getMedications() {
+		return medications;
+	}
+
+	public void setMedications(List<String> medications) {
+		this.medications = medications;
+	}
+
+	public List<String> getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(List<String> allergies) {
+		this.allergies = allergies;
+	}*/
 
 }
