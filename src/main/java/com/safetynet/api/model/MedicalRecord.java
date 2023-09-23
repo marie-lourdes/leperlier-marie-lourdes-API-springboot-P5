@@ -30,11 +30,11 @@ public class MedicalRecord {
 	@Column(name = "birthdate")
 	private String birthdate;
 
-/*	@Column(name = "medications")
+	@Column(name = "medications")
 	private List<String> medications;
 
 	@Column(name = "allergies")
-	private List<String> allergies;*/
+	private List<String> allergies;
 
 	public Long getId() {
 		return id;
@@ -68,7 +68,7 @@ public class MedicalRecord {
 		this.birthdate = birthdate;
 	}
 
-/*	public List<String> getMedications() {
+	public List<String> getMedications() {
 		return medications;
 	}
 
@@ -82,6 +82,6 @@ public class MedicalRecord {
 
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
-	}*/
+	}
 
 }

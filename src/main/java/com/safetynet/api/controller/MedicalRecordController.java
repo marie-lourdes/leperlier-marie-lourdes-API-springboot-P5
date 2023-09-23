@@ -20,18 +20,18 @@ public class MedicalRecordController {
 	@Autowired
 	MedicalRecordService medicalRecordService;
 
-	@PostMapping("/medicalRecord")
+	@PostMapping("/medicalRecords")
 	public MedicalRecord createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated) throws Exception {
 		MedicalRecord medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
 		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
-		//medicalRecord.setMedications(medicalRecordCreated.getMedications());
-		//medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
+		medicalRecord.setMedications(medicalRecordCreated.getMedications());
+		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
-	@GetMapping("/medicalRecord")
+	@GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecord = null;
 		try {
