@@ -32,6 +32,16 @@ public class MedicalReportController {
 		return medicalReportService.saveMedicalReport(medicalReport);
 	}
 	
-
+	@GetMapping("/medicalReport")
+	public @ResponseBody List<MedicalReport> getAllMedicalReports() {
+		List<MedicalReport> allMedicalReport= null;
+		try {
+			allMedicalReport= medicalReportService.getAllMedicalReports();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allMedicalReport;
 	
 }
