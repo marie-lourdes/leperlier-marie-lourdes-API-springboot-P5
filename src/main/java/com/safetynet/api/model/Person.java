@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
 @Entity 
@@ -36,6 +37,7 @@ public class Person {
 	private String phone;
 	
 	@Pattern( regexp = REGEX_P)
+	@Email
 	@Column(name="email", unique=true)
 	private String email;
 	
