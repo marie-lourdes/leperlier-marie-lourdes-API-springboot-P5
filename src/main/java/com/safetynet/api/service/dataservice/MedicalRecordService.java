@@ -30,7 +30,7 @@ public class MedicalRecordService {
         return medicalRecordRepository.save(medicalRecord);       
      }
     
-    public void deleteOneMedicalRecordById( MedicalRecord medicalRecord ){ 		
+    public void deleteOneMedicalRecordByName( MedicalRecord medicalRecord ){ 		
         medicalRecordRepository.delete(medicalRecord);
      }
 }
