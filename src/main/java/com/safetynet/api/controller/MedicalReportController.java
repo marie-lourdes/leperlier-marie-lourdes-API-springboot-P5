@@ -18,30 +18,30 @@ import jakarta.validation.Valid;
 @RestController
 public class MedicalReportController {
 
-	@Autowired 
+	@Autowired
 	MedicalReportService medicalReportService;
-	
+
 	@PostMapping("/medicalReport")
-	public MedicalReport createMedicalReport(@Valid @RequestBody MedicalReport medicalReportCreated) throws Exception  {
+	public MedicalReport createMedicalReport(@Valid @RequestBody MedicalReport medicalReportCreated) throws Exception {
 		MedicalReport medicalReport = new MedicalReport();
 		medicalReport.setFirstName(medicalReportCreated.getFirstName());
 		medicalReport.setLastName(medicalReportCreated.getLastName());
 		medicalReport.setBirthdate(medicalReportCreated.getBirthdate());
-	//	medicalReport.setMedications(medicalReportCreated.getMedications());
-	//	medicalReport.setAllergies(medicalReportCreated.getAllergies());
+		// medicalReport.setMedications(medicalReportCreated.getMedications());
+		// medicalReport.setAllergies(medicalReportCreated.getAllergies());
 		return medicalReportService.saveMedicalReport(medicalReport);
 	}
-	
+
 	@GetMapping("/medicalReport")
 	public @ResponseBody List<MedicalReport> getAllMedicalReports() {
-		List<MedicalReport> allMedicalReport= null;
+		List<MedicalReport> allMedicalReport = null;
 		try {
-			allMedicalReport= medicalReportService.getAllMedicalReports();
+			allMedicalReport = medicalReportService.getAllMedicalReports();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return allMedicalReport;
-	
+	}
 }
