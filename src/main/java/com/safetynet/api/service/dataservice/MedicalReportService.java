@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalReport;
 import com.safetynet.api.repository.IMedicalReportRepository;
 
+@Service
 public class MedicalReportService {
 	@Autowired
     private IMedicalReportRepository medicalReportRepository;
@@ -20,7 +22,7 @@ public class MedicalReportService {
         return  medicalReportRepository.findById(id);
     }
     
-    public MedicalReport saveOneMedicalReport(MedicalReport medicalReport) {
+    public MedicalReport saveMedicalReport(MedicalReport medicalReport) {
        return medicalReportRepository.save(medicalReport);       
     }
     
