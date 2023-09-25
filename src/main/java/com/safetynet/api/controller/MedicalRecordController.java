@@ -1,10 +1,13 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +45,30 @@ public class MedicalRecordController {
 			e.printStackTrace();
 		}
 		return allMedicalRecord;
+	}
+
+	@GetMapping("/medicalRecords/{id}")
+	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
+		Optional<MedicalRecord> medicalRecordFoundById = Optional
+				.ofNullable(medicalRecordService.getOneMedicalRecordById(id).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this medical record" + id + "doesn't exist, try again ")));
+		return medicalRecordFoundById;
+	}
+
+	@PutMapping("/medicalRecords/{id}")
+	public Optional<MedicalRecord> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecordModified,
+			@PathVariable Long id) {
+		Optional<MedicalRecord> medicalRecordFoundById = this.getOneMedicalRecord(id);
+
+		if (id == medicalRecordFoundById.get().getId()) {
+			if (medicalRecordModified.getBirthdate() != null)
+				medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
+			if (medicalRecordModified.getMedications() != null)
+				medicalRecordFoundById.get().setMedications(medicalRecordModified.getMedications());
+			if (medicalRecordModified.getAllergies() != null)
+				medicalRecordFoundById.get().setAllergies(medicalRecordModified.getAllergies());
+			medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
+		}
+		return medicalRecordFoundById;
 	}
 }

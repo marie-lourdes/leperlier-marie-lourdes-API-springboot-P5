@@ -39,6 +39,7 @@ public class PersonController {
 		person.setZip(personCreated.getZip());
 		person.setPhone(personCreated.getPhone());
 		person.setEmail(personCreated.getEmail());
+		System.out.println(person);
 		return personService.savePerson(person);
 
 //}
