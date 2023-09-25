@@ -26,16 +26,18 @@ public class FireStationController {
 	FireStationService fireStationService;
 
 	@PostMapping("/firestation")
-	public FireStation createFireStation(@Valid @RequestBody FireStation fireStationCreated) {
+	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStationCreated) {
 		FireStation fireStation = new FireStation();
 		fireStation.setStationNumber(fireStationCreated.getStationNumber());
 		fireStation.setAddress(fireStationCreated.getAddress());
-		return fireStationService.saveFireStation(fireStation);
+		fireStationService.saveFireStation(fireStation);
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
 	}
 
 	@GetMapping("/firestation")
 	public @ResponseBody List<FireStation> getAllFireStations() {
 		List<FireStation> allFireStations = null;
+
 		try {
 			allFireStations = fireStationService.getAllFireStations();
 		} catch (NullPointerException e) {
@@ -55,9 +57,10 @@ public class FireStationController {
 	}
 
 	@PutMapping("/firestation/{id}")
-	public Optional<FireStation> updateOneFireStationById(@PathVariable Long id,
+	public ResponseEntity<Optional<FireStation>> updateOneFireStationById(@PathVariable Long id,
 			@Valid @RequestBody FireStation fireStationModified) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
+
 		if (id == fireStationFoundById.get().getId()) {
 			if (fireStationModified.getStationNumber() != null)
 				fireStationFoundById.get().setStationNumber(fireStationModified.getStationNumber());
@@ -65,21 +68,24 @@ public class FireStationController {
 				fireStationFoundById.get().setAddress(fireStationModified.getAddress());
 			fireStationService.saveFireStation(fireStationFoundById.get());
 		}
-		return fireStationFoundById;
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);
 	}
 
 	@DeleteMapping("/firestation/{id}")
-	public void deleteOneFireStationById(@PathVariable Long id) {
+	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
+
 		if (id == fireStationFoundById.get().getId()) {
 			fireStationService.deleteStationNumberFireStation(fireStationFoundById.get(), id);
 		}
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping("/firestation/{id}/delete/station-number")
 	public ResponseEntity<Long> deleteStationNumberOfFireStation(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		FireStation fireStationWithStationNumberRemoved = null;
+
 		if (id == fireStationFoundById.get().getId()) {
 			// fireStationFoundById.get().setStationNumber(null);
 			fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),

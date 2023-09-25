@@ -28,7 +28,8 @@ public class MedicalRecordController {
 	MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecords")
-	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated) throws Exception {
+	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated)
+			throws Exception {
 		MedicalRecord medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
@@ -36,8 +37,8 @@ public class MedicalRecordController {
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		medicalRecordService.saveMedicalRecord(medicalRecord);
-		 return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
-		//return medicalRecordService.saveMedicalRecord(medicalRecord);
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
+		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
 	@GetMapping("/medicalRecords")
@@ -61,9 +62,10 @@ public class MedicalRecordController {
 		return medicalRecordFoundById;
 	}
 
+	// the id, first and last name cannot be modified
 	@PutMapping("/medicalRecords/{id}")
-	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecordModified,
-			@PathVariable Long id) {
+	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(
+			@RequestBody MedicalRecord medicalRecordModified, @PathVariable Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = this.getOneMedicalRecord(id);
 
 		if (id == medicalRecordFoundById.get().getId()) {
@@ -75,12 +77,14 @@ public class MedicalRecordController {
 				medicalRecordFoundById.get().setAllergies(medicalRecordModified.getAllergies());
 			medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
 		}
-		  return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 	}
-	
+
 	@DeleteMapping("/medicalRecords/")
-	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName, @RequestParam String lastName) {
+	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,
+			@RequestParam String lastName) {
 		List<MedicalRecord> medicalRecords = (List<MedicalRecord>) medicalRecordService.getAllMedicalRecords();
+
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
 			String lastNameOfMedicalRecord = elem.getLastName();
@@ -89,8 +93,8 @@ public class MedicalRecordController {
 
 			}
 		});
-		
+
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		  
+
 	}
 }

@@ -29,7 +29,7 @@ public class PersonController {
 	private PersonService personService;
 
 	@PostMapping("/person")
-	public Person createPerson(@Valid @RequestBody Person personCreated) {
+	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person personCreated) {
 //try {
 		Person person = new Person();
 		person.setFirstName(personCreated.getFirstName());
@@ -40,7 +40,8 @@ public class PersonController {
 		person.setPhone(personCreated.getPhone());
 		person.setEmail(personCreated.getEmail());
 		System.out.println(person);
-		return personService.savePerson(person);
+		personService.savePerson(person);
+		return ResponseEntity.status(HttpStatus.CREATED).body(person);
 
 //}
 		/*
@@ -70,10 +71,10 @@ public class PersonController {
 		return personFoundById;
 	}
 
-	// l id , le nom et prénom ne sont pas modifiables
-
+	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById(@RequestBody Person personModified, @PathVariable Long id) {
+	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person personModified,
+			@PathVariable Long id) {
 		Optional<Person> personFoundById = this.getOnePerson(id);
 
 		if (id == personFoundById.get().getId()) {
@@ -89,12 +90,13 @@ public class PersonController {
 				personFoundById.get().setEmail(personModified.getEmail());
 			personService.savePerson(personFoundById.get());
 		}
-		return personFoundById;
+		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
 	}
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
 		List<Person> persons = (List<Person>) personService.getAllPersons();
+
 		persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
