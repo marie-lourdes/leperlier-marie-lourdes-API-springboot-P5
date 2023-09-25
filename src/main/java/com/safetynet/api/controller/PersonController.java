@@ -92,7 +92,7 @@ public class PersonController {
 		return personFoundById;
 	}
 
-	@DeleteMapping("/person")
+	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
 		List<Person> persons = (List<Person>) personService.getAllPersons();
 		persons.forEach(elem -> {
