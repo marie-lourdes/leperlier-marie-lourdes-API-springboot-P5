@@ -27,14 +27,16 @@ public class MedicalRecordController {
 	MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecords")
-	public MedicalRecord createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated) throws Exception {
+	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated) throws Exception {
 		MedicalRecord medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
 		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
-		return medicalRecordService.saveMedicalRecord(medicalRecord);
+		medicalRecordService.saveMedicalRecord(medicalRecord);
+		 return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
+		//return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
 	@GetMapping("/medicalRecords")
