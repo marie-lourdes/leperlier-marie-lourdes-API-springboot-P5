@@ -1,5 +1,6 @@
 package com.safetynet.api.model;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -8,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "medicalrecords")
@@ -26,9 +26,9 @@ public class MedicalRecord {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Pattern(regexp = REGEX_P)
+	//@Pattern(regexp = REGEX_P)
 	@Column(name = "birthdate")
-	private String birthdate;
+	private Date birthdate;
 
 	@Column(name = "medications")
 	private List<String> medications;
@@ -60,12 +60,21 @@ public class MedicalRecord {
 		this.lastName = lastName;
 	}
 
-	public String getBirthdate() {
+	public Date getBirthdate() {
+		/* DateFormat format = new SimpleDateFormat("MM/dd/ yyyy");
+		 try {
+	           this.birthdate = format.format(date);
+	            System.out.println(this.birthdate);
+	        }
+	        catch (ParseException e) {
+	            e.printStackTrace();
+	        }*/
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthdate(Date birthdate) {
+		
+		this.birthdate = birthdate  ;
 	}
 
 	public List<String> getMedications() {
