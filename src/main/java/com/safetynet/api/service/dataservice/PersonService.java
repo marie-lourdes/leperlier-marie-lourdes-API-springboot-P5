@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.IPersonRepository;
+import com.safetynet.api.repository.IPersonCRUDRepository;
 
 @Service
 public class PersonService {
 	@Autowired
-    private IPersonRepository personRepository;
+    private IPersonCRUDRepository personRepository;
 
     public List<Person> getAllPersons()   {
         return (List<Person>) personRepository.findAll();
