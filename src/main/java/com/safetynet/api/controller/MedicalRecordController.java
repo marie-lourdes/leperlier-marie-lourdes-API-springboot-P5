@@ -1,12 +1,12 @@
 package com.safetynet.api.controller;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,16 +37,15 @@ public class MedicalRecordController {
 		MedicalRecord medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
+		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
+		
+		String string =medicalRecordCreated.getBirthdate();
+		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 
-		DateFormat format = new SimpleDateFormat("MM/dd/ yyyy");
-		Date birthdate = null;
-		try {
-			birthdate = format.parse(medicalRecordCreated.getBirthdate().toString());
-			System.out.println(birthdate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		medicalRecord.setBirthdate(birthdate);
+		Date date = format.parse(string);
+		System.out.println(date);
+		medicalRecord.setBirthdate(date.toString());
+		
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		medicalRecordService.saveMedicalRecord(medicalRecord);
@@ -81,20 +80,9 @@ public class MedicalRecordController {
 			@RequestBody MedicalRecord medicalRecordModified, @PathVariable Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = this.getOneMedicalRecord(id);
 
-		DateFormat format = new SimpleDateFormat("MM/dd/ yyyy");
-		Date birthdate = null;
-
 		if (id == medicalRecordFoundById.get().getId()) {
-			if (medicalRecordModified.getBirthdate() != null) {
-
-				try {
-					birthdate = format.parse(medicalRecordModified.getBirthdate().toString());
-					System.out.println(birthdate);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				medicalRecordFoundById.get().setBirthdate(birthdate);
-			}
+			if (medicalRecordModified.getBirthdate() != null)
+				medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
 			if (medicalRecordModified.getMedications() != null)
 				medicalRecordFoundById.get().setMedications(medicalRecordModified.getMedications());
 			if (medicalRecordModified.getAllergies() != null)
