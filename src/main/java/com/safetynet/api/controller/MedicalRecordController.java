@@ -42,18 +42,13 @@ public class MedicalRecordController {
 		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
 		
 		//formatage date birthdate avant eregistrement dans la BDD
-
-		String string =medicalRecordCreated.getBirthdate();
 		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		Date birthdate  = format.parse(medicalRecordCreated.getBirthdate());
 	
-		
 		//calcule de l age
-		BigInteger yearInMs = new BigInteger("31536000000");
-		System.out.println(yearInMs);
-
-		Long ageOfPerson =	new Date().getTime() - format.parse(string).getTime();
-		System.out.println("date2 "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
+		BigInteger yearInMs = new BigInteger("31536000000");//miilisecondes par an
+		Long ageOfPerson =	new Date().getTime() - birthdate.getTime();
+		System.out.println("age "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
 		
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
