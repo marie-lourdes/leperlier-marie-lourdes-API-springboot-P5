@@ -10,5 +10,5 @@ import org.springframework.data.repository.Repository;
 public interface IReadOnlyDatasRepository<T,ID> extends Repository <T,ID> {
 	 Optional<T> findById(ID id);
 	 List<T> findAll();
-	 T findByName(T entity) ;
+	// T findByName(T entity) ;
 }
