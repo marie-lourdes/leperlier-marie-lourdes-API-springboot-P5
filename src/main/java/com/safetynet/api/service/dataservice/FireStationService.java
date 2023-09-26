@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.repository.IFireStationRepository;
+import com.safetynet.api.repository.IFireStationCRUDRepository;
 
 @Service
 public class FireStationService {
 	@Autowired
-    private IFireStationRepository fireStationRepository;
+    private IFireStationCRUDRepository fireStationRepository;
 
     public List<FireStation> getAllFireStations() {
         return (List<FireStation>) fireStationRepository.findAll();

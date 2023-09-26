@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.repository.IMedicalRecordRepository;
+import com.safetynet.api.repository.IMedicalRecordCRUDRepository;
 
 @Service
 public class MedicalRecordService {
 	@Autowired
-    private IMedicalRecordRepository medicalRecordRepository;
+    private IMedicalRecordCRUDRepository medicalRecordRepository;
 
     public List<MedicalRecord> getAllMedicalRecords() {
         return (List<MedicalRecord>) medicalRecordRepository.findAll();

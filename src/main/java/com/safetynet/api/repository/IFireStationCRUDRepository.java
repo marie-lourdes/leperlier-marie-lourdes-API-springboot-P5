@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.safetynet.api.model.FireStation;
 
-public interface IFireStationRepository  extends CrudRepository<FireStation, Long>{
+public interface IFireStationCRUDRepository  extends CrudRepository<FireStation, Long>{
    
 	 	
 }
