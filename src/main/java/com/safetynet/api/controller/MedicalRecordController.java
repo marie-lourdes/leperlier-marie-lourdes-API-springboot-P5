@@ -1,12 +1,13 @@
 package com.safetynet.api.controller;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,18 +39,22 @@ public class MedicalRecordController {
 		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
 		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
+		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
 		
 		//formatage date birthdate avant eregistrement dans la BDD
+
 		String string =medicalRecordCreated.getBirthdate();
 		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date birthdate  = format.parse(string);
-		medicalRecord.setBirthdate(birthdate.toString());
+		Date birthdate  = format.parse(medicalRecordCreated.getBirthdate());
+	
 		
 		//calcule de l age
-		long date = format.parse(string).getTime() - new Date().getTime();
-		System.out.println(date);
+		BigInteger yearInMs = new BigInteger("31536000000");
+		System.out.println(yearInMs);
+
+		Long ageOfPerson =	new Date().getTime() - format.parse(string).getTime();
+		System.out.println("date2 "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
 		
-	
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		medicalRecordService.saveMedicalRecord(medicalRecord);
