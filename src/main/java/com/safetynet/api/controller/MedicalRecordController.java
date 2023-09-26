@@ -39,14 +39,17 @@ public class MedicalRecordController {
 		medicalRecord.setLastName(medicalRecordCreated.getLastName());
 		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
 		
-		//formatage date birthdate
+		//formatage date birthdate avant eregistrement dans la BDD
 		String string =medicalRecordCreated.getBirthdate();
 		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date date = format.parse(string);
+		Date birthdate  = format.parse(string);
+		medicalRecord.setBirthdate(birthdate.toString());
+		
+		//calcule de l age
+		long date = format.parse(string).getTime() - new Date().getTime();
 		System.out.println(date);
 		
-		medicalRecord.setBirthdate(date.toString());
-		
+	
 		medicalRecord.setMedications(medicalRecordCreated.getMedications());
 		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		medicalRecordService.saveMedicalRecord(medicalRecord);
