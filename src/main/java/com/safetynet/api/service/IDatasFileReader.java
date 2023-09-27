@@ -2,6 +2,8 @@ package com.safetynet.api.service;
 
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 
-public interface IDatasReaderFile {
+public interface IDatasFileReader {
 	JSONArray readFile() ;
+
+	
 }
