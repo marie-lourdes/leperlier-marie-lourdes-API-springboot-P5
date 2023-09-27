@@ -1,5 +1,6 @@
 package com.safetynet.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +27,17 @@ public class FireStationController {
 	FireStationService fireStationService;
 
 	@PostMapping("/firestation")
-	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStationCreated) {
-		FireStation fireStation = new FireStation();
+	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
+	/*	FireStation fireStation = new FireStation();
 		fireStation.setStationNumber(fireStationCreated.getStationNumber());
-		fireStation.setAddress(fireStationCreated.getAddress());
+		fireStation.setAddress(fireStationCreated.getAddress());*/
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
 	}
 
 	@GetMapping("/firestation")
 	public @ResponseBody List<FireStation> getAllFireStations() {
-		List<FireStation> allFireStations = null;
+		List<FireStation> allFireStations = new ArrayList<FireStation>();
 
 		try {
 			allFireStations = fireStationService.getAllFireStations();
