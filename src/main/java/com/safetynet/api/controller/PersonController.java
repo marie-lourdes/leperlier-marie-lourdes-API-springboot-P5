@@ -68,16 +68,11 @@ public class PersonController {
 			@PathVariable Long id) {
 		Optional<Person> personFoundById = personService.getOnePersonById(id);
 
-		if (id.toString().equals(personFoundById.get().getId().toString())) {
-			if (personModified.getAddress() != null)
+		if (id.toString().equals(personFoundById.get().getId().toString())) {		
 				personFoundById.get().setAddress(personModified.getAddress());
-			if (personModified.getZip() != null)
 				personFoundById.get().setZip(personModified.getZip());
-			if (personModified.getCity() != null)
 				personFoundById.get().setCity(personModified.getCity());
-			if (personModified.getPhone() != null)
 				personFoundById.get().setPhone(personModified.getPhone());
-			if (personModified.getEmail() != null)
 				personFoundById.get().setEmail(personModified.getEmail());
 			personService.savePerson(personFoundById.get());
 		}
@@ -86,7 +81,7 @@ public class PersonController {
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
-		List<Person> persons = (List<Person>) personService.getAllPersons();
+		List<Person> persons = personService.getAllPersons();
 
 		persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();

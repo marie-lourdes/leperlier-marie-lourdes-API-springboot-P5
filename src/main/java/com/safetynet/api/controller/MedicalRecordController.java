@@ -77,9 +77,9 @@ public class MedicalRecordController {
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
 			String lastNameOfMedicalRecord = elem.getLastName();
+			
 			if (firstNameOfMedicalRecord.contains(firstName) && lastNameOfMedicalRecord.contains(lastName)) {
 				medicalRecordService.deleteOneMedicalRecordByName(elem);
-
 			}
 		});
 
