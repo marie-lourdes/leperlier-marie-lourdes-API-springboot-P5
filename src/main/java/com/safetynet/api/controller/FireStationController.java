@@ -71,7 +71,7 @@ public class FireStationController {
 	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 
-		if (id == fireStationFoundById.get().getId()) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
 			fireStationService.deleteStationNumberFireStation(fireStationFoundById.get(), id);
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
@@ -82,7 +82,7 @@ public class FireStationController {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		FireStation fireStationWithStationNumberRemoved = new FireStation();
 
-		if (id == fireStationFoundById.get().getId()) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
 			fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getAddress());
 			
@@ -97,7 +97,7 @@ public class FireStationController {
 	public ResponseEntity<Long> deleteAddressOfFireStation(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		FireStation fireStationWithAddressRemoved = new FireStation();
-		if (id == fireStationFoundById.get().getId()) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithAddressRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());
 			
