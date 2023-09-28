@@ -84,4 +84,9 @@ public class MedicalRecord {
 		this.allergies = allergies;
 	}
 
+	@Override
+	public String toString() {
+		return "Person{" + "id=" + id+ ", first name='" + firstName + '\'' + ", last name=" + lastName + ", birthdate="
+				+ birthdate + ", medication=[" + medications + "], allergies=[" + allergies + "] '}'";
+	}
 }
