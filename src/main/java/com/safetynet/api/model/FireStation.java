@@ -66,4 +66,10 @@ public class FireStation {
 	public void setStationNumber(Long stationNumber) {
 		this.stationNumber = stationNumber;
 	}
+	
+	@Override
+	public String toString() {
+
+		return "FireStation{" + "id=" + id+ ", stationnumber='" + stationNumber + '\'' + ", address=" + address +'}';
+	}
 }
