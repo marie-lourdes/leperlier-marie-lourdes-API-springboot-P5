@@ -48,7 +48,6 @@ public class FireStationController {
 
 	@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
-		
 		return fireStationService.getOneFireStationById(id);
 	}
 
@@ -59,9 +58,9 @@ public class FireStationController {
 				.ofNullable(fireStationService.getOneFireStationById(id).orElseThrow(() -> new NullPointerException(
 						" an error has occured,this firestation" + id + "doesn't exist, try again ")));
 
-		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
-				fireStationFoundById.get().setAddress(fireStation.getAddress());
+			fireStationFoundById.get().setAddress(fireStation.getAddress());
 			fireStationService.saveFireStation(fireStationFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);
@@ -71,7 +70,7 @@ public class FireStationController {
 	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 
-		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationService.deleteStationNumberFireStation(fireStationFoundById.get(), id);
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
@@ -82,10 +81,10 @@ public class FireStationController {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		FireStation fireStationWithStationNumberRemoved = new FireStation();
 
-		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
+		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getAddress());
-			
+
 			System.out.println(fireStationWithStationNumberRemoved);
 			fireStationService.saveFireStation(fireStationWithStationNumberRemoved);
 
@@ -100,13 +99,12 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithAddressRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());
-			
+
 			System.out.println(fireStationWithAddressRemoved);
 			fireStationService.saveFireStation(fireStationWithAddressRemoved);
 		}
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 }

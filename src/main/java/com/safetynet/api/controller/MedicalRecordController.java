@@ -57,10 +57,7 @@ public class MedicalRecordController {
 
 	@GetMapping("/medicalRecords/{id}")
 	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
-		Optional<MedicalRecord> medicalRecordFoundById = Optional
-				.ofNullable(medicalRecordService.getOneMedicalRecordById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this medical record" + id + "doesn't exist, try again ")));
-		return medicalRecordFoundById;
+		return medicalRecordService.getOneMedicalRecordById(id);
 	}
 
 	// the id, first and last name cannot be modified

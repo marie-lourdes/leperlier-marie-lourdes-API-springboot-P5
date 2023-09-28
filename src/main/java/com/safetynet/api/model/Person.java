@@ -14,7 +14,6 @@ import jakarta.validation.constraints.Pattern;
 public class Person {
 	private final String REGEX_P = "^(.+)@(\\S+)$";
 	@Id
-	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données :generationtype uuid
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
@@ -22,7 +21,7 @@ public class Person {
 	private String firstName;
 	
 	@Column(name="last_name")
-	private  String lastName;
+	private String lastName;
 	
 	@Column(name="address")
 	private String address;
