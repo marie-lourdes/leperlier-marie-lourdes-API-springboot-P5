@@ -21,7 +21,7 @@ public class MedicalRecordService {
 	public Optional<MedicalRecord> getOneMedicalRecordById(Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = Optional
 				.ofNullable(medicalRecordRepository.findById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this medical record" + id + "doesn't exist, try again ")));
+						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
 		return medicalRecordFoundById;
 	}
 

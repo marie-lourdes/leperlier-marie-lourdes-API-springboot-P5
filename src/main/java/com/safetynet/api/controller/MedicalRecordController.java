@@ -32,13 +32,13 @@ public class MedicalRecordController {
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {
 		medicalRecordService.saveMedicalRecord(medicalRecord);
-		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);		
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
 	@GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord> getAllMedicalRecords() {
-		List<MedicalRecord> allMedicalRecord =  new ArrayList<MedicalRecord>();
+		List<MedicalRecord> allMedicalRecord = new ArrayList<MedicalRecord>();
 		try {
 			allMedicalRecord = medicalRecordService.getAllMedicalRecords();
 		} catch (NullPointerException e) {
@@ -61,12 +61,9 @@ public class MedicalRecordController {
 		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 
 		if (id.toString().equals(medicalRecordFoundById.get().getId().toString())) {
-			if (medicalRecordModified.getBirthdate() != null)
-				medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
-			if (medicalRecordModified.getMedications() != null)
-				medicalRecordFoundById.get().setMedications(medicalRecordModified.getMedications());
-			if (medicalRecordModified.getAllergies() != null)
-				medicalRecordFoundById.get().setAllergies(medicalRecordModified.getAllergies());
+			medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
+			medicalRecordFoundById.get().setMedications(medicalRecordModified.getMedications());
+			medicalRecordFoundById.get().setAllergies(medicalRecordModified.getAllergies());
 			medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
@@ -75,7 +72,7 @@ public class MedicalRecordController {
 	@DeleteMapping("/medicalRecords/")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,
 			@RequestParam String lastName) {
-		List<MedicalRecord> medicalRecords =  medicalRecordService.getAllMedicalRecords();
+		List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
 
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
