@@ -1,11 +1,6 @@
 package com.safetynet.api.controller;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
@@ -64,9 +58,9 @@ public class MedicalRecordController {
 	@PutMapping("/medicalRecords/{id}")
 	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(
 			@RequestBody MedicalRecord medicalRecordModified, @PathVariable Long id) {
-		Optional<MedicalRecord> medicalRecordFoundById = this.getOneMedicalRecord(id);
+		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 
-		if (id == medicalRecordFoundById.get().getId()) {
+		if (id.toString().equals(medicalRecordFoundById.get().getId().toString())) {
 			if (medicalRecordModified.getBirthdate() != null)
 				medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
 			if (medicalRecordModified.getMedications() != null)
@@ -81,7 +75,7 @@ public class MedicalRecordController {
 	@DeleteMapping("/medicalRecords/")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,
 			@RequestParam String lastName) {
-		List<MedicalRecord> medicalRecords = (List<MedicalRecord>) medicalRecordService.getAllMedicalRecords();
+		List<MedicalRecord> medicalRecords =  medicalRecordService.getAllMedicalRecords();
 
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
