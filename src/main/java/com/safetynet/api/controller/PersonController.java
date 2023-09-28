@@ -32,7 +32,7 @@ public class PersonController {
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {
-	
+
 		System.out.println(person);
 		personService.savePerson(person);
 		return ResponseEntity.status(HttpStatus.CREATED).body(person);
@@ -64,16 +64,15 @@ public class PersonController {
 
 	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")
-	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person personModified,
-			@PathVariable Long id) {
+	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
 		Optional<Person> personFoundById = personService.getOnePersonById(id);
 
-		if (id.toString().equals(personFoundById.get().getId().toString())) {		
-				personFoundById.get().setAddress(personModified.getAddress());
-				personFoundById.get().setZip(personModified.getZip());
-				personFoundById.get().setCity(personModified.getCity());
-				personFoundById.get().setPhone(personModified.getPhone());
-				personFoundById.get().setEmail(personModified.getEmail());
+		if (id.toString().equals(personFoundById.get().getId().toString())) {
+			personFoundById.get().setAddress(person.getAddress());
+			personFoundById.get().setZip(person.getZip());
+			personFoundById.get().setCity(person.getCity());
+			personFoundById.get().setPhone(person.getPhone());
+			personFoundById.get().setEmail(person.getEmail());
 			personService.savePerson(personFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);

@@ -94,7 +94,7 @@ public class FireStationController {
 	public ResponseEntity<Long> deleteAddressOfFireStation(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = this.getOneFireStation(id);
 		FireStation fireStationWithAddressRemoved = new FireStation();
-		
+
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithAddressRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());

@@ -56,8 +56,8 @@ public class MedicalRecordController {
 
 	// the id, first and last name cannot be modified
 	@PutMapping("/medicalRecords/{id}")
-	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(
-			@RequestBody MedicalRecord medicalRecord, @PathVariable Long id) {
+	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
+			@PathVariable Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 
 		if (id.toString().equals(medicalRecordFoundById.get().getId().toString())) {
@@ -77,7 +77,7 @@ public class MedicalRecordController {
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
 			String lastNameOfMedicalRecord = elem.getLastName();
-			
+
 			if (firstNameOfMedicalRecord.contains(firstName) && lastNameOfMedicalRecord.contains(lastName)) {
 				medicalRecordService.deleteOneMedicalRecordByName(elem);
 			}
