@@ -1,5 +1,6 @@
 package com.safetynet.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class PersonController {
 
 	@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() {
-		List<Person> allPersons = null;
+		List<Person> allPersons = new ArrayList<Person>();
 		try {
 			allPersons = personService.getAllPersons();
 		} catch (NullPointerException e) {
