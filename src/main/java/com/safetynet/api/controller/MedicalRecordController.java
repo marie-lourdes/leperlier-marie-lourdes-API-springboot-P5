@@ -57,13 +57,13 @@ public class MedicalRecordController {
 	// the id, first and last name cannot be modified
 	@PutMapping("/medicalRecords/{id}")
 	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(
-			@RequestBody MedicalRecord medicalRecordModified, @PathVariable Long id) {
+			@RequestBody MedicalRecord medicalRecord, @PathVariable Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 
 		if (id.toString().equals(medicalRecordFoundById.get().getId().toString())) {
-			medicalRecordFoundById.get().setBirthdate(medicalRecordModified.getBirthdate());
-			medicalRecordFoundById.get().setMedications(medicalRecordModified.getMedications());
-			medicalRecordFoundById.get().setAllergies(medicalRecordModified.getAllergies());
+			medicalRecordFoundById.get().setBirthdate(medicalRecord.getBirthdate());
+			medicalRecordFoundById.get().setMedications(medicalRecord.getMedications());
+			medicalRecordFoundById.get().setAllergies(medicalRecord.getAllergies());
 			medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
