@@ -60,7 +60,7 @@ public class FireStationController {
 						" an error has occured,this firestation" + id + "doesn't exist, try again ")));
 
 		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
-				fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
+			fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
 				fireStationFoundById.get().setAddress(fireStation.getAddress());
 			fireStationService.saveFireStation(fireStationFoundById.get());
 		}

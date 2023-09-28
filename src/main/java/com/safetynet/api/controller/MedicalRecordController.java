@@ -33,28 +33,10 @@ public class MedicalRecordController {
 	MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecords")
-	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecordCreated)
+	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {
-		MedicalRecord medicalRecord = new MedicalRecord();
-		medicalRecord.setFirstName(medicalRecordCreated.getFirstName());
-		medicalRecord.setLastName(medicalRecordCreated.getLastName());
-		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
-		medicalRecord.setBirthdate(medicalRecordCreated.getBirthdate());
-		
-		//formatage date birthdate 
-		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date birthdate  = format.parse(medicalRecordCreated.getBirthdate());
-	
-		//calcule de l age
-		BigInteger yearInMs = new BigInteger("31536000000");//millisecondes par an
-		Long ageOfPerson =	new Date().getTime() - birthdate.getTime();
-		System.out.println("age "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
-		
-		medicalRecord.setMedications(medicalRecordCreated.getMedications());
-		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
 		medicalRecordService.saveMedicalRecord(medicalRecord);
-		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
-		
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);		
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
