@@ -59,17 +59,14 @@ public class PersonController {
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
-		Optional<Person> personFoundById = Optional
-				.ofNullable(personService.getOnePersonById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this person" + id + "doesn't exist, try again ")));
-		return personFoundById;
+		return personService.getOnePersonById(id);
 	}
 
 	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")
 	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person personModified,
 			@PathVariable Long id) {
-		Optional<Person> personFoundById = this.getOnePerson(id);
+		Optional<Person> personFoundById = personService.getOnePersonById(id);
 
 		if (id == personFoundById.get().getId()) {
 			if (personModified.getAddress() != null)
