@@ -48,16 +48,16 @@ public class FireStationController {
 
 	@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
-		Optional<FireStation> fireStationFoundById = Optional
-				.ofNullable(fireStationService.getOneFireStationById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this firestation" + id + "doesn't exist, try again ")));
-		return fireStationFoundById;
+		
+		return fireStationService.getOneFireStationById(id);
 	}
 
 	@PutMapping("/firestation/{id}")
 	public ResponseEntity<Optional<FireStation>> updateOneFireStationById(@PathVariable Long id,
 			@Valid @RequestBody FireStation fireStation) {
-		Optional<FireStation> fireStationFoundById = fireStationService.getOneFireStationById(id);
+		Optional<FireStation> fireStationFoundById = Optional
+				.ofNullable(fireStationService.getOneFireStationById(id).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this firestation" + id + "doesn't exist, try again ")));
 
 		if (id.toString().equals(fireStationFoundById.get().getId().toString()) ) {
 				fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
@@ -107,4 +107,6 @@ public class FireStationController {
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
+	
+	
 }

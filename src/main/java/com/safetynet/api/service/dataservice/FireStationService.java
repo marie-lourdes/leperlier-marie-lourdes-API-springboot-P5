@@ -20,7 +20,10 @@ public class FireStationService {
     }
 
     public  Optional<FireStation> getOneFireStationById(Long id) {
-        return  fireStationRepository.findById(id);
+    	Optional<FireStation> fireStationFoundById = Optional
+				.ofNullable(fireStationRepository.findById(id).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this firestation" + id + "doesn't exist, try again ")));
+        return fireStationFoundById ;
     }
     
     public  FireStation saveFireStation(FireStation fireStation) {
