@@ -28,6 +28,7 @@ public class FireStationController {
 
 	@PostMapping("/firestation")
 	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
+		System.out.println(fireStation);
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
 	}
@@ -59,6 +60,8 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
 			fireStationFoundById.get().setAddress(fireStation.getAddress());
+
+			System.out.println(fireStationFoundById);
 			fireStationService.saveFireStation(fireStationFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);

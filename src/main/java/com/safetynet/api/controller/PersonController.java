@@ -32,7 +32,6 @@ public class PersonController {
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {
-
 		System.out.println(person);
 		personService.savePerson(person);
 		return ResponseEntity.status(HttpStatus.CREATED).body(person);
@@ -73,6 +72,8 @@ public class PersonController {
 			personFoundById.get().setCity(person.getCity());
 			personFoundById.get().setPhone(person.getPhone());
 			personFoundById.get().setEmail(person.getEmail());
+
+			System.out.println(personFoundById);
 			personService.savePerson(personFoundById.get());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
@@ -86,8 +87,8 @@ public class PersonController {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
 			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName)) {
+				System.out.println("element to remove" + elem);
 				personService.deleteOnePersonByName(elem);
-
 			}
 		});
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
