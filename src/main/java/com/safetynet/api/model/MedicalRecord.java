@@ -26,7 +26,7 @@ public class MedicalRecord {
 	@Column(name = "last_name")
 	private String lastName;
 
-	//@Pattern(regexp = REGEX_P)
+	@Pattern(regexp = REGEX_P)
 	@Column(name = "birthdate")
 	private String birthdate;
 

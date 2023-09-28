@@ -30,10 +30,9 @@ public class MedicalRecordController {
 
 	@PostMapping("/medicalRecords")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
-			throws Exception {
-
-		System.out.println(medicalRecord);
+			throws Exception {	
 		medicalRecordService.saveMedicalRecord(medicalRecord);
+		System.out.println(medicalRecord);
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
@@ -67,8 +66,8 @@ public class MedicalRecordController {
 			medicalRecordFoundById.get().setMedications(medicalRecord.getMedications());
 			medicalRecordFoundById.get().setAllergies(medicalRecord.getAllergies());
 
-			System.out.println(medicalRecordFoundById);
 			medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
+			System.out.println(medicalRecordFoundById);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 	}

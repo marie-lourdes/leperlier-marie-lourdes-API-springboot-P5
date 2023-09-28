@@ -31,9 +31,9 @@ public class PersonController {
 
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-//try {
-		System.out.println(person);
+//try {	
 		personService.savePerson(person);
+		System.out.println(person);
 		return ResponseEntity.status(HttpStatus.CREATED).body(person);
 
 //}
@@ -73,8 +73,8 @@ public class PersonController {
 			personFoundById.get().setPhone(person.getPhone());
 			personFoundById.get().setEmail(person.getEmail());
 
-			System.out.println(personFoundById);
 			personService.savePerson(personFoundById.get());
+			System.out.println(personFoundById);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
 	}

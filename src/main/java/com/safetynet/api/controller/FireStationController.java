@@ -61,8 +61,8 @@ public class FireStationController {
 			fireStationFoundById.get().setStationNumber(fireStation.getStationNumber());
 			fireStationFoundById.get().setAddress(fireStation.getAddress());
 
-			System.out.println(fireStationFoundById);
 			fireStationService.saveFireStation(fireStationFoundById.get());
+			System.out.println(fireStationFoundById);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);
 	}
@@ -85,9 +85,9 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getAddress());
-
-			System.out.println(fireStationWithStationNumberRemoved);
+			
 			fireStationService.saveFireStation(fireStationWithStationNumberRemoved);
+			System.out.println(fireStationWithStationNumberRemoved);
 
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
@@ -101,9 +101,8 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 			fireStationWithAddressRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());
-
-			System.out.println(fireStationWithAddressRemoved);
 			fireStationService.saveFireStation(fireStationWithAddressRemoved);
+			System.out.println(fireStationWithAddressRemoved);
 		}
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
