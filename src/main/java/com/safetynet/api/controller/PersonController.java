@@ -68,7 +68,7 @@ public class PersonController {
 			@PathVariable Long id) {
 		Optional<Person> personFoundById = personService.getOnePersonById(id);
 
-		if (id == personFoundById.get().getId()) {
+		if (id.toString().equals(personFoundById.get().getId().toString())) {
 			if (personModified.getAddress() != null)
 				personFoundById.get().setAddress(personModified.getAddress());
 			if (personModified.getZip() != null)
