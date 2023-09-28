@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
@@ -42,7 +44,7 @@ public class MedicalRecordController {
 
 	@GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord> getAllMedicalRecords() {
-		List<MedicalRecord> allMedicalRecord = null;
+		List<MedicalRecord> allMedicalRecord =  new ArrayList<MedicalRecord>();
 		try {
 			allMedicalRecord = medicalRecordService.getAllMedicalRecords();
 		} catch (NullPointerException e) {
