@@ -29,16 +29,9 @@ public class PersonController {
 	private PersonService personService;
 
 	@PostMapping("/person")
-	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person personCreated) {
+	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {
-		Person person = new Person();
-		person.setFirstName(personCreated.getFirstName());
-		person.setLastName(personCreated.getLastName());
-		person.setAddress(personCreated.getAddress());
-		person.setCity(personCreated.getCity());
-		person.setZip(personCreated.getZip());
-		person.setPhone(personCreated.getPhone());
-		person.setEmail(personCreated.getEmail());
+	
 		System.out.println(person);
 		personService.savePerson(person);
 		return ResponseEntity.status(HttpStatus.CREATED).body(person);
