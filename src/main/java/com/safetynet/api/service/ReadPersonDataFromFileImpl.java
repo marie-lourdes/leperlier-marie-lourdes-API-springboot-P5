@@ -3,7 +3,6 @@ package com.safetynet.api.service;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -12,6 +11,8 @@ import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 import javax.json.stream.JsonParserFactory;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonPersonParsed;
