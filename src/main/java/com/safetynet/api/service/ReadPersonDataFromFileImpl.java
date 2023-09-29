@@ -33,12 +33,24 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 
 			// get all array of object Json file
 			if (event == JsonParser.Event.START_ARRAY) {
-													datasJsonParsed = parser.getArray();
-						
-						System.out.println( "all datas of file json parsed with its arrays:"+ datasJsonParsed );
-		
+				datasJsonParsed = parser.getArray();
+
+				System.out.println("all datas of file json parsed with its arrays:" + datasJsonParsed);
+				// event = parser.next();
+
+				while (parser.hasNext()) {
+
+					event =parser.next();
+
+					if (event == JsonParser.Event.KEY_NAME) {
+						String key = parser.getString();
+						// parser.next();
+						System.out.println("key:" + parser.getString());
+					}
+				}
+
 			}
-			
+
 		}
 	}
 }
