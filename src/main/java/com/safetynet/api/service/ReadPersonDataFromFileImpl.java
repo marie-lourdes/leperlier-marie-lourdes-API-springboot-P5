@@ -39,13 +39,6 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 				System.out.println("all datas Json Person parsed with its arrays:" + datasJsonPersonParsed);
 
 			}
-
-			/*
-			 * if (!parser.hasNext() && parser.next() == JsonParser.Event.START_OBJECT) {
-			 * return; }else { //event = parser.next(); JsonObject dataJson =
-			 * parser.getObject(); System.out.println("object in array entity"+dataJson); }
-			 */
-			//event = parser.next(); 
 			
 			//envoit de l objet json complet
 			/* dataJson =parser.getObject(); 

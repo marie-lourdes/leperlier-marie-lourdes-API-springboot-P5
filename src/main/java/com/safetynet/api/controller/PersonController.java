@@ -48,8 +48,8 @@ public class PersonController {
 	}
 
 	@GetMapping("/person")
-	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
-		JsonArray persons = new ReadPersonDataFromFileImpl().readFile();
+	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
+		//JsonArray persons = new ReadPersonDataFromFileImpl().readFile();
 		List<Person> allPersons = new ArrayList<Person>();	
 		try {
 			allPersons = personService.getAllPersons();
@@ -59,7 +59,7 @@ public class PersonController {
 			e.printStackTrace();
 		}
 
-		return persons;
+		return allPersons;
 	}
 
 	@GetMapping("/person/{id}")
