@@ -1,9 +1,11 @@
 package com.safetynet.api.service;
 
+import java.io.FileNotFoundException;
+
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 
 public interface IDatasFileReader {
-	JSONArray readFile() ;
+	void readFile() throws FileNotFoundException ;
 
 	
 }
