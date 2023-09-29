@@ -7,50 +7,51 @@ import java.nio.charset.StandardCharsets;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 import javax.json.stream.JsonParserFactory;
 
 public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
-	private JsonArray datasJsonParsed;
-
-	@SuppressWarnings("rawtypes")
+	private JsonArray datasJsonPersonParsed;
+	JsonObject dataJson;
+	// @SuppressWarnings("rawtypes")
 	@Override
-	public void readFile() throws FileNotFoundException {
+	public JsonArray readFile() throws FileNotFoundException {
 		InputStream is = new FileInputStream(path);
 
 		JsonParserFactory factory = Json.createParserFactory(null);
-		JsonParser parser = factory.createParser(is, StandardCharsets.UTF_8);
+		JsonParser parser = factory.createParser(is);
 
 		if (!parser.hasNext() && parser.next() != JsonParser.Event.START_OBJECT) {
-			return;
+			System.exit(-1);
 		}
-
-		while (parser.hasNext()) {
-
+		int i = 0;
+		
+		while (parser.hasNext() && i <= 2) {
+			i++;
 			Event event = parser.next();
 
 			// get all array of object Json file
 			if (event == JsonParser.Event.START_ARRAY) {
-				datasJsonParsed = parser.getArray();
-
-				System.out.println("all datas of file json parsed with its arrays:" + datasJsonParsed);
-				// event = parser.next();
-
-				while (parser.hasNext()) {
-
-					event =parser.next();
-
-					if (event == JsonParser.Event.KEY_NAME) {
-						String key = parser.getString();
-						// parser.next();
-						System.out.println("key:" + parser.getString());
-					}
-				}
+				datasJsonPersonParsed = parser.getArray();
+				System.out.println("all datas Json Person parsed with its arrays:" + datasJsonPersonParsed);
 
 			}
 
+			/*
+			 * if (!parser.hasNext() && parser.next() == JsonParser.Event.START_OBJECT) {
+			 * return; }else { //event = parser.next(); JsonObject dataJson =
+			 * parser.getObject(); System.out.println("object in array entity"+dataJson); }
+			 */
+			//event = parser.next(); 
+			
+			//envoit de l objet json complet
+			/* dataJson =parser.getObject(); 
+			System.out.println("object in array entity"+dataJson);*/
 		}
+	
+		return datasJsonPersonParsed ;
 	}
 }

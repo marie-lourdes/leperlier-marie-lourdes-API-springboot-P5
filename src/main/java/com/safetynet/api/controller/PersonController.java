@@ -1,8 +1,11 @@
 package com.safetynet.api.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.json.JsonArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -44,8 +48,9 @@ public class PersonController {
 	}
 
 	@GetMapping("/person")
-	public @ResponseBody List<Person> getAllPersons() {
-		List<Person> allPersons = new ArrayList<Person>();
+	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
+		JsonArray persons = new ReadPersonDataFromFileImpl().readFile();
+		List<Person> allPersons = new ArrayList<Person>();	
 		try {
 			allPersons = personService.getAllPersons();
 		} catch (NullPointerException e) {
@@ -53,7 +58,8 @@ public class PersonController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return allPersons;
+
+		return persons;
 	}
 
 	@GetMapping("/person/{id}")
