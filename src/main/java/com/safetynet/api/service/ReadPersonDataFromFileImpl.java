@@ -4,18 +4,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Stream;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonValue;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 import javax.json.stream.JsonParserFactory;
 
 public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
-	private JsonArray phones;
+	private JsonArray datasJsonParsed;
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -33,24 +31,14 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 
 			Event event = parser.next();
 
-			// starting Array Person
+			// get all array of object Json file
 			if (event == JsonParser.Event.START_ARRAY) {
-				int val = 0;
-				while (parser.hasNext()) {
-					event = parser.next();
-					if (event == JsonParser.Event.KEY_NAME) {
-						String key = toString();
-						event = parser.next();
-						if (key.equals("persons")) {
+													datasJsonParsed = parser.getArray();
 						
-							phones = parser.getArray();
-						}
-
-						System.out.println(phones + ":" + ++val);
-					}
-				}
-
+						System.out.println( "all datas of file json parsed with its arrays:"+ datasJsonParsed );
+		
 			}
+			
 		}
 	}
 }
