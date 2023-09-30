@@ -1,7 +1,7 @@
 package com.safetynet.api.service;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.json.Json;
@@ -20,14 +20,17 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 	// @SuppressWarnings("rawtypes")
 	
 	@Override
-	public JsonObject readFile() throws FileNotFoundException {
+	public JsonArray readFile() throws IOException {
 		InputStream is = new FileInputStream(path);
 		 JsonReader jsonReader = Json.createReader(is);
 
 
 	        // get JsonObject from JsonReader
 	        JsonObject jsonObject = jsonReader.readObject();
-	return jsonObject;
+	        System.out.println("all datas Json Person parsed with its arrays:" + jsonObject.getJsonArray("persons"));
+	        jsonReader.close();
+	        is.close();
+	return jsonObject.getJsonArray("persons");
 		//return datasJsonPersonParsed ;
 	}
 }

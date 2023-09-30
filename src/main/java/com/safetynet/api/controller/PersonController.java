@@ -1,9 +1,10 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.json.JsonArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class PersonController {
 	}
 
 	//-----------------requete a partir du fichier json-------------
-/*	@GetMapping("/person")
+@GetMapping("/person")
 	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
 		JsonArray persons = JsonArray.EMPTY_JSON_ARRAY;
 		
@@ -62,11 +63,11 @@ public class PersonController {
 		}
 		
 		return persons;
-	}*/
+	}
 
 
 	//----------------requete a partir de la base de données--------------
-	@GetMapping("/person")
+	/*@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
 	
 		List<Person> allPersons = new ArrayList<Person>();	
@@ -79,7 +80,7 @@ public class PersonController {
 		}
 		
 		return allPersons;
-	}
+	}*/
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {

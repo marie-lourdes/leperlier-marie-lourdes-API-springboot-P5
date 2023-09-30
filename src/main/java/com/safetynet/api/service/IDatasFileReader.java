@@ -1,11 +1,10 @@
 package com.safetynet.api.service;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.json.JsonArray;
-import javax.json.JsonObject;
 
 public interface IDatasFileReader {
-	JsonObject  readFile() throws FileNotFoundException ;
+	JsonArray  readFile()  throws IOException ;
 	
 }

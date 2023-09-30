@@ -1,6 +1,7 @@
 package com.safetynet.api.service;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -19,7 +20,7 @@ public class UploadDataFileService {
 	@Autowired
 	ReadMedicalRecordDataFromFileImpl  readMedicalRecords;*/
 
-	public JsonObject getPersonsFromFile() throws FileNotFoundException {
+	public JsonArray getPersonsFromFile() throws IOException {
 	 return	readPersons.readFile();
 	}
 	
