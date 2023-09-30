@@ -1,10 +1,9 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.json.JsonArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +47,10 @@ public class PersonController {
 		 * e.getMessage(); }
 		 */
 	}
+
+//----decommentez cette route au lieu de celui qui suit pour voir l'affichage avec les donnees du fichier et non de la bdd-----
 	
-	@GetMapping("/person")
+/*	@GetMapping("/person")
 	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
 		JsonArray persons = JsonArray.EMPTY_JSON_ARRAY;
 		
@@ -62,9 +63,9 @@ public class PersonController {
 		}
 		
 		return persons;
-	}
+	}*/
 
-/*	@GetMapping("/person")
+	@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
 	
 		List<Person> allPersons = new ArrayList<Person>();	
@@ -77,7 +78,7 @@ public class PersonController {
 		}
 		
 		return allPersons;
-	}*/
+	}
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
