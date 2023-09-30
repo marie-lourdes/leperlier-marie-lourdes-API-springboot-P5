@@ -6,21 +6,17 @@ import java.io.InputStream;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonObject;
 import javax.json.stream.JsonParser;
-import javax.json.stream.JsonParser.Event;
 import javax.json.stream.JsonParserFactory;
+import javax.json.stream.JsonParser.Event;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReadPersonDataFromFileImpl implements IDatasFileReader {
+public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
-	private JsonArray datasJsonPersonParsed;
-	
-	//JsonObject dataJson;
-	// @SuppressWarnings("rawtypes")
-	
+	private JsonArray datasJsonMedicalRecordParsed;
+
 	@Override
 	public JsonArray readFile() throws FileNotFoundException {
 		InputStream is = new FileInputStream(path);
@@ -33,22 +29,24 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader {
 		}
 		
 		int i = 0;
-		while (parser.hasNext() && i <=2) {
-			i++;
+		while (parser.hasNext() && i <= 6) {
+			++i;
+		/*	if(i <4) {
+				
+				break;
+			}*/
+			
 			Event event = parser.next();
 
 			// get all array of object Json file
 			if (event == JsonParser.Event.START_ARRAY) {
-				datasJsonPersonParsed = parser.getArray();
-				System.out.println("all datas Json Person parsed with its arrays:" + datasJsonPersonParsed);
+				datasJsonMedicalRecordParsed= parser.getArray();
+				System.out.println("all datas Json medicalRecords parsed with its arrays:" + datasJsonMedicalRecordParsed);
 
 			}
 			
-			//envoit de l objet json complet
-			/* dataJson =parser.getObject(); 
-			System.out.println("object in array entity"+dataJson);*/
 		}
 	
-		return datasJsonPersonParsed ;
+		return datasJsonMedicalRecordParsed;
 	}
 }

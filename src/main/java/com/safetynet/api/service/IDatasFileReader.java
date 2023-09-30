@@ -6,6 +6,5 @@ import javax.json.JsonArray;
 
 public interface IDatasFileReader {
 	JsonArray readFile() throws FileNotFoundException ;
-
 	
 }

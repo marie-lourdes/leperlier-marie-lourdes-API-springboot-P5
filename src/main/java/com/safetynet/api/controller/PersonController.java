@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.service.ReadPersonDataFromFileImpl;
+import com.safetynet.api.service.UploadDataFileService;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -32,6 +31,9 @@ public class PersonController {
 
 	@Autowired
 	private PersonService personService;
+	
+	@Autowired
+	private UploadDataFileService uploadDataFileService; 
 
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
@@ -46,10 +48,25 @@ public class PersonController {
 		 * e.getMessage(); }
 		 */
 	}
-
+	
 	@GetMapping("/person")
+	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
+		JsonArray persons = JsonArray.EMPTY_JSON_ARRAY;
+		
+		try {
+			persons= uploadDataFileService.getPersonsFromFile();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return persons;
+	}
+
+/*	@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
-		//JsonArray persons = new ReadPersonDataFromFileImpl().readFile();
+	
 		List<Person> allPersons = new ArrayList<Person>();	
 		try {
 			allPersons = personService.getAllPersons();
@@ -58,9 +75,9 @@ public class PersonController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return allPersons;
-	}
+	}*/
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
