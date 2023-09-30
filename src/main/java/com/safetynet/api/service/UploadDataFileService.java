@@ -1,13 +1,12 @@
 package com.safetynet.api.service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.safetynet.api.model.Person;
 
 @Service
 public class UploadDataFileService {
@@ -20,7 +19,7 @@ public class UploadDataFileService {
 	@Autowired
 	ReadMedicalRecordDataFromFileImpl  readMedicalRecords;*/
 
-	public JsonArray getPersonsFromFile() throws IOException {
+	public List<Person>getPersonsFromFile() throws IOException {
 	 return	readPersons.readFile();
 	}
 	

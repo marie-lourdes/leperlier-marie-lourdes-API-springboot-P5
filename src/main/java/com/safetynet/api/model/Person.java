@@ -27,7 +27,7 @@ public class Person {
 	private String address;
 	
 	@Column(name="zip")
-	private Long zip;
+	private String zip;
 	
 	@Column(name="city")
 	private String city;
@@ -92,12 +92,12 @@ public class Person {
 		this.address = address;
 	}
 
-	public Long getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(Long zip) {
-		this.zip = zip;
+	public void setZip(String string) {
+		this.zip = string;
 	}
 
 	public String getCity() {

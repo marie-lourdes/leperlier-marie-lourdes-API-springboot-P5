@@ -1,6 +1,7 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,8 @@ public class PersonController {
 
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/person")
-	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
-		JsonArray persons = JsonArray.EMPTY_JSON_ARRAY;
+	public @ResponseBody List<Person>  getAllPersons() throws FileNotFoundException {
+		List<Person> persons = new LinkedList<Person>();
 		
 		try {
 			persons= uploadDataFileService.getPersonsFromFile();
