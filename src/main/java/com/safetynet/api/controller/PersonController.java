@@ -48,8 +48,7 @@ public class PersonController {
 		 */
 	}
 
-//----decommentez cette route au lieu de celui qui suit pour voir l'affichage avec les donnees du fichier et non de la bdd-----
-	
+	//-----------------requete a partir du fichier json-------------
 /*	@GetMapping("/person")
 	public @ResponseBody JsonArray getAllPersons() throws FileNotFoundException {
 		JsonArray persons = JsonArray.EMPTY_JSON_ARRAY;
@@ -65,6 +64,8 @@ public class PersonController {
 		return persons;
 	}*/
 
+
+	//----------------requete a partir de la base de données--------------
 	@GetMapping("/person")
 	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
 	

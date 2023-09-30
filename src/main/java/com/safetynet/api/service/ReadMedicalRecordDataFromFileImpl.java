@@ -12,9 +12,9 @@ import javax.json.stream.JsonParser.Event;
 
 import org.springframework.stereotype.Component;
 
-@Component
+/*@Component
 public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
-	private String path = "src/main/resources/datasSafetyNetAlerts.json";
+private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonMedicalRecordParsed;
 
 	@Override
@@ -36,7 +36,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
 				break;
 			}*/
 			
-			Event event = parser.next();
+/*			Event event = parser.next();
 
 			// get all array of object Json file
 			if (event == JsonParser.Event.START_ARRAY) {
@@ -49,4 +49,4 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
 	
 		return datasJsonMedicalRecordParsed;
 	}
-}
+}*/

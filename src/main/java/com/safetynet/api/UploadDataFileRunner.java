@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
-import com.safetynet.api.service.ReadMedicalRecordDataFromFileImpl;
+
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 import com.safetynet.api.service.UploadDataFileService;
 
@@ -17,8 +16,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		uploadDataService.getPersonsFromFile();
-		uploadDataService.getFireStationsFromFile();
-		uploadDataService.getMedicalRecordsFromFile();
+		//uploadDataService.getFireStationsFromFile();
+		//uploadDataService.getMedicalRecordsFromFile();
 	}
 
 }

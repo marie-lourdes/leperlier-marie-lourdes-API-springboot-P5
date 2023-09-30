@@ -12,7 +12,7 @@ import javax.json.stream.JsonParser.Event;
 
 import org.springframework.stereotype.Component;
 
-@Component
+/*@Component
 public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonFireStationParsed;
@@ -34,7 +34,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
 		/*	if(i <=2) {
 				continue;
 			}*/
-		
+	/*	
 			Event event = parser.next();
 
 			// get all array of object Json file
@@ -48,4 +48,4 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
 	
 		return datasJsonFireStationParsed;
 	}
-}
+}*/
