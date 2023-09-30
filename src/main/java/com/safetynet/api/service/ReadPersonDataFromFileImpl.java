@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.model.Person;
 
 @Component
-public class ReadPersonDataFromFileImpl implements IDatasFileReader {
+public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonPersons;
 	private List<Person> listOfPersons;

@@ -3,7 +3,7 @@ package com.safetynet.api.model;
 
 public class FireStationFactory {
 	public enum FireStationType {
-		COMPLET, STATIONNUMBER_REMOVED, ADDRESS_REMOVED,
+		STATIONNUMBER_REMOVED, ADDRESS_REMOVED,
 	};
 
 	public static FireStation makeFireStation(FireStationType  type) {

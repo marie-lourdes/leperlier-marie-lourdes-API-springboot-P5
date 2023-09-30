@@ -15,10 +15,9 @@ import javax.json.JsonValue;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
 
 @Component
-public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
+public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireStation>{
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonFireStations;
 	private List<FireStation> listOfFireStations;
@@ -32,7 +31,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
 		// get JsonObject from JsonReader
 		JsonObject datasJsonFireStationsObject = jsonReader.readObject();
 		datasJsonFireStations = datasJsonFireStationsObject.getJsonArray("firestations");
-		System.out.println("all datas Json Person parsed with its arrays:" + datasJsonFireStations);
+		System.out.println("all datas Json FireStation parsed with its arrays:" + datasJsonFireStations);
 		
 		jsonReader.close();
 		is.close();
@@ -40,7 +39,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader {
 		//create list linked of fireStations
 		for( JsonValue elem : datasJsonFireStations) {
 			FireStation fireStation =new FireStation(); 
-			fireStation.setStationNumber( elem.asJsonObject().getString("stationNumber"));
+			fireStation.setStationNumber( elem.asJsonObject().getString("station"));
 			fireStation.setAddress( elem.asJsonObject().getString("address"));
 			
 			
