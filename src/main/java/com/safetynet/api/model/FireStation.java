@@ -15,7 +15,7 @@ public class FireStation {
 	private Long id;
 
 	@Column(name = "station_number")
-	private Long stationNumber;
+	private String stationNumber;
 
 	@Column(name = "address")
 	private String address;
@@ -27,22 +27,26 @@ public class FireStation {
 	public FireStation() {
 	}
 
-	public FireStation(Long id, String address) {
+	/*public FireStation(Long id, String address) {
 		this.id = id;
+		this.stationNumber=null;
 		this.address = address;
 
 	}
 
-	public FireStation(Long id, Long stationNumber) {
+	public FireStation(Long id, String string2) {
 		this.id = id;
 		this.stationNumber = stationNumber;
 
-	}
+	}*/
 
 	public Long getId() {
 		return id;
 	}
 
+	public Long setId(Long id) {
+		return this.id =id;
+	}
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
 	 * setNumberOfAdult(Integer numberOfAdult) { this.numberOfAdult = numberOfAdult;
@@ -59,13 +63,15 @@ public class FireStation {
 		this.address = address;
 	}
 
-	public Long getStationNumber() {
+	public String getStationNumber() {
 		return stationNumber;
 	}
 
-	public void setStationNumber(Long stationNumber) {
+	public void setStationNumber(String stationNumber) {
 		this.stationNumber = stationNumber;
 	}
+	
+	
 
 	@Override
 	public String toString() {

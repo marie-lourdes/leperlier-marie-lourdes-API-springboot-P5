@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.FireStationFactory;
+import com.safetynet.api.model.FireStationFactory.FireStationType;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
@@ -83,8 +85,11 @@ public class FireStationController {
 		FireStation fireStationWithStationNumberRemoved = new FireStation();
 
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
-			fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
-					fireStationFoundById.get().getAddress());
+		/*	fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
+					fireStationFoundById.get().getAddress());*/
+			fireStationWithStationNumberRemoved  =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
+			fireStationWithStationNumberRemoved .setId(fireStationFoundById.get().getId());
+			fireStationWithStationNumberRemoved .setAddress(fireStationFoundById.get().getAddress());
 			
 			fireStationService.saveFireStation(fireStationWithStationNumberRemoved);
 			System.out.println(fireStationWithStationNumberRemoved);
@@ -99,8 +104,11 @@ public class FireStationController {
 		FireStation fireStationWithAddressRemoved = new FireStation();
 
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
-			fireStationWithAddressRemoved = new FireStation(fireStationFoundById.get().getId(),
-					fireStationFoundById.get().getStationNumber());
+			fireStationWithAddressRemoved =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
+			fireStationWithAddressRemoved.setId(fireStationFoundById.get().getId());
+			fireStationWithAddressRemoved.setStationNumber(fireStationFoundById.get().getStationNumber());
+					/*new FireStation(fireStationFoundById.get().getId(),
+					fireStationFoundById.get().getStationNumber());*/
 			fireStationService.saveFireStation(fireStationWithAddressRemoved);
 			System.out.println(fireStationWithAddressRemoved);
 		}
