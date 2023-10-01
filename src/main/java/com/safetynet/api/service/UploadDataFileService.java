@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 
 @Service
@@ -16,9 +17,9 @@ public class UploadDataFileService {
 	
 	@Autowired
 	ReadFireStationDataFromFileImpl  readFireStations;
-/*	
-	@Autowired
-	ReadMedicalRecordDataFromFileImpl  readMedicalRecords;*/
+
+@Autowired
+	ReadMedicalRecordDataFromFileImpl  readMedicalRecords;
 
 	public List<Person>getPersonsFromFile() throws IOException {
 	 return	readPersons.readFile();
@@ -27,8 +28,8 @@ public class UploadDataFileService {
 	public List<FireStation>getFireStationsFromFile() throws IOException {
 		 return	readFireStations.readFile();
 		}
-/*	
-	public JsonArray getMedicalRecordsFromFile() throws FileNotFoundException {
+	
+	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException{
 		 return	readMedicalRecords.readFile();
-		}*/
+		}
 }

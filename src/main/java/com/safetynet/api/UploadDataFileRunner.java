@@ -17,7 +17,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		uploadDataService.getPersonsFromFile();
 		uploadDataService.getFireStationsFromFile();
-		//uploadDataService.getMedicalRecordsFromFile();
+		uploadDataService.getMedicalRecordsFromFile();
 	}
 
 }
