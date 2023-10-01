@@ -1,7 +1,5 @@
 package com.safetynet.api.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,8 +12,10 @@ import jakarta.persistence.Table;
 public class FireStation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Column(name = "station_number")
-	private int stationNumber;
+	private String stationNumber;
 
 	@Column(name = "address")
 	private String address;
@@ -24,19 +24,29 @@ public class FireStation {
 	 * private Integer numberOfAdult; private Integer numberOfChild;
 	 */
 
+	public FireStation() {
+	}
 
-	/*public int getId() {
->>>>>>> feature/createDataRestController
+	/*public FireStation(Long id, String address) {
+		this.id = id;
+		this.stationNumber=null;
+		this.address = address;
+
+	}
+
+	public FireStation(Long id, String string2) {
+		this.id = id;
+		this.stationNumber = stationNumber;
+
+	}*/
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-<<<<<<< HEAD
+	public Long setId(Long id) {
+		return this.id =id;
 	}
-=======
-	}*/
-
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
 	 * setNumberOfAdult(Integer numberOfAdult) { this.numberOfAdult = numberOfAdult;
@@ -53,11 +63,19 @@ public class FireStation {
 		this.address = address;
 	}
 
-	public int getStationNumber() {
+	public String getStationNumber() {
 		return stationNumber;
 	}
 
-	public void setStationNumber(int stationNumber) {
+	public void setStationNumber(String stationNumber) {
 		this.stationNumber = stationNumber;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+
+		return "FireStation{" + "id=" + id + ", stationnumber='" + stationNumber + '\'' + ", address=" + address + '}';
 	}
 }

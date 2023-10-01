@@ -1,7 +1,11 @@
 package com.safetynet.api.controller;
 
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.json.JsonArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,83 +21,103 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.service.UploadDataFileService;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@RestController // This means that this class is a Controller
+import jakarta.validation.Valid;
+
+@RestController
 //@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
+	
+	@Autowired
+	private UploadDataFileService uploadDataFileService; 
 
-	@PostMapping(value = "/person") // Map ONLY POST Requests
-	public Person createPerson(@RequestParam String firstName, @RequestParam String lastName,
-			@RequestParam String address, @RequestParam String city, @RequestParam int zip, @RequestParam String phone,
-			@RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request,
-		// @RequestParam param a indiquer dans postman et les test WebMvcTest
-//try {
-		Person n = new Person();
-		n.setFirstName(firstName);
-		n.setLastName(lastName);
-		n.setAddress(address);
-		n.setCity(city);
-		n.setZip(zip);
-		n.setPhone(phone);
-		n.setEmail(email);
-		personService.savePerson(n);
-		return n;
+	@PostMapping("/person")
+	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
+//try {	
+		personService.savePerson(person);
+		System.out.println(person);
+		return ResponseEntity.status(HttpStatus.CREATED).body(person);
+
 //}
 		/*
 		 * catch(jakarta.validation.ConstraintViolationException e) { return
 		 * e.getMessage(); }
 		 */
-
 	}
 
-	@GetMapping("/person")
-	public @ResponseBody List<Person> getAllPersons() {
-		// This returns a JSON or XML with the users
-		return personService.getAllPersons();
+	//-----------------requete a partir du fichier json-------------
+@GetMapping("/person")
+	public @ResponseBody List<Person>  getAllPersons() throws FileNotFoundException {
+		List<Person> persons = new LinkedList<Person>();
+		
+		try {
+			persons= uploadDataFileService.getPersonsFromFile();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return persons;
 	}
+
+
+	//----------------requete a partir de la base de données--------------
+	/*@GetMapping("/person")
+	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
+	
+		List<Person> allPersons = new ArrayList<Person>();	
+		try {
+			allPersons = personService.getAllPersons();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return allPersons;
+	}*/
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
-		// This returns a JSON or XML with the users
 		return personService.getOnePersonById(id);
 	}
 
+	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")
-	public Optional<Person> updateOnePersonById(@PathVariable Long id, @RequestBody Person personModified) {
-		Optional<Person> personFoundById = Optional.ofNullable(personService.getOnePersonById(id).orElseThrow(
-				() -> new NullPointerException(" an error has occured,this person" + id + "don't exist, try again ")));
+	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
+		Optional<Person> personFoundById = personService.getOnePersonById(id);
 
-		if (id == personFoundById.get().getId()) {
-			personFoundById.get().setAddress(personModified.getAddress());
-			personFoundById.get().setZip(personModified.getZip());
-			personFoundById.get().setCity(personModified.getCity());
-			personFoundById.get().setPhone(personModified.getPhone());
+		if (id.toString().equals(personFoundById.get().getId().toString())) {
+			personFoundById.get().setAddress(person.getAddress());
+			personFoundById.get().setZip(person.getZip());
+			personFoundById.get().setCity(person.getCity());
+			personFoundById.get().setPhone(person.getPhone());
+			personFoundById.get().setEmail(person.getEmail());
+
 			personService.savePerson(personFoundById.get());
+			System.out.println(personFoundById);
 		}
-		return personFoundById;
+		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
 	}
 
-	@DeleteMapping("/person")
+	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
-		List<Person> persons = (List<Person>) personService.getAllPersons();
+		List<Person> persons = personService.getAllPersons();
 
 		persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
-
 			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName)) {
+				System.out.println("element to remove" + elem);
 				personService.deleteOnePersonByName(elem);
 			}
 		});
-
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
-
 }

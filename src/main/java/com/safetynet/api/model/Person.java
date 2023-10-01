@@ -6,15 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
 @Entity 
 @Table(name="person")
 public class Person {
+	private final String REGEX_P = "^(.+)@(\\S+)$";
 	@Id
-	// unicité des donnée , standard d identifiant gnerée aleatoirement, utilisée pour les base de données :generationtype uuid
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -26,7 +27,7 @@ public class Person {
 	private String address;
 	
 	@Column(name="zip")
-	private int zip;
+	private String zip;
 	
 	@Column(name="city")
 	private String city;
@@ -34,8 +35,8 @@ public class Person {
 	@Column(name="phone")
 	private String phone;
 	
-	@Pattern( regexp ="^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*" 
-	        + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+	@Pattern( regexp = REGEX_P)
+	@Email
 	@Column(name="email", unique=true)
 	private String email;
 	
@@ -63,14 +64,10 @@ public class Person {
 		this.phone= phone;
 	}*/
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -95,12 +92,12 @@ public class Person {
 		this.address = address;
 	}
 
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(int zip) {
-		this.zip = zip;
+	public void setZip(String string) {
+		this.zip = string;
 	}
 
 	public String getCity() {
