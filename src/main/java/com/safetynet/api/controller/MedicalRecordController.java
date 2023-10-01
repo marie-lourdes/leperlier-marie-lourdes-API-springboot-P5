@@ -1,6 +1,8 @@
 package com.safetynet.api.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.service.UploadDataFileService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 import jakarta.validation.Valid;
@@ -27,6 +31,9 @@ public class MedicalRecordController {
 
 	@Autowired
 	MedicalRecordService medicalRecordService;
+	
+	@Autowired
+	private UploadDataFileService uploadDataFileService; 
 
 	@PostMapping("/medicalRecords")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
@@ -37,7 +44,24 @@ public class MedicalRecordController {
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
-	@GetMapping("/medicalRecords")
+	//-----------------requete a partir du fichier json-------------
+@GetMapping("/medicalRecords")
+	public @ResponseBody List<MedicalRecord>  getAllMedicalRecords() throws FileNotFoundException {
+		List<MedicalRecord> medicalRecords = new LinkedList<MedicalRecord>();
+		
+		try {
+			medicalRecords= uploadDataFileService.getMedicalRecordsFromFile();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return medicalRecords;
+	}
+
+//----------------requete a partir de la base de données--------------
+	/*@GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecord = new ArrayList<MedicalRecord>();
 		try {
@@ -48,7 +72,7 @@ public class MedicalRecordController {
 			e.printStackTrace();
 		}
 		return allMedicalRecord;
-	}
+	}*/
 
 	@GetMapping("/medicalRecords/{id}")
 	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {

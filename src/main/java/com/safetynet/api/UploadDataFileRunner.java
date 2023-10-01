@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-
-import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 import com.safetynet.api.service.UploadDataFileService;
 
 @Component

@@ -1,6 +1,8 @@
 package com.safetynet.api.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.FireStationFactory;
 import com.safetynet.api.model.FireStationFactory.FireStationType;
+import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.service.UploadDataFileService;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
@@ -27,6 +31,9 @@ import jakarta.validation.Valid;
 public class FireStationController {
 	@Autowired
 	FireStationService fireStationService;
+	
+	@Autowired
+	private UploadDataFileService uploadDataFileService; 
 
 	@PostMapping("/firestation")
 	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
@@ -34,8 +41,25 @@ public class FireStationController {
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
 	}
+	
+	//-----------------requete a partir du fichier json-------------
+@GetMapping("/firestation")
+	public @ResponseBody List<FireStation>  getAllFireStations() throws FileNotFoundException {
+		List<FireStation> fireStations = new LinkedList<FireStation>();
+		
+		try {
+			fireStations= uploadDataFileService.getFireStationsFromFile();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return fireStations;
+	}
 
-	@GetMapping("/firestation")
+//----------------requete a partir de la base de données--------------
+	/*@GetMapping("/firestation")
 	public @ResponseBody List<FireStation> getAllFireStations() {
 		List<FireStation> allFireStations = new ArrayList<FireStation>();
 
@@ -47,7 +71,7 @@ public class FireStationController {
 			e.printStackTrace();
 		}
 		return allFireStations;
-	}
+	}*/
 
 	@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
