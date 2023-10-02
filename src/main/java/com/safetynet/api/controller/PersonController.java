@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.json.JsonArray;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +25,6 @@ import com.safetynet.api.service.dataservice.PersonService;
 import jakarta.validation.Valid;
 
 @RestController
-//@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 
 	@Autowired
