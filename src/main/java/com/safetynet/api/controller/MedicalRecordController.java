@@ -28,7 +28,6 @@ import jakarta.validation.Valid;
 
 @RestController
 public class MedicalRecordController {
-
 	@Autowired
 	MedicalRecordService medicalRecordService;
 	

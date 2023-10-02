@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.model.MedicalRecord;
 
 @Component
-public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
+public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<MedicalRecord> {
 	private String path = "src/main/resources/datasSafetyNetAlerts.json";
 	private JsonArray datasJsonMedicalRecords;
 	private List<MedicalRecord> listOfMedicalRecords;
@@ -43,20 +43,23 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
 			medicalRecord.setFirstName(elem.asJsonObject().getString("firstName"));
 			medicalRecord.setLastName(elem.asJsonObject().getString("lastName"));
 			medicalRecord.setBirthdate(elem.asJsonObject().getString("birthdate"));
-			
+
 			// create ArrayList of medications from JsonArray medications
 			JsonArray medicationsArray = elem.asJsonObject().getJsonArray("medications");
+
 			List<String> listOfMedications = new ArrayList<String>();
+			// listOfMedications = new ArrayList<String>();
 
 			int indexMedications = 0;
 			for (JsonValue value : medicationsArray) {
 				listOfMedications.add(indexMedications++, (String) value.toString());
 			}
 			medicalRecord.setMedications(listOfMedications);
-			
+
 			// create ArrayList of allergies from JsonArray allergies
 			JsonArray allergiesArray = elem.asJsonObject().getJsonArray("allergies");
 			List<String> listOfAllergies = new ArrayList<String>();
+			// listOfAllergies = new ArrayList<String>();
 
 			int indexAllergies = 0;
 			for (JsonValue value : allergiesArray) {
@@ -66,6 +69,8 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader {
 
 			listOfMedicalRecords.add(medicalRecord);
 			System.out.println("element of medicalRecords" + elem.asJsonObject());
+			System.out.println("sub list  medications" + listOfMedications);
+			System.out.println("sub list allergies " + listOfAllergies);
 
 		}
 		System.out.println("list of medicalRecords" + listOfMedicalRecords);

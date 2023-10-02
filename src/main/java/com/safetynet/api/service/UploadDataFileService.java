@@ -13,23 +13,23 @@ import com.safetynet.api.model.Person;
 @Service
 public class UploadDataFileService {
 	@Autowired
-	ReadPersonDataFromFileImpl  readPersons;
-	
+	ReadPersonDataFromFileImpl readPersons;
+
 	@Autowired
-	ReadFireStationDataFromFileImpl  readFireStations;
+	ReadFireStationDataFromFileImpl readFireStations;
 
-@Autowired
-	ReadMedicalRecordDataFromFileImpl  readMedicalRecords;
+	@Autowired
+	ReadMedicalRecordDataFromFileImpl readMedicalRecords;
 
-	public List<Person>getPersonsFromFile() throws IOException {
-	 return	readPersons.readFile();
+	public List<Person> getPersonsFromFile() throws IOException {
+		return readPersons.readFile();
 	}
-	
-	public List<FireStation>getFireStationsFromFile() throws IOException {
-		 return	readFireStations.readFile();
-		}
-	
-	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException{
-		 return	readMedicalRecords.readFile();
-		}
+
+	public List<FireStation> getFireStationsFromFile() throws IOException {
+		return readFireStations.readFile();
+	}
+
+	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
+		return readMedicalRecords.readFile();
+	}
 }
