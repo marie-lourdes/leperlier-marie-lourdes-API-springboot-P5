@@ -52,7 +52,7 @@ public class PersonController {
 
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/person")
-	public @ResponseBody List<Person>  getAllPersons() throws FileNotFoundException {
+	public @ResponseBody List<Person>  getAllPersonsFromFile() throws FileNotFoundException {
 		List<Person> persons = new LinkedList<Person>();
 		
 		try {

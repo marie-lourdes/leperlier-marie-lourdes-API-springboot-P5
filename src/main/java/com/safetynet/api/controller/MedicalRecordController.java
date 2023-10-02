@@ -46,7 +46,7 @@ public class MedicalRecordController {
 
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/medicalRecords")
-	public @ResponseBody List<MedicalRecord>  getAllMedicalRecords() throws FileNotFoundException {
+	public @ResponseBody List<MedicalRecord>  getAllMedicalRecordsFromFile() throws FileNotFoundException {
 		List<MedicalRecord> medicalRecords = new LinkedList<MedicalRecord>();
 		
 		try {

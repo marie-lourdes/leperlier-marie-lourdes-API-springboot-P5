@@ -44,7 +44,7 @@ public class FireStationController {
 	
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/firestation")
-	public @ResponseBody List<FireStation>  getAllFireStations() throws FileNotFoundException {
+	public @ResponseBody List<FireStation>  getAllFireStationsFromFile() throws FileNotFoundException {
 		List<FireStation> fireStations = new LinkedList<FireStation>();
 		
 		try {
