@@ -26,7 +26,6 @@ import jakarta.validation.Valid;
 
 @RestController
 public class PersonController {
-
 	@Autowired
 	private PersonService personService;
 	
