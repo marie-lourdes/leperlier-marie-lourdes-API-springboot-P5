@@ -24,7 +24,8 @@ public class MedicalRecordService {
 						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
 		return medicalRecordFoundById;
 	}
-
+	
+//use IWriter
 	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
 		return medicalRecordRepository.save(medicalRecord);
 	}
