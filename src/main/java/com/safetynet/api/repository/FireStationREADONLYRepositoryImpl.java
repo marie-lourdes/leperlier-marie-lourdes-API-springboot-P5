@@ -1,15 +1,15 @@
-package com.safetynet.api.service;
+package com.safetynet.api.repository;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.repository.IFireStationREADONLYRepository;
+import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 
-@Service
+@Component
 public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRepository{
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;

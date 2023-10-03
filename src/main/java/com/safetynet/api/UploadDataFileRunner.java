@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.service.PersonREADONLYRepositoryImpl;
+import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 
 @Component
 public class UploadDataFileRunner implements CommandLineRunner {
