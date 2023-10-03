@@ -1,7 +1,6 @@
 package com.safetynet.api.repository;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,6 @@ public class MedicalRecordREADONLYRepositoryImpl implements IMedicalRecordREADON
 	@Autowired
 	ReadMedicalRecordDataFromFileImpl readMedicalRecords;
 
-	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
-		return readMedicalRecords.readFile();
-	}
-	
 	@Override
 	public List<MedicalRecord> findAll() throws IOException{
 		return readMedicalRecords.readFile();

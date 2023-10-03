@@ -1,5 +1,6 @@
 package com.safetynet.api.service.dataservice;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,14 +9,23 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.repository.IMedicalRecordCRUDRepository;
+import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
 
 @Service
 public class MedicalRecordService {
 	@Autowired
 	private IMedicalRecordCRUDRepository medicalRecordRepository;
+	
+	@Autowired
+	MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
 
 	public List<MedicalRecord> getAllMedicalRecords() {
 		return (List<MedicalRecord>) medicalRecordRepository.findAll();
+	}
+	
+
+	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
+		return medicalRecordRepositoryFile.findAll();
 	}
 
 	public Optional<MedicalRecord> getOneMedicalRecordById(Long id) {

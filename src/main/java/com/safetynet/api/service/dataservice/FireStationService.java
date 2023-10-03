@@ -1,6 +1,6 @@
 package com.safetynet.api.service.dataservice;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,15 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
 import com.safetynet.api.repository.IFireStationCRUDRepository;
 
 @Service
 public class FireStationService {
 	@Autowired
 	private IFireStationCRUDRepository fireStationRepository;
+	
+	@Autowired
+	FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
 
 	public List<FireStation> getAllFireStations() {
 		return (List<FireStation>) fireStationRepository.findAll();
+	}
+	
+	public List<FireStation> getFireStationsFromFile() throws IOException {
+		return  (List<FireStation>) fireStationRepository.findAll();
 	}
 
 	public Optional<FireStation> getOneFireStationById(Long id) {
