@@ -1,9 +1,11 @@
 package com.safetynet.api.repository;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.safetynet.api.model.MedicalRecord;
 
 public interface IMedicalRecordREADONLYRepository extends IReadOnlyDatasRepository<MedicalRecord,Long> {
-	List<MedicalRecord> findAll();		
+	@Override
+	List<MedicalRecord> findAll() throws IOException;		
 }
