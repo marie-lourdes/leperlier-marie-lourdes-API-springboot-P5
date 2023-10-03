@@ -14,9 +14,6 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
 
-	public List<Person> getPersonsFromFile() throws IOException {
-		return findAll();
-	}
 	@Override
 	public List<Person> findAll() throws IOException{
 		return readPersons.readFile();

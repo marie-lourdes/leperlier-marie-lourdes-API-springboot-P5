@@ -14,9 +14,6 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 
-	public List<FireStation> getFireStationsFromFile() throws IOException {
-		return  findAll();
-	}
 	@Override
 	public List<FireStation> findAll() throws IOException{
 		return readFireStations.readFile();
