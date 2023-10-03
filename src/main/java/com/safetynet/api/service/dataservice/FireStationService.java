@@ -17,7 +17,7 @@ public class FireStationService {
 	private IFireStationCRUDRepository fireStationRepository;
 
 	@Autowired
-	FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
+	private FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
 
 //--------------------repository avec source de donnéees BDD---------
 	/*

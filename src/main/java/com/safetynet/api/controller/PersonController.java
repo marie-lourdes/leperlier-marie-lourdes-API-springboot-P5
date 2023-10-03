@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -62,7 +61,6 @@ public class PersonController {
 		
 		return persons;
 	}
-
 
 	//----------------requete a partir de la base de données--------------
 	/*@GetMapping("/person")

@@ -17,7 +17,7 @@ public class MedicalRecordService {
 	private IMedicalRecordCRUDRepository medicalRecordRepository;
 
 	@Autowired
-	MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
+	private MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
 
 	// --------------------repository avec source de donnéees BDD---------
 	/*

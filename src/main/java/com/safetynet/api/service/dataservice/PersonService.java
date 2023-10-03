@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.IPersonCRUDRepository;
 import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
@@ -18,7 +17,7 @@ public class PersonService {
 	private IPersonCRUDRepository personRepository;
 
 	@Autowired
-	PersonREADONLYRepositoryImpl personRepositoryFile;
+	private PersonREADONLYRepositoryImpl personRepositoryFile;
 
 //--------------------repository avec source de donnéees BDD---------
 	/*

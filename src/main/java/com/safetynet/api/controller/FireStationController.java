@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.FireStationFactory;
 import com.safetynet.api.model.FireStationFactory.FireStationType;
-import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
-import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.FireStationService;
-import com.safetynet.api.service.dataservice.PersonService;
+
 
 import jakarta.validation.Valid;
 
 @RestController
-public class FireStationController {
-/*	@Autowired
-	private FireStationService fireStationService;
-	
-	@Autowired
-	private UploadDataFileService uploadDataFileService; */
-		
+public class FireStationController {	
 	@Autowired
 	private FireStationService fireStationService;
 
 
-/*	@PostMapping("/firestation")
+	@PostMapping("/firestation")
 	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
 		System.out.println(fireStation);
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
-	}*/
+	}
 	
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/firestation")
@@ -59,8 +49,7 @@ public class FireStationController {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return fireStations;
 	}
 
@@ -79,7 +68,7 @@ public class FireStationController {
 		return allFireStations;
 	}*/
 
-/*	@GetMapping("/firestation/{id}")
+@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
 		return fireStationService.getOneFireStationById(id);
 	}
@@ -117,7 +106,7 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 		/*	fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getAddress());*/
-/*			fireStationWithStationNumberRemoved  =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
+			fireStationWithStationNumberRemoved  =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
 			fireStationWithStationNumberRemoved .setId(fireStationFoundById.get().getId());
 			fireStationWithStationNumberRemoved .setAddress(fireStationFoundById.get().getAddress());
 			
@@ -139,11 +128,11 @@ public class FireStationController {
 			fireStationWithAddressRemoved.setStationNumber(fireStationFoundById.get().getStationNumber());
 					/*new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());*/
-/*			fireStationService.saveFireStation(fireStationWithAddressRemoved);
+			fireStationService.saveFireStation(fireStationWithAddressRemoved);
 			System.out.println(fireStationWithAddressRemoved);
 		}
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	}*/
+	}
 
 }

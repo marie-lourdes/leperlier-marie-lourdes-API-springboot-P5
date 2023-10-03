@@ -1,7 +1,7 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -20,28 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
-import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
-import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class MedicalRecordController {
-
-/*	@Autowired
-	MedicalRecordService medicalRecordService;
-	
-	@Autowired
-	private UploadDataFileService uploadDataFileService; 
-	
-*/	
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-/*	@PostMapping("/medicalRecords")
+	@PostMapping("/medicalRecords")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {	
 		medicalRecordService.saveMedicalRecord(medicalRecord);
@@ -49,7 +37,7 @@ public class MedicalRecordController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
-*/
+
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord>  getAllMedicalRecordsFromFile() throws FileNotFoundException {
@@ -80,7 +68,7 @@ public class MedicalRecordController {
 		return allMedicalRecord;
 	}*/
 
-/*	@GetMapping("/medicalRecords/{id}")
+	@GetMapping("/medicalRecords/{id}")
 	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
 		return medicalRecordService.getOneMedicalRecordById(id);
 	}
@@ -105,7 +93,14 @@ public class MedicalRecordController {
 	@DeleteMapping("/medicalRecords/")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,
 			@RequestParam String lastName) {
-		List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
+		//List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
+		List<MedicalRecord> medicalRecords =new LinkedList<MedicalRecord>();
+		try {
+			medicalRecords = medicalRecordService.getMedicalRecordsFromFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		medicalRecords.forEach(elem -> {
 			String firstNameOfMedicalRecord = elem.getFirstName();
@@ -118,5 +113,5 @@ public class MedicalRecordController {
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 
-	}*/
+	}
 }
