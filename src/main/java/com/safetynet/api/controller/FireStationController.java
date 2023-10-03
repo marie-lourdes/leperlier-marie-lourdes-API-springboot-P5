@@ -22,14 +22,14 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.FireStationFactory;
 import com.safetynet.api.model.FireStationFactory.FireStationType;
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.UploadDataFileService;
+import com.safetynet.api.service.UploadFireStationDataFileService;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class FireStationController {
-	@Autowired
+/*	@Autowired
 	FireStationService fireStationService;
 	
 	@Autowired
@@ -56,7 +56,7 @@ public class FireStationController {
 		}
 		
 		return fireStations;
-	}
+	}*/
 
 //----------------requete a partir de la base de données--------------
 	/*@GetMapping("/firestation")
@@ -73,7 +73,7 @@ public class FireStationController {
 		return allFireStations;
 	}*/
 
-	@GetMapping("/firestation/{id}")
+/*	@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
 		return fireStationService.getOneFireStationById(id);
 	}
@@ -111,7 +111,7 @@ public class FireStationController {
 		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
 		/*	fireStationWithStationNumberRemoved = new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getAddress());*/
-			fireStationWithStationNumberRemoved  =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
+/*			fireStationWithStationNumberRemoved  =FireStationFactory.makeFireStation(FireStationType.STATIONNUMBER_REMOVED);
 			fireStationWithStationNumberRemoved .setId(fireStationFoundById.get().getId());
 			fireStationWithStationNumberRemoved .setAddress(fireStationFoundById.get().getAddress());
 			
@@ -133,11 +133,11 @@ public class FireStationController {
 			fireStationWithAddressRemoved.setStationNumber(fireStationFoundById.get().getStationNumber());
 					/*new FireStation(fireStationFoundById.get().getId(),
 					fireStationFoundById.get().getStationNumber());*/
-			fireStationService.saveFireStation(fireStationWithAddressRemoved);
+/*			fireStationService.saveFireStation(fireStationWithAddressRemoved);
 			System.out.println(fireStationWithAddressRemoved);
 		}
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	}
+	}*/
 
 }

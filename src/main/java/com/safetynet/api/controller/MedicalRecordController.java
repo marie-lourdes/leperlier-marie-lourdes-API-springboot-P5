@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.UploadDataFileService;
+import com.safetynet.api.service.UploadMedicalRecordDataFileService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 import jakarta.validation.Valid;
@@ -29,7 +29,7 @@ import jakarta.validation.Valid;
 @RestController
 public class MedicalRecordController {
 
-	@Autowired
+/*	@Autowired
 	MedicalRecordService medicalRecordService;
 	
 	@Autowired
@@ -74,7 +74,7 @@ public class MedicalRecordController {
 		return allMedicalRecord;
 	}*/
 
-	@GetMapping("/medicalRecords/{id}")
+/*	@GetMapping("/medicalRecords/{id}")
 	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
 		return medicalRecordService.getOneMedicalRecordById(id);
 	}
@@ -112,5 +112,5 @@ public class MedicalRecordController {
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 
-	}
+	}*/
 }

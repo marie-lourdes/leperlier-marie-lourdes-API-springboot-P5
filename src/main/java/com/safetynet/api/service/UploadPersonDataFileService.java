@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.IPersonREADONLYRepository;
 
+@Service
 public class UploadPersonDataFileService implements IPersonREADONLYRepository{
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;

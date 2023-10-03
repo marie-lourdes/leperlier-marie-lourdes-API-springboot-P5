@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.service.UploadDataFileService;
+import com.safetynet.api.service.UploadPersonDataFileService;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class PersonController {
 	private PersonService personService;
 	
 	@Autowired
-	private UploadDataFileService uploadDataFileService; 
+	private UploadPersonDataFileService uploadPersonDataFileService; 
 
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
@@ -56,7 +56,7 @@ public class PersonController {
 		List<Person> persons = new LinkedList<Person>();
 		
 		try {
-			persons= uploadDataFileService.getPersonsFromFile();
+			persons= uploadPersonDataFileService.getPersonsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
