@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
 import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
 
@@ -34,8 +36,12 @@ public class MedicalRecordController {
 	
 	@Autowired
 	private UploadDataFileService uploadDataFileService; 
+	
+*/	
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 
-	@PostMapping("/medicalRecords")
+/*	@PostMapping("/medicalRecords")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {	
 		medicalRecordService.saveMedicalRecord(medicalRecord);
@@ -43,14 +49,14 @@ public class MedicalRecordController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
-
+*/
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/medicalRecords")
 	public @ResponseBody List<MedicalRecord>  getAllMedicalRecordsFromFile() throws FileNotFoundException {
 		List<MedicalRecord> medicalRecords = new LinkedList<MedicalRecord>();
 		
 		try {
-			medicalRecords= uploadDataFileService.getMedicalRecordsFromFile();
+			medicalRecords= medicalRecordService.getMedicalRecordsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

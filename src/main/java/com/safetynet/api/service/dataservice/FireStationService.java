@@ -15,16 +15,19 @@ import com.safetynet.api.repository.IFireStationCRUDRepository;
 public class FireStationService {
 	@Autowired
 	private IFireStationCRUDRepository fireStationRepository;
-	
+
 	@Autowired
 	FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
 
-	public List<FireStation> getAllFireStations() {
-		return (List<FireStation>) fireStationRepository.findAll();
-	}
-	
+//--------------------repository avec source de donnéees BDD---------
+	/*
+	 * public List<FireStation> getAllFireStations() { return (List<FireStation>)
+	 * fireStationRepository.findAll(); }
+	 */
+
+//--------------------repository avec source de donnéees fichier Json---------		
 	public List<FireStation> getFireStationsFromFile() throws IOException {
-		return  (List<FireStation>) fireStationRepository.findAll();
+		return (List<FireStation>) fireStationRepository.findAll();
 	}
 
 	public Optional<FireStation> getOneFireStationById(Long id) {

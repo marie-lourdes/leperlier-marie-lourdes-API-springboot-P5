@@ -15,15 +15,17 @@ import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
 public class MedicalRecordService {
 	@Autowired
 	private IMedicalRecordCRUDRepository medicalRecordRepository;
-	
+
 	@Autowired
 	MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
 
-	public List<MedicalRecord> getAllMedicalRecords() {
-		return (List<MedicalRecord>) medicalRecordRepository.findAll();
-	}
-	
+	// --------------------repository avec source de donnéees BDD---------
+	/*
+	 * public List<MedicalRecord> getAllMedicalRecords() { return
+	 * (List<MedicalRecord>) medicalRecordRepository.findAll(); }
+	 */
 
+	// --------------------repository avec source de donnéees fichier Json---------
 	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
 		return medicalRecordRepositoryFile.findAll();
 	}
@@ -34,7 +36,7 @@ public class MedicalRecordService {
 						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
 		return medicalRecordFoundById;
 	}
-	
+
 //use IWriter
 	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
 		return medicalRecordRepository.save(medicalRecord);

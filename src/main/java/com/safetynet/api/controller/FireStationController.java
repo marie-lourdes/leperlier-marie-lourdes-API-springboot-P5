@@ -22,25 +22,32 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.FireStationFactory;
 import com.safetynet.api.model.FireStationFactory.FireStationType;
 import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
+import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.FireStationService;
+import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class FireStationController {
 /*	@Autowired
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 	
 	@Autowired
-	private UploadDataFileService uploadDataFileService; 
+	private UploadDataFileService uploadDataFileService; */
+	
+	
+	@Autowired
+	private FireStationService fireStationService;
 
-	@PostMapping("/firestation")
+
+/*	@PostMapping("/firestation")
 	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
 		System.out.println(fireStation);
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
-	}
+	}*/
 	
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/firestation")
@@ -48,7 +55,7 @@ public class FireStationController {
 		List<FireStation> fireStations = new LinkedList<FireStation>();
 		
 		try {
-			fireStations= uploadDataFileService.getFireStationsFromFile();
+			fireStations= fireStationService.getFireStationsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -56,7 +63,7 @@ public class FireStationController {
 		}
 		
 		return fireStations;
-	}*/
+	}
 
 //----------------requete a partir de la base de données--------------
 	/*@GetMapping("/firestation")

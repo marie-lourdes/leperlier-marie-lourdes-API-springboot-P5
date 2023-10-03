@@ -33,9 +33,6 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
-	@Autowired
-	private PersonREADONLYRepositoryImpl uploadPersonDataFileService; 
-
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
@@ -56,7 +53,7 @@ public class PersonController {
 		List<Person> persons = new LinkedList<Person>();
 		
 		try {
-			persons= uploadPersonDataFileService.getPersonsFromFile();
+			persons= personService.getPersonsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

@@ -16,18 +16,19 @@ import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 public class PersonService {
 	@Autowired
 	private IPersonCRUDRepository personRepository;
-	
-@Autowired
-PersonREADONLYRepositoryImpl personRepositoryFile;
+
+	@Autowired
+	PersonREADONLYRepositoryImpl personRepositoryFile;
 
 //--------------------repository avec source de donnéees BDD---------
-/*	public List<Person> getAllPersons() {
-		return (List<Person>) personRepository.findAll();
-	}*/
+	/*
+	 * public List<Person> getAllPersons() { return (List<Person>)
+	 * personRepository.findAll(); }
+	 */
 
 //--------------------repository avec source de donnéees fichier Json---------	
 	public List<Person> getPersonsFromFile() throws IOException {
-		 	return (List<Person>) personRepositoryFile.findAll();
+		return (List<Person>) personRepositoryFile.findAll();
 	}
 
 	public Optional<Person> getOnePersonById(Long id) {
