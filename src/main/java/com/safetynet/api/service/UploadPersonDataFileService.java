@@ -6,12 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.repository.IPersonREADONLYRepository;
 
-public class UploadPersonDataFileService {
+public class UploadPersonDataFileService implements IPersonREADONLYRepository{
 	@Autowired
-	ReadPersonDataFromFileImpl  readPersons;
-	
-	public List<Person>getPersonsFromFile() throws IOException {
-		 return	readPersons.readFile();
-		}
+	ReadPersonDataFromFileImpl readPersons;
+
+	public List<Person> getPersonsFromFile() throws IOException {
+		return findAll();
+	}
+	@Override
+	public List<Person> findAll() throws IOException{
+		return readPersons.readFile();
+	}
 }

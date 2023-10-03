@@ -1,4 +1,4 @@
-package com.safetynet.api.service;
+/*package com.safetynet.api.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,4 +32,4 @@ public class UploadDataFileService {
 	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException{
 		 return	readMedicalRecords.readFile();
 		}
-}
+}*/

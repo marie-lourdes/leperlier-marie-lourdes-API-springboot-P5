@@ -10,9 +10,9 @@ import com.safetynet.api.model.FireStation;
 public class UploadFireStationDataFileService {
 
 	@Autowired
-	ReadFireStationDataFromFileImpl  readFireStations;
-	
-	public List<FireStation>getFireStationsFromFile() throws IOException {
-		 return	readFireStations.readFile();
-		}
+	ReadFireStationDataFromFileImpl readFireStations;
+
+	public List<FireStation> getFireStationsFromFile() throws IOException {
+		return readFireStations.readFile();
+	}
 }
