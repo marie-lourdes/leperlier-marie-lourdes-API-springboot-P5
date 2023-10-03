@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.repository.IMedicalRecordREADONLYRepository;
 @Service
-public class UploadMedicalRecordDataFileService implements IMedicalRecordREADONLYRepository  {
+public class MedicalRecordREADONLYRepositoryImpl implements IMedicalRecordREADONLYRepository  {
 	@Autowired
 	ReadMedicalRecordDataFromFileImpl readMedicalRecords;
 

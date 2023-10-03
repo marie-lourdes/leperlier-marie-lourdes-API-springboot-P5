@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.UploadMedicalRecordDataFileService;
+import com.safetynet.api.service.MedicalRecordREADONLYRepositoryImpl;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 import jakarta.validation.Valid;

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.service.UploadPersonDataFileService;
+import com.safetynet.api.service.PersonREADONLYRepositoryImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class PersonController {
 	private PersonService personService;
 	
 	@Autowired
-	private UploadPersonDataFileService uploadPersonDataFileService; 
+	private PersonREADONLYRepositoryImpl uploadPersonDataFileService; 
 
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {

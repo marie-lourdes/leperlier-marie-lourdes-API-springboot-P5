@@ -10,7 +10,7 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.repository.IFireStationREADONLYRepository;
 
 @Service
-public class UploadFireStationDataFileService implements IFireStationREADONLYRepository{
+public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRepository{
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 

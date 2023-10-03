@@ -22,7 +22,7 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.FireStationFactory;
 import com.safetynet.api.model.FireStationFactory.FireStationType;
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.UploadFireStationDataFileService;
+import com.safetynet.api.service.FireStationREADONLYRepositoryImpl;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
