@@ -27,7 +27,7 @@ public class FireStationService {
 
 //--------------------repository avec source de donnéees fichier Json---------		
 	public List<FireStation> getFireStationsFromFile() throws IOException {
-		return (List<FireStation>) fireStationRepository.findAll();
+		return (List<FireStation>) fireStationRepositoryFile.findAll();
 	}
 
 	public Optional<FireStation> getOneFireStationById(Long id) {

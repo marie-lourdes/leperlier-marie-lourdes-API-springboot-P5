@@ -4,20 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
+import com.safetynet.api.service.dataservice.FireStationService;
+import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
 public class UploadDataFileRunner implements CommandLineRunner {
  /*@Autowired
  UploadDataFileService  uploadDataService;*/
  @Autowired
-PersonREADONLYRepositoryImpl  uploadPersonDataService;
+ PersonService  personService;
+ @Autowired
+ FireStationService  fireStationService;
+ @Autowired
+ MedicalRecordService  medicalRecordService;
 
 	@Override
 	public void run(String... args) throws Exception {
-		uploadPersonDataService.getPersonsFromFile();
-		/*uploadDataService.getFireStationsFromFile();
-		uploadDataService.getMedicalRecordsFromFile();*/
+		//use to logging each element of file json 
+		personService.getPersonsFromFile();
+		fireStationService.getFireStationsFromFile();
+		medicalRecordService.getMedicalRecordsFromFile();
 	}
 
 }
