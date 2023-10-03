@@ -1,11 +1,11 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.json.JsonArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,7 +108,16 @@ public class PersonController {
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
-		List<Person> persons = personService.getAllPersons();
+		//List<Person> persons = personService.getAllPersons();
+		
+		//---refactoring avec method get all person from file----
+		List<Person> persons = new ArrayList<Person>();
+		try {
+			persons = personService.getPersonsFromFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();

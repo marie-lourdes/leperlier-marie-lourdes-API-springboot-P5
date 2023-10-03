@@ -1,21 +1,33 @@
 package com.safetynet.api.service.dataservice;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.IPersonCRUDRepository;
+import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 
 @Service
 public class PersonService {
 	@Autowired
 	private IPersonCRUDRepository personRepository;
+	
+@Autowired
+PersonREADONLYRepositoryImpl personRepositoryFile;
 
-	public List<Person> getAllPersons() {
+//--------------------repository avec source de donnéees BDD---------
+/*	public List<Person> getAllPersons() {
 		return (List<Person>) personRepository.findAll();
+	}*/
+
+//--------------------repository avec source de donnéees fichier Json---------	
+	public List<Person> getPersonsFromFile() throws IOException {
+		 	return (List<Person>) personRepositoryFile.findAll();
 	}
 
 	public Optional<Person> getOnePersonById(Long id) {
