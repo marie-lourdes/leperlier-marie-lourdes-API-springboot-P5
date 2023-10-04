@@ -1,6 +1,7 @@
 package com.safetynet.api.repository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,9 @@ import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
 public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
+	private List<Optional<Person>>  listOfPersonsFoundByName;
+	private	List<Person> persons;
+	private Optional<Person> personFoundByName;
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
 
@@ -20,6 +24,34 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 		return readPersons.readFile();
 	}
 
+	@Override
+	public  List<Optional<Person>>  findByName(String firstName, String lastName ){
+		 persons = new ArrayList< Person>();
+		 listOfPersonsFoundByName = new ArrayList< Optional<Person>>();
+		personFoundByName= Optional.empty();
+		try {
+			persons = this.findAll();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 persons.forEach(elem -> {
+			String firstNamePerson = elem.getFirstName();
+			String lastNamePerson = elem.getLastName();
+			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName )) {
+				System.out.println("element found by first and last name of person" + elem);
+				
+				/*.orElseThrow(() -> new NullPointerException(
+				" an error has occured,this firestation " + stationNumber + " doesn't exist, try again ")))*/
+				//personService.deleteOnePersonByName(elem);
+				
+				personFoundByName=Optional.ofNullable(elem);
+				 listOfPersonsFoundByName.add(personFoundByName); 
+			}		 	
+	});
+		 System.out.println("listOfPersonsFoundByName :" + listOfPersonsFoundByName);
+		 return listOfPersonsFoundByName;
+	 }
 	/*@Override
 	public Optional<Person> findByName() {
 		// TODO Auto-generated method stub
