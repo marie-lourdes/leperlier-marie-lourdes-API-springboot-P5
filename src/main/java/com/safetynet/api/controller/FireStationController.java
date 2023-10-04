@@ -58,17 +58,17 @@ public class FireStationController {
 	 * e.printStackTrace(); } return allFireStations; }
 	 */
 
-	//----firestation get by id BDD------
+//----firestation get by id BDD------
 	/*@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
 		return fireStationService.getOneFireStationById(id);
 	}*/
 	
-	//----firestation get by stationNumber from file json------
-	/*@GetMapping("/firestation")
+//----firestation get by stationNumber from file json------
+	@GetMapping("/firestation")
 	public List<Optional<FireStation>> getOneFireStationByNumber(@RequestParam String stationNumber) {
 		return fireStationService.getOneFireStationByNumber(stationNumber);
-	}*/
+	}
 
 /*
 	@PutMapping("/firestation/{id}")
