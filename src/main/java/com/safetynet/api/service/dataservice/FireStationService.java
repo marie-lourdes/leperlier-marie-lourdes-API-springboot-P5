@@ -37,13 +37,13 @@ public class FireStationService {
 		return fireStationFoundById;
 	}*/
 	
-/*	public List< Optional<FireStation>> getOneFireStationByNumber(String stationNumber) {
+	public List< Optional<FireStation>> getOneFireStationByNumber(String stationNumber) {
 		//List< Optional<FireStation>> fireStationFoundByNumber=
 				/* Optional
 				.ofNullable(fireStationRepositoryFile.findByStationNumber(stationNumber)).orElseThrow(() -> new NullPointerException(
 						" an error has occured,this firestation " + stationNumber + " doesn't exist, try again "));*/
-		/*return fireStationRepositoryFile.findByStationNumber(stationNumber);
-	}*/
+		return fireStationRepositoryFile.findByStationNumber(stationNumber);
+	}
 
 	public FireStation saveFireStation(FireStation fireStation) {
 		return fireStationRepository.save(fireStation);

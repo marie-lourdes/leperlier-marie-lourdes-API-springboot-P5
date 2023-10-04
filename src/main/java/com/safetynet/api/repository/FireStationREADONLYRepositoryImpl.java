@@ -25,7 +25,6 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 		return readFireStations.readFile();
 	}
 	
-
 	@Override
 	public List<Optional<FireStation>>  findByStationNumber(String stationNumber){
 		 fireStations = new ArrayList< FireStation>();
