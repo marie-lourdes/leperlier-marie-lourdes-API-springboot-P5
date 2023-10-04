@@ -10,12 +10,12 @@ import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
 public class UploadDataFileRunner implements CommandLineRunner {
- /*@Autowired
- UploadDataFileService  uploadDataService;*/
  @Autowired
  PersonService  personService;
+ 
  @Autowired
  FireStationService  fireStationService;
+ 
  @Autowired
  MedicalRecordService  medicalRecordService;
 
@@ -25,6 +25,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		personService.getPersonsFromFile();
 		fireStationService.getFireStationsFromFile();
 		medicalRecordService.getMedicalRecordsFromFile();
+		//fireStationService.getOneFireStationByNumber("3");
 	}
 
 }

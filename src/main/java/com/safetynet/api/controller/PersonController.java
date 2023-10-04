@@ -78,10 +78,10 @@ public class PersonController {
 		return allPersons;
 	}*/
 
-	@GetMapping("/person/{id}")
+	/*@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
 		return personService.getOnePersonById(id);
-	}
+	}*/
 
 	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")

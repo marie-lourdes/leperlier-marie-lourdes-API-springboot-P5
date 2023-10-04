@@ -20,22 +20,30 @@ public class FireStationService {
 	private FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
 
 //--------------------repository avec source de donnéees BDD---------
-	/*
-	 * public List<FireStation> getAllFireStations() { return (List<FireStation>)
-	 * fireStationRepository.findAll(); }
-	 */
+	
+	  public List<FireStation> getAllFireStations() { return (List<FireStation>)
+	  fireStationRepository.findAll(); }
+	 
 
 //--------------------repository avec source de donnéees fichier Json---------		
 	public List<FireStation> getFireStationsFromFile() throws IOException {
 		return (List<FireStation>) fireStationRepositoryFile.findAll();
 	}
 
-	public Optional<FireStation> getOneFireStationById(Long id) {
+/*	public Optional<FireStation> getOneFireStationById(Long id) {
 		Optional<FireStation> fireStationFoundById = Optional
 				.ofNullable(fireStationRepository.findById(id).orElseThrow(() -> new NullPointerException(
 						" an error has occured,this firestation " + id + " doesn't exist, try again ")));
 		return fireStationFoundById;
-	}
+	}*/
+	
+/*	public List< Optional<FireStation>> getOneFireStationByNumber(String stationNumber) {
+		//List< Optional<FireStation>> fireStationFoundByNumber=
+				/* Optional
+				.ofNullable(fireStationRepositoryFile.findByStationNumber(stationNumber)).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this firestation " + stationNumber + " doesn't exist, try again "));*/
+		/*return fireStationRepositoryFile.findByStationNumber(stationNumber);
+	}*/
 
 	public FireStation saveFireStation(FireStation fireStation) {
 		return fireStationRepository.save(fireStation);
