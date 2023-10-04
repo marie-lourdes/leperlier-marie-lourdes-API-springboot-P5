@@ -26,7 +26,7 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	}
 
 	@Override
-	public  List<Optional<Person>> findByName(String firstName, String lastName ){
+	public  List<Optional<Person>> findByFirstNameAndLastName(String firstName, String lastName ){
 		 persons = new ArrayList< Person>();
 		 listOfPersonsFoundByName = new ArrayList< Optional<Person>>();
 		personFoundByName= Optional.empty();

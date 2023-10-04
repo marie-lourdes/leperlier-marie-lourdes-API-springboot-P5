@@ -29,6 +29,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 		 listOfFireStations = new LinkedList<FireStation>();
 		
 		// get JsonObject from JsonReader
+		 //creer une methode json reader dans l Interface IDatasFileReader  pour generer  Jsonobjet et et eviter de repeter de tous les class impl  le path
 		JsonObject datasJsonFireStationsObject = jsonReader.readObject();
 		datasJsonFireStations = datasJsonFireStationsObject.getJsonArray("firestations");
 		System.out.println("all datas Json FireStation parsed with its arrays:" + datasJsonFireStations);
