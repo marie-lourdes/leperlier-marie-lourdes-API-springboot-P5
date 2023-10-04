@@ -16,6 +16,7 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	private List<Optional<Person>>  listOfPersonsFoundByName;
 	private	List<Person> persons;
 	private Optional<Person> personFoundByName;
+	
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
 
@@ -25,12 +26,12 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	}
 
 	@Override
-	public  List<Optional<Person>>  findByName(String firstName, String lastName ){
+	public  List<Optional<Person>> findByName(String firstName, String lastName ){
 		 persons = new ArrayList< Person>();
 		 listOfPersonsFoundByName = new ArrayList< Optional<Person>>();
 		personFoundByName= Optional.empty();
 		try {
-			persons = this.findAll();
+			persons = readPersons.readFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,12 +39,8 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 		 persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
-			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName )) {
+			if (firstNamePerson.contains(firstName )&& lastNamePerson.contains(lastName)) {
 				System.out.println("element found by first and last name of person" + elem);
-				
-				/*.orElseThrow(() -> new NullPointerException(
-				" an error has occured,this firestation " + stationNumber + " doesn't exist, try again ")))*/
-				//personService.deleteOnePersonByName(elem);
 				
 				personFoundByName=Optional.ofNullable(elem);
 				 listOfPersonsFoundByName.add(personFoundByName); 

@@ -11,5 +11,5 @@ public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Pers
 	@Override
 	List<Person> findAll() throws IOException;
 	
-	 List<Optional<Person>>  findByName(String firstName, String lastName );
+	 List<Optional<Person>> findByName(String firstName, String lastName );
 }

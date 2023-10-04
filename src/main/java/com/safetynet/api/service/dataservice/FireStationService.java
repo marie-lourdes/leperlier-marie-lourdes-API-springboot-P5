@@ -37,7 +37,7 @@ public class FireStationService {
 		return fireStationFoundById;
 	}*/
 	
-	public List< Optional<FireStation>> getOneFireStationByNumber(String stationNumber) {
+	public List< Optional<FireStation>> getFireStationsByNumber(String stationNumber) {
 		//List< Optional<FireStation>> fireStationFoundByNumber=
 				/* Optional
 				.ofNullable(fireStationRepositoryFile.findByStationNumber(stationNumber)).orElseThrow(() -> new NullPointerException(

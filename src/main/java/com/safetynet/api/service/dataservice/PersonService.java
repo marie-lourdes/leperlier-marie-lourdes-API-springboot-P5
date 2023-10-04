@@ -36,6 +36,10 @@ public class PersonService {
 						" an error has occured,this person" + id + "doesn't exist, try again ")));
 		return personFoundById;
 	}
+	
+	public List<Optional<Person>> getOnePersonByName(String firstName, String lastName) {
+		return personRepositoryFile.findByName(firstName, lastName);
+	}
 
 	public Person savePerson(Person person) {
 		return personRepository.save(person);
