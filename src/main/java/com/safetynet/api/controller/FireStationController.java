@@ -66,7 +66,7 @@ public class FireStationController {
 	
 //----firestation get by stationNumber from file json------
 	@GetMapping("/firestation")
-	public List<Optional<FireStation>> getOneFireStationByNumber(@RequestParam String stationNumber) {
+	public  List<Optional<FireStation>> getOneFireStationByNumber(@RequestParam String stationNumber){
 		return fireStationService.getOneFireStationByNumber(stationNumber);
 	}
 
