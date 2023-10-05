@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.IMedicalRecordCRUDRepository;
 import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
 
@@ -35,6 +36,10 @@ public class MedicalRecordService {
 				.ofNullable(medicalRecordRepository.findById(id).orElseThrow(() -> new NullPointerException(
 						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
 		return medicalRecordFoundById;
+	}
+	
+	public List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(String firstName, String lastName) {
+		return medicalRecordRepositoryFile.findByFirstNameAndLastName(firstName, lastName);
 	}
 
 //use IWriter
