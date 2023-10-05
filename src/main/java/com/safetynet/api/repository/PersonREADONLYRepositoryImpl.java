@@ -13,9 +13,9 @@ import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
 public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
-	private List<Optional<Person>>  listOfPersonsFoundByName;
+	private List<Optional<Person>>  listOfPersonsFoundByFullName;
 	private	List<Person> persons;
-	private Optional<Person> personFoundByName;
+	private Optional<Person> personFoundByFullName;
 	
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
@@ -28,8 +28,8 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	@Override
 	public  List<Optional<Person>> findByFirstNameAndLastName(String firstName, String lastName ){
 		 persons = new ArrayList< Person>();
-		 listOfPersonsFoundByName = new ArrayList< Optional<Person>>();
-		personFoundByName= Optional.empty();
+		 listOfPersonsFoundByFullName = new ArrayList< Optional<Person>>();
+		personFoundByFullName= Optional.empty();
 		try {
 			persons = readPersons.readFile();
 		} catch (IOException e) {
@@ -40,14 +40,14 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
 			if (firstNamePerson.equals(firstName ) && lastNamePerson.equals(lastName)) {
-				System.out.println("element found by first and last name of person" + elem);
+				System.out.println("person found by first and last name of person" + elem);
 				
-				personFoundByName=Optional.ofNullable(elem);
-				 listOfPersonsFoundByName.add(personFoundByName); 
+				personFoundByFullName=Optional.ofNullable(elem);
+				 listOfPersonsFoundByFullName.add(personFoundByFullName); 
 			}		 	
 	});
-		 System.out.println("listOfPersonsFoundByName :" + listOfPersonsFoundByName);
-		 return listOfPersonsFoundByName;
+		 System.out.println("listOfPersonsFoundByFullName :" + listOfPersonsFoundByFullName);
+		 return listOfPersonsFoundByFullName;
 	 }
 	/*@Override
 	public Optional<Person> findByName() {
