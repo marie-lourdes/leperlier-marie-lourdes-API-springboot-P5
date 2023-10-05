@@ -10,13 +10,16 @@ import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
+import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
 public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 	private List<Optional<Person>>  listOfPersonsFoundByFullName;
 	private	List<Person> persons;
 	private Optional<Person> personFoundByFullName;
-	
+/*	 @Autowired
+	 PersonService  personService;*/
+	 
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
 
@@ -40,12 +43,21 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
 			if (firstNamePerson.equals(firstName ) && lastNamePerson.equals(lastName)) {
+				elem.setId(firstNamePerson +lastNamePerson);
 				System.out.println("person found by first and last name of person" + elem);
 				
 				personFoundByFullName=Optional.ofNullable(elem);
 				 listOfPersonsFoundByFullName.add(personFoundByFullName); 
+			
 			}		 	
 	});
+		 
+		/* try {
+			//System.out.println("test objetperson en memoire :"+personService.getPersonsFromFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		 System.out.println("listOfPersonsFoundByFullName :" + listOfPersonsFoundByFullName);
 		 return listOfPersonsFoundByFullName;
 	 }

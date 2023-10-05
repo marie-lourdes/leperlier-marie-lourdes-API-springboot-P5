@@ -15,7 +15,7 @@ public class Person {
 	private final String REGEX_P = "^(.+)@(\\S+)$";
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
+	private String id ;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -64,8 +64,12 @@ public class Person {
 		this.phone= phone;
 	}*/
 
-	public Long getId() {
+	public String getId() {
 		return id;
+	}
+	
+	public String setId (String id) {
+		return this.id=id;
 	}
 	
 	public String getFirstName() {

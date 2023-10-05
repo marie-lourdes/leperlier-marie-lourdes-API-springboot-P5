@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 
-public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Person,String>{
+public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Person,Long>{
 	@Override
 	List<Person> findAll() throws IOException;
 	

@@ -3,6 +3,7 @@ package com.safetynet.api.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -65,27 +64,53 @@ public class PersonController {
 
 //----Person  getbyFullName  from file json------
 	@GetMapping("/person")
-	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, String lastName){
+	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, @RequestParam String lastName){
 		return personService.getOnePersonByFullName(firstName,lastName);
 	}
 
 	// the id, first and last name cannot be modified
-	@PutMapping("/person/{id}")
+/*	@PutMapping("/person/{id}")
 	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
-		Optional<Person> personFoundById = personService.getOnePersonById(id);
+		Optional<Person> personFoundByFullName  = personService.getOnePersonById(id);
 
-		if (id.toString().equals(personFoundById.get().getId().toString())) {
-			personFoundById.get().setAddress(person.getAddress());
-			personFoundById.get().setZip(person.getZip());
-			personFoundById.get().setCity(person.getCity());
-			personFoundById.get().setPhone(person.getPhone());
-			personFoundById.get().setEmail(person.getEmail());
+		if (id.toString().equals(personFoundByFullName .get().getId().toString())) {
+			personFoundByFullName .get().setAddress(person.getAddress());
+			personFoundByFullName .get().setZip(person.getZip());
+			personFoundByFullName .get().setCity(person.getCity());
+			personFoundByFullName .get().setPhone(person.getPhone());
+			personFoundByFullName .get().setEmail(person.getEmail());
 
-			personService.savePerson(personFoundById.get());
-			System.out.println(personFoundById);
+			personService.savePerson(personFoundByFullName .get());
+			System.out.println(personFoundByFullName );
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
-	}
+		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
+	}*/
+	
+	// the id, first and last name cannot be modified
+		@PutMapping("/person")
+		public ResponseEntity<List<Optional<Person>>> updateOnePersonByFullName(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
+			List<Optional<Person>> personFoundByFullName =personService.getOnePersonByFullName(firstName,lastName);
+			///listIterator suport les operation CRUD contrairemnt a Iterator
+		    Iterator<Optional<Person>>	iteratorPerson =personFoundByFullName.listIterator(); 
+		    
+		    while(iteratorPerson.hasNext()) {
+		    	Optional<Person> personItr = iteratorPerson.next();
+		    	
+		    	if (firstName.toString().equals(personItr.get().getFirstName().toString()) && lastName.toString().equals(personItr.get().getLastName())) {
+		    		personItr.get().setAddress(person.getAddress());
+		    		personItr.get().setZip(person.getZip());
+		    		personItr.get().setCity(person.getCity());
+		    		personItr .get().setPhone(person.getPhone());
+		    		personItr.get().setEmail(person.getEmail());
+		    		//personFoundByFullName.
+					personService.savePerson(personItr.get());
+					System.out.println(personFoundByFullName );
+				}
+		    }
+
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
+		}
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
