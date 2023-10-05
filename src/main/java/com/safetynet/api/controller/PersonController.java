@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -32,7 +33,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
-	@PostMapping("/person")
+	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
 		personService.savePerson(person);
@@ -47,7 +48,7 @@ public class PersonController {
 	}
 
 	//-----------------requete a partir du fichier json-------------
-@GetMapping("/person")
+@GetMapping("/person/")
 	public @ResponseBody List<Person>  getAllPersonsFromFile() throws FileNotFoundException {
 		List<Person> persons = new LinkedList<Person>();
 		
@@ -81,6 +82,12 @@ public class PersonController {
 	/*@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable Long id) {
 		return personService.getOnePersonById(id);
+	}*/
+
+//----Person  getbyFullName  from file json------
+	/*@GetMapping("/person")
+	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, String lastName){
+		return personService.getOnePersonByFullName(firstName,lastName);
 	}*/
 
 	// the id, first and last name cannot be modified

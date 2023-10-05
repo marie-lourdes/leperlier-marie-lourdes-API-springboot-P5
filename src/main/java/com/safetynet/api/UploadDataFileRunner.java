@@ -26,7 +26,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		fireStationService.getFireStationsFromFile();
 		medicalRecordService.getMedicalRecordsFromFile();
 		fireStationService.getFireStationsByNumber("3");
-		personService.getOnePersonByName("Tenley","Boyd");
+		personService.getOnePersonByFullName("Tenley","Boyd");
 	}
 
 }

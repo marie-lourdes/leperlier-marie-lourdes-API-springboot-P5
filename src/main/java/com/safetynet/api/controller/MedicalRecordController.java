@@ -29,7 +29,7 @@ public class MedicalRecordController {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-	@PostMapping("/medicalRecord")
+	@PostMapping("/medicalRecord/")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {	
 		medicalRecordService.saveMedicalRecord(medicalRecord);
@@ -39,7 +39,7 @@ public class MedicalRecordController {
 	}
 
 	//-----------------requete a partir du fichier json-------------
-@GetMapping("/medicalRecord")
+@GetMapping("/medicalRecord/")
 	public @ResponseBody List<MedicalRecord>  getAllMedicalRecordsFromFile() throws FileNotFoundException {
 		List<MedicalRecord> medicalRecords = new LinkedList<MedicalRecord>();
 		

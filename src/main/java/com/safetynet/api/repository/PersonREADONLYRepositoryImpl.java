@@ -39,7 +39,7 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository{
 		 persons.forEach(elem -> {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
-			if (firstNamePerson.contains(firstName )&& lastNamePerson.contains(lastName)) {
+			if (firstNamePerson.equals(firstName ) && lastNamePerson.equals(lastName)) {
 				System.out.println("element found by first and last name of person" + elem);
 				
 				personFoundByName=Optional.ofNullable(elem);

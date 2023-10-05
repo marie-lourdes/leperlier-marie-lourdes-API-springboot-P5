@@ -37,7 +37,7 @@ public class PersonService {
 		return personFoundById;
 	}
 	
-	public List<Optional<Person>> getOnePersonByName(String firstName, String lastName) {
+	public List<Optional<Person>> getOnePersonByFullName(String firstName, String lastName) {
 		return personRepositoryFile.findByFirstNameAndLastName(firstName, lastName);
 	}
 

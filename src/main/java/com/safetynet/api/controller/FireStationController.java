@@ -25,7 +25,7 @@ public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
 
-	@PostMapping("/firestation")
+	@PostMapping("/firestation/")
 	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
 		System.out.println(fireStation);
 		fireStationService.saveFireStation(fireStation);
