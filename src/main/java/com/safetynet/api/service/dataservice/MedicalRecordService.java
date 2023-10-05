@@ -31,15 +31,19 @@ public class MedicalRecordService {
 		return medicalRecordRepositoryFile.findAll();
 	}
 
-	public Optional<MedicalRecord> getOneMedicalRecordById(Long id) {
+	/*public Optional<MedicalRecord> getOneMedicalRecordById(Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = Optional
 				.ofNullable(medicalRecordRepository.findById(id).orElseThrow(() -> new NullPointerException(
 						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
 		return medicalRecordFoundById;
+	}*/
+	
+	public List<Optional<MedicalRecord>> getOneMedicalRecordById(String id ) {
+		return medicalRecordRepositoryFile.findById(id);
 	}
 	
 	public List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(String firstName, String lastName) {
-		return medicalRecordRepositoryFile.findByFirstNameAndLastName(firstName, lastName);
+		return medicalRecordRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
 	}
 
 //use IWriter

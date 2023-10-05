@@ -55,7 +55,7 @@ public class MedicalRecordController {
 	}
 
 	@GetMapping("/medicalRecord/{id}")
-	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
+	public List<Optional<MedicalRecord>> getOneMedicalRecord(@PathVariable String id) {
 		return medicalRecordService.getOneMedicalRecordById(id);
 	}
 	
@@ -66,7 +66,7 @@ public class MedicalRecordController {
 		}
 		
 	// the id, first and last name cannot be modified
-	@PutMapping("/medicalRecord/{id}")
+/*	@PutMapping("/medicalRecord/{id}")
 	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
 			@PathVariable Long id) {
 		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
@@ -80,7 +80,7 @@ public class MedicalRecordController {
 			System.out.println(medicalRecordFoundById);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
-	}
+	}*/
 
 	@DeleteMapping("/medicalRecord/")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,

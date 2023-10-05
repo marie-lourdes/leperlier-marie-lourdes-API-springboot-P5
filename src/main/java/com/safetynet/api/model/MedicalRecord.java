@@ -18,7 +18,7 @@ public class MedicalRecord {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -36,12 +36,12 @@ public class MedicalRecord {
 	@Column(name = "allergies")
 	private List<String> allergies;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	
+	public String setId (String id) {
+		return this.id=id;
 	}
 
 	public String getFirstName() {

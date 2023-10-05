@@ -30,17 +30,21 @@ public class PersonService {
 		return (List<Person>) personRepositoryFile.findAll();
 	}
 
-	public Optional<Person> getOnePersonById(Long id) {
+/*	public Optional<Person> getOnePersonById(String id) {
 		Optional<Person> personFoundById = Optional
-				.ofNullable(personRepository.findById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this person" + id + "doesn't exist, try again ")));
+				.ofNullable(personRepositoryFile.findById(id)).orElseThrow(() -> new NullPointerException(
+						" an error has occured,this person" + id + "doesn't exist, try again "));
 		return personFoundById;
+	}*/
+	
+	public List<Optional<Person>> getOnePersonById(String id) {
+		return personRepositoryFile.findById(id);
 	}
 	
 	public List<Optional<Person>> getOnePersonByFullName(String firstName, String lastName) {
-		return personRepositoryFile.findByFirstNameAndLastName(firstName, lastName);
+		return personRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
 	}
-
+	 
 	public Person savePerson(Person person) {
 		return personRepository.save(person);
 	}

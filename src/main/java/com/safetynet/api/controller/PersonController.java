@@ -3,7 +3,6 @@ package com.safetynet.api.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,12 +61,18 @@ public class PersonController {
 		return persons;
 	}
 
+@GetMapping("/person/{id}")
+public List<Optional<Person>>getOnePerson(@PathVariable String id) {
+	return personService.getOnePersonById(id);
+}
+
 //----Person  getbyFullName  from file json------
 	@GetMapping("/person")
 	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, @RequestParam String lastName){
 		return personService.getOnePersonByFullName(firstName,lastName);
 	}
-
+	
+	
 	// the id, first and last name cannot be modified
 /*	@PutMapping("/person/{id}")
 	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
@@ -86,8 +91,9 @@ public class PersonController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
 	}*/
 	
+
 	// the id, first and last name cannot be modified
-		@PutMapping("/person")
+	/*	@PutMapping("/person")
 		public ResponseEntity<List<Optional<Person>>> updateOnePersonByFullName(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
 			List<Optional<Person>> personFoundByFullName =personService.getOnePersonByFullName(firstName,lastName);
 			///listIterator suport les operation CRUD contrairemnt a Iterator
@@ -109,7 +115,7 @@ public class PersonController {
 		    }
 		
 			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
-		}
+		}*/
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {

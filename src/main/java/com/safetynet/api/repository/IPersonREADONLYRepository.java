@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 
-public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Person,Long>{
+public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Person,String>{
 	@Override
 	List<Person> findAll() throws IOException;
 	
+	 List<Optional<Person>>findById(String id);
 	 List<Optional<Person>> findByFirstNameAndLastName(String firstName, String lastName );
 }

@@ -7,9 +7,11 @@ import java.util.Optional;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 
-public interface IMedicalRecordREADONLYRepository extends IReadOnlyDatasRepository<MedicalRecord, Long> {
+public interface IMedicalRecordREADONLYRepository extends IReadOnlyDatasRepository<MedicalRecord, String> {
 	@Override
 	List<MedicalRecord> findAll() throws IOException;
-
+	
+	 List<Optional<MedicalRecord>>findById(String id);
+	 
 	List<Optional<MedicalRecord>> findByFirstNameAndLastName(String firstName, String lastName);
 }
