@@ -47,17 +47,6 @@ public class FireStationController {
 		return fireStations;
 	}
 
-//----------------requete a partir de la base de données--------------
-	/*
-	 * @GetMapping("/firestation") public @ResponseBody List<FireStation>
-	 * getAllFireStations() { List<FireStation> allFireStations = new
-	 * ArrayList<FireStation>();
-	 * 
-	 * try { allFireStations = fireStationService.getAllFireStations(); } catch
-	 * (NullPointerException e) { e.printStackTrace(); } catch (Exception e) {
-	 * e.printStackTrace(); } return allFireStations; }
-	 */
-
 //----firestation get by id BDD------
 	/*@GetMapping("/firestation/{id}")
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {

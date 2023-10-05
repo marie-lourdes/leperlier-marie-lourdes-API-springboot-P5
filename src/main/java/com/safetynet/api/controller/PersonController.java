@@ -63,27 +63,6 @@ public class PersonController {
 		return persons;
 	}
 
-	//----------------requete a partir de la base de données--------------
-	/*@GetMapping("/person")
-	public @ResponseBody List<Person> getAllPersons() throws FileNotFoundException {
-	
-		List<Person> allPersons = new ArrayList<Person>();	
-		try {
-			allPersons = personService.getAllPersons();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return allPersons;
-	}*/
-
-	/*@GetMapping("/person/{id}")
-	public Optional<Person> getOnePerson(@PathVariable Long id) {
-		return personService.getOnePersonById(id);
-	}*/
-
 //----Person  getbyFullName  from file json------
 	@GetMapping("/person")
 	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, String lastName){

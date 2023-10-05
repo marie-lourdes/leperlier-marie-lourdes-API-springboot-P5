@@ -55,20 +55,6 @@ public class MedicalRecordController {
 		return medicalRecords;
 	}
 
-//----------------requete a partir de la base de données--------------
-	/*@GetMapping("/medicalRecords")
-	public @ResponseBody List<MedicalRecord> getAllMedicalRecords() {
-		List<MedicalRecord> allMedicalRecord = new ArrayList<MedicalRecord>();
-		try {
-			allMedicalRecord = medicalRecordService.getAllMedicalRecords();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return allMedicalRecord;
-	}*/
-
 	@GetMapping("/medicalRecord/{id}")
 	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable Long id) {
 		return medicalRecordService.getOneMedicalRecordById(id);
