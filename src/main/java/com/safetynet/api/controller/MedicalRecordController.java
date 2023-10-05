@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 import jakarta.validation.Valid;
@@ -73,7 +74,12 @@ public class MedicalRecordController {
 		return medicalRecordService.getOneMedicalRecordById(id);
 	}
 	
-
+	//----MedicalRecord  getbyFullName  from file json------
+		@GetMapping("/medicalRecord")
+		public  List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(@RequestParam String firstName, String lastName){
+			return medicalRecordService.getOneMedicalRecordByFullName(firstName,lastName);
+		}
+		
 	// the id, first and last name cannot be modified
 	@PutMapping("/medicalRecord/{id}")
 	public ResponseEntity<Optional<MedicalRecord>> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
