@@ -85,10 +85,10 @@ public class PersonController {
 	}*/
 
 //----Person  getbyFullName  from file json------
-	/*@GetMapping("/person")
+	@GetMapping("/person")
 	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, String lastName){
 		return personService.getOnePersonByFullName(firstName,lastName);
-	}*/
+	}
 
 	// the id, first and last name cannot be modified
 	@PutMapping("/person/{id}")
