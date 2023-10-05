@@ -107,8 +107,7 @@ public class PersonController {
 					System.out.println(personFoundByFullName );
 				}
 		    }
-
-			
+		
 			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
 		}
 
