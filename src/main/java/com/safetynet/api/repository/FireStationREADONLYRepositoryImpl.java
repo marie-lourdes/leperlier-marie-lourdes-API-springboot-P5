@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 
@@ -19,7 +20,8 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	
 	private Optional<FireStation> fireStationFoundByNumber;
 	private Optional<FireStation> fireStationFoundById;
-	private List<FireStation> fireStations=new ArrayList< FireStation>(); ;
+	private List<FireStation> fireStations=new ArrayList< FireStation>(); 
+	private List<Optional<FireStation>> listOfFireStationsFoundById;
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 
@@ -27,6 +29,39 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	public List<FireStation> findAll() throws IOException{
 		fireStations=readFireStations.readFile();
 		return fireStations;
+	}
+	
+	@Override
+	public List<Optional<FireStation>> findById(String id) {
+		List<FireStation> fireStations= new ArrayList<FireStation>();
+		listOfFireStationsFoundById = new ArrayList<Optional<FireStation>>();
+		fireStationFoundById = Optional.empty();
+		try {
+			fireStations = readFireStations.readFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 fireStations.forEach(elem -> {
+			String idPerson = elem.getId();
+
+			if (idPerson.toString().equals(id.toString())) {
+				/*
+				 * elem.setId(firstNamePerson +lastNamePerson);
+				 * System.out.println("city person AVANTmofification en memoire"
+				 * +elem.getCity());
+				 * 
+				 * elem.setCity("ville de l objet memoire modifié");
+				 * System.out.println("city person APRES en memoire :" +elem.getCity());
+				 */
+				fireStationFoundById = Optional.ofNullable(elem);
+				System.out.println("personFoundById :" + 	fireStationFoundById );
+			}
+		});
+
+		
+		 System.out.println("listOfFireStationsFoundById  :" + listOfFireStationsFoundById );
+		return 	listOfFireStationsFoundById ;
 	}
 	
 	@Override
@@ -58,6 +93,5 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 		 System.out.println("listOfFireStationsFoundByNumber :" + listOfFireStationsFoundByNumber);
 		 return listOfFireStationsFoundByNumber;
 	}
-	
 	
 }
