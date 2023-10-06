@@ -60,11 +60,22 @@ public class FireStationController {
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
 		return fireStationService.getOneFireStationById(id);
 	}*/
+	//----firestation getbyId from file json------
 		
+	@GetMapping("/firestation/{id}")
+	public  List<Optional<FireStation>> getFireStationsById(@PathVariable String id){
+		return fireStationService.getOneFireStationById(id);
+	}
+	
 //----firestation get by stationNumber from file json------
 	@GetMapping("/firestation")
-	public  List<Optional<FireStation>> getFireStationsByNumber(@RequestParam String stationNumber){
+	public  List<Optional<FireStation>>  getFireStationsByNumber(@RequestParam String stationNumber){
 		return fireStationService.getFireStationsByNumber(stationNumber);
+	}
+	
+	@GetMapping("/firestation")
+	public  List<Optional<FireStation>>  getFireStationsByAddress(@RequestParam String address){
+		return fireStationService.getFireStationsByAddress(address);
 	}
 
 /*

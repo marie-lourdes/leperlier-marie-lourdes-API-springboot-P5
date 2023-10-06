@@ -1,3 +1,5 @@
+package com.safetynet.api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
@@ -28,8 +30,9 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	   // fireStationService.deleteByStationNumberFireStation("3");
 	  //  System.out.println("firestation APRES SUPPRESION "+	fireStationService.getFireStationsFromFile());
 	   //fireStationService.getFireStationsFromFile();
-	
+	    fireStationService.getOneFireStationById("3");
 		fireStationService.getFireStationsByNumber("3");
+		fireStationService.getFireStationsByAddress("489 Manchester St");
 		personService.getOnePersonById("Tenley Boyd");
 		medicalRecordService.getOneMedicalRecordById("Tenley Boyd");
 	}
