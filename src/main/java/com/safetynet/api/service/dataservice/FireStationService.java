@@ -1,7 +1,6 @@
 package com.safetynet.api.service.dataservice;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +38,10 @@ public class FireStationService {
 						" an error has occured,this firestation " + id + " doesn't exist, try again ")));
 		return fireStationFoundById;
 	}*/
+	public List<Optional<FireStation>> getOneFireStationById(String id) {
+		return fireStationRepositoryFile.findById(id);
+		
+	}
 	
 	public List< Optional<FireStation>> getFireStationsByNumber(String stationNumber) {
 		//List< Optional<FireStation>> fireStationFoundByNumber=
@@ -47,7 +50,11 @@ public class FireStationService {
 						" an error has occured,this firestation " + stationNumber + " doesn't exist, try again "));*/
 		return fireStationRepositoryFile.findByStationNumber(stationNumber);
 	}
-
+	
+	public List< Optional<FireStation>> getFireStationsByAddress( String address ) {
+		return fireStationRepositoryFile.findByAddress(address);
+	}
+	
 	public FireStation saveFireStation(@Valid FireStation fireStation) {
 		return fireStationRepository.save(fireStation);
 	}
@@ -65,6 +72,8 @@ public class FireStationService {
 		 * return listOfFireStation; //fireStationRepository.deleteById(id);
 		 */
 	}
+	
+
 
 	public List<FireStation>  saveFireStation2(FireStation fireStation,	List<FireStation>  fireStations ) {
 		// TODO Auto-generated method stub
