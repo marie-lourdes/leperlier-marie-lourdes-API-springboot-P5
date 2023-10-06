@@ -55,7 +55,7 @@ public class MedicalRecordController {
 	}
 
 	@GetMapping("/medicalRecord/{id}")
-	public List<Optional<MedicalRecord>> getOneMedicalRecord(@PathVariable String id) {
+	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable String id) {
 		return medicalRecordService.getOneMedicalRecordById(id);
 	}
 	

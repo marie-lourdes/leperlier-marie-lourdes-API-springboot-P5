@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
 import com.safetynet.api.repository.IFireStationCRUDRepository;
 
@@ -53,8 +54,8 @@ public class FireStationService {
 		return fireStationRepository.save(fireStation);
 	}
 
-	public void deleteStationNumberFireStation(FireStation fireStation, Long id) {
-		fireStationRepository.deleteById(id);
+	public void deleteByStationNumberFireStation( String stationNumber ) {
+		fireStationRepository.deleteByStationNumberFireStation(  stationNumber);
 		/*
 		 * List<String> listOfFireStation = new ArrayList<String>();
 		 * listOfFireStation.add(fireStation.getStationNumber().toString());
@@ -62,4 +63,7 @@ public class FireStationService {
 		 * return listOfFireStation; //fireStationRepository.deleteById(id);
 		 */
 	}
+
+
+	
 }

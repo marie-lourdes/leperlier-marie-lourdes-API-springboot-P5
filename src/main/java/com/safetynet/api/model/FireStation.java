@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class FireStation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@Column(name = "station_number")
 	private String stationNumber;
@@ -40,12 +40,12 @@ public class FireStation {
 
 	}*/
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public Long setId(Long id) {
-		return this.id =id;
+	public String setId(String string) {
+		return this.id =string;
 	}
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
@@ -71,11 +71,12 @@ public class FireStation {
 		this.stationNumber = stationNumber;
 	}
 	
-	
 
 	@Override
 	public String toString() {
 
 		return "FireStation{" + "id=" + id + ", stationnumber='" + stationNumber + '\'' + ", address=" + address + '}';
 	}
+
+	
 }

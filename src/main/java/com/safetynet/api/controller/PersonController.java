@@ -30,7 +30,7 @@ public class PersonController {
 
 	@Autowired
 	private PersonService personService;
-	
+
 	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
@@ -45,83 +45,84 @@ public class PersonController {
 		 */
 	}
 
-	//-----------------requete a partir du fichier json-------------
-@GetMapping("/person/")
-	public @ResponseBody List<Person>  getAllPersonsFromFile() throws FileNotFoundException {
+	// -----------------requete a partir du fichier json-------------
+	@GetMapping("/person/")
+	public @ResponseBody List<Person> getAllPersonsFromFile() throws FileNotFoundException {
 		List<Person> persons = new LinkedList<Person>();
-		
+
 		try {
-			persons= personService.getPersonsFromFile();
+			persons = personService.getPersonsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return persons;
 	}
 
-@GetMapping("/person/{id}")
-public List<Optional<Person>>getOnePerson(@PathVariable String id) {
-	return personService.getOnePersonById(id);
-}
+	@GetMapping("/person/{id}")
+	public Optional<Person> getOnePerson(@PathVariable String id) {
+		return personService.getOnePersonById(id);
+	}
 
 //----Person  getbyFullName  from file json------
 	@GetMapping("/person")
-	public  List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName, @RequestParam String lastName){
-		return personService.getOnePersonByFullName(firstName,lastName);
+	public List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName,
+			@RequestParam String lastName) {
+		return personService.getOnePersonByFullName(firstName, lastName);
 	}
-	
-	
-	// the id, first and last name cannot be modified
-/*	@PutMapping("/person/{id}")
-	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
-		Optional<Person> personFoundByFullName  = personService.getOnePersonById(id);
-
-		if (id.toString().equals(personFoundByFullName .get().getId().toString())) {
-			personFoundByFullName .get().setAddress(person.getAddress());
-			personFoundByFullName .get().setZip(person.getZip());
-			personFoundByFullName .get().setCity(person.getCity());
-			personFoundByFullName .get().setPhone(person.getPhone());
-			personFoundByFullName .get().setEmail(person.getEmail());
-
-			personService.savePerson(personFoundByFullName .get());
-			System.out.println(personFoundByFullName );
-		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
-	}*/
-	
 
 	// the id, first and last name cannot be modified
-	/*	@PutMapping("/person")
-		public ResponseEntity<List<Optional<Person>>> updateOnePersonByFullName(@RequestBody Person person, @RequestParam String firstName, @RequestParam String lastName) {
-			List<Optional<Person>> personFoundByFullName =personService.getOnePersonByFullName(firstName,lastName);
-			///listIterator suport les operation CRUD contrairemnt a Iterator
-		    Iterator<Optional<Person>>	iteratorPerson =personFoundByFullName.listIterator(); 
-		    
-		    while(iteratorPerson.hasNext()) {
-		    	Optional<Person> personItr = iteratorPerson.next();
-		    	
-		    	if (firstName.toString().equals(personItr.get().getFirstName().toString()) && lastName.toString().equals(personItr.get().getLastName())) {
-		    		personItr.get().setAddress(person.getAddress());
-		    		personItr.get().setZip(person.getZip());
-		    		personItr.get().setCity(person.getCity());
-		    		personItr .get().setPhone(person.getPhone());
-		    		personItr.get().setEmail(person.getEmail());
-		    		//personFoundByFullName.
-					personService.savePerson(personItr.get());
-					System.out.println(personFoundByFullName );
-				}
-		    }
-		
-			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName );
-		}*/
+	/*
+	 * @PutMapping("/person/{id}") public ResponseEntity<Optional<Person>>
+	 * updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
+	 * Optional<Person> personFoundByFullName = personService.getOnePersonById(id);
+	 * 
+	 * if (id.toString().equals(personFoundByFullName .get().getId().toString())) {
+	 * personFoundByFullName .get().setAddress(person.getAddress());
+	 * personFoundByFullName .get().setZip(person.getZip()); personFoundByFullName
+	 * .get().setCity(person.getCity()); personFoundByFullName
+	 * .get().setPhone(person.getPhone()); personFoundByFullName
+	 * .get().setEmail(person.getEmail());
+	 * 
+	 * personService.savePerson(personFoundByFullName .get());
+	 * System.out.println(personFoundByFullName ); } return
+	 * ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName ); }
+	 */
+
+	// the id, first and last name cannot be modified
+	/*
+	 * @PutMapping("/person") public ResponseEntity<List<Optional<Person>>>
+	 * updateOnePersonByFullName(@RequestBody Person person, @RequestParam String
+	 * firstName, @RequestParam String lastName) { List<Optional<Person>>
+	 * personFoundByFullName
+	 * =personService.getOnePersonByFullName(firstName,lastName); ///listIterator
+	 * suport les operation CRUD contrairemnt a Iterator Iterator<Optional<Person>>
+	 * iteratorPerson =personFoundByFullName.listIterator();
+	 * 
+	 * while(iteratorPerson.hasNext()) { Optional<Person> personItr =
+	 * iteratorPerson.next();
+	 * 
+	 * if (firstName.toString().equals(personItr.get().getFirstName().toString()) &&
+	 * lastName.toString().equals(personItr.get().getLastName())) {
+	 * personItr.get().setAddress(person.getAddress());
+	 * personItr.get().setZip(person.getZip());
+	 * personItr.get().setCity(person.getCity()); personItr
+	 * .get().setPhone(person.getPhone());
+	 * personItr.get().setEmail(person.getEmail()); //personFoundByFullName.
+	 * personService.savePerson(personItr.get());
+	 * System.out.println(personFoundByFullName ); } }
+	 * 
+	 * return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName
+	 * ); }
+	 */
 
 	@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
-		//List<Person> persons = personService.getAllPersons();
-		
-		//---refactoring avec method get all person from file----
+		// List<Person> persons = personService.getAllPersons();
+
+		// ---refactoring avec method get all person from file----
 		List<Person> persons = new ArrayList<Person>();
 		try {
 			persons = personService.getPersonsFromFile();

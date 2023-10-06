@@ -8,8 +8,7 @@ import com.safetynet.api.model.Person;
 
 public interface IPersonREADONLYRepository extends IReadOnlyDatasRepository<Person,String>{
 	@Override
-	List<Person> findAll() throws IOException;
-	
-	 List<Optional<Person>>findById(String id);
+	List<Person> findAll() throws IOException;	
+	 Optional<Person>findById(String id);
 	 List<Optional<Person>> findByFirstNameAndLastName(String firstName, String lastName );
 }

@@ -37,7 +37,7 @@ public class PersonService {
 		return personFoundById;
 	}*/
 	
-	public List<Optional<Person>> getOnePersonById(String id) {
+	public Optional<Person> getOnePersonById(String id) {
 		return personRepositoryFile.findById(id);
 	}
 	

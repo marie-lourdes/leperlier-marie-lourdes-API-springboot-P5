@@ -1,6 +1,8 @@
 package com.safetynet.api.controller;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +55,7 @@ public class FireStationController {
 	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
 		return fireStationService.getOneFireStationById(id);
 	}*/
-	
+		
 //----firestation get by stationNumber from file json------
 	@GetMapping("/firestation")
 	public  List<Optional<FireStation>> getFireStationsByNumber(@RequestParam String stationNumber){
@@ -83,14 +86,43 @@ public class FireStationController {
 			fireStationService.deleteStationNumberFireStation(fireStationFoundById.get(), id);
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+	}*/
+
+	@DeleteMapping("/firestation")
+	public ResponseEntity<Long> deleteStationNumberOfFireStation(@RequestParam String stationNumber) {	
+		 List<Optional<FireStation>>fireStationFoundByNumber =fireStationService.getFireStationsByNumber(stationNumber);
+			Iterator<Optional<FireStation>>  iteratorFireStation = fireStationFoundByNumber .listIterator();
+		 while( iteratorFireStation.hasNext()) {
+			 Optional<FireStation>personItr = iteratorFireStation.next();
+			 if (stationNumber.toString().equals(personItr.get().getStationNumber().toString())){
+				 try {
+					System.out.println("list fire stations AVANT suppression"+fireStationService.getFireStationsFromFile());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 fireStationService.deleteByStationNumberFireStation(stationNumber);
+				 try {
+					System.out.println("list fire stations APRES suppression"+fireStationService.getFireStationsFromFile());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 }
+			
+		 }
+		 return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		/*FireStation fireStationWithStationNumberRemoved = new FireStation();
+		List<Optional<FireStation>> personFoundByStationNumber = fireStationService.getFireStationsByNumber( stationNumber); 
+		Iterator<Optional<FireStation>>  iteratorFireStation = personFoundByStationNumber.listIterator();
+		 while( iteratorFireStation.hasNext()) {
+			 Optional<FireStation>personItr = iteratorFireStation.next();
+			 if (stationNumber.toString().equals(personItr.get().getStationNumber().toString()){
+				 fireStationService.deleteByStationNumberFireStation(personItr );
+			 }
+		 }*/
 	}
-
-	@DeleteMapping("/firestation/{id}/delete/station-number")
-	public ResponseEntity<Long> deleteStationNumberOfFireStation(@PathVariable Long id) {
-		Optional<FireStation> fireStationFoundById = fireStationService.getOneFireStationById(id);
-		FireStation fireStationWithStationNumberRemoved = new FireStation();
-
-		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
+		
 			/*
 			 * fireStationWithStationNumberRemoved = new
 			 * FireStation(fireStationFoundById.get().getId(),
@@ -107,9 +139,9 @@ public class FireStationController {
 
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	}
+	}*/
 
-	@DeleteMapping("/firestation/{id}/delete/address")
+	/*@DeleteMapping("/firestation/{id}/delete/address")
 	public ResponseEntity<Long> deleteAddressOfFireStation(@PathVariable Long id) {
 		Optional<FireStation> fireStationFoundById = fireStationService.getOneFireStationById(id);
 		

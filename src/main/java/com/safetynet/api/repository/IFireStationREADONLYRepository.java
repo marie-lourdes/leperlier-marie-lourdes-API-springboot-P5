@@ -6,9 +6,10 @@ import java.util.Optional;
 
 import com.safetynet.api.model.FireStation;
 
-public interface IFireStationREADONLYRepository extends IReadOnlyDatasRepository<FireStation,Long> {
+public interface IFireStationREADONLYRepository extends IReadOnlyDatasRepository<FireStation,String> {
 	@Override
 	List<FireStation> findAll() throws IOException;
 	
 	 List<Optional<FireStation>>  findByStationNumber(String stationNumber);
+
 }

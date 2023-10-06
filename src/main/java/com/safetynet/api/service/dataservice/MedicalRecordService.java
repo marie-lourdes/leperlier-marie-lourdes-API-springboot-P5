@@ -38,7 +38,7 @@ public class MedicalRecordService {
 		return medicalRecordFoundById;
 	}*/
 	
-	public List<Optional<MedicalRecord>> getOneMedicalRecordById(String id ) {
+	public Optional<MedicalRecord> getOneMedicalRecordById(String id ) {
 		return medicalRecordRepositoryFile.findById(id);
 	}
 	

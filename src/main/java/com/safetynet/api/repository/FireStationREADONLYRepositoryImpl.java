@@ -9,14 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 
 @Component
 public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRepository{
 
 	private List<Optional<FireStation>> listOfFireStationsFoundByNumber;
-	private	List<FireStation> fireStations;
+	
 	private Optional<FireStation> fireStationFoundByNumber;
+	private Optional<FireStation> fireStationFoundById;
+	
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 
@@ -27,7 +30,7 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	
 	@Override
 	public List<Optional<FireStation>>  findByStationNumber(String stationNumber){
-		 fireStations = new ArrayList< FireStation>();
+		List<FireStation>  fireStations = new ArrayList< FireStation>();
 		 listOfFireStationsFoundByNumber = new ArrayList< Optional<FireStation>>();
 		fireStationFoundByNumber= Optional.empty();
 		try {
@@ -53,5 +56,6 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 		 System.out.println("listOfFireStationsFoundByNumber :" + listOfFireStationsFoundByNumber);
 		 return listOfFireStationsFoundByNumber;
 	}
+	
 	
 }

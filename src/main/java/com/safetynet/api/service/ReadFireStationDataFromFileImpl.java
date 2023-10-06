@@ -39,7 +39,9 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 		
 		//create list linked of fireStations
 		for( JsonValue elem : datasJsonFireStations) {
+			int index = 1;
 			FireStation fireStation =new FireStation(); 
+			fireStation.setId(elem.asJsonObject().getString("station")  );
 			fireStation.setStationNumber( elem.asJsonObject().getString("station"));
 			fireStation.setAddress( elem.asJsonObject().getString("address"));
 			
