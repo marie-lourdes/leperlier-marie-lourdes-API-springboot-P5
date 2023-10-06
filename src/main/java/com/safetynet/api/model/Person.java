@@ -37,7 +37,7 @@ public class Person {
 	
 	@Pattern( regexp = REGEX_P)
 	@Email
-	@Column(name="email", unique=true)
+	@Column(name="email")
 	private String email;
 	
 	//private int age;
