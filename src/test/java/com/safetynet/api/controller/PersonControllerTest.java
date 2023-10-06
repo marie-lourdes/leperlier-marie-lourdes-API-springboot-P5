@@ -1,6 +1,5 @@
-package com.safetynet.api;
+package com.safetynet.api.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -9,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.safetynet.api.controller.PersonController;
 import com.safetynet.api.service.dataservice.PersonService;
+
 @WebMvcTest(controllers = PersonController.class)
 class PersonControllerTest {
 
@@ -25,7 +22,7 @@ class PersonControllerTest {
 
 	  /*  @Test
 	    public void testGetPerson() throws Exception {
-	        mockMvc.perform(get("/person"))
+	        mockMvc.perform(get("/person/"))
 	            .andExpect(status().isOk());
 
 	    }*/
@@ -51,3 +48,4 @@ class PersonControllerTest {
 	    }*/
 	    
 }
+
