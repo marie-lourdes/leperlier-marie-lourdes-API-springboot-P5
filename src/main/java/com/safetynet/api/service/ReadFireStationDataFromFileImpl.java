@@ -56,4 +56,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 		return  listOfFireStations ;
 		// return datasJsonPersonParsed ;
 	}
+	public JsonObject   readJonObject (){
+		 return null;
+	 }
 }
