@@ -61,30 +61,6 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	}
 	
 	@Override
-	public List<Optional<FireStation>>  findByStationNumber(String stationNumber){
-		 List<FireStation> fireStations = new ArrayList<FireStation>();	
-		 listOfFireStationsFoundByNumber = new ArrayList< Optional<FireStation>>();
-		 fireStationFoundByNumber= Optional.empty();
-		
-		try {
-			fireStations = readFireStations.readFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		 fireStations.forEach(elem -> {
-			String stationNumberOfFireStation = elem.getStationNumber();
-			if (stationNumberOfFireStation.toString().equals(stationNumber.toString())) {
-				System.out.println("element found by stationNumber" + elem);			
-				fireStationFoundByNumber=Optional.ofNullable(elem);
-				 listOfFireStationsFoundByNumber.add(fireStationFoundByNumber);
-			}		 	
-	});
-		 System.out.println("listOfFireStationsFoundByNumber :" + listOfFireStationsFoundByNumber);
-		 return listOfFireStationsFoundByNumber;
-	}
-	
-	@Override
 	public List<Optional<FireStation>>  findByAddress(String address){
 		 List<FireStation> fireStations = new ArrayList<FireStation>();		
 		 listOfFireStationsFoundByAddress = new ArrayList< Optional<FireStation>>();

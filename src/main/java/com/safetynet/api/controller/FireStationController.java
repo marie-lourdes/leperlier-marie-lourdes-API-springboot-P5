@@ -67,12 +67,6 @@ public class FireStationController {
 		return fireStationService.getOneFireStationById(id);
 	}
 	
-//----firestation get by stationNumber from file json------
-	@GetMapping("/firestation")
-	public  List<Optional<FireStation>>  getFireStationsByNumber(@RequestParam String stationNumber){
-		return fireStationService.getFireStationsByNumber(stationNumber);
-	}
-	
 	@GetMapping("/firestation")
 	public  List<Optional<FireStation>>  getFireStationsByAddress(@RequestParam String address){
 		return fireStationService.getFireStationsByAddress(address);
@@ -96,7 +90,7 @@ public class FireStationController {
 
 	@DeleteMapping("/firestation/{id}")
 	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable String id) throws IOException {
-		List<Optional<FireStation>> fireStationFoundById = fireStationService.getFireStationsByNumber(id);
+		List<Optional<FireStation>> fireStationFoundById =fireStationService.getOneFireStationById(id);;
 		Iterator<Optional<FireStation>>  iteratorFireStation = fireStationFoundById .listIterator();
 		 while( iteratorFireStation.hasNext()) {
 			 Optional<FireStation>personItr = iteratorFireStation.next();

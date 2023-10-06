@@ -9,9 +9,8 @@ import com.safetynet.api.model.FireStation;
 public interface IFireStationREADONLYRepository extends IReadOnlyDatasRepository<FireStation,String> {
 	@Override
 	List<FireStation> findAll() throws IOException;
-	
-	 List<Optional<FireStation>>  findByStationNumber(String stationNumber);
-	 List<Optional<FireStation>>  findByAddress(String Address);
 	 List<Optional<FireStation>> findById(String id) ;
+	 List<Optional<FireStation>>  findByAddress(String Address);
+	
 
 }

@@ -42,15 +42,7 @@ public class FireStationService {
 		return fireStationRepositoryFile.findById(id);
 		
 	}
-	
-	public List< Optional<FireStation>> getFireStationsByNumber(String stationNumber) {
-		//List< Optional<FireStation>> fireStationFoundByNumber=
-				/* Optional
-				.ofNullable(fireStationRepositoryFile.findByStationNumber(stationNumber)).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this firestation " + stationNumber + " doesn't exist, try again "));*/
-		return fireStationRepositoryFile.findByStationNumber(stationNumber);
-	}
-	
+		
 	public List< Optional<FireStation>> getFireStationsByAddress( String address ) {
 		return fireStationRepositoryFile.findByAddress(address);
 	}
