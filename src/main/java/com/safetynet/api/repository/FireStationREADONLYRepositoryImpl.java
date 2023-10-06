@@ -16,10 +16,8 @@ import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 @Component
 public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRepository{
 	private Optional<FireStation> fireStationFoundById; 
-	private Optional<FireStation> fireStationFoundByNumber;
 	private Optional<FireStation>fireStationFoundByAddress;
 	private List<Optional<FireStation>> listOfFireStationsFoundById;
-	private List<Optional<FireStation>> listOfFireStationsFoundByNumber;
 	private List<Optional<FireStation>>	listOfFireStationsFoundByAddress;
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;

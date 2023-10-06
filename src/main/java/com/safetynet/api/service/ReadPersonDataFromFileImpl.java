@@ -25,19 +25,12 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 	// @SuppressWarnings("rawtypes")
 
 	@Override
-	public List<Person> readFile() throws IOException {
-		InputStream is = new FileInputStream(path);
-		JsonReader jsonReader = Json.createReader(is);
+	public List<Person> readFile() throws IOException {	
 		listOfPersons = new LinkedList<Person>();
 		
-		// get JsonObject from JsonReader
-		JsonObject datasJsonPersonsObject = jsonReader.readObject();
-		datasJsonPersons = datasJsonPersonsObject.getJsonArray("persons");
-		System.out.println("all datas Json Person parsed with its arrays:" + datasJsonPersons);
-		
-		jsonReader.close();
-		is.close();
-		
+		// get JsonArray of data entity  from JsonReader of Interface  IDatasFileReader 
+		 datasJsonPersons= readDataJson("persons" ); 
+	
 		//create list linked of persons
 		for( JsonValue elem : datasJsonPersons) {
 			Person person =new Person(); 

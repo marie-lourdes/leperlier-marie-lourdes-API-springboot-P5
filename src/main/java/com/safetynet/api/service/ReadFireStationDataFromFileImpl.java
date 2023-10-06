@@ -24,10 +24,11 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 
 	@Override
 	public List<FireStation> readFile() throws IOException {
-				 listOfFireStations = new LinkedList<FireStation>();
+		listOfFireStations = new LinkedList<FireStation>();
 		
-		// get JsonObject from JsonReader
-		 //creer une methode json reader dans l Interface IDatasFileReader  pour generer  Jsonobjet et et eviter de repeter de tous les class impl  le path
+		// get JsonArray of data entity  from JsonReader of Interface  IDatasFileReader 
+		 //creer une methode dans l Interface IDatasFileReader  pour generer  JsonArray et 
+		//eviter de repeter de tous les class impl  le path
 		 datasJsonFireStations= readDataJson("firestations" ); 
 		//create list linked of fireStations
 		

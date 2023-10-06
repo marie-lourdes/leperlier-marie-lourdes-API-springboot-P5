@@ -12,13 +12,14 @@ import javax.json.JsonReader;
 
 public interface IDatasFileReader<T> {
 	List<T>   readFile()  throws IOException ;
+	
 	default JsonArray  readDataJson(String dataNameJson ) throws IOException{
 		String path = "src/main/resources/datasSafetyNetAlerts.json";
 		InputStream is = new FileInputStream(path);
 		JsonReader jsonReader = Json.createReader(is);
 		JsonObject datasJsonObject = jsonReader.readObject();
 		JsonArray jsonArray = datasJsonObject.getJsonArray( dataNameJson );
-		System.out.println("all datas Json "+dataNameJson +"readed with its arrays:" + jsonArray);	
+		System.out.println("all datas Json "+dataNameJson +" read:" + jsonArray);	
 		jsonReader.close();
 		is.close();
 		return jsonArray; 
