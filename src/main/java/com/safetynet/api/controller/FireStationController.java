@@ -12,12 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.UploadDataFileRunner;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.service.dataservice.FireStationService;
 
@@ -27,21 +29,25 @@ import jakarta.validation.Valid;
 public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
-
+	
+	private List<FireStation>	fireStations=new LinkedList<FireStation>();
 	@PostMapping("/firestation/")
-	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation) {
+	public ResponseEntity<List<FireStation>> createFireStation(@Valid @RequestBody FireStation fireStation) throws IOException {
 		System.out.println(fireStation);
+		//fireStations = new LinkedList<FireStation>();
+		fireStations =  fireStationService.getFireStationsFromFile();
+		fireStations .add(fireStation);
 		fireStationService.saveFireStation(fireStation);
-		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStations);
 	}
 
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStationsFromFile() throws FileNotFoundException {
-		List<FireStation> fireStations = new LinkedList<FireStation>();
+			//	fireStations = new LinkedList<FireStation>();
 
 		try {
-			fireStations = fireStationService.getFireStationsFromFile();
+				fireStations = fireStationService.getFireStationsFromFile();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -76,19 +82,25 @@ public class FireStationController {
 			System.out.println(fireStationFoundById);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);
-	}
-
-	@DeleteMapping("/firestation/{id}")
-	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable Long id) {
-		Optional<FireStation> fireStationFoundById = fireStationService.getOneFireStationById(id);
-
-		if (id.toString().equals(fireStationFoundById.get().getId().toString())) {
-			fireStationService.deleteStationNumberFireStation(fireStationFoundById.get(), id);
-		}
-		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}*/
 
-	@DeleteMapping("/firestation")
+	@DeleteMapping("/firestation/{id}")
+	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable String id) throws IOException {
+		List<Optional<FireStation>> fireStationFoundById = fireStationService.getFireStationsByNumber(id);
+		Iterator<Optional<FireStation>>  iteratorFireStation = fireStationFoundById .listIterator();
+		 while( iteratorFireStation.hasNext()) {
+			 Optional<FireStation>personItr = iteratorFireStation.next();
+			
+		if (id.toString().equals(personItr.get().getId().toString())) {
+			fireStationService.deleteByStationNumberFireStation( id);
+			//fireStationService.saveFireStation(fireStations);
+			 return  new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		}
+		
+	}
+		 
+		 return  new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+/*	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteStationNumberOfFireStation(@RequestParam String stationNumber) {	
 		 List<Optional<FireStation>>fireStationFoundByNumber =fireStationService.getFireStationsByNumber(stationNumber);
 			Iterator<Optional<FireStation>>  iteratorFireStation = fireStationFoundByNumber .listIterator();
@@ -102,6 +114,7 @@ public class FireStationController {
 					e.printStackTrace();
 				}
 				 fireStationService.deleteByStationNumberFireStation(stationNumber);
+					//fireStationService.saveFireStation(fireStationFoundById.get());
 				 try {
 					System.out.println("list fire stations APRES suppression"+fireStationService.getFireStationsFromFile());
 				} catch (IOException e) {
@@ -111,7 +124,7 @@ public class FireStationController {
 			 }
 			
 		 }
-		 return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		 return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);*/
 		/*FireStation fireStationWithStationNumberRemoved = new FireStation();
 		List<Optional<FireStation>> personFoundByStationNumber = fireStationService.getFireStationsByNumber( stationNumber); 
 		Iterator<Optional<FireStation>>  iteratorFireStation = personFoundByStationNumber.listIterator();

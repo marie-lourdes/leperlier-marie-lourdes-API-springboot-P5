@@ -1,6 +1,7 @@
 package com.safetynet.api.service.dataservice;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
 import com.safetynet.api.repository.IFireStationCRUDRepository;
+
+import jakarta.validation.Valid;
 
 @Service
 public class FireStationService {
@@ -22,8 +24,8 @@ public class FireStationService {
 
 //--------------------repository avec source de donnéees BDD---------
 	
-	  public List<FireStation> getAllFireStations() { return (List<FireStation>)
-	  fireStationRepository.findAll(); }
+	/*  public List<FireStation> getAllFireStations() { return (List<FireStation>)
+	  fireStationRepository.findAll(); }*/
 	 
 
 //--------------------repository avec source de donnéees fichier Json---------		
@@ -46,7 +48,7 @@ public class FireStationService {
 		return fireStationRepositoryFile.findByStationNumber(stationNumber);
 	}
 
-	public FireStation saveFireStation(FireStation fireStation) {
+	public FireStation saveFireStation(@Valid FireStation fireStation) {
 		return fireStationRepository.save(fireStation);
 	}
 
@@ -62,6 +64,14 @@ public class FireStationService {
 		 * listOfFireStation.add(fireStation.getAddress()); listOfFireStation.remove(0);
 		 * return listOfFireStation; //fireStationRepository.deleteById(id);
 		 */
+	}
+
+	public List<FireStation>  saveFireStation2(FireStation fireStation,	List<FireStation>  fireStations ) {
+		// TODO Auto-generated method stub
+		
+		FireStation fireStationCreated =fireStationRepository.save(fireStation);
+		 fireStations.add(fireStationCreated);
+		return fireStations;
 	}
 
 

@@ -19,26 +19,28 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 	
 	private Optional<FireStation> fireStationFoundByNumber;
 	private Optional<FireStation> fireStationFoundById;
-	
+	private List<FireStation> fireStations=new ArrayList< FireStation>(); ;
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 
 	@Override
 	public List<FireStation> findAll() throws IOException{
-		return readFireStations.readFile();
+		fireStations=readFireStations.readFile();
+		return fireStations;
 	}
 	
 	@Override
 	public List<Optional<FireStation>>  findByStationNumber(String stationNumber){
-		List<FireStation>  fireStations = new ArrayList< FireStation>();
+		// fireStations = new ArrayList< FireStation>();
+		
 		 listOfFireStationsFoundByNumber = new ArrayList< Optional<FireStation>>();
 		fireStationFoundByNumber= Optional.empty();
-		try {
+		/*try {
 			fireStations = this.findAll();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		 fireStations.forEach(elem -> {
 			String stationNumberOfFireStation = elem.getStationNumber();
 			//String lastNamePerson = elem.getLastName();
