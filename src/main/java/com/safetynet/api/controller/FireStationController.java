@@ -30,11 +30,11 @@ public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
 	
-	private List<FireStation>	fireStations=new LinkedList<FireStation>();
+	private List<FireStation>	fireStations;
 	@PostMapping("/firestation/")
 	public ResponseEntity<List<FireStation>> createFireStation(@Valid @RequestBody FireStation fireStation) throws IOException {
 		System.out.println(fireStation);
-		//fireStations = new LinkedList<FireStation>();
+		fireStations = new LinkedList<FireStation>();
 		fireStations =  fireStationService.getFireStationsFromFile();
 		fireStations .add(fireStation);
 		fireStationService.saveFireStation(fireStation);
@@ -44,7 +44,7 @@ public class FireStationController {
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStationsFromFile() throws FileNotFoundException {
-			//	fireStations = new LinkedList<FireStation>();
+				fireStations = new LinkedList<FireStation>();
 
 		try {
 				fireStations = fireStationService.getFireStationsFromFile();
@@ -100,6 +100,7 @@ public class FireStationController {
 	}
 		 
 		 return  new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+		 
 /*	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteStationNumberOfFireStation(@RequestParam String stationNumber) {	
 		 List<Optional<FireStation>>fireStationFoundByNumber =fireStationService.getFireStationsByNumber(stationNumber);

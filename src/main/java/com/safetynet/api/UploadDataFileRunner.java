@@ -13,11 +13,10 @@ import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@Component
 public class UploadDataFileRunner implements CommandLineRunner {
-	 private List<FireStation>fireStations ;
+	/* private List<FireStation>fireStations ;
 	private  List<MedicalRecord>medicalRecords;
-	private  List<Person>persons;
+	private  List<Person>persons;*/
 	 
  @Autowired
  PersonService  personService;
@@ -31,9 +30,9 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		//use to logging each element of file json 
-		persons =personService.getPersonsFromFile();
-	   fireStations =	fireStationService.getFireStationsFromFile();
-	   medicalRecords=medicalRecordService.getMedicalRecordsFromFile();
+		personService.getPersonsFromFile();
+	   	fireStationService.getFireStationsFromFile();
+	 medicalRecordService.getMedicalRecordsFromFile();
 	   // fireStationService.deleteByStationNumberFireStation("3");
 	  //  System.out.println("firestation APRES SUPPRESION "+	fireStationService.getFireStationsFromFile());
 	   //fireStationService.getFireStationsFromFile();
@@ -42,7 +41,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		personService.getOnePersonById("Tenley Boyd");
 		medicalRecordService.getOneMedicalRecordById("Tenley Boyd");
 	}
- public List<FireStation> getFireStation () {
+/* public List<FireStation> getFireStation () {
 	 return fireStations;
  }
  public List<FireStation> setFireStation ( List<FireStation> firestations) {
@@ -61,6 +60,6 @@ public class UploadDataFileRunner implements CommandLineRunner {
  }
  public  List<MedicalRecord> setMedicalRecord ( List<MedicalRecord> medicalRecords) {
 	 return this.medicalRecords= medicalRecords ;
- }
+ }*/
  
 }
