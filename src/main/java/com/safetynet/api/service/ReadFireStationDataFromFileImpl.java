@@ -24,22 +24,14 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 
 	@Override
 	public List<FireStation> readFile() throws IOException {
-		InputStream is = new FileInputStream(path);
-		JsonReader jsonReader = Json.createReader(is);
-		 listOfFireStations = new LinkedList<FireStation>();
+				 listOfFireStations = new LinkedList<FireStation>();
 		
 		// get JsonObject from JsonReader
 		 //creer une methode json reader dans l Interface IDatasFileReader  pour generer  Jsonobjet et et eviter de repeter de tous les class impl  le path
-		JsonObject datasJsonFireStationsObject = jsonReader.readObject();
-		datasJsonFireStations = datasJsonFireStationsObject.getJsonArray("firestations");
-		System.out.println("all datas Json FireStation parsed with its arrays:" + datasJsonFireStations);
-		
-		jsonReader.close();
-		is.close();
-		
+		 datasJsonFireStations= readDataJson("firestations" ); 
 		//create list linked of fireStations
+		
 		for( JsonValue elem : datasJsonFireStations) {
-			int index = 1;
 			FireStation fireStation =new FireStation(); 
 			fireStation.setId(elem.asJsonObject().getString("station")  );
 			fireStation.setStationNumber( elem.asJsonObject().getString("station"));
@@ -56,7 +48,5 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader <FireSt
 		return  listOfFireStations ;
 		// return datasJsonPersonParsed ;
 	}
-	public JsonObject   readJonObject (){
-		 return null;
-	 }
+	
 }
