@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
 
 public interface IMedicalRecordREADONLYRepository extends IReadOnlyDatasRepository<MedicalRecord, Long> {
 	@Override
