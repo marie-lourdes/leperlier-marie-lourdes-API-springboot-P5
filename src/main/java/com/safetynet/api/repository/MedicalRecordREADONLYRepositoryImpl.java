@@ -32,12 +32,13 @@ public class MedicalRecordREADONLYRepositoryImpl implements IMedicalRecordREADON
 		List<MedicalRecord> medicalRecords = new ArrayList<MedicalRecord>();
 		listOfMedicalRecordsFoundByName = new ArrayList<Optional<MedicalRecord>>();
 		medicalRecordFoundByName = Optional.empty();
+		
 		try {
 			medicalRecords = readMedicalRecords.readFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		medicalRecords.forEach(elem -> {
 			String firstNameMedicalRecord = elem.getFirstName();
 			String lastNameMedicalRecord = elem.getLastName();
@@ -56,12 +57,13 @@ public class MedicalRecordREADONLYRepositoryImpl implements IMedicalRecordREADON
 	public Optional<MedicalRecord> findById(String id) {
 		List<MedicalRecord> medicalRecords = new ArrayList<MedicalRecord>();
 		medicalRecordFoundById = Optional.empty();
+		
 		try {
 			medicalRecords = readMedicalRecords.readFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		medicalRecords.forEach(elem -> {
 			String idMedicalRecord = elem.getId();
 			if (idMedicalRecord.toString().equals(id.toString())) {

@@ -32,6 +32,7 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 		 List<FireStation> fireStations = new ArrayList<FireStation>();
 		 listOfFireStationsFoundById = new ArrayList<Optional<FireStation>>();
 		 fireStationFoundById = Optional.empty();
+		 
 		try {
 			fireStations = readFireStations.readFile();
 		} catch (IOException e) {
@@ -42,14 +43,6 @@ public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRe
 			String idFireStation = elem.getId();
 
 			if (idFireStation.toString().equals(id.toString())) {
-				/*
-				 * elem.setId(firstNamePerson +lastNamePerson);
-				 * System.out.println("city person AVANTmofification en memoire"
-				 * +elem.getCity());
-				 * 
-				 * elem.setCity("ville de l objet memoire modifié");
-				 * System.out.println("city person APRES en memoire :" +elem.getCity());
-				 */
 				fireStationFoundById = Optional.ofNullable(elem);
 				listOfFireStationsFoundById.add(fireStationFoundById);
 			}
