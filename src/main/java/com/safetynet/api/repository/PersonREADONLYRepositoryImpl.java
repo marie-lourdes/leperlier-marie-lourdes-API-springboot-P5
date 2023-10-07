@@ -43,14 +43,12 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 			String firstNamePerson = elem.getFirstName();
 			String lastNamePerson = elem.getLastName();
 			if (firstNamePerson.equals(firstName) && lastNamePerson.equals(lastName)) {
-				/*
-				 * elem.setId(firstNamePerson +lastNamePerson);
-				 * System.out.println("city person AVANTmofification en memoire"
-				 * +elem.getCity());
-				 * 
-				 * elem.setCity("ville de l objet memoire modifié");
-				 * System.out.println("city person APRES en memoire :" +elem.getCity());
-				 */
+
+				// test object by memory
+				System.out.println("------------------element of persons AVANT modification en memoire------------" +elem.getEmail());
+				elem.setEmail("email@modifié en memoire.com");
+				System.out.println("----------------element of persons APRES modification en memoire---------------" +elem.getEmail());
+				
 				System.out.println("person found by first and last name of person :" + elem);
 
 				personFoundById = Optional.ofNullable(elem);

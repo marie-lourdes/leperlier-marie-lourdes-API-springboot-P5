@@ -37,7 +37,7 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 
 			listOfPersons.add(person);
 			System.out.println("element of persons" + elem.asJsonObject());
-
+			
 		}
 		// listOfPersons.add();
 		System.out.println("list of persons" + listOfPersons);
