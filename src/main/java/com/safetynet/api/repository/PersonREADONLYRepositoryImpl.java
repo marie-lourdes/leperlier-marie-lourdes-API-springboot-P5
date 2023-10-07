@@ -74,14 +74,7 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 		return 	personFoundById;
 	}
 	
-	public Optional<Person> modify (String id){
-		// test object by memory
-		personFoundById=findById( id);
-		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
-		personFoundById.get().setEmail("email@modifié en memoire.com");
-		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());
-		listOfPersons.add(personFoundById.get());
-		return personFoundById;
+	
 	}
-}
+
 

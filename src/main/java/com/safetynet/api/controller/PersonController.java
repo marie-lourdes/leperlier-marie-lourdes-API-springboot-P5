@@ -80,13 +80,20 @@ public class PersonController {
 	}
 
 	@PutMapping("/person/{id}")
-	public ResponseEntity<Optional<Person>>updateOnePersonById(@PathVariable String id) throws IOException{
-		Optional<Person> personUpdated= personRepositoryFile.modify(id);
+	public ResponseEntity<Optional<Person>> updateOnePersonById(@PathVariable String id) throws IOException{
 		
-		persons.add(0,personUpdated.get());
+		 Optional<Person> personFoundById=personService.getOnePersonById(id);
+		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
+		personFoundById.get().setEmail("email@modifié en memoire.com");
+		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());
+		
+	
+	//	Optional<Person> personUpdated= personRepositoryFile.modify(id);
+		
+		persons.add(0,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
-		//System.out.println(" GET list of personUpdated"+ personService.getPersonsFromFile());
-		return ResponseEntity.status(HttpStatus.CREATED).body(personUpdated );
+	
+		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
 	}
 	// the id, first and last name cannot be modified
 	/*
