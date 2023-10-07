@@ -13,6 +13,7 @@ import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
 public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
+	private List<Person> listOfPersons;
 	private List<Optional<Person>> listOfPersonsFoundByName;
 	private Optional<Person> personFoundById;
 	private Optional<Person> personFoundByName;
@@ -22,7 +23,8 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 
 	@Override
 	public List<Person> findAll() throws IOException {
-		return readPersons.readFile();
+		listOfPersons=readPersons.readFile();
+		return listOfPersons;
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 				listOfPersonsFoundByName.add(personFoundByName);
 			}
 		});
-		 modify();
+
 		System.out.println("listOfPersonsFoundByFullName :" +	listOfPersonsFoundByName );
 		return 	listOfPersonsFoundByName ;
 	}
@@ -72,11 +74,14 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 		return 	personFoundById;
 	}
 	
-	void modify (){
+	public Optional<Person> modify (String id){
 		// test object by memory
-		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundByName.get().getEmail());
-		personFoundByName.get().setEmail("email@modifié en memoire.com");
-		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundByName.get().getEmail());
+		personFoundById=findById( id);
+		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
+		personFoundById.get().setEmail("email@modifié en memoire.com");
+		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());
+		listOfPersons.add(personFoundById.get());
+		return personFoundById;
 	}
 }
 

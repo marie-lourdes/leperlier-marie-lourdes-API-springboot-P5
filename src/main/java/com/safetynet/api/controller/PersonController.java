@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -30,7 +32,11 @@ public class PersonController {
 
 	@Autowired
 	private PersonService personService;
-
+	
+	//test modif objet en memoire dans Method HTTP PUT
+	@Autowired
+	PersonREADONLYRepositoryImpl  personRepositoryFile;
+	List<Person> persons = new LinkedList<Person>();
 	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
@@ -48,7 +54,7 @@ public class PersonController {
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/person/")
 	public @ResponseBody List<Person> getAllPersonsFromFile() throws FileNotFoundException {
-		List<Person> persons = new LinkedList<Person>();
+	
 
 		try {
 			persons = personService.getPersonsFromFile();
@@ -73,6 +79,15 @@ public class PersonController {
 		return personService.getOnePersonByFullName(firstName, lastName);
 	}
 
+	@PutMapping("/person/{id}")
+	public ResponseEntity<Optional<Person>>updateOnePersonById(@PathVariable String id) throws IOException{
+		Optional<Person> personUpdated= personRepositoryFile.modify(id);
+		
+		persons.add(0,personUpdated.get());
+		System.out.println("list of personUpdated"+persons );
+		//System.out.println(" GET list of personUpdated"+ personService.getPersonsFromFile());
+		return ResponseEntity.status(HttpStatus.CREATED).body(personUpdated );
+	}
 	// the id, first and last name cannot be modified
 	/*
 	 * @PutMapping("/person/{id}") public ResponseEntity<Optional<Person>>
