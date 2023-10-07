@@ -42,17 +42,11 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 			String lastNamePerson = elem.getLastName();
 			if (firstNamePerson.equals(firstName) && lastNamePerson.equals(lastName)) {
 				System.out.println("person found by first and last name of person :" + elem);
-				  personFoundByName = Optional.ofNullable(elem);
-				  
-				// test object by memory
-				System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundByName.get().getEmail());
-				personFoundByName.get().setEmail("email@modifié en memoire.com");
-				System.out.println("----------------persons APRES modification en memoire---------------" +personFoundByName.get().getEmail());
-				         
+				  personFoundByName = Optional.ofNullable(elem);	         
 				listOfPersonsFoundByName.add(personFoundByName);
 			}
 		});
-
+		 modify();
 		System.out.println("listOfPersonsFoundByFullName :" +	listOfPersonsFoundByName );
 		return 	listOfPersonsFoundByName ;
 	}
@@ -77,4 +71,12 @@ public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
 		System.out.println("personFoundById :" + 	personFoundById);
 		return 	personFoundById;
 	}
+	
+	void modify (){
+		// test object by memory
+		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundByName.get().getEmail());
+		personFoundByName.get().setEmail("email@modifié en memoire.com");
+		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundByName.get().getEmail());
+	}
 }
+
