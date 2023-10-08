@@ -19,7 +19,7 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 	@Override
 	public List<Person> readFile() throws IOException {
 		listOfPersons = new LinkedList<Person>();
-
+		//listOfPersons = new ArrayList<Person>();
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 		datasJsonPersons = readDataJson("persons");
 
@@ -44,5 +44,8 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 
 		return listOfPersons;
 		// return datasJsonPersonParsed ;
+	}
+public List<Person>	getListOfPersons(){
+		return listOfPersons;
 	}
 }
