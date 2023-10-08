@@ -98,10 +98,10 @@ public class PersonController {
 			 personFoundById.get().setEmail(person.getEmail());
 		}
 		
-		//persons=personService.getPersonsFromFile();
-		//Person index =persons.set(0,personFoundById.get());
+		persons=personService.getPersonsFromFile();
+		Person index =persons.set(0,personFoundById.get());
 		//System.out.println("index"+index);
-		persons.add(0,personFoundById.get());
+		//persons.add(0,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
 		//personService.savePerson(personFoundById.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
