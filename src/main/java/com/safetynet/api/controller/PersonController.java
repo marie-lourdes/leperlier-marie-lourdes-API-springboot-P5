@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
+import com.safetynet.api.service.IDatasFileReader;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -33,10 +38,14 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
+	
 	//test modif objet en memoire dans Method HTTP PUT
 	@Autowired
 	PersonREADONLYRepositoryImpl  personRepositoryFile;
-	List<Person> persons = new LinkedList<Person>();
+
+	 
+	private List<Person> persons = new LinkedList<Person>();
+	 
 	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
@@ -80,16 +89,21 @@ public class PersonController {
 	}
 
 	@PutMapping("/person/{id}")
-	public ResponseEntity<Optional<Person>> updateOnePersonById(@PathVariable String id) throws IOException{
-		
+	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person,@PathVariable String id) throws IOException{
 		 Optional<Person> personFoundById=personService.getOnePersonById(id);
-		System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
+	/*	System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
 		personFoundById.get().setEmail("email@modifié en memoire.com");
-		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());
+		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());*/
+		//Optional<Person> personUpdated= personRepositoryFile.modify(id);
+		if (id.toString().equals(personFoundById.get().getId().toString())) {
+			 personFoundById.get().setAddress(person.getAddress());
+			 personFoundById.get().setZip(person.getZip());
+			 personFoundById.get().setCity(person.getCity()); 
+			 personFoundById.get().setPhone(person.getPhone());
+			 personFoundById.get().setEmail(person.getEmail());
+		}
 		
-	
-	//	Optional<Person> personUpdated= personRepositoryFile.modify(id);
-		
+		persons=personService.getPersonsFromFile();
 		persons.add(0,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
 	
