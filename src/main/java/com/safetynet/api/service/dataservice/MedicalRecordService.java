@@ -8,23 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.IMedicalRecordCRUDRepository;
 import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
 
 @Service
 public class MedicalRecordService {
-	@Autowired
-	private IMedicalRecordCRUDRepository medicalRecordRepository;
 
 	@Autowired
 	private MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
-
-	// --------------------repository avec source de donnéees BDD---------
-	/*
-	 * public List<MedicalRecord> getAllMedicalRecords() { return
-	 * (List<MedicalRecord>) medicalRecordRepository.findAll(); }
-	 */
 
 	// --------------------repository avec source de donnéees fichier Json---------
 	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
@@ -41,7 +31,7 @@ public class MedicalRecordService {
 	public Optional<MedicalRecord> getOneMedicalRecordById(String id ) {
 		return medicalRecordRepositoryFile.findById(id);
 	}
-	
+/*	
 	public List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(String firstName, String lastName) {
 		return medicalRecordRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
 	}
@@ -57,5 +47,5 @@ public class MedicalRecordService {
 
 	public void deleteOneMedicalRecordByName(MedicalRecord medicalRecord) {
 		medicalRecordRepository.delete(medicalRecord);
-	}
+	}*/
 }

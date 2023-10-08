@@ -8,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.IPersonCRUDRepository;
 import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
 
 @Service
 public class PersonService {
-	@Autowired
-	private IPersonCRUDRepository personRepository;
-
 	@Autowired
 	private PersonREADONLYRepositoryImpl personRepositoryFile;
 
@@ -44,7 +40,7 @@ public class PersonService {
 	public List<Optional<Person>> getOnePersonByFullName(String firstName, String lastName) {
 		return personRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
 	}
-	 
+/*	 
 	public Person savePerson(Person person) {
 		return personRepository.save(person);
 	}
@@ -55,6 +51,6 @@ public class PersonService {
 
 	public void deleteOnePersonByName(Person person) {
 		personRepository.delete(person);
-	}
+	}*/
 
 }

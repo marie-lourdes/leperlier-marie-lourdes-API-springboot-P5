@@ -9,23 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
-import com.safetynet.api.repository.IFireStationCRUDRepository;
+
 
 import jakarta.validation.Valid;
 
 @Service
 public class FireStationService {
-	@Autowired
-	private IFireStationCRUDRepository fireStationRepository;
+
 
 	@Autowired
 	private FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
-
-//--------------------repository avec source de donnéees BDD---------
-	
-	/*  public List<FireStation> getAllFireStations() { return (List<FireStation>)
-	  fireStationRepository.findAll(); }*/
-	 
 
 //--------------------repository avec source de donnéees fichier Json---------		
 	public List<FireStation> getFireStationsFromFile() throws IOException {
@@ -38,15 +31,15 @@ public class FireStationService {
 						" an error has occured,this firestation " + id + " doesn't exist, try again ")));
 		return fireStationFoundById;
 	}*/
-	public List<Optional<FireStation>> getOneFireStationById(String id) {
+public List<Optional<FireStation>> getOneFireStationById(String id) {
 		return fireStationRepositoryFile.findById(id);
 		
 	}
-		
+	
 	public List< Optional<FireStation>> getFireStationsByAddress( String address ) {
 		return fireStationRepositoryFile.findByAddress(address);
 	}
-	
+/*	
 	public FireStation saveFireStation(@Valid FireStation fireStation) {
 		return fireStationRepository.save(fireStation);
 	}
@@ -63,7 +56,7 @@ public class FireStationService {
 		 * listOfFireStation.add(fireStation.getAddress()); listOfFireStation.remove(0);
 		 * return listOfFireStation; //fireStationRepository.deleteById(id);
 		 */
-	}
+/*	}
 	
 	public List<FireStation>  saveFireStation2(FireStation fireStation,	List<FireStation>  fireStations ) {
 		// TODO Auto-generated method stub
@@ -71,7 +64,7 @@ public class FireStationService {
 		FireStation fireStationCreated =fireStationRepository.save(fireStation);
 		 fireStations.add(fireStationCreated);
 		return fireStations;
-	}
+	}*/
 
 
 	
