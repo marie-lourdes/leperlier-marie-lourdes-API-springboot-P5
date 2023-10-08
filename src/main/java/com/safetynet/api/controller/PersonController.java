@@ -104,7 +104,9 @@ public class PersonController {
 		}
 		
 		persons=personService.getPersonsFromFile();
-		persons.add(0,personFoundById.get());
+		Person index =persons.set(0,personFoundById.get());
+		System.out.println("index"+index);
+		//persons.add(index,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
 	
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
