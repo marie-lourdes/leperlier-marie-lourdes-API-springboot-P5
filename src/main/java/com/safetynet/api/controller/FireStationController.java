@@ -30,7 +30,7 @@ public class FireStationController {
 	private FireStationService fireStationService;
 	
 	private List<FireStation>	fireStations;
-	@PostMapping("/firestation/")
+/*	@PostMapping("/firestation/")
 	public ResponseEntity<List<FireStation>> createFireStation(@Valid @RequestBody FireStation fireStation) throws IOException {
 		System.out.println(fireStation);
 		fireStations = new LinkedList<FireStation>();
@@ -38,7 +38,7 @@ public class FireStationController {
 		fireStations .add(fireStation);
 		fireStationService.saveFireStation(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStations);
-	}
+	}*/
 
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/firestation/")
@@ -88,7 +88,7 @@ public class FireStationController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationFoundById);
 	}*/
 
-	@DeleteMapping("/firestation/{id}")
+/*	@DeleteMapping("/firestation/{id}")
 	public ResponseEntity<Long> deleteOneFireStationById(@PathVariable String id) throws IOException {
 		List<Optional<FireStation>> fireStationFoundById =fireStationService.getOneFireStationById(id);;
 		Iterator<Optional<FireStation>>  iteratorFireStation = fireStationFoundById .listIterator();
@@ -138,8 +138,8 @@ public class FireStationController {
 			 if (stationNumber.toString().equals(personItr.get().getStationNumber().toString()){
 				 fireStationService.deleteByStationNumberFireStation(personItr );
 			 }
-		 }*/
-	}
+		 }
+	}*/
 		
 			/*
 			 * fireStationWithStationNumberRemoved = new

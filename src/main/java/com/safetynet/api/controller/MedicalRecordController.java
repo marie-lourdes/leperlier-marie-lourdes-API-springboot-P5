@@ -29,14 +29,14 @@ public class MedicalRecordController {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-	@PostMapping("/medicalRecord/")
+/*	@PostMapping("/medicalRecord/")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
 			throws Exception {	
 		medicalRecordService.saveMedicalRecord(medicalRecord);
 		System.out.println(medicalRecord);
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);
 		// return medicalRecordService.saveMedicalRecord(medicalRecord);
-	}
+	}*/
 
 	//-----------------requete a partir du fichier json-------------
 @GetMapping("/medicalRecord/")
@@ -60,10 +60,10 @@ public class MedicalRecordController {
 	}
 	
 	//----MedicalRecord  getbyFullName  from file json------
-		@GetMapping("/medicalRecord")
+	/*	@GetMapping("/medicalRecord")
 		public  List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(@RequestParam String firstName, @RequestParam String lastName){
 			return medicalRecordService.getOneMedicalRecordByFullName(firstName,lastName);
-		}
+		}*/
 		
 	// the id, first and last name cannot be modified
 /*	@PutMapping("/medicalRecord/{id}")
@@ -82,7 +82,7 @@ public class MedicalRecordController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 	}*/
 
-	@DeleteMapping("/medicalRecord/")
+/*	@DeleteMapping("/medicalRecord/")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		//List<MedicalRecord> medicalRecords = medicalRecordService.getAllMedicalRecords();
@@ -105,5 +105,5 @@ public class MedicalRecordController {
 
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 
-	}
+	}*/
 }

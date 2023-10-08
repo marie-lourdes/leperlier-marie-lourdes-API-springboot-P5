@@ -41,19 +41,19 @@ public class PersonController {
 	 
 	private List<Person> persons = new LinkedList<Person>();
 	 
-	@PostMapping("/person/")
+	/*@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
 		personService.savePerson(person);
 		System.out.println(person);
-		return ResponseEntity.status(HttpStatus.CREATED).body(person);
+		return ResponseEntity.status(HttpStatus.CREATED).body(person);*/
 
 //}
 		/*
 		 * catch(jakarta.validation.ConstraintViolationException e) { return
 		 * e.getMessage(); }
-		 */
-	}
+		 
+	}*/
 
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/person/")
@@ -103,7 +103,7 @@ public class PersonController {
 		//System.out.println("index"+index);
 		persons.add(0,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
-		personService.savePerson(personFoundById.get());
+		//personService.savePerson(personFoundById.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
 	}
 	// the id, first and last name cannot be modified
@@ -151,7 +151,7 @@ public class PersonController {
 	 * ); }
 	 */
 
-	@DeleteMapping("/person/")
+	/*@DeleteMapping("/person/")
 	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
 		// List<Person> persons = personService.getAllPersons();
 
@@ -173,5 +173,5 @@ public class PersonController {
 			}
 		});
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	}
+	}*/
 }
