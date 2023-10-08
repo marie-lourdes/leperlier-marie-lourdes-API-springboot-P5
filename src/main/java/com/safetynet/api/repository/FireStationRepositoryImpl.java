@@ -12,7 +12,7 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 
 @Component
-public class FireStationREADONLYRepositoryImpl implements IFireStationREADONLYRepository{
+public class FireStationRepositoryImpl implements IFireStationRepository{
 	private Optional<FireStation> fireStationFoundById; 
 	private Optional<FireStation>fireStationFoundByAddress;
 	private List<Optional<FireStation>> listOfFireStationsFoundById;

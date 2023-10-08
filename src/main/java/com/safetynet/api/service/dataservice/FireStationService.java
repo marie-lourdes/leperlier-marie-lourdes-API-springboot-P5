@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.repository.FireStationREADONLYRepositoryImpl;
+import com.safetynet.api.repository.FireStationRepositoryImpl;
 
 
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class FireStationService {
 
 
 	@Autowired
-	private FireStationREADONLYRepositoryImpl fireStationRepositoryFile;
+	private FireStationRepositoryImpl fireStationRepositoryFile;
 
 //--------------------repository avec source de donnéees fichier Json---------		
 	public List<FireStation> getFireStationsFromFile() throws IOException {

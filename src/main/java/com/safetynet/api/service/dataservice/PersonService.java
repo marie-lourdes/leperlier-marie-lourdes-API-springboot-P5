@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
+import com.safetynet.api.repository.PersonRepositoryImpl;
 
 @Service
 public class PersonService {
 	@Autowired
-	private PersonREADONLYRepositoryImpl personRepositoryFile;
+	private PersonRepositoryImpl personRepositoryFile;
 
 //--------------------repository avec source de donnéees BDD---------
 	/*

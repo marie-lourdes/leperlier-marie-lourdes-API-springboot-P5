@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.repository.MedicalRecordREADONLYRepositoryImpl;
+import com.safetynet.api.repository.MedicalRecordRepositoryImpl;
 
 @Service
 public class MedicalRecordService {
 
 	@Autowired
-	private MedicalRecordREADONLYRepositoryImpl medicalRecordRepositoryFile;
+	private MedicalRecordRepositoryImpl medicalRecordRepositoryFile;
 
 	// --------------------repository avec source de donnéees fichier Json---------
 	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {

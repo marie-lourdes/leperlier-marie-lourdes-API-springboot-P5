@@ -12,7 +12,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
-public class PersonREADONLYRepositoryImpl implements IPersonREADONLYRepository {
+public class PersonRepositoryImpl implements IPersonRepository {
 	private List<Person> listOfPersons;
 	private List<Optional<Person>> listOfPersonsFoundByName;
 	private Optional<Person> personFoundById;

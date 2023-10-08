@@ -12,7 +12,7 @@ import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.ReadMedicalRecordDataFromFileImpl;
 
 @Component
-public class MedicalRecordREADONLYRepositoryImpl implements IMedicalRecordREADONLYRepository {
+public class MedicalRecordRepositoryImpl implements IMedicalRecordRepository {
 	private List<Optional<MedicalRecord>> listOfMedicalRecordsFoundByName;
 	private Optional<MedicalRecord> medicalRecordFoundByName;
 	private Optional<MedicalRecord> medicalRecordFoundById;
