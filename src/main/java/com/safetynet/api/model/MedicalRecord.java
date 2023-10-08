@@ -2,38 +2,33 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "medicalrecords")
+//@Entity
+//@Table(name = "medicalrecords")
 public class MedicalRecord {
 	// this regex date require 0 in format date
 	private final String REGEX_P = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 
-	@Column(name = "first_name")
+	//@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "last_name")
+	//@Column(name = "last_name")
 	private String lastName;
 
 	@Pattern(regexp = REGEX_P)
-	@Column(name = "birthdate")
+	//@Column(name = "birthdate")
 	private String birthdate;
 
-	@Column(name = "medications")
+	//@Column(name = "medications")
 	private List<String> medications;
 
-	@Column(name = "allergies")
+	//@Column(name = "allergies")
 	private List<String> allergies;
 
 	public String getId() {

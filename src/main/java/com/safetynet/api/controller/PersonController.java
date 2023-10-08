@@ -7,10 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.PersonREADONLYRepositoryImpl;
-import com.safetynet.api.service.IDatasFileReader;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
@@ -103,12 +98,12 @@ public class PersonController {
 			 personFoundById.get().setEmail(person.getEmail());
 		}
 		
-		persons=personService.getPersonsFromFile();
-		Person index =persons.set(0,personFoundById.get());
-		System.out.println("index"+index);
-		//persons.add(index,personFoundById.get());
+		//persons=personService.getPersonsFromFile();
+		//Person index =persons.set(0,personFoundById.get());
+		//System.out.println("index"+index);
+		persons.add(0,personFoundById.get());
 		System.out.println("list of personUpdated"+persons );
-	
+		personService.savePerson(personFoundById.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
 	}
 	// the id, first and last name cannot be modified

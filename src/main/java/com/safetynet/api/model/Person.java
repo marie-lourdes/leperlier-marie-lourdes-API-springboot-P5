@@ -1,43 +1,39 @@
 package com.safetynet.api.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.cache.annotation.Cacheable;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
-@Entity 
-@Table(name="person")
+//@Entity 
+//@Table(name="person")
 public class Person {
 	private final String REGEX_P = "^(.+)@(\\S+)$";
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private String id ;
 	
-	@Column(name="first_name")
+	//@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="last_name")
+	//@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="address")
+	//@Column(name="address")
 	private String address;
 	
-	@Column(name="zip")
+	//@Column(name="zip")
 	private String zip;
 	
-	@Column(name="city")
+	//@Column(name="city")
 	private String city;
 	
-	@Column(name="phone")
+	//@Column(name="phone")
 	private String phone;
 	
 	@Pattern( regexp = REGEX_P)
 	@Email
-	@Column(name="email")
+	//@Column(name="email")
 	private String email;
 	
 	//private int age;
@@ -63,15 +59,15 @@ public class Person {
 		this.address= address;
 		this.phone= phone;
 	}*/
-
+@Cacheable
 	public String getId() {
 		return id;
 	}
-	
+
 	public String setId (String id) {
 		return this.id=id;
 	}
-	
+	@Cacheable
 	public String getFirstName() {
 		return firstName;
 	}
@@ -79,7 +75,7 @@ public class Person {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
+	@Cacheable
 	public String getLastName() {
 		return lastName;
 	}
@@ -87,7 +83,7 @@ public class Person {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
+	@Cacheable
 	public String getAddress() {
 		return address;
 	}
@@ -95,7 +91,7 @@ public class Person {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	@Cacheable
 	public String getZip() {
 		return zip;
 	}
@@ -103,7 +99,7 @@ public class Person {
 	public void setZip(String string) {
 		this.zip = string;
 	}
-
+	@Cacheable
 	public String getCity() {
 		return city;
 	}
@@ -111,7 +107,7 @@ public class Person {
 	public void setCity(String city) {
 		this.city = city;
 	}
-
+	@Cacheable
 	public String getPhone() {
 		return phone;
 	}
@@ -119,7 +115,7 @@ public class Person {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	@Cacheable
 	public String getEmail() {
 		return email;
 	}
