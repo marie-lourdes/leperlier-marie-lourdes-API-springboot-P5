@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
@@ -43,8 +44,13 @@ public class PersonController {
 	
 	@PutMapping("/person/{id}")
 	public ResponseEntity<Person> updateOnePersonById(@RequestBody Person person,@PathVariable String id ) {
-	Person medicalRecordFoundById=	personService.updatePerson(id,person) ;
-		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
+	Person personFoundById=	personService.updatePerson(id,person) ;
+	if (personFoundById != null) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
+	} else {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Person());
+	}
+		
 	}
 	
 	@DeleteMapping("/person/{id}")

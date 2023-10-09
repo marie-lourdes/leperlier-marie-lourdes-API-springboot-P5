@@ -44,7 +44,7 @@ public class MedicalRecordController {
 		if (medicalRecordFoundById != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 		} else {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MedicalRecord());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MedicalRecord());
 		}
 
 	}
