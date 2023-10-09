@@ -1,7 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,50 +9,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.UploadDataFileRunner;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.PersonRepositoryImpl;
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
+import jakarta.validation.Valid;
+
 @RestController
 //@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
-
 	@Autowired
 	private PersonService personService;
-	
-	
-	//test modif objet en memoire dans Method HTTP PUT
-	@Autowired
-	PersonRepositoryImpl  personRepositoryFile;
-	@Autowired
-	UploadDataFileRunner uploadDataFileRunner ;
-	@Autowired
-	ReadPersonDataFromFileImpl readPerson;
-	private List<Person> persons ;
-	 
-	/*@PostMapping("/person/")
+		 
+	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 //try {	
-		personService.savePerson(person);
+		Person personCreated =personService.addPerson(person);
 		System.out.println(person);
-		return ResponseEntity.status(HttpStatus.CREATED).body(person);*/
-
+		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);	
 //}
 		/*
 		 * catch(jakarta.validation.ConstraintViolationException e) { return
 		 * e.getMessage(); }
 		 
 	}*/
-
+	}
+	
 	@PutMapping("/person/{id}")
 	public ResponseEntity<Person> updateOnePersonById(@RequestBody Person person,@PathVariable String id ) {
 	Person medicalRecordFoundById=	personService.updatePerson(id,person) ;
@@ -69,7 +56,12 @@ public class PersonController {
 
 	}
 	
-	@GetMapping("/person/")
+	@GetMapping("/person/{id}")
+	public Optional<Person> getOnePerson(@PathVariable String id) {
+		return personService.getOneMedicalRecordById(id);
+	}
+	
+/*	@GetMapping("/person/")
 	public @ResponseBody List<Person> getAllPersonsFromFile() throws IOException {
 		persons= readPerson.getListOfPersons();
 	/*	try {
@@ -78,15 +70,12 @@ public class PersonController {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 
-		return persons;
-	}
+		return persons;*/
+	
 
-	@GetMapping("/person/{id}")
-	public Optional<Person> getOnePerson(@PathVariable String id) {
-		return personService.getOneMedicalRecordById(id);
-	}
+	
 
 //----Person  getbyFullName  from file json------
 /*	@GetMapping("/person")

@@ -28,19 +28,7 @@ import jakarta.validation.Valid;
 public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
-	
-	private List<FireStation>	fireStations;
-/*	@PostMapping("/firestation/")
-	public ResponseEntity<List<FireStation>> createFireStation(@Valid @RequestBody FireStation fireStation) throws IOException {
-		System.out.println(fireStation);
-		fireStations = new LinkedList<FireStation>();
-		fireStations =  fireStationService.getFireStationsFromFile();
-		fireStations .add(fireStation);
-		fireStationService.saveFireStation(fireStation);
-		return ResponseEntity.status(HttpStatus.CREATED).body(fireStations);
-	}*/
 
-	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStationsFromFile() throws FileNotFoundException {
 				fireStations = new LinkedList<FireStation>();
@@ -54,13 +42,6 @@ public class FireStationController {
 		}
 		return fireStations;
 	}
-
-//----firestation get by id BDD------
-	/*@GetMapping("/firestation/{id}")
-	public Optional<FireStation> getOneFireStation(@PathVariable Long id) {
-		return fireStationService.getOneFireStationById(id);
-	}*/
-	//----firestation getbyId from file json------
 		
 	@GetMapping("/firestation/{id}")
 	public  List<Optional<FireStation>> getFireStationsById(@PathVariable String id){
@@ -73,6 +54,16 @@ public class FireStationController {
 	}
 
 /*
+ * /*	@PostMapping("/firestation/")
+	public ResponseEntity<List<FireStation>> createFireStation(@Valid @RequestBody FireStation fireStation) throws IOException {
+		System.out.println(fireStation);
+		fireStations = new LinkedList<FireStation>();
+		fireStations =  fireStationService.getFireStationsFromFile();
+		fireStations .add(fireStation);
+		fireStationService.saveFireStation(fireStation);
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStations);
+	}
+	
 	@PutMapping("/firestation/{id}")
 	public ResponseEntity<Optional<FireStation>> updateOneFireStationById(@PathVariable Long id,
 			@Valid @RequestBody FireStation fireStation) {
