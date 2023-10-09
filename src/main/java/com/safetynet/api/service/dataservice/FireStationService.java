@@ -20,7 +20,19 @@ public class FireStationService {
 		fireStations.add(fireStation);
 		return fireStation;
 	}
-
+	
+    public FireStation updateFireStation(String id,FireStation updatedFireStation) {
+        return fireStations .stream()
+                .filter(fireStation -> fireStation.getId().equals(id) )
+                .findFirst()
+                .map(existingFireStation-> {
+                	existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
+                	existingFireStation.setAddress(updatedFireStation.getAddress());          
+                    return existingFireStation;
+                })
+                .orElse(null);
+    }
+    
 	public Optional<FireStation> getFireStationsById(String id) {
 		return fireStations.stream().filter(fireStation -> fireStation.getId().equals(id)).findFirst()
 				.map(existingFireStation -> {

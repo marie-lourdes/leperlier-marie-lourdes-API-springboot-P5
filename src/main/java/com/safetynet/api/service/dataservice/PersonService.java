@@ -23,20 +23,6 @@ public class PersonService {
         return person;
     }
     
-    public Optional<Person> getOneMedicalRecordById(String id) {
-  	  return persons.stream()
-                .filter(person -> person.getId().equals(id))
-                .findFirst()
-                .map(existingPerson -> { 
-              	  return existingPerson;
-                } );
-   }
-	 
-  public List<Person> getAllMedicalRecords() {
-  	System.out.println("Retrieving all persons"+persons);
-      return persons;
-  }
-  
     public Person updatePerson(String id,Person updatedPerson) {
         return persons.stream()
                 .filter(person -> person.getId().equals(id) )
@@ -51,6 +37,33 @@ public class PersonService {
                 })
                 .orElse(null);
     }
+    
+    public boolean deleteOnePersonById(String id) {
+        //   log.debug("Deleting medical record for {} {}", firstName, lastName);
+           boolean result = persons.removeIf(person -> person.getId().equals(id));
+           if (result) {
+            //   log.info("Person deleted successfully for {} {}", id);
+           } else {
+              // log.error("Failed to delete person for {} {}", id);
+           }
+           return result;
+       }
+    
+    public Optional<Person> getOneMedicalRecordById(String id) {
+  	  return persons.stream()
+                .filter(person -> person.getId().equals(id))
+                .findFirst()
+                .map(existingPerson -> { 
+              	  return existingPerson;
+                } );
+   }
+	 
+  public List<Person> getAllMedicalRecords() {
+  	System.out.println("Retrieving all persons"+persons);
+      return persons;
+  }
+  
+  
 
 /*	public Optional<Person> getOnePersonById(String id) {
 		Optional<Person> personFoundById = Optional

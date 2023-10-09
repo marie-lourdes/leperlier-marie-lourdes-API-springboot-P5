@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,7 +60,15 @@ public class PersonController {
 	Person medicalRecordFoundById=	personService.updatePerson(id,person) ;
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 	}
-	// -----------------requete a partir du fichier json-------------
+	
+	@DeleteMapping("/person/{id}")
+	public ResponseEntity<Long> deleteOnePersonById(@PathVariable String id) {
+		boolean isPersonRemoved = personService.deleteOnePersonById(id);
+		return isPersonRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
+				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+
+	}
+	
 	@GetMapping("/person/")
 	public @ResponseBody List<Person> getAllPersonsFromFile() throws IOException {
 		persons= readPerson.getListOfPersons();

@@ -46,13 +46,13 @@ public class MedicalRecordService {
                 .orElse(null);
     }
 
-    public boolean deleteMedicalRecord(String firstName, String lastName) {
-     //   log.debug("Deleting medical record for {} {}", firstName, lastName);
-        boolean result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName));
+    public boolean deleteOneMedicalRecordById(String id) {
+     //   log.debug("Deleting medical record for {} {}", id);
+        boolean result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getId().equals(id) );
         if (result) {
-         //   log.info("Medical record deleted successfully for {} {}", firstName, lastName);
+         //   log.info("Medical record deleted successfully for {} {}", id);
         } else {
-           // log.error("Failed to delete medical record for {} {}", firstName, lastName);
+           // log.error("Failed to delete medical record for {} {}", id);
         }
         return result;
     }
