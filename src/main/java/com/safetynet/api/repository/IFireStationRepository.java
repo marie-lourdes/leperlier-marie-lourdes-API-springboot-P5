@@ -9,10 +9,7 @@ import com.safetynet.api.model.FireStation;
 public interface IFireStationRepository extends IReadOnlyDatasRepository<FireStation,String> {
 	@Override
 	List<FireStation> findAll() throws IOException;
-	 List<Optional<FireStation>> findById(String id) ;
-	 List<Optional<FireStation>>  findByAddress(String Address);
-
-		
+	
 	/*	default void deleteByStationNumberFireStation( String stationNumber) {
 		/*	FireStationREADONLYRepositoryImpl fireStationREADONLYRepositoryImpl = new FireStationREADONLYRepositoryImpl();
 			//fireStationRepositoryFile.findByStationNumber(stationNumber);
@@ -28,6 +25,5 @@ public interface IFireStationRepository extends IReadOnlyDatasRepository<FireSta
 		// deleteById(stationNumber);
 		}
 
-		FireStation save(FireStation fireStations);
 		void deleteById(String stationNumber);*/
 }
