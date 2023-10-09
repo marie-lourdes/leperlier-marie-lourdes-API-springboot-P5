@@ -33,7 +33,7 @@ public class FireStationService {
                 .orElse(null);
     }
     
-    public boolean deleteOnePersonById(String id) {
+    public boolean deleteFireStationById(String id) {
         //   log.debug("Deleting medical record for {} {}", firstName, lastName);
            boolean result = fireStations.removeIf(fireStation -> fireStation.getId().equals(id));
            if (result) {
@@ -44,7 +44,7 @@ public class FireStationService {
            return result;
        }
     
-    public boolean deleteOnePersonByAddress(String address) {
+    public boolean deleteOneFireStationByAddress(String address) {
         //   log.debug("Deleting medical record for {} {}", firstName, lastName);
            boolean result = fireStations.removeIf(fireStation -> fireStation.getAddress().equals(address));
            if (result) {

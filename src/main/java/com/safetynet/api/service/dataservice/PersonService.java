@@ -57,7 +57,7 @@ public class PersonService {
                 } );
    }
 	 
-  public List<Person> getAllMedicalRecords() {
+  public List<Person> getAllPersons() {
   	System.out.println("Retrieving all persons"+persons);
       return persons;
   }

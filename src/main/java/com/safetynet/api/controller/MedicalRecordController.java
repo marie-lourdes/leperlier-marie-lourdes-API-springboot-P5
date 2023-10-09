@@ -35,7 +35,6 @@ public class MedicalRecordController {
 		// medicalRecords.add(medicalRecord);
 		System.out.println(medicalRecord);
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
-		// return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 
 	@PutMapping("/medicalRecord/{id}")
@@ -49,34 +48,22 @@ public class MedicalRecordController {
 		}
 
 	}
-
-//-----------------requete a partir du fichier json-------------
-	@GetMapping("/medicalRecord/")
-	public @ResponseBody List<MedicalRecord> getAllMedicalRecordsFromFile() throws FileNotFoundException {
-		List<MedicalRecord> medicalRecords = new LinkedList<MedicalRecord>();
-
-		try {
-			medicalRecords = medicalRecordService.getAllMedicalRecords();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return medicalRecords;
-	}
-
-	@GetMapping("/medicalRecord/{id}")
-	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable String id) {
-		return medicalRecordService.getOneMedicalRecordById(id);
-	}
-
+	
 	@DeleteMapping("/medicalRecord/{id}")
 	public ResponseEntity<Long> deleteOneMedicalRecordByName(@PathVariable String id) {
 		boolean isMedicalRecordRemoved = medicalRecordService.deleteOneMedicalRecordById(id);
 		return isMedicalRecordRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
-
+	}
+	
+	@GetMapping("/medicalRecord/{id}")
+	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable String id) {
+		return medicalRecordService.getOneMedicalRecordById(id);
+	}
+	
+	@GetMapping("/medicalRecord/")
+	public @ResponseBody List<MedicalRecord> getAllMedicalRecords()  {		
+			return medicalRecordService.getAllMedicalRecords();		
 	}
 
 //----MedicalRecord  getbyFullName  from file json------

@@ -1,9 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,13 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
@@ -29,16 +25,49 @@ import jakarta.validation.Valid;
 public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
+	
 	@PostMapping("/firestation/")
 	public ResponseEntity<FireStation> createMedicalRecord(@Valid @RequestBody FireStation fireStation)
 			throws Exception {
 		FireStation fireStationCreated = fireStationService.addFireStation(fireStation);
-
-		// medicalRecords.add(medicalRecord);
 		System.out.println(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
+	
+	@PutMapping("/firestation/{id}")
+	public ResponseEntity<FireStation> updateOneMedicalRecordById(@RequestBody FireStation firestation,
+			@PathVariable String id) {
+		FireStation firestationFoundById = fireStationService.updateFireStation(id, firestation);
+		if (firestationFoundById != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
+		} else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new FireStation());
+		}
+	}
+	
+	@DeleteMapping("/firestation/{id}")
+	public ResponseEntity<Long> deleteFireStationById(@PathVariable String id) {
+		boolean isFireStationRemoved = fireStationService.deleteFireStationById(id);
+		return  isFireStationRemoved? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
+				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+	}
 
+	@DeleteMapping("/firestation")
+	public ResponseEntity<Long> deleteFireStationByAddress(@RequestParam String address) {
+		boolean isFireStationRemoved = fireStationService.deleteOneFireStationByAddress(address);
+		return  isFireStationRemoved? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
+				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/firestation/{id}")
+	public Optional<FireStation> getFireStation(@PathVariable String id) {
+		return fireStationService.getFireStationsById(id);
+	}
+	
+	@GetMapping("/firestation/")
+	public @ResponseBody List<FireStation> getAllFireStations()  {		
+			return fireStationService.getAllFireStations();		
+	}
 	/*@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStationsFromFile() throws FileNotFoundException {
 				fireStations = new LinkedList<FireStation>();

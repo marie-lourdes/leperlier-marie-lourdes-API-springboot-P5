@@ -1,5 +1,6 @@
 package com.safetynet.api.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -49,7 +52,6 @@ public class PersonController {
 		boolean isPersonRemoved = personService.deleteOnePersonById(id);
 		return isPersonRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
-
 	}
 	
 	@GetMapping("/person/{id}")
@@ -57,6 +59,10 @@ public class PersonController {
 		return personService.getOneMedicalRecordById(id);
 	}
 	
+	@GetMapping("/person/")
+	public @ResponseBody List<Person> getAllPersons()  {		
+			return personService.getAllPersons();		
+	}
 /*	@GetMapping("/person/")
 	public @ResponseBody List<Person> getAllPersonsFromFile() throws IOException {
 		persons= readPerson.getListOfPersons();
