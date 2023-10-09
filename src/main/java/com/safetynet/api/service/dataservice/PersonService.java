@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.PersonRepositoryImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,12 +17,12 @@ public class PersonService {
 	 private final List<Person> persons = new ArrayList<>();
 	
 
-  /*  public Person addMedicalRecord(Person person){
+    public Person addMedicalRecord(Person person){
     	person.setId(
     			person.getFirstName() + " " +person.getLastName() ); 
        	persons.add(person);
         return person;
-    }*/
+    }
     
     public Optional<Person> getOneMedicalRecordById(String id) {
   	  return persons.stream()
