@@ -1,29 +1,45 @@
 package com.safetynet.api.service.dataservice;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.repository.FireStationRepositoryImpl;
 
-
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class FireStationService {
-
-
-	@Autowired
-	private FireStationRepositoryImpl fireStationRepositoryFile;
+	 private final List<FireStation> fireStations = new ArrayList<>();	
+	 
+    public Optional<FireStation> getFireStationsById(String id) {
+    	  return  fireStations.stream()
+                  .filter( fireStation->  fireStation.getId().equals(id))
+                  .findFirst()
+                  .map(existingFireStation -> { 
+                	  return existingFireStation;
+                  } );
+     }
+    public Optional<FireStation> getOneFireStationByAddress( String address ) {
+		return  fireStations.stream()
+                .filter( fireStation->  fireStation.getAddress().equals(address))
+                .findFirst()
+                .map(existingFireStation -> { 
+              	  return existingFireStation;
+                } );
+	} 
+    public List<FireStation> getAllFireStations() {
+    	System.out.println("Retrieving all persons"+ fireStations);
+        return  fireStations;
+    }
 
 //--------------------repository avec source de donnéees fichier Json---------		
-	public List<FireStation> getFireStationsFromFile() throws IOException {
+/*	public List<FireStation> getFireStationsFromFile() throws IOException {
 		return (List<FireStation>) fireStationRepositoryFile.findAll();
-	}
+	}*/
 
 /*	public Optional<FireStation> getOneFireStationById(Long id) {
 		Optional<FireStation> fireStationFoundById = Optional
@@ -31,14 +47,7 @@ public class FireStationService {
 						" an error has occured,this firestation " + id + " doesn't exist, try again ")));
 		return fireStationFoundById;
 	}*/
-public List<Optional<FireStation>> getOneFireStationById(String id) {
-		return fireStationRepositoryFile.findById(id);
-		
-	}
-	
-	public List< Optional<FireStation>> getFireStationsByAddress( String address ) {
-		return fireStationRepositoryFile.findByAddress(address);
-	}
+
 /*	
 	public FireStation saveFireStation(@Valid FireStation fireStation) {
 		return fireStationRepository.save(fireStation);

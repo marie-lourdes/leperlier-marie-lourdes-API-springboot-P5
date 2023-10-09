@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	 private final List<Person> persons = new ArrayList<>();
+	 
     public Person addPerson(Person person){
     	person.setId(
     			person.getFirstName() + " " +person.getLastName() ); 
