@@ -70,15 +70,15 @@ public class PersonController {
 
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable String id) {
-		return personService.getOnePersonById(id);
+		return personService.getOneMedicalRecordById(id);
 	}
 
 //----Person  getbyFullName  from file json------
-	@GetMapping("/person")
+/*	@GetMapping("/person")
 	public List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		return personService.getOnePersonByFullName(firstName, lastName);
-	}
+	}*/
 
 /*	@PutMapping("/person/{id}")
 	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person,@PathVariable String id) throws IOException{
