@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.UploadDataFileRunner;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.repository.PersonRepositoryImpl;
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
@@ -53,6 +54,11 @@ public class PersonController {
 		 
 	}*/
 
+	@PutMapping("/person/{id}")
+	public ResponseEntity<Person> updateOnePersonById(@RequestBody Person person,@PathVariable String id ) {
+	Person medicalRecordFoundById=	personService.updatePerson(id,person) ;
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
+	}
 	// -----------------requete a partir du fichier json-------------
 	@GetMapping("/person/")
 	public @ResponseBody List<Person> getAllPersonsFromFile() throws IOException {

@@ -32,10 +32,10 @@ public class MedicalRecordService {
         return medicalRecord;
     }
 
-    public MedicalRecord updateMedicalRecord (String firstName, String lastName, MedicalRecord updatedMedicalRecord) {
+    public MedicalRecord updateMedicalRecord (String id, MedicalRecord updatedMedicalRecord) {
        // log.debug("Updating medical record for: {}", firstName + " " + lastName);
         return medicalRecords.stream()
-                .filter(medicalRecord -> medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName))
+                .filter(medicalRecord -> medicalRecord.getId().equals(id))
                 .findFirst()
                 .map(existingMedicalRecord -> {
                     existingMedicalRecord.setBirthdate(updatedMedicalRecord.getBirthdate());

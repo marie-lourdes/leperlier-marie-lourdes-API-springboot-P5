@@ -27,7 +27,6 @@ public class JsonDataLoader implements CommandLineRunner {
     private final PersonRepositoryImpl personRepository;
     @Autowired
     public JsonDataLoader(
-
            PersonService personService,
            MedicalRecordService medicalRecordService,
            //  FireStationService fireStationService,
@@ -56,14 +55,13 @@ public class JsonDataLoader implements CommandLineRunner {
 
     	   List<Person> personsFromFile=	personRepository.findAll();
     	   for(Person person:personsFromFile) {
-    		   personService.addMedicalRecord(person);	
+    		   personService.addPerson(person);	
     	   }
         } catch (IOException e) {
 
             e.printStackTrace();
 
         }
-
    }
 
 }

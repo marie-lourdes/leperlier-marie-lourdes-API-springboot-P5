@@ -65,9 +65,9 @@ public class MedicalRecordController {
 			return medicalRecordService.getOneMedicalRecordByFullName(firstName,lastName);
 		}*/
 
-@PutMapping("/medicalRecord")
-public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord, @RequestParam String firstName, @RequestParam String lastName) {
-MedicalRecord medicalRecordFoundById=	medicalRecordService.updateMedicalRecord(firstName, lastName, medicalRecord) ;
+@PutMapping("/medicalRecord/{id}")
+public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,@PathVariable String id ) {
+MedicalRecord medicalRecordFoundById=	medicalRecordService.updateMedicalRecord(id,medicalRecord) ;
 	return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 }
 	// the id, first and last name cannot be modified

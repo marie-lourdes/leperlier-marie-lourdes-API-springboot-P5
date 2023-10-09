@@ -17,7 +17,7 @@ public class PersonService {
 	 private final List<Person> persons = new ArrayList<>();
 	
 
-    public Person addMedicalRecord(Person person){
+    public Person addPerson(Person person){
     	person.setId(
     			person.getFirstName() + " " +person.getLastName() ); 
        	persons.add(person);
@@ -37,19 +37,21 @@ public class PersonService {
   	System.out.println("Retrieving all persons"+persons);
       return persons;
   }
-  /*  public Person updatePerson(String firstName, String lastName,Person updatedPerson) {
+    public Person updatePerson(String id,Person updatedPerson) {
        // log.debug("Updating medical record for: {}", firstName + " " + lastName);
         return persons.stream()
-                .filter(person -> person.getFirstName().equals(firstName) && person.getLastName().equals(lastName))
+                .filter(person -> person.getId().equals(id) )
                 .findFirst()
                 .map(existingPerson-> {
-                   existingPerson.setBirthdate(updatedPerson.getBirthdate());
-                   existingPerson.setMedications(updatedPerson.getMedications());
-                   existingPerson.setAllergies(updatedPerson.getAllergies());
+                   existingPerson.setAddress(updatedPerson.getAddress());
+                   existingPerson.setCity(updatedPerson.getCity());
+                   existingPerson.setZip(updatedPerson.getZip());
+                   existingPerson.setPhone(updatedPerson.getPhone());
+                   existingPerson.setEmail(updatedPerson.getEmail());
                     return existingPerson;
                 })
                 .orElse(null);
-    }*/
+    }
 
 /*	public Optional<Person> getOnePersonById(String id) {
 		Optional<Person> personFoundById = Optional
