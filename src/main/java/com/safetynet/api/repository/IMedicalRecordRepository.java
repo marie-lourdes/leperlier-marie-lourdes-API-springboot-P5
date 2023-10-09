@@ -9,8 +9,5 @@ import com.safetynet.api.model.MedicalRecord;
 public interface IMedicalRecordRepository extends IReadOnlyDatasRepository<MedicalRecord, Long> {
 	@Override
 	List<MedicalRecord> findAll() throws IOException;
-	
-   Optional<MedicalRecord>findById(String id);
-	 
-	List<Optional<MedicalRecord>> findByFirstNameAndLastName(String firstName, String lastName);
+
 }
