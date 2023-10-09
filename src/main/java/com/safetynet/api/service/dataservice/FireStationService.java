@@ -33,6 +33,28 @@ public class FireStationService {
                 .orElse(null);
     }
     
+    public boolean deleteOnePersonById(String id) {
+        //   log.debug("Deleting medical record for {} {}", firstName, lastName);
+           boolean result = fireStations.removeIf(fireStation -> fireStation.getId().equals(id));
+           if (result) {
+            //   log.info("firestation deleted by id with station number successfully for {} {}", id);
+           } else {
+              // log.error("Failed to delete firestation for {} {}", id);
+           }
+           return result;
+       }
+    
+    public boolean deleteOnePersonByAddress(String address) {
+        //   log.debug("Deleting medical record for {} {}", firstName, lastName);
+           boolean result = fireStations.removeIf(fireStation -> fireStation.getAddress().equals(address));
+           if (result) {
+            //   log.info("firestation deleted by address with station number successfully for {} {}", id);
+           } else {
+              // log.error("Failed to delete firestation for {} {}", id);
+           }
+           return result;
+       }
+    
 	public Optional<FireStation> getFireStationsById(String id) {
 		return fireStations.stream().filter(fireStation -> fireStation.getId().equals(id)).findFirst()
 				.map(existingFireStation -> {
