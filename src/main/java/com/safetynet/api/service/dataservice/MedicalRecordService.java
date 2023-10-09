@@ -1,6 +1,8 @@
 package com.safetynet.api.service.dataservice;
 
-import java.io.IOException;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,42 +12,64 @@ import org.springframework.stereotype.Service;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.repository.MedicalRecordRepositoryImpl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class MedicalRecordService {
-
 	@Autowired
-	private MedicalRecordRepositoryImpl medicalRecordRepositoryFile;
+	MedicalRecordRepositoryImpl medicalRecordRepositoryImpl;
+    private final List<MedicalRecord> medicalRecords = new ArrayList<>();
 
-	// --------------------repository avec source de donnéees fichier Json---------
-	public List<MedicalRecord> getMedicalRecordsFromFile() throws IOException {
-		return medicalRecordRepositoryFile.findAll();
-	}
+    public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord){
+      //  log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+    	medicalRecord.setId(
+    			medicalRecord.getFirstName() + " " +medicalRecord.getLastName() );
+      
+       	medicalRecords.add(medicalRecord);
 
-	/*public Optional<MedicalRecord> getOneMedicalRecordById(Long id) {
-		Optional<MedicalRecord> medicalRecordFoundById = Optional
-				.ofNullable(medicalRecordRepository.findById(id).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this medical record " + id + " doesn't exist, try again ")));
-		return medicalRecordFoundById;
-	}*/
-	
-	public Optional<MedicalRecord> getOneMedicalRecordById(String id ) {
-		return medicalRecordRepositoryFile.findById(id);
-	}
-/*	
-	public List<Optional<MedicalRecord>> getOneMedicalRecordByFullName(String firstName, String lastName) {
-		return medicalRecordRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
-	}
+     //   log.info("Medical record added successfully: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+        return medicalRecord;
+    }
 
-//use IWriter
-	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
-		return medicalRecordRepository.save(medicalRecord);
-	}
+    public MedicalRecord updateMedicalRecord (String firstName, String lastName, MedicalRecord updatedMedicalRecord) {
+       // log.debug("Updating medical record for: {}", firstName + " " + lastName);
+        return medicalRecords.stream()
+                .filter(medicalRecord -> medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName))
+                .findFirst()
+                .map(existingMedicalRecord -> {
+                    existingMedicalRecord.setBirthdate(updatedMedicalRecord.getBirthdate());
+                    existingMedicalRecord.setMedications(updatedMedicalRecord.getMedications());
+                    existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
+                    return existingMedicalRecord;
+                })
+                .orElse(null);
+    }
 
-	public MedicalRecord updateOneMedicalRecordById(MedicalRecord medicalRecord, Long id) {
-		return medicalRecordRepository.save(medicalRecord);
-	}
+    public boolean deleteMedicalRecord(String firstName, String lastName) {
+     //   log.debug("Deleting medical record for {} {}", firstName, lastName);
+        boolean result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName));
+        if (result) {
+         //   log.info("Medical record deleted successfully for {} {}", firstName, lastName);
+        } else {
+           // log.error("Failed to delete medical record for {} {}", firstName, lastName);
+        }
+        return result;
+    }
 
-	public void deleteOneMedicalRecordByName(MedicalRecord medicalRecord) {
-		medicalRecordRepository.delete(medicalRecord);
-	}*/
+    public Optional<MedicalRecord> getOneMedicalRecordById(String id) {
+    	  return medicalRecords.stream()
+                  .filter(medicalRecord -> medicalRecord.getId().equals(id))
+                  .findFirst()
+                  .map(existingMedicalRecord -> { 
+                	  return existingMedicalRecord;
+                  } );
+     }
+    public List<MedicalRecord> getAllMedicalRecords() {
+       // log.debug("Retrieving all medical records");
+    	System.out.println("Retrieving all medical records"+medicalRecords);
+        return medicalRecords;
+    }
 }
