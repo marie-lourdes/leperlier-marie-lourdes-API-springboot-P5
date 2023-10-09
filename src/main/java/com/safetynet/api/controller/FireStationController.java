@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 import jakarta.validation.Valid;
@@ -28,8 +29,17 @@ import jakarta.validation.Valid;
 public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
+	@PostMapping("/firestation/")
+	public ResponseEntity<FireStation> createMedicalRecord(@Valid @RequestBody FireStation fireStation)
+			throws Exception {
+		FireStation fireStationCreated = fireStationService.addFireStation(fireStation);
 
-	@GetMapping("/firestation/")
+		// medicalRecords.add(medicalRecord);
+		System.out.println(fireStation);
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+	}
+
+	/*@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStationsFromFile() throws FileNotFoundException {
 				fireStations = new LinkedList<FireStation>();
 

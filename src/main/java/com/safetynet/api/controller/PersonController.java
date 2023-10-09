@@ -70,9 +70,6 @@ public class PersonController {
 
 		return persons;*/
 	
-
-	
-
 //----Person  getbyFullName  from file json------
 /*	@GetMapping("/person")
 	public List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName,
