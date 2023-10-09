@@ -1,7 +1,6 @@
 package com.safetynet.api.service;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,17 +8,20 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Component
 public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<MedicalRecord> {
 	private JsonArray datasJsonMedicalRecords;
 	private List<MedicalRecord> listOfMedicalRecords;
+	private final MedicalRecordService medicalRecordService = new MedicalRecordService();
 
 	@Override
-	public List<MedicalRecord> readFile() throws IOException {
+	public List<MedicalRecord>  readFile() throws IOException {
 		listOfMedicalRecords = new LinkedList<MedicalRecord>();
 
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
@@ -53,7 +55,9 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 				listOfAllergies.add(indexAllergies++, (String) value.toString());
 			}
 			medicalRecord.setAllergies(listOfAllergies);
-
+			
+			
+			
 			listOfMedicalRecords.add(medicalRecord);
 			System.out.println("element of medicalRecords" + elem.asJsonObject());
 
@@ -61,7 +65,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 		System.out.println("list of medicalRecords" + listOfMedicalRecords);
 
 		return listOfMedicalRecords;
-		// return datasJsonPersonParsed ;
+		
 
 	}
 }

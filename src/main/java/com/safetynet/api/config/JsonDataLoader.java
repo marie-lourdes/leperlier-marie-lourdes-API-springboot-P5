@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.repository.MedicalRecordRepositoryImpl;
-import com.safetynet.api.service.ReadMedicalRecordDataFromFileImpl;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 
