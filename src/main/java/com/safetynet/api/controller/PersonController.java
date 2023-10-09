@@ -1,6 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.UploadDataFileRunner;
 import com.safetynet.api.model.Person;
-import com.safetynet.api.repository.PersonRepositoryImpl;
-import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
