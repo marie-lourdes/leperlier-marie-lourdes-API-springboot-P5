@@ -15,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	 private final List<Person> persons = new ArrayList<>();
-	
-
     public Person addPerson(Person person){
     	person.setId(
     			person.getFirstName() + " " +person.getLastName() ); 
@@ -37,8 +35,8 @@ public class PersonService {
   	System.out.println("Retrieving all persons"+persons);
       return persons;
   }
+  
     public Person updatePerson(String id,Person updatedPerson) {
-       // log.debug("Updating medical record for: {}", firstName + " " + lastName);
         return persons.stream()
                 .filter(person -> person.getId().equals(id) )
                 .findFirst()
