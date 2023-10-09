@@ -41,7 +41,7 @@ public class FireStationController {
 		if (firestationFoundById != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FireStation());
 		}
 	}
 	
@@ -60,8 +60,13 @@ public class FireStationController {
 	}
 	
 	@GetMapping("/firestation/{id}")
-	public Optional<FireStation> getFireStation(@PathVariable String id) {
+	public Optional<FireStation> getFireStationById(@PathVariable String id) {
 		return fireStationService.getFireStationsById(id);
+	}
+	
+	@GetMapping("/firestation")
+	public Optional<FireStation> getFireStationByAddress(@RequestParam String address) {
+		return fireStationService.getOneFireStationByAddress(address);
 	}
 	
 	@GetMapping("/firestation/")
