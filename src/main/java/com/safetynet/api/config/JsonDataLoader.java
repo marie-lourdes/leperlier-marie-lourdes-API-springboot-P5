@@ -58,7 +58,7 @@ public class JsonDataLoader implements CommandLineRunner {
 			}
 			
 			for (FireStation fireStation : fireStationFromFile) {
-				personService.addPerson(fireStation);
+				fireStationService.addFireStation(fireStation);
 			}
 
 			for (MedicalRecord medicalRecord : medicalRecordsFromFile) {
