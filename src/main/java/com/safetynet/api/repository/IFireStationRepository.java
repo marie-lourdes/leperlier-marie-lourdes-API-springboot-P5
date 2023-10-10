@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.safetynet.api.model.FireStation;
 
-public interface IFireStationRepository extends IReadOnlyDatasRepository<FireStation,String> {
+public interface IFireStationRepository extends ICRUDDatasRepository<FireStation,String> {
 	@Override
 	List<FireStation> findAll() throws IOException;
 	

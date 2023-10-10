@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.safetynet.api.model.Person;
 
-public interface IPersonRepository extends IReadOnlyDatasRepository<Person,String>{
+public interface IPersonRepository extends ICRUDDatasRepository<Person,String>{
 	@Override
 	List<Person> findAll() throws IOException;	
 }
