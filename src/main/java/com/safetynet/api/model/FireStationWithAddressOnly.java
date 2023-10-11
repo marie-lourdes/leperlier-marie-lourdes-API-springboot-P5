@@ -1,7 +1,6 @@
 package com.safetynet.api.model;
 
 
-
 //@Entity
 //@Table(name = "firestation")
 public class FireStationWithAddressOnly extends FireStation{

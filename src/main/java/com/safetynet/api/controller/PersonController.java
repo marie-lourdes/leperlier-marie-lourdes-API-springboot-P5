@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -62,7 +60,7 @@ public class PersonController {
 	
 	@GetMapping("/person/{id}")
 	public Optional<Person> getOnePerson(@PathVariable String id) {
-		return personService.getOneMedicalRecordById(id);
+		return personService.getOnePersonById(id);
 	}
 	
 	@GetMapping("/person/")

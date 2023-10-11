@@ -48,7 +48,7 @@ public class PersonService {
            return result;
        }
     
-    public Optional<Person> getOneMedicalRecordById(String id) {
+    public Optional<Person> getOnePersonById(String id) {
   	  return persons.stream()
                 .filter(person -> person.getId().equals(id))
                 .findFirst()
