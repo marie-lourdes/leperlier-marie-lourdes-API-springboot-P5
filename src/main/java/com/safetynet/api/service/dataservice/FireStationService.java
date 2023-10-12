@@ -1,6 +1,7 @@
 package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,15 +56,21 @@ public class FireStationService {
            return result;
        }
     
-	public Optional<FireStation> getFireStationsById(String id) {
-		return fireStations.stream().filter(fireStation -> fireStation.getId().equals(id)).findFirst()
-				.map(existingFireStation -> {
-					return existingFireStation;
-				});
+	public List<FireStation> getFireStationsById(String id) {
+		List<FireStation> fireStationsFoundById = new ArrayList<>();
+		Iterator<FireStation>itrFireStations =fireStations.listIterator();
+		while(itrFireStations.hasNext()) {
+			FireStation itrFireStation = itrFireStations.next();
+			if(itrFireStation.getId().equals(id)) {
+				fireStationsFoundById.add(itrFireStation);
+			}
+		}
+	System.out.println("fireStationsFoundById"+fireStationsFoundById);
+		 return fireStationsFoundById;
 	}
 
 	public Optional<FireStation> getOneFireStationByAddress(String address) {
-		return fireStations.stream().filter(fireStation -> fireStation.getAddress().equals(address)).findFirst()
+		return fireStations.stream().filter(fireStation -> fireStation.getAddress().equals(address)).findAny()
 				.map(existingFireStation -> {
 					return existingFireStation;
 				});

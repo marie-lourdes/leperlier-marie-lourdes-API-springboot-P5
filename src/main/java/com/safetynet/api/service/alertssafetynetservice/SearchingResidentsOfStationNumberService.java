@@ -14,7 +14,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 
 @Service
 public class SearchingResidentsOfStationNumberService {
-	@Autowired
+/*	@Autowired
 	PersonService personService;
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class SearchingResidentsOfStationNumberService {
 	Optional<FireStation> 	fireStationFoundByStationNumber =fireStationService.getFireStationsById(stationNumber);
 	String address = fireStationFoundByStationNumber.get().getAddress();
 	List<String> fireStationsAddress = new ArrayList<>();
-	fireStationsAddress.add(address );
+	fireStations.add(address );
 		return 	fireStationsAddress ;}
 	
 	public Optional<Person> getPersonByAddress(String address) {
@@ -41,6 +41,6 @@ public class SearchingResidentsOfStationNumberService {
 		 //getBirthDateOfPersonWithMedicalRecord()
 		//calculateAgeOfPerson();
 		return null;
-		}
+		}*/
 
 }

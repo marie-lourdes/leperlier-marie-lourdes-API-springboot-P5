@@ -60,14 +60,14 @@ public class FireStationController {
 	}
 	
 	@GetMapping("/firestation/{id}")
-	public Optional<FireStation> getFireStationById(@PathVariable String id) {
+	public List<FireStation> getFireStationById(@PathVariable String id) {
 		return fireStationService.getFireStationsById(id);
 	}
 	
-	@GetMapping("/firestation")
-	public Optional<FireStation> getFireStationByAddress(@RequestParam String address) {
+	/*@GetMapping("/firestation/{address}")
+	public Optional<FireStation> getFireStationByAddress(@PathVariable String address) {
 		return fireStationService.getOneFireStationByAddress(address);
-	}
+	}*/
 	
 	@GetMapping("/firestation/")
 	public @ResponseBody List<FireStation> getAllFireStations()  {		
