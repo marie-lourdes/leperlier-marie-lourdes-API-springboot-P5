@@ -46,7 +46,7 @@ public class PersonController {
 	if (personFoundById != null) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
 	} else {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Person());// ajouter objet json vide
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(personFoundById);// ajouter objet json vide
 	}
 		
 	}

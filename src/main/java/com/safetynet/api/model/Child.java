@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-public class Child extends Person {
+/*public class Child extends Person {
 	private  String firstName;
 	private  String lastName;
 	private int age;
@@ -21,4 +21,4 @@ public class Child extends Person {
 		this.parent = parent;
 	}
 
-}
+}*/

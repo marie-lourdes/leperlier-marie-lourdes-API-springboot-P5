@@ -1,6 +1,6 @@
 package com.safetynet.api.model;
 
-public class Adult extends Person {
+/*public class Adult extends Person {
 	private  String firstName;
 	private  String lastName;
 	private int age;
@@ -23,4 +23,4 @@ public class Adult extends Person {
 		this.age = age;
 	}
 
-}
+}*/

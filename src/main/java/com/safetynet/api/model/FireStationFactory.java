@@ -9,7 +9,7 @@ public class FireStationFactory {
 	public static FireStation makeFireStation(FireStationType  type) {
 		switch (type) {
 		case STATIONNUMBER_REMOVED:
-			return new FireStationWithAddressOnly();
+		//	return new ResidentOfStationNumberFactory();
 		case ADDRESS_REMOVED :
 			return new FireStationWithStationNumberOnly();
 		}

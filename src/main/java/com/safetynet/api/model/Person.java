@@ -19,18 +19,19 @@ public class Person {
 	
 	private int age;
 	
-	public Person() {}
+public Person() {}
 	
 	public Person( String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 	
-	public Person( String firstName, String lastName,String address, String phone) {
+	public Person(String firstName, String lastName,String address, String phone) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address= address;
 		this.phone= phone;
+		
 	}
 	
 	/*public Person( String lastName, int age, String address, String phone) {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
+import com.safetynet.api.model.ResidentOfStationNumberFactory;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -31,7 +32,11 @@ public class SearchingResidentsOfStationNumberService {
 			FireStation itrFireStation = itrFireStations.next();
 			Optional<Person> residentOfStationNumber = personService.getOnePersonByAddress(itrFireStation.getAddress());
 			System.out.println("residentOfStationNumber" + residentOfStationNumber.get());
-			listOfResidentOfStationNumber.add(residentOfStationNumber.get());
+			//Creer les factory pour les differentes ul
+		Person residentOfStationNumberFactory = new ResidentOfStationNumberFactory(residentOfStationNumber.get().getFirstName(),
+					residentOfStationNumber.get().getLastName(), residentOfStationNumber.get().getAddress(),
+					residentOfStationNumber.get().getPhone());
+			listOfResidentOfStationNumber.add(residentOfStationNumberFactory );
 		}
 
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);

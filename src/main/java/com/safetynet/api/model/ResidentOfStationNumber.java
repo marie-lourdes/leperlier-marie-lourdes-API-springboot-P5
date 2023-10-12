@@ -2,7 +2,7 @@ package com.safetynet.api.model;
 
 import java.util.Map;
 
-public class ResidentOfStationNumber extends Person {
+/*public class ResidentOfStationNumber extends Person {
 	private Map<String,Integer> listOfResident;
 	private long numberOfChilds;
 	private long numberOfAdults;
@@ -19,7 +19,7 @@ public class ResidentOfStationNumber extends Person {
 	}
 	public void setStationNumber(int stationNumber) {
 		this.stationNumber = stationNumber;
-	}*/
+	}
 
 
-}
+}*/
