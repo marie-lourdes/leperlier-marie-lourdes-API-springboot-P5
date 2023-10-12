@@ -56,6 +56,15 @@ public class PersonService {
               	  return existingPerson;
                 } );
    }
+    
+    public Optional<Person> getOnePersonByAddress(String address) {
+    	  return persons.stream()
+                  .filter(person -> person.getAddress().equals(address))
+                  .findFirst()
+                  .map(existingPerson -> { 
+                	  return existingPerson;
+                  } );
+     }
 	 
   public List<Person> getAllPersons() {
   	System.out.println("Retrieving all persons"+persons);
