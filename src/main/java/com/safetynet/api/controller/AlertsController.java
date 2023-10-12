@@ -1,6 +1,7 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class AlertsController {
 	SearchingResidentsOfStationNumberService residentsOfStationNumberService ;
 	
 	@GetMapping("/firestation")
-	public List<Person> getFireStationById(@RequestParam String stationNumber) {
+	public List<Map<String, String>> getFireStationById(@RequestParam String stationNumber) {
 		return residentsOfStationNumberService.getResidentsOfStationNumber(stationNumber);
 	}
 }

@@ -1,8 +1,10 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +23,26 @@ public class SearchingResidentsOfStationNumberService {
 	@Autowired
 	FireStationService fireStationService;
 
-
-
-	public List<Person> getResidentsOfStationNumber(String stationNumber) {
+	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) {
 		List<FireStation> fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-		 List< Person> listOfResidentOfStationNumber = new ArrayList< Person>();
-			List<Person>	persons= personService.getAllPersons();
-			
+		Map<String,String> residentOfStationNumber = new HashMap<String,String>();
+		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
+		List<Person> persons = personService.getAllPersons();
+
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
-	            for(Person person:persons) {
-	            	if( person.getAddress().equals(itrFireStation.getAddress())) {
-	            		 listOfResidentOfStationNumber.add(person);
-	            	}
-	            }        
+			for (Person person : persons) {
+				if (person.getAddress().equals(itrFireStation.getAddress())) {
+					//Person personFactory =new Person(person.getFirstName(),person.getLastName(),  person.getAddress(), person.getPhone());
+					residentOfStationNumber.put("firstName", person.getFirstName());
+					residentOfStationNumber.put("lastName", person.getLastName());
+					residentOfStationNumber.put("address", person.getAddress());
+					residentOfStationNumber.put("phone", person.getPhone());
+					System.out.println(" personFactory" + residentOfStationNumber);
+					listOfResidentOfStationNumber.add(residentOfStationNumber);
+				}
+			}
 		}
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
