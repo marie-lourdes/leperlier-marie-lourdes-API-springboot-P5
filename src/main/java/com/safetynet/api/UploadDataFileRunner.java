@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
 public class UploadDataFileRunner implements CommandLineRunner {
 	 
- /*@Autowired
- PersonService  personService;*/
+ @Autowired
+ PersonService  personService;
  
  @Autowired
  FireStationService  fireStationService;
@@ -27,7 +28,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//medicalRecordService.getAllMedicalRecords();
 		//use to logging each element of file json 
-		//personService.getPersonsFromFile();
+		personService.getAllPersons();
 	
 	 
 	    fireStationService.getFireStationsById("3");

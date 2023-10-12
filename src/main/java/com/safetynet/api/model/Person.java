@@ -1,7 +1,5 @@
 package com.safetynet.api.model;
 
-import org.springframework.cache.annotation.Cacheable;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
@@ -19,7 +17,7 @@ public class Person {
 	@Email
 	private String email;
 	
-	//private int age;
+	private int age;
 	
 	public Person() {}
 	
@@ -50,7 +48,7 @@ public class Person {
 	public String setId (String id) {
 		return this.id=id;
 	}
-	@Cacheable
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -107,13 +105,13 @@ public class Person {
 		this.email = email;
 	}
 	
-	/*public int getAge() {
+	public int getAge() {
 		return age;
 	}
 
 	public void setAge(int age) {
 		this.age = age;
-	}*/
+	}
 	
 	// jsonnitter?
 	@Override
