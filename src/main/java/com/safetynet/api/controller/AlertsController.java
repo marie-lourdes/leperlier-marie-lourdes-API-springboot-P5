@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
+import com.safetynet.api.model.ResidentOfStationNumberFactory;
 import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
 
 @RestController
