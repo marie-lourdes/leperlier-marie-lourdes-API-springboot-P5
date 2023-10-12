@@ -5,30 +5,16 @@ import java.util.List;
 
 import jakarta.validation.constraints.Pattern;
 
-//@Entity
-//@Table(name = "medicalrecords")
 public class MedicalRecord {
-	// this regex date require 0 in format date
 	private final String REGEX_P = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
-
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
-
-	//@Column(name = "first_name")
 	private String firstName;
-
-	//@Column(name = "last_name")
 	private String lastName;
 
 	@Pattern(regexp = REGEX_P)
-	//@Column(name = "birthdate")
 	private String birthdate;
-
-	//@Column(name = "medications")
+	
 	private List<String> medications;
-
-	//@Column(name = "allergies")
 	private List<String> allergies;
 
 	public String getId() {

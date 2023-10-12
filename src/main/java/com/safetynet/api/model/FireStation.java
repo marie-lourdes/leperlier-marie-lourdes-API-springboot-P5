@@ -1,18 +1,9 @@
 package com.safetynet.api.model;
 
-
-
-//@Entity
-//@Table(name = "firestation")
 public class FireStation {
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private String id;
-
-	//@Column(name = "station_number")
 	private String stationNumber;
-
-	//@Column(name = "address")
 	private String address;
 
 	/*
