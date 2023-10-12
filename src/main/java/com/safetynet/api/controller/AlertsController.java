@@ -19,6 +19,6 @@ public class AlertsController {
 	
 	@GetMapping("/firestation")
 	public List<Person> getFireStationById(@RequestParam String stationNumber) {
-		return residentsOfStationNumberService.getFireStationByStationNumber(stationNumber);
+		return residentsOfStationNumberService.getResidentsOfStationNumber(stationNumber);
 	}
 }

@@ -17,40 +17,40 @@ import com.safetynet.api.service.dataservice.PersonService;
 public class SearchingResidentsOfStationNumberService {
 	@Autowired
 	PersonService personService;
-	
+
 	@Autowired
 	FireStationService fireStationService;
-	
-	private List<Person> listOfResidentOfStationNumber= new ArrayList<Person>();
-	
-	public List<Person> getResidentsOfStationNumber(String stationNumber){
-		List<FireStation> 	fireStationFoundByStationNumber =fireStationService.getFireStationsById(stationNumber);
-		Iterator<FireStation>itrFireStations =fireStationFoundByStationNumber.listIterator();
-		while(itrFireStations.hasNext()) {
-			FireStation itrFireStation = itrFireStations.next();
-		Optional<Person> residentOfStationNumber=	personService.getOnePersonByAddress(itrFireStation.getAddress());
-		System.out.println("residentOfStationNumber"+residentOfStationNumber.get());
 
+	private List<Person> listOfResidentOfStationNumber = new ArrayList<Person>();
+
+	public List<Person> getResidentsOfStationNumber(String stationNumber) {
+		List<FireStation> fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
+		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
+
+		while (itrFireStations.hasNext()) {
+			FireStation itrFireStation = itrFireStations.next();
+			Optional<Person> residentOfStationNumber = personService.getOnePersonByAddress(itrFireStation.getAddress());
+			System.out.println("residentOfStationNumber" + residentOfStationNumber.get());
 			listOfResidentOfStationNumber.add(residentOfStationNumber.get());
-			
 		}
-		System.out.println("listOfResidentsOfStationNumber"+	listOfResidentOfStationNumber);
-		
-			return 	listOfResidentOfStationNumber;
+
+		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
+		return listOfResidentOfStationNumber;
 	}
-	
-/*	public List<Person>  getFireStationByStationNumber(String stationNumber) {
-}*/
-	
+
+	/*
+	 * public List<Person> getFireStationByStationNumber(String stationNumber) { }
+	 */
+
 	public Optional<Person> getPersonByAddress(String address) {
 		personService.getOnePersonByAddress(address);
 		return null;
-		}
-	
+	}
+
 	public Person getAgeOfPerson() {
-		 //getBirthDateOfPersonWithMedicalRecord()
-		//calculateAgeOfPerson();
+		// getBirthDateOfPersonWithMedicalRecord()
+		// calculateAgeOfPerson();
 		return null;
-		}
+	}
 
 }
