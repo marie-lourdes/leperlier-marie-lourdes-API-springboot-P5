@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
@@ -18,6 +19,9 @@ public class UploadDataFileRunner implements CommandLineRunner {
  
  @Autowired
  MedicalRecordService  medicalRecordService;
+ 
+ @Autowired
+ SearchingResidentsOfStationNumberService  residentsOfStationNumberService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -27,6 +31,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	
 	 
 	    fireStationService.getFireStationsById("3");
+	    residentsOfStationNumberService.getFireStationByStationNumber("3");
 	  //  System.out.println("firestation APRES SUPPRESION "+	fireStationService.getFireStationsFromFile());
 	   //fireStationService.getFireStationsFromFile();
 	 

@@ -1,6 +1,7 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,23 +15,32 @@ import com.safetynet.api.service.dataservice.PersonService;
 
 @Service
 public class SearchingResidentsOfStationNumberService {
-/*	@Autowired
+	@Autowired
 	PersonService personService;
 	
 	@Autowired
 	FireStationService fireStationService;
 	
+	private List<Person> listOfResidentOfStationNumber= new ArrayList<Person>();
 	
-	public Object getResidentsOfStationNumberService(){
-		return null;
+	public List<Person> getResidentsOfStationNumber(String stationNumber){
+		List<FireStation> 	fireStationFoundByStationNumber =fireStationService.getFireStationsById(stationNumber);
+		Iterator<FireStation>itrFireStations =fireStationFoundByStationNumber.listIterator();
+		while(itrFireStations.hasNext()) {
+			FireStation itrFireStation = itrFireStations.next();
+		Optional<Person> residentOfStationNumber=	personService.getOnePersonByAddress(itrFireStation.getAddress());
+		System.out.println("residentOfStationNumber"+residentOfStationNumber.get());
+
+			listOfResidentOfStationNumber.add(residentOfStationNumber.get());
+			
+		}
+		System.out.println("listOfResidentsOfStationNumber"+	listOfResidentOfStationNumber);
+		
+			return 	listOfResidentOfStationNumber;
 	}
 	
-	public List<String>  getFireStationByStationNumber(String stationNumber) {
-	Optional<FireStation> 	fireStationFoundByStationNumber =fireStationService.getFireStationsById(stationNumber);
-	String address = fireStationFoundByStationNumber.get().getAddress();
-	List<String> fireStationsAddress = new ArrayList<>();
-	fireStations.add(address );
-		return 	fireStationsAddress ;}
+/*	public List<Person>  getFireStationByStationNumber(String stationNumber) {
+}*/
 	
 	public Optional<Person> getPersonByAddress(String address) {
 		personService.getOnePersonByAddress(address);
@@ -41,6 +51,6 @@ public class SearchingResidentsOfStationNumberService {
 		 //getBirthDateOfPersonWithMedicalRecord()
 		//calculateAgeOfPerson();
 		return null;
-		}*/
+		}
 
 }
