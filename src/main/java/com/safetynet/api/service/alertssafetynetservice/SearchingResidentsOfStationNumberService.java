@@ -22,18 +22,20 @@ public class SearchingResidentsOfStationNumberService {
 
 	@Autowired
 	FireStationService fireStationService;
-
+	
 	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) {
 		List<FireStation> fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-		Map<String,String> residentOfStationNumber = new HashMap<String,String>();
+	
 		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
 		List<Person> persons = personService.getAllPersons();
 
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
+		
 			for (Person person : persons) {
 				if (person.getAddress().equals(itrFireStation.getAddress())) {
+					Map<String,String> residentOfStationNumber = new HashMap<String,String>();
 					//Person personFactory =new Person(person.getFirstName(),person.getLastName(),  person.getAddress(), person.getPhone());
 					residentOfStationNumber.put("firstName", person.getFirstName());
 					residentOfStationNumber.put("lastName", person.getLastName());
@@ -42,6 +44,7 @@ public class SearchingResidentsOfStationNumberService {
 					System.out.println(" personFactory" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
+				
 			}
 		}
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);

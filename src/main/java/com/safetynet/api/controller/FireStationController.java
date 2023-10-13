@@ -41,7 +41,7 @@ public class FireStationController {
 		if (firestationFoundById != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FireStation());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FireStation());// evoyer un message d erreur ou objet vide
 		}
 	}
 	
