@@ -1,6 +1,11 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
+import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @Service
@@ -22,11 +28,28 @@ public class SearchingResidentsOfStationNumberService {
 
 	@Autowired
 	FireStationService fireStationService;
+	
+	@Autowired
+	MedicalRecordService medicalRecordService;
+	
 	private 	List<FireStation> fireStationFoundByStationNumber ;
-	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) {
+	Map<String,Integer> mapOfAdultsAndChildOfResidents ;
+	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber){
+		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
+		List<Map<String,Integer>> listOfAdultsAndChild = new ArrayList<Map<String,Integer>>();
+		try {
+			listOfResidentOfStationNumber= searchResidentOfStationNumber( stationNumber);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return listOfResidentOfStationNumber;
+	}
+	public List<Map<String, String>> searchResidentOfStationNumber(String stationNumber) throws ParseException {
+		Map<String,Integer> mapOfAdultsAndChildOfResidents =new HashMap<String,Integer>();
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-	
 		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
 		List<Person> persons = personService.getAllPersons();
 
@@ -41,6 +64,7 @@ public class SearchingResidentsOfStationNumberService {
 					residentOfStationNumber.put("lastName", person.getLastName());
 					residentOfStationNumber.put("address", person.getAddress());
 					residentOfStationNumber.put("phone", person.getPhone());
+					residentOfStationNumber.put("age", getAgeOfPerson( person.getId()).toString());
 					System.out.println(" personFactory" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
@@ -55,15 +79,51 @@ public class SearchingResidentsOfStationNumberService {
 	 * public List<Person> getFireStationByStationNumber(String stationNumber) { }
 	 */
 
-	public Optional<Person> getPersonByAddress(String address) {
-		personService.getOnePersonByAddress(address);
-		return null;
-	}
 
-	public Person getAgeOfPerson() {
+
+	public BigInteger getAgeOfPerson( String idFirstAndLastName) throws ParseException {
+		
+		 String birthDateOfPerson =medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).get().getBirthdate();
+
+		//formatage date birthdate 
+		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		Date birthdate  = format.parse(birthDateOfPerson);
+	
+		//calcule de l age
+		BigInteger yearInMs = new BigInteger("31536000000");//millisecondes par an
+		Long ageOfPerson =	new Date().getTime() - birthdate.getTime();
+		System.out.println("age "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
+		
+		/*medicalRecord.setMedications(medicalRecordCreated.getMedications());
+		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
+		medicalRecordService.saveMedicalRecord(medicalRecord);
+		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);*/
+		
+		// return medicalRecordService.saveMedicalRecord(medicalRecord);
+		
 		// getBirthDateOfPersonWithMedicalRecord()
 		// calculateAgeOfPerson();
-		return null;
+		return BigInteger.valueOf( ageOfPerson).divide(yearInMs) ;
 	}
-
+	
+/*	public Map<String,Integer> sortAdultsAndChildOfListResident(String stationNumber) throws ParseException {
+		Map<String,Integer> mapOfAdultsAndChild = new HashMap<String,Integer>();
+		List<Map<String, String>> ResidentsOfStationNumber=searchResidentOfStationNumber( stationNumber); 
+		for(Map<String, String> resident: ResidentsOfStationNumber) {
+			System.out.println("resident of map"+resident.get("age"));
+			int indexChild=0;
+			int indexAdult=0;
+			if(Integer.parseInt(resident.get("age"))<=18) {
+		
+				mapOfAdultsAndChild.put("childs", indexChild++);
+			}else {
+				mapOfAdultsAndChild.put("adults", indexAdult++);
+			}
+			//BigInteger ageOfResident = getAgeOfPerson( person.getId());
+		}
+	//	BigInteger ageOfResident = getAgeOfPerson( person.getId());
+		//personService.getOnePersonByAddress(address);
+		System.out.println("resident of map"+mapOfAdultsAndChild);
+		return mapOfAdultsAndChild;
+	}*/
 }

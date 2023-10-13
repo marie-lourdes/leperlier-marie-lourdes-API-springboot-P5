@@ -33,6 +33,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	 
 	    fireStationService.getFireStationsById("3");
 	    residentsOfStationNumberService.getResidentsOfStationNumber("3");
+	    residentsOfStationNumberService.sortAdultsAndChildOfListResident("3");
+	    
 	  //  System.out.println("firestation APRES SUPPRESION "+	fireStationService.getFireStationsFromFile());
 	   //fireStationService.getFireStationsFromFile();
 	 
