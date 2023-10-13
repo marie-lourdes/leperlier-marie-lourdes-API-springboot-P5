@@ -26,6 +26,8 @@ public class FireStation {
 
 	}*/
 
+
+
 	public String getId() {
 		return id;
 	}

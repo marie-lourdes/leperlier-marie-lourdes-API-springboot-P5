@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,16 +25,24 @@ public class FireStationController {
 	@Autowired
 	private FireStationService fireStationService;
 	
-	@PostMapping("/firestation/")
-	public ResponseEntity<FireStation> createMedicalRecord(@Valid @RequestBody FireStation fireStation)
+	@PostMapping("/firestation")
+	public ResponseEntity<FireStation> createFireStation(@Valid @RequestBody FireStation fireStation,@RequestParam String address)
 			throws Exception {
-		FireStation fireStationCreated = fireStationService.addFireStation(fireStation);
+	 fireStationService.addStationNumberOfExistingFireStation( fireStation, address);
+		System.out.println(fireStation);
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStation);
+	}
+	
+	@PostMapping("/firestation/{stationNumber}")
+	public ResponseEntity<FireStation> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,@PathVariable String stationNumber)
+			throws Exception {
+		FireStation fireStationCreated = fireStationService.addAddressOfExistingFireStation( fireStation, stationNumber);
 		System.out.println(fireStation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
 	
 	@PutMapping("/firestation/{id}")
-	public ResponseEntity<FireStation> updateOneMedicalRecordById(@RequestBody FireStation firestation,
+	public ResponseEntity<FireStation> updateOneFireStationById(@RequestBody FireStation firestation,
 			@PathVariable String id) {
 		FireStation firestationFoundById = fireStationService.updateFireStation(id, firestation);
 		if (firestationFoundById != null) {

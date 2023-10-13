@@ -22,13 +22,50 @@ public class FireStationService {
 		return fireStation;
 	}
 	
+	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address) {
+	 Optional<FireStation> fireStationByAddress= getOneFireStationByAddress( address);
+	 fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
+	 
+	 fireStation.setId(fireStation.getStationNumber());
+	 fireStation.setAddress( fireStationByAddress.get().getAddress());
+	 fireStationByAddress.get().setStationNumber(fireStation.getStationNumber());
+	 fireStationByAddress.get().setId(fireStation.getId());
+	
+	// fireStation.setId( fireStationByAddress.get().getId());
+	fireStation=  fireStationByAddress.get();
+	
+
+		fireStations.add(fireStation);
+		return fireStation;
+	}
+	
+	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber) {
+		 List<FireStation> fireStationsByStationNumber= getFireStationsById(stationNumber) ;
+		 fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
+		 FireStation createdFireStation= fireStationsByStationNumber.stream().filter(fireStationByStationNumber -> fireStationByStationNumber .getId().equals(stationNumber) )
+         .findFirst()
+         .map(existingFireStation-> {
+        	 existingFireStation.setId(fireStation.getStationNumber());
+         	existingFireStation.setAddress(fireStation.getAddress());
+         	//existingFireStation.setAddress(updatedFireStation.getAddress());          
+             return existingFireStation;
+         })
+         .orElse(null);
+		 
+		/* FireStationByStationNumber.get().setId(fireStation.getStationNumber());
+		FireStationByStationNumber.get().setAddress(fireStation.getAddress());*/
+			fireStations.add( createdFireStation);
+			return  createdFireStation;
+		}
+	
+	//modification uniquement de la station number et non l'addresse
     public FireStation updateFireStation(String id,FireStation updatedFireStation) {
         return fireStations .stream()
                 .filter(fireStation -> fireStation.getId().equals(id) )
                 .findFirst()
                 .map(existingFireStation-> {
                 	existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
-                	//existingFireStation.setAddress(updatedFireStation.getAddress());          
+                	existingFireStation.setId(updatedFireStation.getStationNumber());          
                     return existingFireStation;
                 })
                 .orElse(null);
