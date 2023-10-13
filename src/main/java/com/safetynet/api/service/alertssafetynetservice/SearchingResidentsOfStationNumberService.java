@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +33,27 @@ public class SearchingResidentsOfStationNumberService {
 	@Autowired
 	MedicalRecordService medicalRecordService;
 	
-	private 	List<FireStation> fireStationFoundByStationNumber ;
-	Map<String,Integer> mapOfAdultsAndChildOfResidents ;
-	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber){
-		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
-		List<Map<String,Integer>> listOfAdultsAndChild = new ArrayList<Map<String,Integer>>();
+	private 	List<FireStation> fireStationFoundByStationNumber =new ArrayList<FireStation>();
+
+	private List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
+	
+	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) throws ParseException{
+		//List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
+		Map<String, Integer> listOfAdultsAndChild = sortAdultsAndChildOfListResident(stationNumber) ;
+		List<Map<String, String>> residentsOfStationNumberWithAge=new ArrayList<Map<String,String>>(); 
+		Map<String,Integer> mapOfAdultsAndChildOfResidents =sortAdultsAndChildOfListResident(stationNumber);
+	
 		try {
-			listOfResidentOfStationNumber= searchResidentOfStationNumber( stationNumber);
+			residentsOfStationNumberWithAge= searchResidentOfStationNumber( stationNumber);
+			residentsOfStationNumberWithAge.add(mapOfAdultsAndChildOfResidents);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		}
-		return listOfResidentOfStationNumber;
+		
+		
+		return residentsOfStationNumberWithAge;
 	}
 	public List<Map<String, String>> searchResidentOfStationNumber(String stationNumber) throws ParseException {
 		Map<String,Integer> mapOfAdultsAndChildOfResidents =new HashMap<String,Integer>();
@@ -79,8 +88,6 @@ public class SearchingResidentsOfStationNumberService {
 	 * public List<Person> getFireStationByStationNumber(String stationNumber) { }
 	 */
 
-
-
 	public BigInteger getAgeOfPerson( String idFirstAndLastName) throws ParseException {
 		
 		 String birthDateOfPerson =medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).get().getBirthdate();
@@ -94,25 +101,21 @@ public class SearchingResidentsOfStationNumberService {
 		Long ageOfPerson =	new Date().getTime() - birthdate.getTime();
 		System.out.println("age "+BigInteger.valueOf( ageOfPerson).divide(yearInMs) );
 		
-		/*medicalRecord.setMedications(medicalRecordCreated.getMedications());
-		medicalRecord.setAllergies(medicalRecordCreated.getAllergies());
-		medicalRecordService.saveMedicalRecord(medicalRecord);
-		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecord);*/
-		
-		// return medicalRecordService.saveMedicalRecord(medicalRecord);
-		
+
 		// getBirthDateOfPersonWithMedicalRecord()
 		// calculateAgeOfPerson();
 		return BigInteger.valueOf( ageOfPerson).divide(yearInMs) ;
 	}
 	
-/*	public Map<String,Integer> sortAdultsAndChildOfListResident(String stationNumber) throws ParseException {
+	public Map<String,Integer> sortAdultsAndChildOfListResident(String stationNumber) throws ParseException {
 		Map<String,Integer> mapOfAdultsAndChild = new HashMap<String,Integer>();
-		List<Map<String, String>> ResidentsOfStationNumber=searchResidentOfStationNumber( stationNumber); 
-		for(Map<String, String> resident: ResidentsOfStationNumber) {
+		List<Map<String, String>> ResidentsOfStationNumberWithAge=searchResidentOfStationNumber( stationNumber); 
+	
+		int indexChild=1;
+		int indexAdult=1;
+		for(Map<String, String> resident:  ResidentsOfStationNumberWithAge) {
 			System.out.println("resident of map"+resident.get("age"));
-			int indexChild=0;
-			int indexAdult=0;
+			
 			if(Integer.parseInt(resident.get("age"))<=18) {
 		
 				mapOfAdultsAndChild.put("childs", indexChild++);
@@ -125,5 +128,5 @@ public class SearchingResidentsOfStationNumberService {
 		//personService.getOnePersonByAddress(address);
 		System.out.println("resident of map"+mapOfAdultsAndChild);
 		return mapOfAdultsAndChild;
-	}*/
+	}
 }
