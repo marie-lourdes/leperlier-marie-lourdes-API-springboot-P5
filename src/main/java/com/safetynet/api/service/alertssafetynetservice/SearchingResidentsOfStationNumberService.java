@@ -35,7 +35,7 @@ public class SearchingResidentsOfStationNumberService {
 	
 	private 	List<FireStation> fireStationFoundByStationNumber =new ArrayList<FireStation>();
 
-	private List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
+	//private List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
 	
 	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) throws ParseException{
 		//List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
@@ -50,13 +50,11 @@ public class SearchingResidentsOfStationNumberService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-		}
-		
-		
+		}	
 		return residentsOfStationNumberWithAge;
 	}
 	public List<Map<String, String>> searchResidentOfStationNumber(String stationNumber) throws ParseException {
-		Map<String,Integer> mapOfAdultsAndChildOfResidents =new HashMap<String,Integer>();
+		//Map<String,Integer> mapOfAdultsAndChildOfResidents =new HashMap<String,Integer>();
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();

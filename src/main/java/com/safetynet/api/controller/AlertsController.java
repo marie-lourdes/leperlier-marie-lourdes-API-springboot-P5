@@ -1,18 +1,15 @@
 package com.safetynet.api.controller;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
-import com.safetynet.api.model.ResidentOfStationNumberFactory;
 import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
 
 @RestController
@@ -21,7 +18,14 @@ public class AlertsController {
 	SearchingResidentsOfStationNumberService residentsOfStationNumberService ;
 	
 	@GetMapping("/firestation")
-	public List<Map<String, String>> getFireStationById(@RequestParam String stationNumber) throws ParseException {
-		return residentsOfStationNumberService.getResidentsOfStationNumber(stationNumber);
+	public List<Map<String, String>> getAllAdultsAndChildsNearOfOneFireStation(@RequestParam String stationNumber) throws ParseException {
+		List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService.getResidentsOfStationNumber(stationNumber);
+		Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildOfListResident(stationNumber);
+		for(Map.Entry<String,Integer> entry :mapOfAdultsAndChild .entrySet() ) {
+			Map<String,String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+			mapOfAdultsAndChildConvertedValueString.put(entry.getKey(),entry.getValue().toString());
+			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
+		}
+		return  (listOfResidentsOfStationNumber)  ;
 	}
 }
