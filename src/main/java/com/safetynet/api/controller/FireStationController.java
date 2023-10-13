@@ -64,8 +64,8 @@ public class FireStationController {
 		return fireStationService.getFireStationsById(id);
 	}
 	
-	/*@GetMapping("/firestation/{address}")
-	public Optional<FireStation> getFireStationByAddress(@PathVariable String address) {
+	/*@GetMapping("/firestation")
+	public Optional<FireStation> getFireStationByAddress(@RequestParam String address) {
 		return fireStationService.getOneFireStationByAddress(address);
 	}*/
 	

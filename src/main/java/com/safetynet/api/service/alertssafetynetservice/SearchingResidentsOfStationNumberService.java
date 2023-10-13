@@ -22,9 +22,9 @@ public class SearchingResidentsOfStationNumberService {
 
 	@Autowired
 	FireStationService fireStationService;
-	
+	private 	List<FireStation> fireStationFoundByStationNumber ;
 	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) {
-		List<FireStation> fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
+		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 	
 		List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();

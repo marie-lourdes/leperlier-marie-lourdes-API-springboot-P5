@@ -28,7 +28,7 @@ public class FireStationService {
                 .findFirst()
                 .map(existingFireStation-> {
                 	existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
-                	existingFireStation.setAddress(updatedFireStation.getAddress());          
+                	//existingFireStation.setAddress(updatedFireStation.getAddress());          
                     return existingFireStation;
                 })
                 .orElse(null);
