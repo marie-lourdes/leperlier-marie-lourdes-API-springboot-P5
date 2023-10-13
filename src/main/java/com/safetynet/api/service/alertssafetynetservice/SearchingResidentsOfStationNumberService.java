@@ -39,13 +39,13 @@ public class SearchingResidentsOfStationNumberService {
 	
 	public List<Map<String, String>> getResidentsOfStationNumber(String stationNumber) throws ParseException{
 		//List<Map<String,String>> listOfResidentOfStationNumber = new ArrayList<Map<String,String>>();
-		Map<String, Integer> listOfAdultsAndChild = sortAdultsAndChildOfListResident(stationNumber) ;
+		//Map<String, Integer> listOfAdultsAndChild = sortAdultsAndChildOfListResident(stationNumber) ;
 		List<Map<String, String>> residentsOfStationNumberWithAge=new ArrayList<Map<String,String>>(); 
-		Map<String,Integer> mapOfAdultsAndChildOfResidents =sortAdultsAndChildOfListResident(stationNumber);
+		//Map<String, Integer> mapOfAdultsAndChildOfResidents =sortAdultsAndChildOfListResident(stationNumber);
 	
 		try {
 			residentsOfStationNumberWithAge= searchResidentOfStationNumber( stationNumber);
-			residentsOfStationNumberWithAge.add(mapOfAdultsAndChildOfResidents);
+			//residentsOfStationNumberWithAge.add(mapOfAdultsAndChildOfResidents);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,13 +111,13 @@ public class SearchingResidentsOfStationNumberService {
 		Map<String,Integer> mapOfAdultsAndChild = new HashMap<String,Integer>();
 		List<Map<String, String>> ResidentsOfStationNumberWithAge=searchResidentOfStationNumber( stationNumber); 
 	
-		int indexChild=1;
-		int indexAdult=1;
+		Integer indexChild=1;
+		Integer indexAdult=1;
 		for(Map<String, String> resident:  ResidentsOfStationNumberWithAge) {
 			System.out.println("resident of map"+resident.get("age"));
 			
 			if(Integer.parseInt(resident.get("age"))<=18) {
-		
+				
 				mapOfAdultsAndChild.put("childs", indexChild++);
 			}else {
 				mapOfAdultsAndChild.put("adults", indexAdult++);
