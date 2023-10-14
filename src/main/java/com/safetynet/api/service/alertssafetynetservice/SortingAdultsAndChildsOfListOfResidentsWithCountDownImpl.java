@@ -13,8 +13,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl  implement
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	
-	private Map<String, String> mapOfChild = new HashMap<String, String>();
-	private Map<String, Person> mapOfAdult = new HashMap<String, Person>();
+	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 	private List<Map<String, String>> ResidentsOfStationNumberWithAge = new ArrayList<Map<String, String>>();
 	
 	@Override
@@ -29,7 +28,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl  implement
 
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 
-				mapOfChild.put("childs", indexChild++);
+				mapOfAdultsAndChild.put("childs", indexChild++);
 			} else {
 				mapOfAdultsAndChild.put("adults", indexAdult++);
 			}
