@@ -37,6 +37,6 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber){
-		return adultsAndChildsOfListOfResidents.sortAdultsAndChildsOfListOfResidents(stationNumber);
+		return adultsAndChildsOfListOfResidents.sortAdultsAndChilds(stationNumber);
 	}
 }

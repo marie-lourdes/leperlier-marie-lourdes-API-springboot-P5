@@ -17,7 +17,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl  implement
 	private List<Map<String, String>> ResidentsOfStationNumberWithAge = new ArrayList<Map<String, String>>();
 	
 	@Override
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidents(String request){
+	public Map<String, Integer> sortAdultsAndChilds(String request){
 	
 		ResidentsOfStationNumberWithAge = infoOfResidentOfStationNumber.searchInfoOfResident(request);
 
