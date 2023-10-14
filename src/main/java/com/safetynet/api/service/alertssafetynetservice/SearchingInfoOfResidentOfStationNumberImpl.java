@@ -15,7 +15,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.PersonService;
 
-public class SearchingInfoOfResidentImpl implements ISearchingInfoOfResident {
+public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInfoOfResident {
 	@Autowired
 	PersonService personService;
 
