@@ -25,6 +25,6 @@ public class ChildAlertService {
 	}
 
 	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address){
-		return sortInfoOfChildsAndAdults.sortListAdultsAndChilds(address);
+		return sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
 	}
 }

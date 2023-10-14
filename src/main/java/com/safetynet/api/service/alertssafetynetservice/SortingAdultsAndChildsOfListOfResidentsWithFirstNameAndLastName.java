@@ -12,12 +12,11 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName
 		{
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
+	
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
-	// Map<String, String> mapOfAdultsAndChild = new HashMap<String, String>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
-	
-	
-public List<Map<String, String>> sortListAdultsAndChilds(String request) {
+		
+public List<Map<String, String>> sortAdultsAndChilds(String request) {
 	
 	 listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
 
