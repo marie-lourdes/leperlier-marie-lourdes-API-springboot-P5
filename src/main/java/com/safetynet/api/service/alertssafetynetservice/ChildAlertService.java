@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChildAlertService {
 	@Autowired
-	 SearchingFullInfoOfResidentsByAddressImpl  InfoOfChildAndMemberOfHouseHold;
+	 SearchingFullInfoOfResidentsByAddressImpl  infoOfChildAndMemberOfHouseHold;
 	
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl adultsAndChildsOfListOfResidents;
+	SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameImpl sortInfoOfChildsAndAdults;
 	
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
 	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) throws ParseException {
 		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
-		listOfResidentChildAndMembersOfHouseHold =InfoOfChildAndMemberOfHouseHold.searchInfoOfResident(address);
+		listOfResidentChildAndMembersOfHouseHold =infoOfChildAndMemberOfHouseHold.searchInfoOfResident(address);
 		return 	listOfResidentChildAndMembersOfHouseHold;
 	}
 
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber){
-		return adultsAndChildsOfListOfResidents.sortAdultsAndChilds(stationNumber);
+	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address){
+		return sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
 	}
 }

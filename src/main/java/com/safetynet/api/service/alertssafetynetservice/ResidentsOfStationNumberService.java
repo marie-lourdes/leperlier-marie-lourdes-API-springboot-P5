@@ -14,7 +14,7 @@ public class ResidentsOfStationNumberService {
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl adultsAndChildsOfListOfResidents;
+	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl countDownOfAdultsAndChilds;
 	
 	private List<Map<String, String>> listOfResidentOfStationNumber;
 
@@ -31,6 +31,6 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber){
-		return adultsAndChildsOfListOfResidents.sortAdultsAndChilds(stationNumber);
+		return countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber);
 	}
 }
