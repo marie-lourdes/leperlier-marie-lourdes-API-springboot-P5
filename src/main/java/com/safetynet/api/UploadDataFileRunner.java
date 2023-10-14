@@ -27,6 +27,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 
 	@Autowired
 	ChildAlertService childAlertService ;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// medicalRecordService.getAllMedicalRecords();
