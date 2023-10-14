@@ -14,7 +14,7 @@ public class ChildAlertService {
 	 SearchingFullInfoOfResidentsByAddressImpl  infoOfChildAndMemberOfHouseHold;
 	
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameImpl sortInfoOfChildsAndAdults;
+	SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName sortInfoOfChildsAndAdults;
 	
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
