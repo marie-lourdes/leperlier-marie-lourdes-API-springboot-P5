@@ -37,20 +37,21 @@ public class SearchingResidentsOfStationNumberService {
 
 	// private List<Map<String,String>> listOfResidentOfStationNumber = new
 	// ArrayList<Map<String,String>>();
-	public List<Map<String, String>> getListOfResidentOfStationNumber(String stationNumber) throws ParseException{
+	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) throws ParseException {
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-		listOfResidentOfStationNumber=searchInfoOfResidentOfStationNumber(stationNumber) ;
-		
-		for(Map<String, String> residents:listOfResidentOfStationNumber) {
+		listOfResidentOfStationNumber = searchInfoOfResidentOfStationNumber(stationNumber);
+
+		for (Map<String, String> residents : listOfResidentOfStationNumber) {
 			residents.remove("age");
-			/*for(Map.Entry<String,String> resident : residents.entrySet()) {
-				resident.
-			}*/
-			System.out.println("residents"+residents);
+			/*
+			 * for(Map.Entry<String,String> resident : residents.entrySet()) { resident. }
+			 */
+			System.out.println("residents" + residents);
 		}
-		System.out.println("list des residents"+ listOfResidentOfStationNumber);
+		System.out.println("list des residents" + listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
+
 	public List<Map<String, String>> searchInfoOfResidentOfStationNumber(String stationNumber) throws ParseException {
 		// Map<String,Integer> mapOfAdultsAndChildOfResidents =new
 		// HashMap<String,Integer>();
@@ -71,7 +72,7 @@ public class SearchingResidentsOfStationNumberService {
 					residentOfStationNumber.put("lastName", person.getLastName());
 					residentOfStationNumber.put("address", person.getAddress());
 					residentOfStationNumber.put("phone", person.getPhone());
-					residentOfStationNumber.put("age", getAgeOfPerson(person.getId()).toString());
+					residentOfStationNumber.put("age", getAgeOfResident(person.getId()).toString());
 					System.out.println(" personFactory" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
@@ -86,7 +87,7 @@ public class SearchingResidentsOfStationNumberService {
 	 * public List<Person> getFireStationByStationNumber(String stationNumber) { }
 	 */
 
-	public BigInteger getAgeOfPerson(String idFirstAndLastName) throws ParseException {
+	public BigInteger getAgeOfResident(String idFirstAndLastName) throws ParseException {
 
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).get()
 				.getBirthdate();
@@ -105,7 +106,7 @@ public class SearchingResidentsOfStationNumberService {
 		return BigInteger.valueOf(ageOfPerson).divide(yearInMs);
 	}
 
-	public Map<String, Integer> sortAdultsAndChildOfListResident(String stationNumber) throws ParseException {
+	public Map<String, Integer> sortAdultsAndChildsOfListOfResidents(String stationNumber) throws ParseException {
 		Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 		List<Map<String, String>> ResidentsOfStationNumberWithAge = searchInfoOfResidentOfStationNumber(stationNumber);
 

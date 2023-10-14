@@ -31,8 +31,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		personService.getAllPersons();
 
 		fireStationService.getFireStationsById("3");
-		residentsOfStationNumberService.getListOfResidentOfStationNumber("3");
-		residentsOfStationNumberService.sortAdultsAndChildOfListResident("3");
+		residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
+		residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidents("3");
 
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());
