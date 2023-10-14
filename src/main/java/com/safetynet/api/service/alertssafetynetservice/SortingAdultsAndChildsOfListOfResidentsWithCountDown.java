@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl  implements ISortingAdultsAndChildsOfListOfResidents {
+public class SortingAdultsAndChildsOfListOfResidentsWithCountDown  {
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 	private List<Map<String, String>> ResidentsOfStationNumberWithAge = new ArrayList<Map<String, String>>();
 	
-	@Override
+
 	public Map<String, Integer> sortAdultsAndChilds(String request){
 	
 		ResidentsOfStationNumberWithAge = infoOfResidentOfStationNumber.searchInfoOfResident(request);

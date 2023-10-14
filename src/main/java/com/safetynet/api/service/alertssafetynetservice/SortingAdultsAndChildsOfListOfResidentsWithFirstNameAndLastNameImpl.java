@@ -1,36 +1,49 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameImpl
-		implements ISortingAdultsAndChildsOfListOfResidents {
+		{
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl fullinfoOfResidentWithSameAddress;
+	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
+	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
+	// Map<String, String> mapOfAdultsAndChild = new HashMap<String, String>();
+	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
+	
+	
+public List<Map<String, String>> sortListAdultsAndChilds(String request) {
+	
+	 listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
 
-	private Map<String, String> mapOfAdultsAndChild = new HashMap<String, String>();
-	private List<Map<String, String>> ResidentsOfStationNumberWithAge = new ArrayList<Map<String, String>>();
-
-	@Override
-	public Map<String, String> sortAdultsAndChilds(String request) {
-		ResidentsOfStationNumberWithAge = fullinfoOfResidentWithSameAddress.searchInfoOfResident(request);
-		for (Map<String, String> resident : ResidentsOfStationNumberWithAge) {
-			System.out.println("resident of map" + resident.get("age"));
-
+		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
-				String fullName = resident.get("id");
-				mapOfAdultsAndChild.put("childs", fullName);
-				mapOfAdultsAndChild.put("childs", resident.get("age"));
+				// System.out.println("child firstName" + resident.get("firstName"));
+				// mapOfAdultsAndChild.put("childs",
+				// resident.get("firstName")+","+resident.get("lastName")+","
+				// +resident.get("age"));
+				resident.remove("address");
+				resident.remove("city");
+				resident.remove("zip");
+				resident.remove("phone");
+				resident.remove("email");
+				listOfAdultsAndChild.add(resident);
+
 			} else {
-				mapOfAdultsAndChild.put("adults", resident.toString());
+				/*
+				 * System.out.println("adult" + resident.toString());
+				 * mapOfAdultsAndChild.put("adults", resident.toString());
+				 */
+				resident.remove("age");
+				listOfAdultsAndChild.add(resident);
 			}
 		}
-
-		System.out.println("resident of map" + mapOfAdultsAndChild);
-		return mapOfAdultsAndChild;
+		System.out.println("listOfAdultsAndChild" + listOfAdultsAndChild);
+		return listOfResidentsFoundByAddress;
 	}
 }
