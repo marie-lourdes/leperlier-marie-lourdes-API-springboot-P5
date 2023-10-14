@@ -14,9 +14,6 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 @Service
 public class ResidentsOfStationNumberService {
 	@Autowired
-	MedicalRecordService medicalRecordService;
-
-	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	
 	@Autowired

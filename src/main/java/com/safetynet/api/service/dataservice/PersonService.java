@@ -1,11 +1,13 @@
 package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 
 import lombok.RequiredArgsConstructor;
@@ -57,13 +59,17 @@ public class PersonService {
                 } );
    }
     
-    public Optional<Person> getOnePersonByAddress(String address) {
-    	  return persons.stream()
-                  .filter(person -> person.getAddress().equals(address))
-                  .findFirst()
-                  .map(existingPerson -> { 
-                	  return existingPerson;
-                  } );
+    public List<Person> getOnePersonByAddress(String address) {
+    	List<Person>  personsFoundByAddress = new ArrayList<>();
+		Iterator<Person>itrPersons =persons.listIterator();
+		while(itrPersons.hasNext()) {
+			Person itrPerson = itrPersons.next();
+			if(itrPerson.getId().equals(address)) {
+				 personsFoundByAddress.add(itrPerson);
+			}
+		}
+	System.out.println("personsFoundByAddress"+personsFoundByAddress);
+		 return personsFoundByAddress;
      }
 	 
   public List<Person> getAllPersons() {
