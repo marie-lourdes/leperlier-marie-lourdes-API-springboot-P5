@@ -64,7 +64,7 @@ public class PersonService {
 		Iterator<Person>itrPersons =persons.listIterator();
 		while(itrPersons.hasNext()) {
 			Person itrPerson = itrPersons.next();
-			if(itrPerson.getId().equals(address)) {
+			if(itrPerson.getAddress().equals(address)) {
 				 personsFoundByAddress.add(itrPerson);
 			}
 		}

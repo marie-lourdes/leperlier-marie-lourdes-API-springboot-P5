@@ -15,35 +15,33 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
-public class SearchingInfoOfChildAndMemberOfHouseHoldImpl  implements ISearchingInfoOfResident{
+public class SearchingInfoOfChildAndMemberOfHouseHoldImpl implements ISearchingInfoOfResident {
 	@Autowired
 	PersonService personService;
 
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-		
-	private List<Person> residentsFoundByAddress= new ArrayList<Person>();
+
+	private List<Person> residentsFoundByAddress = new ArrayList<Person>();
+
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String request) {
 		List<Map<String, String>> listOfResidentsWithSameAddress = new ArrayList<Map<String, String>>();
-		List<Person> persons = personService.getAllPersons();
-		
-		residentsFoundByAddress = personService.getPersonsByAddress(request);
-		Iterator<Person> itrPersonsFoundByAddress = residentsFoundByAddress.listIterator();
-		
-		while (itrPersonsFoundByAddress .hasNext()) {
-		Person itrPerson = itrPersonsFoundByAddress.next();
+		// List<Person> persons = personService.getAllPersons();
 
-			for (Person person : persons) {
-					Map<String, String> ResidentsWithSameAddress = new HashMap<String, String>();
-					ResidentsWithSameAddress.put("firstName", person.getFirstName());
-					ResidentsWithSameAddress.put("lastName", person.getLastName());
-					ResidentsWithSameAddress.put("age", calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
-					System.out.println(" personFactory" + ResidentsWithSameAddress);
-					listOfResidentsWithSameAddress.add(ResidentsWithSameAddress);
-			}
+		residentsFoundByAddress = personService.getPersonsByAddress(request);
+
+		for (Person person : residentsFoundByAddress) {
+			Map<String, String> ResidentsWithSameAddress = new HashMap<String, String>();
+			ResidentsWithSameAddress.put("firstName", person.getFirstName());
+			ResidentsWithSameAddress.put("lastName", person.getLastName());
+			ResidentsWithSameAddress.put("age",
+					calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
+			System.out.println(" personFactory" + ResidentsWithSameAddress);
+			listOfResidentsWithSameAddress.add(ResidentsWithSameAddress);
 		}
-		System.out.println("listOfResidentsOfStationNumber" + listOfResidentsWithSameAddress );
-		return listOfResidentsWithSameAddress ;
+
+		System.out.println("listOfResidentsWithSameAddress" + listOfResidentsWithSameAddress);
+		return listOfResidentsWithSameAddress;
 	}
 }

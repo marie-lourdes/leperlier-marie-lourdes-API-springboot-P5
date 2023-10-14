@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ChildAlertService {
 	@Autowired
 	 SearchingInfoOfChildAndMemberOfHouseHoldImpl  InfoOfChildAndMemberOfHouseHold;
@@ -19,8 +21,6 @@ public class ChildAlertService {
 	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) throws ParseException {
 		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold =InfoOfChildAndMemberOfHouseHold.searchInfoOfResident(address);
-
-		System.out.println("list des residents" +listOfResidentChildAndMembersOfHouseHold);
 		return 	listOfResidentChildAndMembersOfHouseHold;
 	}
 
