@@ -37,8 +37,21 @@ public class SearchingResidentsOfStationNumberService {
 
 	// private List<Map<String,String>> listOfResidentOfStationNumber = new
 	// ArrayList<Map<String,String>>();
-
-	public List<Map<String, String>> searchResidentOfStationNumber(String stationNumber) throws ParseException {
+	public List<Map<String, String>> getListOfResidentOfStationNumber(String stationNumber) throws ParseException{
+		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+		listOfResidentOfStationNumber=searchInfoOfResidentOfStationNumber(stationNumber) ;
+		
+		for(Map<String, String> residents:listOfResidentOfStationNumber) {
+			residents.remove("age");
+			/*for(Map.Entry<String,String> resident : residents.entrySet()) {
+				resident.
+			}*/
+			System.out.println("residents"+residents);
+		}
+		System.out.println("list des residents"+ listOfResidentOfStationNumber);
+		return listOfResidentOfStationNumber;
+	}
+	public List<Map<String, String>> searchInfoOfResidentOfStationNumber(String stationNumber) throws ParseException {
 		// Map<String,Integer> mapOfAdultsAndChildOfResidents =new
 		// HashMap<String,Integer>();
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
@@ -94,7 +107,7 @@ public class SearchingResidentsOfStationNumberService {
 
 	public Map<String, Integer> sortAdultsAndChildOfListResident(String stationNumber) throws ParseException {
 		Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
-		List<Map<String, String>> ResidentsOfStationNumberWithAge = searchResidentOfStationNumber(stationNumber);
+		List<Map<String, String>> ResidentsOfStationNumberWithAge = searchInfoOfResidentOfStationNumber(stationNumber);
 
 		Integer indexChild = 1;
 		Integer indexAdult = 1;

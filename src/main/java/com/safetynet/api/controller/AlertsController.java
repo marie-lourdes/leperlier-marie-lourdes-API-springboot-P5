@@ -19,7 +19,7 @@ public class AlertsController {
 	
 	@GetMapping("/firestation")
 	public List<Map<String, String>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) throws ParseException {
-		List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService.searchResidentOfStationNumber(stationNumber);
+		List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService.getListOfResidentOfStationNumber(stationNumber);
 		Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildOfListResident(stationNumber);
 		
 		for(Map.Entry<String,Integer> entry :mapOfAdultsAndChild .entrySet() ) {
