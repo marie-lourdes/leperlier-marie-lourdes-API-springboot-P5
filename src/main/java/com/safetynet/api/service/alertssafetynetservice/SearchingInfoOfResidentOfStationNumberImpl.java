@@ -24,8 +24,7 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-	
-	
+		
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String request) {
