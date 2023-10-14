@@ -19,7 +19,7 @@ public class ResidentsOfStationNumberService {
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl adultsAndChildsOfListOfResidents;
 	
-	private List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+	private List<Map<String, String>> listOfResidentOfStationNumber;
 
 	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) throws ParseException {
 		listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();

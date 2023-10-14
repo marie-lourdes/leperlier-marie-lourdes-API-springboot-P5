@@ -9,23 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ChildAlertService {
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	 SearchingInfoOfChildAndMemberOfHouseHoldImpl  InfoOfChildAndParent;
 	
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl adultsAndChildsOfListOfResidents;
 	
-	private List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
-	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) throws ParseException {
-		listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-		listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) throws ParseException {
+		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
+		listOfResidentChildAndMembersOfHouseHold = InfoOfChildAndParent.searchInfoOfResident(address);
 
-		for (Map<String, String> residents : listOfResidentOfStationNumber) {
-			residents.remove("age");
-			System.out.println("residents" + residents);
-		}
-		System.out.println("list des residents" + listOfResidentOfStationNumber);
-		return listOfResidentOfStationNumber;
+		System.out.println("list des residents" +listOfResidentChildAndMembersOfHouseHold);
+		return 	listOfResidentChildAndMembersOfHouseHold;
 	}
 
 	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber){

@@ -15,7 +15,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
-public class SearchingInfoOfChildAndParentWithAddressImpl  implements ISearchingInfoOfResident{
+public class SearchingInfoOfChildAndMemberOfHouseHoldImpl  implements ISearchingInfoOfResident{
 	@Autowired
 	PersonService personService;
 
