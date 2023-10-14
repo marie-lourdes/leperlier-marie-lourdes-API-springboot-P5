@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
+import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.service.dataservice.PersonService;
@@ -22,7 +22,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	MedicalRecordService medicalRecordService;
 
 	@Autowired
-	SearchingResidentsOfStationNumberService residentsOfStationNumberService;
+	ResidentsOfStationNumberService residentsOfStationNumberService;
 
 	@Override
 	public void run(String... args) throws Exception {

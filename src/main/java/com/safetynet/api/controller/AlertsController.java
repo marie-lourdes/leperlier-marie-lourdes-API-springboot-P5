@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.service.alertssafetynetservice.SearchingResidentsOfStationNumberService;
+import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
 
 @RestController
 public class AlertsController {
 	@Autowired
-	SearchingResidentsOfStationNumberService residentsOfStationNumberService ;
+	ResidentsOfStationNumberService residentsOfStationNumberService ;
 	
 	@GetMapping("/firestation")
 	public List<Map<String, String>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) throws ParseException {
