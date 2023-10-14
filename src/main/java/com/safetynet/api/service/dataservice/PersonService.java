@@ -59,7 +59,7 @@ public class PersonService {
                 } );
    }
     
-    public List<Person> getOnePersonByAddress(String address) {
+    public List<Person> getPersonsByAddress(String address) {
     	List<Person>  personsFoundByAddress = new ArrayList<>();
 		Iterator<Person>itrPersons =persons.listIterator();
 		while(itrPersons.hasNext()) {
