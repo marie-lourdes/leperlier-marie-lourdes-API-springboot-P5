@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ChildAlertService {
 	@Autowired
-	 SearchingInfoOfChildAndMemberOfHouseHoldImpl  InfoOfChildAndParent;
+	 SearchingInfoOfChildAndMemberOfHouseHoldImpl  InfoOfChildAndMemberOfHouseHold;
 	
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithCountDownImpl adultsAndChildsOfListOfResidents;
@@ -18,7 +18,7 @@ public class ChildAlertService {
 
 	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) throws ParseException {
 		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
-		listOfResidentChildAndMembersOfHouseHold = InfoOfChildAndParent.searchInfoOfResident(address);
+		listOfResidentChildAndMembersOfHouseHold =InfoOfChildAndMemberOfHouseHold.searchInfoOfResident(address);
 
 		System.out.println("list des residents" +listOfResidentChildAndMembersOfHouseHold);
 		return 	listOfResidentChildAndMembersOfHouseHold;
