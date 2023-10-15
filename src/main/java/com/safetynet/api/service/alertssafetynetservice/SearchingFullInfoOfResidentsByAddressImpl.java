@@ -22,9 +22,9 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 	private List<Person> residentsFoundByAddress = new ArrayList<Person>();
 
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String request) {
+	public List<Map<String, String>> searchInfoOfResident(String address) {
 		List<Map<String, String>> listOfresidentsWithSameAddress = new ArrayList<Map<String, String>>();
-		residentsFoundByAddress = personService.getPersonsByAddress(request);
+		residentsFoundByAddress = personService.getPersonsByAddress(address);
 
 		for (Person person : residentsFoundByAddress) {	
 			Map<String, String> residentsWithSameAddress = new HashMap<String, String>();

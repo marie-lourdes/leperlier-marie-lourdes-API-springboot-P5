@@ -28,11 +28,11 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String request) {
+	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<Person> persons = personService.getAllPersons();
 
-		fireStationFoundByStationNumber = fireStationService.getFireStationsById(request);
+		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
 		while (itrFireStations.hasNext()) {
