@@ -20,6 +20,24 @@ public class ChildAlertService {
 	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) {
 		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
+		List<Integer> allMemberOfHouseHoldWithAge= new ArrayList<Integer> ();
+		long numberOfChild=0;
+		
+		for(Map<String, String> resident:listOfResidentChildAndMembersOfHouseHold ) {
+			System.out.println("resident sorted in childsService"+ resident.get("age"));
+			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));	
+			
+			if (Integer.parseInt(resident.get("age")) >18) {
+				resident.remove("age");
+			}		
+		}
+	
+		System.out.println("list age is child"+ allMemberOfHouseHoldWithAge);
+		numberOfChild = allMemberOfHouseHoldWithAge.stream().filter(elem-> elem <=18 ).count();
+		System.out.println("numberOf Child"+ numberOfChild );
+		if(numberOfChild==0) {
+			return null;
+		}
 		return listOfResidentChildAndMembersOfHouseHold;
 	}
 

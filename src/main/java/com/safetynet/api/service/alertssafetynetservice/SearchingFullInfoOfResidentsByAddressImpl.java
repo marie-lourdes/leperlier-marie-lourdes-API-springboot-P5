@@ -26,7 +26,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 		List<Map<String, String>> listOfresidentsWithSameAddress = new ArrayList<Map<String, String>>();
 		residentsFoundByAddress = personService.getPersonsByAddress(address);
 
-		for (Person person : residentsFoundByAddress) {	
+		for (Person person : residentsFoundByAddress) {
 			Map<String, String> residentsWithSameAddress = new HashMap<String, String>();
 			residentsWithSameAddress.put("firstName", person.getFirstName());
 			residentsWithSameAddress.put("lastName", person.getLastName());
@@ -37,7 +37,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			residentsWithSameAddress.put("email", person.getEmail());
 			residentsWithSameAddress.put("age",
 					calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
-			System.out.println(" personFactory" + residentsWithSameAddress);
+			System.out.println(" residents with same address" + residentsWithSameAddress);
 			listOfresidentsWithSameAddress.add(residentsWithSameAddress);
 		}
 

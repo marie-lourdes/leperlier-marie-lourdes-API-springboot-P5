@@ -1,6 +1,6 @@
 package com.safetynet.api.model;
 
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class Person {
@@ -11,10 +11,11 @@ public class Person {
 	private String address;
 	private String zip;
 	private String city;
+    @NotNull
 	private String phone;
 	
 	@Pattern( regexp = REGEX_P)
-	@Email
+	//@Email(message = "email should be valid")
 	private String email;
 	
 //	private int age;

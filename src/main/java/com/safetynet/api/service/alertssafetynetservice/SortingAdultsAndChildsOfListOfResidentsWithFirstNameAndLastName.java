@@ -21,10 +21,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
-				// System.out.println("child firstName" + resident.get("firstName"));
-				// mapOfAdultsAndChild.put("childs",
-				// resident.get("firstName")+","+resident.get("lastName")+","
-				// +resident.get("age"));
 				resident.remove("address");
 				resident.remove("city");
 				resident.remove("zip");
@@ -33,7 +29,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 				listOfAdultsAndChild.add(resident);
 
 			} else {
-				resident.remove("age");
+				//resident.remove("age");
 				listOfAdultsAndChild.add(resident);
 			}
 		}
