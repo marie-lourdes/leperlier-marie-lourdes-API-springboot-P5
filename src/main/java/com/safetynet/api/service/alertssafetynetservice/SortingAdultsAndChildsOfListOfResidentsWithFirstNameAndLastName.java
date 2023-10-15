@@ -34,15 +34,11 @@ public List<Map<String, String>> sortAdultsAndChilds(String request) {
 				listOfAdultsAndChild.add(resident);
 
 			} else {
-				/*
-				 * System.out.println("adult" + resident.toString());
-				 * mapOfAdultsAndChild.put("adults", resident.toString());
-				 */
 				resident.remove("age");
 				listOfAdultsAndChild.add(resident);
 			}
 		}
-		System.out.println("listOfAdultsAndChild" + listOfAdultsAndChild);
+		System.out.println("listOfAdultsAndChildSorted" + listOfAdultsAndChild);
 		return listOfResidentsFoundByAddress;
 	}
 }

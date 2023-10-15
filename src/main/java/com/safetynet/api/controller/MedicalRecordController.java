@@ -1,7 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 

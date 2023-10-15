@@ -18,7 +18,7 @@ public class ResidentsOfStationNumberService {
 	
 	private List<Map<String, String>> listOfResidentOfStationNumber;
 
-	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) throws ParseException {
+	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber){
 		listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 

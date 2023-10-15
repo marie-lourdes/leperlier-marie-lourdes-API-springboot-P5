@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
 
 @RestController
 public class AlertsController {
 	@Autowired
 	ResidentsOfStationNumberService residentsOfStationNumberService ;
+	
+	@Autowired
+	ChildAlertService  childAlertService;
 	
 	@GetMapping("/firestation")
 	public List<Map<String, String>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) throws ParseException {
@@ -28,5 +32,10 @@ public class AlertsController {
 			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
 		}
 		return  (listOfResidentsOfStationNumber)  ;
+	}
+	
+	@GetMapping("/childAlert")
+	public  List<Map<String, String>> getChildsAndMemberOfHouseHoldByAddress (@RequestParam String address){
+		return childAlertService.getChildAndMembersOfHouseHold(address);
 	}
 }

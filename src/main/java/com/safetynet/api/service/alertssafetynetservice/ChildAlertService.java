@@ -18,9 +18,9 @@ public class ChildAlertService {
 	
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
-	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) throws ParseException {
+	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address){
 		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
-		listOfResidentChildAndMembersOfHouseHold =infoOfChildAndMemberOfHouseHold.searchInfoOfResident(address);
+		listOfResidentChildAndMembersOfHouseHold =sortAdultsAndChildsOfListOfResidentsWithFullInfo( address);
 		return 	listOfResidentChildAndMembersOfHouseHold;
 	}
 
