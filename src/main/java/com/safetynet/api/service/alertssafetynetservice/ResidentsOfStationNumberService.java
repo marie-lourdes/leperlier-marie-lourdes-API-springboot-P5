@@ -1,6 +1,5 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
