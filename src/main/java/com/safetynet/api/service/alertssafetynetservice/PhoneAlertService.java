@@ -13,7 +13,7 @@ public class PhoneAlertService {
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber;
 
-	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber){
+	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber) {
 		listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		listOfPhonesOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 

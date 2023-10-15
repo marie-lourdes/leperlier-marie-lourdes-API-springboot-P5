@@ -21,19 +21,20 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 	@Autowired
 	FireStationService fireStationService;
-	
+
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-		
+
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
+
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String request) {
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<Person> persons = personService.getAllPersons();
-		
+
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(request);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-		
+
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
 
@@ -44,8 +45,9 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 					residentOfStationNumber.put("lastName", person.getLastName());
 					residentOfStationNumber.put("address", person.getAddress());
 					residentOfStationNumber.put("phone", person.getPhone());
-					residentOfStationNumber.put("age", calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
-					System.out.println(" personFactory" + residentOfStationNumber);
+					residentOfStationNumber.put("age",
+							calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
+					System.out.println(" residentOfStationNumber" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
 
@@ -54,6 +56,5 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
-	
-	
+
 }
