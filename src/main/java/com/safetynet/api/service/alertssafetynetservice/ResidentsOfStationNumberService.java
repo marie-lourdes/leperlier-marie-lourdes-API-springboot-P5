@@ -26,7 +26,7 @@ public class ResidentsOfStationNumberService {
 			residents.remove("age");
 			System.out.println("residents" + residents);
 		}
-		System.out.println("list des residents" + listOfResidentOfStationNumber);
+		System.out.println("list of residents" + listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
 
