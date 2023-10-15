@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +41,18 @@ public class AlertsController {
 	}
 	
 	@GetMapping("/childAlert")
-	public  List<Map<String, String>> getChildsAndMembersOfHouseHoldByAddress  (@RequestParam String address){
-		return childAlertService.getChildsAndMembersOfHouseHold(address);
+	public  ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress  (@RequestParam String address){
+		List<Map<String, String>>  childs =childAlertService.getChildsAndMembersOfHouseHold(address);
+		 ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.FOUND).body(new String(""));
+		 ResponseEntity<?> response=ResponseEntity.status(HttpStatus.FOUND).body(childs);
+		 
+		for(Map<String, String>child :childs) {
+			if(child.get("age") == null) {
+				return  responseEmpty ;
+				
+				}
+		}		
+		return response;//envoyer une chaine vide
 	}
 	
 	@GetMapping("/phoneAlert")
