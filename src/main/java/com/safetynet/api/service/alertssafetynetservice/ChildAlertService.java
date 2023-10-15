@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChildAlertService {
 	@Autowired
-	 SearchingFullInfoOfResidentsByAddressImpl  infoOfChildAndMemberOfHouseHold;
-	
+	SearchingFullInfoOfResidentsByAddressImpl infoOfChildAndMemberOfHouseHold;
+
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName sortInfoOfChildsAndAdults;
-	
+
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
-	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address){
-		listOfResidentChildAndMembersOfHouseHold= new ArrayList<Map<String, String>>();
-		listOfResidentChildAndMembersOfHouseHold =sortAdultsAndChildsOfListOfResidentsWithFullInfo( address);
-		return 	listOfResidentChildAndMembersOfHouseHold;
+	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) {
+		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
+		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
+		return listOfResidentChildAndMembersOfHouseHold;
 	}
 
-	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address){
+	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address) {
 		return sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
 	}
 }

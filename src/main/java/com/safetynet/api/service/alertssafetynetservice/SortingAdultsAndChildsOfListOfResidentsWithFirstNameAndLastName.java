@@ -8,17 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName
-		{
+public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
-	
+
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
-		
-public List<Map<String, String>> sortAdultsAndChilds(String request) {
-	
-	 listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
+
+	public List<Map<String, String>> sortAdultsAndChilds(String request) {
+
+		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
 
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
