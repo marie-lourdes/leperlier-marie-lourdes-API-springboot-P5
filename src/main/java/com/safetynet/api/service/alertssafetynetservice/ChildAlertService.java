@@ -18,7 +18,7 @@ public class ChildAlertService {
 
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
-	public List<Map<String, String>> getChildAndMembersOfHouseHold(String address) {
+	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) {
 		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
 		return listOfResidentChildAndMembersOfHouseHold;

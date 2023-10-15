@@ -38,7 +38,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
 		residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("3");
 		
-		childAlertService.getChildAndMembersOfHouseHold("1509 Culver St");
+		childAlertService.getChildsAndMembersOfHouseHold("1509 Culver St");
 		childAlertService.sortAdultsAndChildsOfListOfResidentsWithFullInfo("1509 Culver St");
 
 		// System.out.println("firestation APRES SUPPRESION "+

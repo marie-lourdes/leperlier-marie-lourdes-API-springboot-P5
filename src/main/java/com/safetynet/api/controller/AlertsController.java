@@ -35,7 +35,7 @@ public class AlertsController {
 	}
 	
 	@GetMapping("/childAlert")
-	public  List<Map<String, String>> getChildsAndMemberOfHouseHoldByAddress (@RequestParam String address){
-		return childAlertService.getChildAndMembersOfHouseHold(address);
+	public  List<Map<String, String>> getChildsAndMembersOfHouseHoldByAddress (@RequestParam String address){
+		return childAlertService.getChildsAndMembersOfHouseHold(address);
 	}
 }
