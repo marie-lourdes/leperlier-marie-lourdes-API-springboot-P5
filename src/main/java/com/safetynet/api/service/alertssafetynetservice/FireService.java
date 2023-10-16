@@ -27,22 +27,26 @@ public class FireService {
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) {
 		List<Map<String, String>> listOfResidentNearFire = infoOfResidentsByAddress.searchInfoOfResident(address);
 		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
-
 		List<Object> listOfResidentWithMedicalRecord = new ArrayList<Object>();
-		// Optional<MedicalRecord>medicalRecordFoundByFullName = Optional.empty();
 		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address).get()
 				.getStationNumber();
 
 		for (Map<String, String> resident : listOfResidentNearFire) {
-			Map<String, Object> mapOfMedicalRecordOfResident = new HashMap<String, Object>();
+			Map<String, String> mapOfMedicalRecordOfResident = new HashMap<String, String>();
+			
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
 			Optional<MedicalRecord> medicalRecordFoundByFullName = medicalRecordService
 					.getOneMedicalRecordById(fullNamePerson);
-
-			mapOfMedicalRecordOfResident.put("medications", medicalRecordFoundByFullName.get().getMedications());
-			mapOfMedicalRecordOfResident.put("allergies", medicalRecordFoundByFullName.get().getAllergies());
+			resident.remove("firstName");
+			resident.remove("address");
+			resident.remove("city");
+			resident.remove("email");
+			mapOfMedicalRecordOfResident.put("medications", medicalRecordFoundByFullName.get().getMedications().toString());
+			mapOfMedicalRecordOfResident.put("allergies", medicalRecordFoundByFullName.get().getAllergies().toString());
+			
+			resident.putAll(mapOfMedicalRecordOfResident);
+			
 			listOfResidentWithMedicalRecord.add(resident);
-			listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResident);
 		}
 
 		listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
