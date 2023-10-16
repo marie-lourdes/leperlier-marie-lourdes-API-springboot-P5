@@ -23,7 +23,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 				resident.remove("address");
 				resident.remove("city");
-				resident.remove("zip");
 				resident.remove("phone");
 				resident.remove("email");
 				listOfAdultsAndChild.add(resident);
