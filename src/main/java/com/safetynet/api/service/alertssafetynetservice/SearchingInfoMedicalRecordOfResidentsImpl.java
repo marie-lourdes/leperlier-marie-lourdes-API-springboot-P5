@@ -24,9 +24,9 @@ public class SearchingInfoMedicalRecordOfResidentsImpl {
 
 	private Optional<MedicalRecord> medicalRecordFoundByFullName = Optional.empty();
 
-	@Override
+/*	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
-		/*residentsFoundByAddress = personService.getPersonsByAddress(address);
+		residentsFoundByAddress = personService.getPersonsByAddress(address);
 		List<Map<String, ?>> listOfResidentFoundByFullName = new ArrayList<Map<String, ?>>();
 		List<Person> persons = personService.getAllPersons();
 		medicalRecordFoundByFullName  = medicalRecordService.getOneMedicalRecordById(idFullNameOfPerson);
@@ -49,5 +49,5 @@ public class SearchingInfoMedicalRecordOfResidentsImpl {
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
 		return listOfResidentFoundByFullName;
 	}*/
-	}
+	
 }
