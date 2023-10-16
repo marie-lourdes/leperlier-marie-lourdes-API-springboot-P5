@@ -63,7 +63,7 @@ public class FireStation {
 	@Override
 	public String toString() {
 
-		return "FireStation{" + "id=" + id + ", stationnumber='" + stationNumber + '\'' + ", address=" + address + '}';
+		return "FireStation{" + "id:" + id + ", stationnumber:'" + stationNumber + '\'' + ", address:" + address + '}';
 	}
 
 	

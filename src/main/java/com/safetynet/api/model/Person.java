@@ -120,8 +120,8 @@ public Person() {}
 	@Override
 	public String toString() {
 
-		return "Person{" + "id=" + id+ ", first name='" + firstName + '\'' + ", last name=" + lastName + ", address="
-				+ address + ", zip=" + zip + ", city=" + city + ", phone=" + phone + ", email=" + email + '}';
+		return "Person{" + "id:" + id+ ", first name:'" + firstName + '\'' + ", last name:" + lastName + ", address:"
+				+ address + ", zip:" + zip + ", city:" + city + ", phone:" + phone + ", email:" + email + '}';
 	}
 
 }

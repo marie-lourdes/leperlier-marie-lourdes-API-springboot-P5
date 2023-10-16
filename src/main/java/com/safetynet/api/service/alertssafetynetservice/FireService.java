@@ -1,10 +1,12 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +34,8 @@ public class FireService {
 				.getStationNumber();
 
 		for (Map<String, String> resident : listOfResidentNearFire) {
-			Map<String, String> mapOfMedicalRecordOfResident = new HashMap<String, String>();
-			
+			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
+			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
 			Optional<MedicalRecord> medicalRecordFoundByFullName = medicalRecordService
 					.getOneMedicalRecordById(fullNamePerson);
@@ -41,16 +43,20 @@ public class FireService {
 			resident.remove("address");
 			resident.remove("city");
 			resident.remove("email");
-			mapOfMedicalRecordOfResident.put("medications", medicalRecordFoundByFullName.get().getMedications().toString());
-			mapOfMedicalRecordOfResident.put("allergies", medicalRecordFoundByFullName.get().getAllergies().toString());
+			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.get().getMedications().toString());
+			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.get().getAllergies().toString());
 			
-			resident.putAll(mapOfMedicalRecordOfResident);
+			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
+			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
+			TreeMap<String, String> treeMapOfMedicalRecordOfResidentUpdated =
+					 new TreeMap<String, String>(Collections.reverseOrder());
 			
-			listOfResidentWithMedicalRecord.add(resident);
+			treeMapOfMedicalRecordOfResidentUpdated.putAll(mapOfMedicalRecordOfResidentUpdated);
+			listOfResidentWithMedicalRecord.add(treeMapOfMedicalRecordOfResidentUpdated);
 		}
 
 		listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
-		System.out.println("listOfResidentAndFireStationNearFire" + listOfResidentWithMedicalRecord);
+		System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
 		listOfResidentAndFireStationNearFire.add(fireStationFoundByAddressFire);
 
 		return listOfResidentAndFireStationNearFire;

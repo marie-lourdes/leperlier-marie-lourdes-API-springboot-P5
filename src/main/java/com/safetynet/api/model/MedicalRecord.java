@@ -67,7 +67,7 @@ public class MedicalRecord {
 
 	@Override
 	public String toString() {
-		return "MedicalRecord{" + "id=" + id+ ", first name='" + firstName + '\'' + ", last name=" + lastName + ", birthdate="
-				+ birthdate + ", medication=" + medications + ", allergies=" + allergies +  "}";
+		return "MedicalRecord{" + "id:" + id+ ", first name:'" + firstName + '\'' + ", last name:" + lastName + ", birthdate:"
+				+ birthdate + ", medication:" + medications + ", allergies:" + allergies +  "}";
 	}
 }
