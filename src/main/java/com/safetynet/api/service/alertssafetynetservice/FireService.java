@@ -17,24 +17,27 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Service
 public class FireService {
-	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl infoOfResidentsByAddress;
+
 
 	@Autowired
 	FireStationService fireStationService;
 
+
+	
 	@Autowired
-	MedicalRecordService medicalRecordService;
+	SearchingFullInfoOfResidentsWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) {
-		List<Map<String, String>> listOfResidentNearFire = infoOfResidentsByAddress.searchInfoOfResident(address);
+		//List<Map<String, String>> listOfResidentNearFire = infoOfResidentsByAddress.searchInfoOfResident(address);
+		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
+		listOfResidentWithMedicalRecord=searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(address);
 		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
-		List<Object> listOfResidentWithMedicalRecord = new ArrayList<Object>();
+		
 		Map<String, String> mapOfFireStationFoundByAddressFire= new HashMap<String, String>();
 		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address).get()
 				.getStationNumber();
 		mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
-		for (Map<String, String> resident : listOfResidentNearFire) {
+		/*for (Map<String, String> resident : listOfResidentNearFire) {
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
@@ -54,7 +57,7 @@ public class FireService {
 			
 			treeMapOfMedicalRecordOfResidentUpdated.putAll(mapOfMedicalRecordOfResidentUpdated);
 			listOfResidentWithMedicalRecord.add(treeMapOfMedicalRecordOfResidentUpdated);
-		}
+		}*/
 
 		listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 		System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
