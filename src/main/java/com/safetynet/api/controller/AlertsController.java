@@ -87,10 +87,10 @@ public class AlertsController {
 	}
 	
 	
-	/*@GetMapping("/personInfo")
+	@GetMapping("/personInfo")
 	public  List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String  firstName, @RequestParam String  lastName){	
 		return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
-	}*/
+	}
 	
 	
 	
