@@ -63,7 +63,7 @@ public class PersonService {
 		Iterator<Person>itrPersons =persons.listIterator();
 		while(itrPersons.hasNext()) {
 			Person itrPerson = itrPersons.next();
-			if(itrPerson.getAddress().equals(lastName)) {
+			if(itrPerson.getLastName().equals(lastName)) {
 				personsFoundByLastName.add(itrPerson);
 			}
 		}
