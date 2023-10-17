@@ -20,12 +20,11 @@ public class FireService {
 	SearchingFullInfoOfResidentsWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) {
-		//List<Map<String, String>> listOfResidentNearFire = infoOfResidentsByAddress.searchInfoOfResident(address);
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-		listOfResidentWithMedicalRecord=searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(address);
+		listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(address);
 		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
-		
-		Map<String, String> mapOfFireStationFoundByAddressFire= new HashMap<String, String>();
+
+		Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
 		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address).get()
 				.getStationNumber();
 		mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
