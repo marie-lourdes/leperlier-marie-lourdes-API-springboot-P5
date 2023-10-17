@@ -30,9 +30,10 @@ public class FireService {
 		List<Map<String, String>> listOfResidentNearFire = infoOfResidentsByAddress.searchInfoOfResident(address);
 		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 		List<Object> listOfResidentWithMedicalRecord = new ArrayList<Object>();
+		Map<String, String> mapOfFireStationFoundByAddressFire= new HashMap<String, String>();
 		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address).get()
 				.getStationNumber();
-
+		mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
 		for (Map<String, String> resident : listOfResidentNearFire) {
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
@@ -57,7 +58,7 @@ public class FireService {
 
 		listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 		System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
-		listOfResidentAndFireStationNearFire.add(fireStationFoundByAddressFire);
+		listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 
 		return listOfResidentAndFireStationNearFire;
 

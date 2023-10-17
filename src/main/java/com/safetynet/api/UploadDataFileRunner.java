@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
+import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
 import com.safetynet.api.service.dataservice.FireStationService;
@@ -35,6 +36,10 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	
 	@Autowired
 	FireService fireService;
+	
+	@Autowired
+	FloodService  floodService; 
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// medicalRecordService.getAllMedicalRecords();
@@ -51,6 +56,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
 		
 		fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
+		
+		floodService.getListOfHouseHoldByStationNumber("3");
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());
 		// fireStationService.getFireStationsFromFile();
