@@ -58,6 +58,19 @@ public class PersonService {
                 } );
    }
     
+    public List<Person> getPersonsLastName(String lastName) {
+    	List<Person>  personsFoundByLastName = new ArrayList<>();
+		Iterator<Person>itrPersons =persons.listIterator();
+		while(itrPersons.hasNext()) {
+			Person itrPerson = itrPersons.next();
+			if(itrPerson.getAddress().equals(lastName)) {
+				personsFoundByLastName.add(itrPerson);
+			}
+		}
+	System.out.println("personsFoundByLastName"+personsFoundByLastName);
+		 return personsFoundByLastName;
+     }
+    
     public List<Person> getPersonsByAddress(String address) {
     	List<Person>  personsFoundByAddress = new ArrayList<>();
 		Iterator<Person>itrPersons =persons.listIterator();
