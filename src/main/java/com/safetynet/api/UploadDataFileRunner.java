@@ -57,7 +57,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		
 		fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
 		
-		floodService.getListOfHouseHoldByStationNumber("3");
+		//floodService.getListOfHouseHoldByStationNumber("3");
+		
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());
 		// fireStationService.getFireStationsFromFile();

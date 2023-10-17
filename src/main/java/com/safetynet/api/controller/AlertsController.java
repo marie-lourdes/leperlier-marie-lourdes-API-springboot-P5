@@ -1,6 +1,7 @@
 package com.safetynet.api.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +70,14 @@ public class AlertsController {
 	}
 	
 	@GetMapping("/flood/stations")
-	public  List<Object> getListOfHouseHoldByStationNumber(@RequestParam String stations){
-		 return floodService.getListOfHouseHoldByStationNumber(stations);
+	public  List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String>stations){
+		List<Object> listOfHouseHoldByStationNumber =new ArrayList<Object>();
+		List<Object> listOfHouseHoldByStationNumbers =new ArrayList<Object>();
+		for(String station: stations) {
+			listOfHouseHoldByStationNumber =floodService.getListOfHouseHoldByStationNumber(station);
+			listOfHouseHoldByStationNumbers.add(listOfHouseHoldByStationNumber);
+		}
+		 return listOfHouseHoldByStationNumbers;
 	}
 	
 	
