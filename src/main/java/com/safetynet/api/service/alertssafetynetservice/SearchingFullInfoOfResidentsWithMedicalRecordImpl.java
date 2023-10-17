@@ -38,6 +38,7 @@ public class SearchingFullInfoOfResidentsWithMedicalRecordImpl implements ISearc
 
 			resident.remove("city");
 			resident.remove("email");
+			resident.remove("address");
 			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.get().getMedications().toString());
 			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.get().getAllergies().toString());
 			
