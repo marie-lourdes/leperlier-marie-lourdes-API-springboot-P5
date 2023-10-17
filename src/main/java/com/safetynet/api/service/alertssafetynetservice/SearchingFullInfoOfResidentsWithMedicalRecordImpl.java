@@ -25,9 +25,9 @@ public class SearchingFullInfoOfResidentsWithMedicalRecordImpl implements ISearc
 	
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
-		List<Map<String, String>> listOfHouseHoldSameaddress = searchingFullInfoOfResidentsByAddress.searchInfoOfResident(address);	
+		List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress.searchInfoOfResident(address);	
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-		for (Map<String, String> resident : listOfHouseHoldSameaddress) {
+		for (Map<String, String> resident : listOfResidentsByAddress) {
 			
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
