@@ -72,12 +72,12 @@ public class AlertsController {
 	@GetMapping("/flood/stations")
 	public  List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String>stations){
 		List<Object> listOfHouseHoldByStationNumber =new ArrayList<Object>();
-		List<Object> listOfHouseHoldByStationNumbers =new ArrayList<Object>();
+		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam =new ArrayList<Object>();
 		for(String station: stations) {
 			listOfHouseHoldByStationNumber =floodService.getListOfHouseHoldByStationNumber(station);
-			listOfHouseHoldByStationNumbers.add(listOfHouseHoldByStationNumber);
+			listOfHouseHoldByStationNumberWithMoreOneRequestParam .add(listOfHouseHoldByStationNumber);
 		}
-		 return listOfHouseHoldByStationNumbers;
+		 return listOfHouseHoldByStationNumberWithMoreOneRequestParam ;
 	}
 	
 	
