@@ -16,16 +16,16 @@ public class FloodService {
 	@Autowired
 	SearchingFullInfoOfResidentsWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-	List<String> listOfAddress = new ArrayList<String>();
+	
 
 	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) {
+		
+		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 		List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
 				.getListOfResidentsOfStationNumber(stationNumber);
-		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 
-		System.out.println("listOfResidentsOfStationNumber of flood service" + listOfResidentsOfStationNumber);
 		ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber.listIterator();
-
+		List<String> listOfAddress = new ArrayList<String>();
 		while (itrResidentsOfStationNumber.hasNext()) {
 			Map<String, String> itrResidentNextToNext = itrResidentsOfStationNumber.next();
 
