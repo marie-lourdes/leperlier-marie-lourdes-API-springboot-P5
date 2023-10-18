@@ -21,164 +21,52 @@ import com.safetynet.api.service.dataservice.PersonService;
 import jakarta.validation.Valid;
 
 @RestController
-//@RequestMapping(path = "/api) // This means URL's start with /demo (after Application path)
 public class PersonController {
 	@Autowired
 	private PersonService personService;
-		 
+
 	@PostMapping("/person/")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-//try {	
-		Person personCreated =personService.addPerson(person);
+		Person personCreated = personService.addPerson(person);
 		System.out.println(person);
-		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);	
-//}
-		/*
-		 * catch(jakarta.validation.ConstraintViolationException e) { return
-		 * e.getMessage(); }
-		 
-	}*/
+		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
-	
+
 	@PutMapping("/person/{id}")
-	public ResponseEntity<Person> updateOnePersonById(@RequestBody Person person,@PathVariable String id ) {
-	Person personFoundById=	personService.updatePerson(id,person) ;
-	if (personFoundById != null) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
-	} else {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(personFoundById);// ajouter objet json vide
+	public ResponseEntity<Person> updateOnePersonById(@RequestBody Person person, @PathVariable String id) {
+		Person personFoundById = personService.updatePerson(id, person);
+		if (personFoundById != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(personFoundById);// ajouter objet json vide
+		}
+
 	}
-		
-	}
-	
+
 	@DeleteMapping("/person/{id}")
 	public ResponseEntity<Long> deleteOnePersonById(@PathVariable String id) {
 		boolean isPersonRemoved = personService.deleteOnePersonById(id);
 		return isPersonRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
-				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+				: new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 	}
-	
+
 	@GetMapping("/person/{id}")
-	public Optional<Person> getOnePerson(@PathVariable String id) {
-		return personService.getOnePersonById(id);
+	public ResponseEntity<Optional<Person>> getOnePerson(@PathVariable String id) {
+		Optional<Person> personFoundById = personService.getOnePersonById(id);
+		if (personFoundById != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(personFoundById);// ajouter objet json vide
+		}
 	}
-	
+
 	@GetMapping("/person/")
-	public @ResponseBody List<Person> getAllPersons()  {		
-			return personService.getAllPersons();		
+	public @ResponseBody ResponseEntity<List<Person>> getAllPersons() {
+		List<Person> allPersons = personService.getAllPersons();
+		if (allPersons != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(allPersons);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(allPersons);
+		}
 	}
-/*	@GetMapping("/person/")
-	public @ResponseBody List<Person> getAllPersonsFromFile() throws IOException {
-		persons= readPerson.getListOfPersons();
-	/*	try {
-		
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return persons;*/
-	
-//----Person  getbyFullName  from file json------
-/*	@GetMapping("/person")
-	public List<Optional<Person>> getOnePersonByFullName(@RequestParam String firstName,
-			@RequestParam String lastName) {
-		return personService.getOnePersonByFullName(firstName, lastName);
-	}*/
-
-/*	@PutMapping("/person/{id}")
-	public ResponseEntity<Optional<Person>> updateOnePersonById(@RequestBody Person person,@PathVariable String id) throws IOException{
-		 Optional<Person> personFoundById=personService.getOnePersonById(id);
-	/*	System.out.println("------------------ person found by name  AVANT modification en memoire------------" +personFoundById.get().getEmail());
-		personFoundById.get().setEmail("email@modifié en memoire.com");
-		System.out.println("----------------persons APRES modification en memoire---------------" +personFoundById.get().getEmail());*/
-/*		
-	//Optional<Person> personUpdated= personRepositoryFile.modify(id);
-		if (id.toString().equals(personFoundById.get().getId().toString())) {
-			 personFoundById.get().setAddress(person.getAddress());
-			 personFoundById.get().setZip(person.getZip());
-			 personFoundById.get().setCity(person.getCity()); 
-			 personFoundById.get().setPhone(person.getPhone());
-			 personFoundById.get().setEmail(person.getEmail());
-		}
-		
-		persons=personService.getPersonsFromFile();
-		Person index =persons.set(0,personFoundById.get());
-		//System.out.println("index"+index);
-		//persons.add(0,personFoundById.get());
-		System.out.println("list of personUpdated"+persons );
-		//personService.savePerson(personFoundById.get());
-		return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById );
-	}*/
-
-
-	// the id, first and last name cannot be modified
-	/*
-	 * @PutMapping("/person/{id}") public ResponseEntity<Optional<Person>>
-	 * updateOnePersonById(@RequestBody Person person, @PathVariable Long id) {
-	 * Optional<Person> personFoundByFullName = personService.getOnePersonById(id);
-	 * 
-	 * if (id.toString().equals(personFoundByFullName .get().getId().toString())) {
-	 * personFoundByFullName .get().setAddress(person.getAddress());
-	 * personFoundByFullName .get().setZip(person.getZip()); personFoundByFullName
-	 * .get().setCity(person.getCity()); personFoundByFullName
-	 * .get().setPhone(person.getPhone()); personFoundByFullName
-	 * .get().setEmail(person.getEmail());
-	 * 
-	 * personService.savePerson(personFoundByFullName .get());
-	 * System.out.println(personFoundByFullName ); } return
-	 * ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName ); }
-	 */
-
-	// the id, first and last name cannot be modified
-	/*
-	 * @PutMapping("/person") public ResponseEntity<List<Optional<Person>>>
-	 * updateOnePersonByFullName(@RequestBody Person person, @RequestParam String
-	 * firstName, @RequestParam String lastName) { List<Optional<Person>>
-	 * personFoundByFullName
-	 * =personService.getOnePersonByFullName(firstName,lastName); ///listIterator
-	 * suport les operation CRUD contrairemnt a Iterator Iterator<Optional<Person>>
-	 * iteratorPerson =personFoundByFullName.listIterator();
-	 * 
-	 * while(iteratorPerson.hasNext()) { Optional<Person> personItr =
-	 * iteratorPerson.next();
-	 * 
-	 * if (firstName.toString().equals(personItr.get().getFirstName().toString()) &&
-	 * lastName.toString().equals(personItr.get().getLastName())) {
-	 * personItr.get().setAddress(person.getAddress());
-	 * personItr.get().setZip(person.getZip());
-	 * personItr.get().setCity(person.getCity()); personItr
-	 * .get().setPhone(person.getPhone());
-	 * personItr.get().setEmail(person.getEmail()); //personFoundByFullName.
-	 * personService.savePerson(personItr.get());
-	 * System.out.println(personFoundByFullName ); } }
-	 * 
-	 * return ResponseEntity.status(HttpStatus.CREATED).body(personFoundByFullName
-	 * ); }
-	 */
-
-	/*@DeleteMapping("/person/")
-	public ResponseEntity<Long> deleteOnePersonByName(@RequestParam String firstName, @RequestParam String lastName) {
-		// List<Person> persons = personService.getAllPersons();
-
-		// ---refactoring avec method get all person from file----
-		List<Person> persons = new ArrayList<Person>();
-		try {
-			persons = personService.getPersonsFromFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		persons.forEach(elem -> {
-			String firstNamePerson = elem.getFirstName();
-			String lastNamePerson = elem.getLastName();
-			if (firstNamePerson.contains(firstName) && lastNamePerson.contains(lastName)) {
-				System.out.println("element to remove" + elem);
-				personService.deleteOnePersonByName(elem);
-			}
-		});
-		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	}*/
 }
