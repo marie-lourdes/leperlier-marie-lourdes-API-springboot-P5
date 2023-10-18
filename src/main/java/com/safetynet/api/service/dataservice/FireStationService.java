@@ -97,18 +97,17 @@ public class FireStationService {
 	public List<FireStation> getFireStationsById(String id) {
 		List<FireStation> fireStationsFoundById = new ArrayList<>();
 		Iterator<FireStation>itrFireStations =fireStations.listIterator();
-		boolean result =false;
+	
 		while(itrFireStations.hasNext()) {
-			FireStation itrFireStation = itrFireStations.next();
-			result =itrFireStation.getId().equals(id);
-			if(result) {
+			FireStation itrFireStation = itrFireStations.next();		
+			if(itrFireStation.getId().equals(id)) {
 				fireStationsFoundById.add(itrFireStation);
-			}
+			}	
 		}
 	//if(!result) return null;
 	System.out.println("fireStationsFoundById"+fireStationsFoundById);
+	 return fireStationsFoundById;
 	
-		 return fireStationsFoundById;
 	}
 
 	public Optional<FireStation> getOneFireStationByAddress(String address) {

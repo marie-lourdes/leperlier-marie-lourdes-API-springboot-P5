@@ -26,8 +26,8 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress.searchInfoOfResident(address);	
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-		for (Map<String, String> resident : listOfResidentsByAddress) {
-			
+		
+		for (Map<String, String> resident : listOfResidentsByAddress) {	
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");

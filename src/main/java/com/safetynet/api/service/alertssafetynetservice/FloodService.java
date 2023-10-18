@@ -24,11 +24,12 @@ public class FloodService {
 
 		ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber.listIterator();
 		List<String> listOfAddress = new ArrayList<String>();
+		
 		while (itrResidentsOfStationNumber.hasNext()) {
-			Map<String, String> itrResidentNextToNext = itrResidentsOfStationNumber.next();
+			Map<String, String> itrResidentNext = itrResidentsOfStationNumber.next();
 
-			if (!listOfAddress.contains(itrResidentNextToNext.get("address"))) {
-				listOfAddress.add(itrResidentNextToNext.get("address"));
+			if (!listOfAddress.contains(itrResidentNext.get("address"))) {
+				listOfAddress.add(itrResidentNext.get("address"));
 			}
 		}
 

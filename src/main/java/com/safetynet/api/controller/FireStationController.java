@@ -75,13 +75,11 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@GetMapping("/firestation/{id}")
 	public ResponseEntity<?> getFireStationById(@PathVariable String id) {
-		List<FireStation> fireStationsById = fireStationService.getFireStationsById(id);
-		for(FireStation fireStation : fireStationsById) {
-			//if (fireStation.getId() == null) {
-				System.out.println("firestation id controller"+fireStation);
-				//return returnResponseEntityEmptyAndCode404();	
-			//}
-		}
+		List<FireStation> fireStationsById = fireStationService.getFireStationsById(id);	
+			if (fireStationsById.isEmpty()) {
+				return returnResponseEntityEmptyAndCode404();	
+			}
+		
 		 
 		return ResponseEntity.status(HttpStatus.OK).body(fireStationsById );
 	}
@@ -89,9 +87,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@GetMapping("/firestation/")
 	public @ResponseBody ResponseEntity<?> getAllFireStations() {
 		List<FireStation> allFireStations = fireStationService.getAllFireStations();
-		if (allFireStations == null) {
+	/*	if (allFireStations == null) {
 			return returnResponseEntityEmptyAndCode404();
-		} 
+		} */
 		return ResponseEntity.status(HttpStatus.OK).body(allFireStations);
 	}
 }
