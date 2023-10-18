@@ -25,87 +25,50 @@ public class MedicalRecordController {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
+	private ResponseEntity <?>responseEmpty = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String() );
+	
 	@PostMapping("/medicalRecord/")
-	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord)
-			throws Exception {
+	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
-
-		// medicalRecords.add(medicalRecord);
 		System.out.println(medicalRecord);
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
 	}
 
 	@PutMapping("/medicalRecord/{id}")
-	public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
+	public ResponseEntity<?> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
 			@PathVariable String id) {
 		MedicalRecord medicalRecordFoundById = medicalRecordService.updateMedicalRecord(id, medicalRecord);
 		if (medicalRecordFoundById != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MedicalRecord());
+			return responseEmpty;
 		}
-
 	}
 	
 	@DeleteMapping("/medicalRecord/{id}")
-	public ResponseEntity<Long> deleteOneMedicalRecordByName(@PathVariable String id) {
+	public ResponseEntity<?> deleteOneMedicalRecordByName(@PathVariable String id) {
 		boolean isMedicalRecordRemoved = medicalRecordService.deleteOneMedicalRecordById(id);
 		return isMedicalRecordRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
-				: new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+				: new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/medicalRecord/{id}")
-	public Optional<MedicalRecord> getOneMedicalRecord(@PathVariable String id) {
-		return medicalRecordService.getOneMedicalRecordById(id);
+	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
+		Optional<MedicalRecord>medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
+		if (medicalRecordFoundById  != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById );
+		} else {
+			return responseEmpty;
+		}
 	}
 	
 	@GetMapping("/medicalRecord/")
-	public @ResponseBody List<MedicalRecord> getAllMedicalRecords()  {		
-			return medicalRecordService.getAllMedicalRecords();		
+	public @ResponseBody ResponseEntity<?> getAllMedicalRecords()  {	
+		List<MedicalRecord> allMedicalRecords = medicalRecordService.getAllMedicalRecords();
+		if (allMedicalRecords != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
+		} else {
+			return responseEmpty;
+		}		
 	}
-
-//----MedicalRecord  getbyFullName  from file json------
-	/*
-	 * @GetMapping("/medicalRecord") public List<Optional<MedicalRecord>>
-	 * getOneMedicalRecordByFullName(@RequestParam String firstName, @RequestParam
-	 * String lastName){ return
-	 * medicalRecordService.getOneMedicalRecordByFullName(firstName,lastName); }
-	 */
-	// the id, first and last name cannot be modified
-	/*
-	 * @PutMapping("/medicalRecord/{id}") public
-	 * ResponseEntity<Optional<MedicalRecord>>
-	 * updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
-	 * 
-	 * @PathVariable Long id) { Optional<MedicalRecord> medicalRecordFoundById =
-	 * medicalRecordService.getOneMedicalRecordById(id);
-	 * 
-	 * if (id.toString().equals(medicalRecordFoundById.get().getId().toString())) {
-	 * medicalRecordFoundById.get().setBirthdate(medicalRecord.getBirthdate());
-	 * medicalRecordFoundById.get().setMedications(medicalRecord.getMedications());
-	 * medicalRecordFoundById.get().setAllergies(medicalRecord.getAllergies());
-	 * 
-	 * medicalRecordService.saveMedicalRecord(medicalRecordFoundById.get());
-	 * System.out.println(medicalRecordFoundById); } return
-	 * ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById); }
-	 */
-
-	/*
-	 * //List<MedicalRecord> medicalRecords =
-	 * medicalRecordService.getAllMedicalRecords(); List<MedicalRecord>
-	 * medicalRecords =new LinkedList<MedicalRecord>(); try { medicalRecords =
-	 * medicalRecordService.getMedicalRecordsFromFile(); } catch (IOException e) {
-	 * // TODO Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * medicalRecords.forEach(elem -> { String firstNameOfMedicalRecord =
-	 * elem.getFirstName(); String lastNameOfMedicalRecord = elem.getLastName();
-	 * 
-	 * if (firstNameOfMedicalRecord.contains(firstName) &&
-	 * lastNameOfMedicalRecord.contains(lastName)) {
-	 * medicalRecordService.deleteOneMedicalRecordByName(elem); } });
-	 * 
-	 * return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-	 * 
-	 * }
-	 */
 }
