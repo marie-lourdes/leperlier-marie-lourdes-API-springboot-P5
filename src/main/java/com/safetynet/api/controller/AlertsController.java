@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.Person;
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
 import com.safetynet.api.service.alertssafetynetservice.FloodService;

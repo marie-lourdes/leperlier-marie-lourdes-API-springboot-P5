@@ -1,12 +1,11 @@
 package com.safetynet.api;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
+import com.safetynet.api.service.alertssafetynetservice.CommunityEmailService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
 import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
@@ -42,6 +41,9 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	@Autowired
 	FloodService  floodService; 
 	
+	@Autowired
+	CommunityEmailService  communityEmailService; 
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// medicalRecordService.getAllMedicalRecords();
@@ -60,6 +62,8 @@ public class UploadDataFileRunner implements CommandLineRunner {
 		fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
 		
 		floodService.getListOfHouseHoldByStationNumber("3");
+		
+		communityEmailService.getEmailOfResidentsOfCity("Culver");
 		
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());

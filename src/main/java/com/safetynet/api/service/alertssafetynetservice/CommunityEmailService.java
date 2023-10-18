@@ -1,5 +1,6 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,12 @@ public class CommunityEmailService {
 @Autowired
 SearchingInfoEmailOfResidentsByCitympl infoEmailOfResidentsByCity;
 
+private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
+
 public List<Map<String, String>> getEmailOfResidentsOfCity(String city) {
-	return infoEmailOfResidentsByCity.searchInfoOfResident(city);
+	
+	listEmailsOfResidentsOfCity= infoEmailOfResidentsByCity.searchInfoOfResident(city);
+		System.out.println("listEmailsOfResidentsOfCity" + listEmailsOfResidentsOfCity);
+		return listEmailsOfResidentsOfCity;
 }
 }

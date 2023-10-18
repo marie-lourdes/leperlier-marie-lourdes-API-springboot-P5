@@ -22,12 +22,11 @@ public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfR
 	public List<Map<String, String>> searchInfoOfResident(String city) {
 		List<Map<String, String>> listOfResidentsFoundByCity= new ArrayList<Map<String, String>>();
 		residentsFoundByCity = personService.getPersonsByCity(city);
-
-		for (Person person : residentsFoundByCity) {
-			Map<String, String> residentFoundByCity = new HashMap<String, String>();
 		
-			residentFoundByCity.put("city", person.getCity());
-			
+		for (Person person : residentsFoundByCity) {
+			Map<String, String> residentFoundByCity = new HashMap<String, String>();	
+			residentFoundByCity.put("email", person.getEmail());
+		
 			System.out.println("residentFoundByCity" +residentFoundByCity);
 			listOfResidentsFoundByCity.add(residentFoundByCity);
 		}
