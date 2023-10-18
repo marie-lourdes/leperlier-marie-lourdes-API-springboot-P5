@@ -33,8 +33,9 @@ public class FireStationService {
 	
 	// fireStation.setId( fireStationByAddress.get().getId());
 	fireStation=  fireStationByAddress.get();
-	
-
+	 if(fireStation ==null) {
+		 return null;
+	 }
 		fireStations.add(fireStation);
 		return fireStation;
 	}
@@ -96,13 +97,17 @@ public class FireStationService {
 	public List<FireStation> getFireStationsById(String id) {
 		List<FireStation> fireStationsFoundById = new ArrayList<>();
 		Iterator<FireStation>itrFireStations =fireStations.listIterator();
+		boolean result =false;
 		while(itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
-			if(itrFireStation.getId().equals(id)) {
+			result =itrFireStation.getId().equals(id);
+			if(result) {
 				fireStationsFoundById.add(itrFireStation);
 			}
 		}
+	//if(!result) return null;
 	System.out.println("fireStationsFoundById"+fireStationsFoundById);
+	
 		 return fireStationsFoundById;
 	}
 
@@ -114,46 +119,10 @@ public class FireStationService {
 	}
 
 	public List<FireStation> getAllFireStations() {
+		if(fireStations ==null) {
+    		return null;
+    	}
 		System.out.println("Retrieving all persons" + fireStations);
 		return fireStations;
 	}
-
-//--------------------repository avec source de donnéees fichier Json---------		
-	/*
-	 * public List<FireStation> getFireStationsFromFile() throws IOException {
-	 * return (List<FireStation>) fireStationRepositoryFile.findAll(); }
-	 */
-
-	/*
-	 * public Optional<FireStation> getOneFireStationById(Long id) {
-	 * Optional<FireStation> fireStationFoundById = Optional
-	 * .ofNullable(fireStationRepository.findById(id).orElseThrow(() -> new
-	 * NullPointerException( " an error has occured,this firestation " + id +
-	 * " doesn't exist, try again "))); return fireStationFoundById; }
-	 */
-
-	/*
-	 * public FireStation saveFireStation(@Valid FireStation fireStation) { return
-	 * fireStationRepository.save(fireStation); }
-	 * 
-	 * public FireStation updateOneFireStationById(FireStation fireStation, Long id)
-	 * { return fireStationRepository.save(fireStation); }
-	 * 
-	 * public void deleteByStationNumberFireStation( String stationNumber ) {
-	 * fireStationRepository.deleteByStationNumberFireStation( stationNumber); /*
-	 * List<String> listOfFireStation = new ArrayList<String>();
-	 * listOfFireStation.add(fireStation.getStationNumber().toString());
-	 * listOfFireStation.add(fireStation.getAddress()); listOfFireStation.remove(0);
-	 * return listOfFireStation; //fireStationRepository.deleteById(id);
-	 */
-	/*
-	 * }
-	 * 
-	 * public List<FireStation> saveFireStation2(FireStation fireStation,
-	 * List<FireStation> fireStations ) { // TODO Auto-generated method stub
-	 * 
-	 * FireStation fireStationCreated =fireStationRepository.save(fireStation);
-	 * fireStations.add(fireStationCreated); return fireStations; }
-	 */
-
 }
