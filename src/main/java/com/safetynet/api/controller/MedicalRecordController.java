@@ -16,17 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.service.IResponseHTTPEmpty;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController {
+public class MedicalRecordController implements  IResponseHTTPEmpty{
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-	private ResponseEntity <?>responseEmpty = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String() );
-	
 	@PostMapping("/medicalRecord/")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
@@ -41,7 +40,7 @@ public class MedicalRecordController {
 		if (medicalRecordFoundById != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 		} else {
-			return responseEmpty;
+			return returnResponseEntityEmptyAndCode404();
 		}
 	}
 	
@@ -58,7 +57,7 @@ public class MedicalRecordController {
 		if (medicalRecordFoundById  != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById );
 		} else {
-			return responseEmpty;
+			return returnResponseEntityEmptyAndCode404() ;
 		}
 	}
 	
@@ -68,7 +67,7 @@ public class MedicalRecordController {
 		if (allMedicalRecords != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
 		} else {
-			return responseEmpty;
+			return returnResponseEntityEmptyAndCode404();
 		}		
 	}
 }

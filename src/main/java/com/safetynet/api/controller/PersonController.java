@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.service.IResponseHTTPEmpty;
 import com.safetynet.api.service.dataservice.PersonService;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class PersonController {
+public class PersonController implements  IResponseHTTPEmpty   {
 	@Autowired
 	private PersonService personService;
 
