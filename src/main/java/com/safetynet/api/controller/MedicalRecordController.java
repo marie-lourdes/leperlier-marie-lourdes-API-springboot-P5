@@ -22,7 +22,7 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController implements  IResponseHTTPEmpty{
+public class MedicalRecordController implements IResponseHTTPEmpty {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
@@ -43,31 +43,31 @@ public class MedicalRecordController implements  IResponseHTTPEmpty{
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
-	
+
 	@DeleteMapping("/medicalRecord/{id}")
 	public ResponseEntity<?> deleteOneMedicalRecordByName(@PathVariable String id) {
 		boolean isMedicalRecordRemoved = medicalRecordService.deleteOneMedicalRecordById(id);
 		return isMedicalRecordRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 	}
-	
+
 	@GetMapping("/medicalRecord/{id}")
 	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
-		Optional<MedicalRecord>medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
-		if (medicalRecordFoundById  != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById );
+		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
+		if (medicalRecordFoundById != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} else {
-			return returnResponseEntityEmptyAndCode404() ;
+			return returnResponseEntityEmptyAndCode404();
 		}
 	}
-	
+
 	@GetMapping("/medicalRecord/")
-	public @ResponseBody ResponseEntity<?> getAllMedicalRecords()  {	
+	public @ResponseBody ResponseEntity<?> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecords = medicalRecordService.getAllMedicalRecords();
 		if (allMedicalRecords != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
 		} else {
 			return returnResponseEntityEmptyAndCode404();
-		}		
+		}
 	}
 }
