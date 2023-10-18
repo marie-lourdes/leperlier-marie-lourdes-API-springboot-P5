@@ -3,7 +3,6 @@ package com.safetynet.api.service.alertssafetynetservice;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,9 @@ public class PersonInfoService {
 	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName) {
 		String fullName= firstName + " " + lastName;
 		 personsFoundByLastName =personService.getPersonsLastName(lastName);
-		Optional<Person> personFounByIdFullName = personService.getOnePersonById(fullName);
+		Person personFounByIdFullName = personService.getOnePersonById(fullName);
 	
-		personsFoundByLastNameUpdated.add(personFounByIdFullName.get());
+		personsFoundByLastNameUpdated.add(personFounByIdFullName);
 		
 		 List<Map<String, String>>listOfResidentsWithMedicalRecord= new ArrayList<Map<String, String>>();
 	

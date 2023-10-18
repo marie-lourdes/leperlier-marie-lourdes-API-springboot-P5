@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,15 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
-			Optional<MedicalRecord> medicalRecordFoundByFullName = medicalRecordService
+			MedicalRecord medicalRecordFoundByFullName = medicalRecordService
 					.getOneMedicalRecordById(fullNamePerson);
 			resident.remove("firstName");
 
 			resident.remove("city");
 			resident.remove("email");
 			resident.remove("address");
-			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.get().getMedications().toString());
-			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.get().getAllergies().toString());
+			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
+			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
 			
 			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
 			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());

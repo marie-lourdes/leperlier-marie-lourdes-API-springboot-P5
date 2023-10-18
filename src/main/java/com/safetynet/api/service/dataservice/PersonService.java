@@ -3,7 +3,6 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -44,10 +43,10 @@ public class PersonService {
 		return result;
 	}
 
-	public Optional<Person> getOnePersonById(String id) {
+	public Person getOnePersonById(String id) {
 		return persons.stream().filter(person -> person.getId().equals(id)).findFirst().map(existingPerson -> {
 			return existingPerson;
-		});
+		}).orElse(null);
 	}
 
 	public List<Person> getPersonsLastName(String lastName) {
@@ -90,6 +89,9 @@ public class PersonService {
 	}
 
 	public List<Person> getAllPersons() {
+		if(persons ==null) {
+    		return null;
+    	}
 		System.out.println("Retrieving all persons" + persons);
 		return persons;
 	}

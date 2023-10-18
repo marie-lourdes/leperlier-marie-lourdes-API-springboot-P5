@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +51,7 @@ public class PersonController implements  IResponseHTTPEmpty {
 
 	@GetMapping("/person/{id}")
 	public ResponseEntity<?> getOnePerson(@PathVariable String id) {
-		Optional<Person> personFoundById = personService.getOnePersonById(id);
+		Person personFoundById = personService.getOnePersonById(id);
 		if (personFoundById != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		} else {

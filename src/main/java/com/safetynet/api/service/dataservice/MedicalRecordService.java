@@ -4,7 +4,6 @@ package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -55,16 +54,21 @@ public class MedicalRecordService {
         return result;
     }
 
-    public Optional<MedicalRecord> getOneMedicalRecordById(String id) {
+    public MedicalRecord getOneMedicalRecordById(String id) {
     	  return medicalRecords.stream()
                   .filter(medicalRecord -> medicalRecord.getId().equals(id))
                   .findFirst()
                   .map(existingMedicalRecord -> { 
                 	  return existingMedicalRecord;
-                  } );
+                  } )
+                  .orElse(null);
      }
     public List<MedicalRecord> getAllMedicalRecords() {
        // log.debug("Retrieving all medical records");
+    	
+    	if(medicalRecords ==null) {
+    		return null;
+    	}
     	System.out.println("Retrieving all medical records"+medicalRecords);
         return medicalRecords;
     }

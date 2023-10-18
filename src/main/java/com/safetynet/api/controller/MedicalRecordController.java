@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ import jakarta.validation.Valid;
 public class MedicalRecordController implements IResponseHTTPEmpty {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
-
+	
 	@PostMapping("/medicalRecord/")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
@@ -53,21 +52,21 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 
 	@GetMapping("/medicalRecord/{id}")
 	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
-		Optional<MedicalRecord> medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
-		if (medicalRecordFoundById != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
-		} else {
-			return returnResponseEntityEmptyAndCode404();
+		MedicalRecord medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
+		ResponseEntity<?>  responseEmpty= returnResponseEntityEmptyAndCode404();
+		if (medicalRecordFoundById == null) {
+			return responseEmpty;
 		}
+		return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 	}
 
 	@GetMapping("/medicalRecord/")
 	public @ResponseBody ResponseEntity<?> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecords = medicalRecordService.getAllMedicalRecords();
-		if (allMedicalRecords != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
-		} else {
+		if (allMedicalRecords == null) {
 			return returnResponseEntityEmptyAndCode404();
-		}
+			
+		} 		
+		return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);	
 	}
 }
