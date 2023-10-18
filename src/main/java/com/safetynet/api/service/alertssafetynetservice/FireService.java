@@ -17,7 +17,7 @@ public class FireService {
 	FireStationService fireStationService;
 
 	@Autowired
-	SearchingFullInfoOfResidentsWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) {
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();

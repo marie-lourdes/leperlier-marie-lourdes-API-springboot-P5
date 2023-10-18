@@ -15,7 +15,7 @@ import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Service
-public class SearchingFullInfoOfResidentsWithMedicalRecordImpl implements ISearchingInfoOfResident  {
+public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident  {
 	
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress ;

@@ -15,9 +15,7 @@ public class FloodService {
 	ResidentsOfStationNumberService residentsOfStationNumberService;
 
 	@Autowired
-	SearchingFullInfoOfResidentsWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
-
-	
+	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) {
 		
@@ -47,18 +45,4 @@ public class FloodService {
 
 		return listOfHouseHoldOfStationNumber;
 	}
-
-
-
-	public List<Object> getListOfHouseHoldByStationNumber(MultiValueMap<String, String> stations) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	/*public List<Object> getListOfHouseHoldByStationNumber(List<String> stations) {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
 }

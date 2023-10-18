@@ -14,108 +14,110 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PersonService {
-	 private final List<Person> persons = new ArrayList<>();
-	 
-    public Person addPerson(Person person){
-    	person.setId(
-    			person.getFirstName() + " " +person.getLastName() ); 
-       	persons.add(person);
-        return person;
-    }
-    
-    public Person updatePerson(String id,Person updatedPerson) {
-        return persons.stream()
-                .filter(person -> person.getId().equals(id) )
-                .findFirst()
-                .map(existingPerson-> {
-                   existingPerson.setAddress(updatedPerson.getAddress());
-                   existingPerson.setCity(updatedPerson.getCity());
-                   existingPerson.setZip(updatedPerson.getZip());
-                   existingPerson.setPhone(updatedPerson.getPhone());
-                   existingPerson.setEmail(updatedPerson.getEmail());
-                    return existingPerson;
-                })
-                .orElse(null);
-    }
-    
-    public boolean deleteOnePersonById(String id) {
-        //   log.debug("Deleting medical record for {} {}", firstName, lastName);
-           boolean result = persons.removeIf(person -> person.getId().equals(id));
-           if (result) {
-            //   log.info("Person deleted successfully for {} {}", id);
-           } else {
-              // log.error("Failed to delete person for {} {}", id);
-           }
-           return result;
-       }
-    
-    public Optional<Person> getOnePersonById(String id) {
-  	  return persons.stream()
-                .filter(person -> person.getId().equals(id))
-                .findFirst()
-                .map(existingPerson -> { 
-              	  return existingPerson;
-                } );
-   }
-    
-    public List<Person> getPersonsLastName(String lastName) {
-    	List<Person>  personsFoundByLastName = new ArrayList<>();
-		Iterator<Person>itrPersons =persons.listIterator();
-		while(itrPersons.hasNext()) {
+	private final List<Person> persons = new ArrayList<>();
+
+	public Person addPerson(Person person) {
+		person.setId(person.getFirstName() + " " + person.getLastName());
+		persons.add(person);
+		return person;
+	}
+
+	public Person updatePerson(String id, Person updatedPerson) {
+		return persons.stream().filter(person -> person.getId().equals(id)).findFirst().map(existingPerson -> {
+			existingPerson.setAddress(updatedPerson.getAddress());
+			existingPerson.setCity(updatedPerson.getCity());
+			existingPerson.setZip(updatedPerson.getZip());
+			existingPerson.setPhone(updatedPerson.getPhone());
+			existingPerson.setEmail(updatedPerson.getEmail());
+			return existingPerson;
+		}).orElse(null);
+	}
+
+	public boolean deleteOnePersonById(String id) {
+		// log.debug("Deleting medical record for {} {}", firstName, lastName);
+		boolean result = persons.removeIf(person -> person.getId().equals(id));
+		if (result) {
+			// log.info("Person deleted successfully for {} {}", id);
+		} else {
+			// log.error("Failed to delete person for {} {}", id);
+		}
+		return result;
+	}
+
+	public Optional<Person> getOnePersonById(String id) {
+		return persons.stream().filter(person -> person.getId().equals(id)).findFirst().map(existingPerson -> {
+			return existingPerson;
+		});
+	}
+
+	public List<Person> getPersonsLastName(String lastName) {
+		List<Person> personsFoundByLastName = new ArrayList<>();
+		Iterator<Person> itrPersons = persons.listIterator();
+		while (itrPersons.hasNext()) {
 			Person itrPerson = itrPersons.next();
-			if(itrPerson.getLastName().equals(lastName)) {
+			if (itrPerson.getLastName().equals(lastName)) {
 				personsFoundByLastName.add(itrPerson);
 			}
 		}
-	System.out.println("personsFoundByLastName"+personsFoundByLastName);
-		 return personsFoundByLastName;
-     }
-    
-    public List<Person> getPersonsByAddress(String address) {
-    	List<Person>  personsFoundByAddress = new ArrayList<>();
-		Iterator<Person>itrPersons =persons.listIterator();
-		while(itrPersons.hasNext()) {
+		System.out.println("personsFoundByLastName" + personsFoundByLastName);
+		return personsFoundByLastName;
+	}
+
+	public List<Person> getPersonsByAddress(String address) {
+		List<Person> personsFoundByAddress = new ArrayList<>();
+		Iterator<Person> itrPersons = persons.listIterator();
+		while (itrPersons.hasNext()) {
 			Person itrPerson = itrPersons.next();
-			if(itrPerson.getAddress().equals(address)) {
-				 personsFoundByAddress.add(itrPerson);
+			if (itrPerson.getAddress().equals(address)) {
+				personsFoundByAddress.add(itrPerson);
 			}
 		}
-	System.out.println("personsFoundByAddress"+personsFoundByAddress);
-		 return personsFoundByAddress;
-     }
-	 
-  public List<Person> getAllPersons() {
-  	System.out.println("Retrieving all persons"+persons);
-      return persons;
-  }
-  
-  
-
-/*	public Optional<Person> getOnePersonById(String id) {
-		Optional<Person> personFoundById = Optional
-				.ofNullable(personRepositoryFile.findById(id)).orElseThrow(() -> new NullPointerException(
-						" an error has occured,this person" + id + "doesn't exist, try again "));
-		return personFoundById;
-	}*/
-	
-/*	public Optional<Person> getOnePersonById(String id) {
-		return personRepositoryFile.findById(id);
-	}*/
-	
-/*	public List<Optional<Person>> getOnePersonByFullName(String firstName, String lastName) {
-		return personRepositoryFile.findByFirstNameAndLastName(firstName,  lastName );
-	}
-/*	 
-	public Person savePerson(Person person) {
-		return personRepository.save(person);
+		System.out.println("personsFoundByAddress" + personsFoundByAddress);
+		return personsFoundByAddress;
 	}
 
-	public List<Person> updateOnePersonById(List<Person> person, Long id) {
-		return (List<Person>) personRepository.saveAll(person);
+	public List<Person> getPersonsByCity(String city) {
+		List<Person> personsFoundByCity = new ArrayList<>();
+		Iterator<Person> itrPersons = persons.listIterator();
+		while (itrPersons.hasNext()) {
+			Person itrPerson = itrPersons.next();
+			if (itrPerson.getCity().equals(city)) {
+				personsFoundByCity.add(itrPerson);
+			}
+		}
+		System.out.println("personsFoundByAddress" + personsFoundByCity);
+		return personsFoundByCity;
 	}
 
-	public void deleteOnePersonByName(Person person) {
-		personRepository.delete(person);
-	}*/
+	public List<Person> getAllPersons() {
+		System.out.println("Retrieving all persons" + persons);
+		return persons;
+	}
+
+	/*
+	 * public Optional<Person> getOnePersonById(String id) { Optional<Person>
+	 * personFoundById = Optional
+	 * .ofNullable(personRepositoryFile.findById(id)).orElseThrow(() -> new
+	 * NullPointerException( " an error has occured,this person" + id +
+	 * "doesn't exist, try again ")); return personFoundById; }
+	 */
+
+	/*
+	 * public Optional<Person> getOnePersonById(String id) { return
+	 * personRepositoryFile.findById(id); }
+	 */
+
+	/*
+	 * public List<Optional<Person>> getOnePersonByFullName(String firstName, String
+	 * lastName) { return personRepositoryFile.findByFirstNameAndLastName(firstName,
+	 * lastName ); } /* public Person savePerson(Person person) { return
+	 * personRepository.save(person); }
+	 * 
+	 * public List<Person> updateOnePersonById(List<Person> person, Long id) {
+	 * return (List<Person>) personRepository.saveAll(person); }
+	 * 
+	 * public void deleteOnePersonByName(Person person) {
+	 * personRepository.delete(person); }
+	 */
 
 }
