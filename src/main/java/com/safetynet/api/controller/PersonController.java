@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -34,12 +35,18 @@ public class PersonController implements  IResponseHTTPEmpty {
 
 	@PutMapping("/person/{id}")
 	public ResponseEntity<?> updateOnePersonById(@RequestBody Person person, @PathVariable String id) {
-		Person personFoundById = personService.updatePerson(id, person);
-		if (personFoundById != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
-		} else {
-			return  returnResponseEntityEmptyAndCode404();
+		Person personFoundById; 
+		try {
+			 personFoundById= personService.updatePerson(id, person);
+			return ResponseEntity.status(HttpStatus.CREATED).body( personFoundById);
+		} catch (NullPointerException e) {
+			// e.printStackTrace();
+			// ajouter log error
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+
 		}
+	
 	}
 
 	@DeleteMapping("/person/{id}")

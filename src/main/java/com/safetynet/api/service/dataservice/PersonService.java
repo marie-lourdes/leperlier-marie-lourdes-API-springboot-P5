@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,18 @@ public class PersonService {
 		return person;
 	}
 
-	public Person updatePerson(String id, Person updatedPerson) {
-		return persons.stream().filter(person -> person.getId().equals(id)).findFirst().map(existingPerson -> {
+	public Person updatePerson(String id, Person updatedPerson) throws NullPointerException {
+		Person existingPersonUpdated = new Person();
+		existingPersonUpdated=  persons.stream().filter(person -> person.getId().equals(id)).findFirst().map(existingPerson -> {
 			existingPerson.setAddress(updatedPerson.getAddress());
 			existingPerson.setCity(updatedPerson.getCity());
 			existingPerson.setZip(updatedPerson.getZip());
 			existingPerson.setPhone(updatedPerson.getPhone());
 			existingPerson.setEmail(updatedPerson.getEmail());
 			return existingPerson;
-		}).orElse(null);
+		}).orElseThrow(() -> new NullPointerException(
+				"error occured with updating person " + updatedPerson + "not found "));
+		return 	existingPersonUpdated;
 	}
 
 	public boolean deleteOnePersonById(String id) {
