@@ -98,31 +98,4 @@ public class PersonService {
 		System.out.println("Retrieving all persons" + persons);
 		return persons;
 	}
-
-	/*
-	 * public Optional<Person> getOnePersonById(String id) { Optional<Person>
-	 * personFoundById = Optional
-	 * .ofNullable(personRepositoryFile.findById(id)).orElseThrow(() -> new
-	 * NullPointerException( " an error has occured,this person" + id +
-	 * "doesn't exist, try again ")); return personFoundById; }
-	 */
-
-	/*
-	 * public Optional<Person> getOnePersonById(String id) { return
-	 * personRepositoryFile.findById(id); }
-	 */
-
-	/*
-	 * public List<Optional<Person>> getOnePersonByFullName(String firstName, String
-	 * lastName) { return personRepositoryFile.findByFirstNameAndLastName(firstName,
-	 * lastName ); } /* public Person savePerson(Person person) { return
-	 * personRepository.save(person); }
-	 * 
-	 * public List<Person> updateOnePersonById(List<Person> person, Long id) {
-	 * return (List<Person>) personRepository.saveAll(person); }
-	 * 
-	 * public void deleteOnePersonByName(Person person) {
-	 * personRepository.delete(person); }
-	 */
-
 }
