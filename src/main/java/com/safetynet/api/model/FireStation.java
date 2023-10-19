@@ -1,9 +1,13 @@
 package com.safetynet.api.model;
 
-public class FireStation {
+import jakarta.validation.constraints.NotNull;
 
+public class FireStation {
+@NotNull
 	private String id;
+@NotNull
 	private String stationNumber;
+@NotNull
 	private String address;
 
 	/*
