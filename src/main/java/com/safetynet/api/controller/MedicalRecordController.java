@@ -50,28 +50,38 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 
 	@DeleteMapping("/medicalRecord/{id}")
 	public ResponseEntity<?> deleteOneMedicalRecordByName(@PathVariable String id) {
-		boolean isMedicalRecordRemoved = medicalRecordService.deleteOneMedicalRecordById(id);
-		return isMedicalRecordRemoved ? new ResponseEntity<Long>(HttpStatus.NO_CONTENT)
-				: new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+		try {
+			medicalRecordService.deleteOneMedicalRecordById(id);
+			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@GetMapping("/medicalRecord/{id}")
 	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
-		MedicalRecord medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
-		ResponseEntity<?> responseEmpty = returnResponseEntityEmptyAndCode404();
-		if (medicalRecordFoundById == null) {
-			return responseEmpty;
+		MedicalRecord medicalRecordFoundById;
+
+		try {
+			medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
+			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 	}
 
 	@GetMapping("/medicalRecord/")
 	public @ResponseBody ResponseEntity<?> getAllMedicalRecords() {
-		List<MedicalRecord> allMedicalRecords = medicalRecordService.getAllMedicalRecords();
-		if (allMedicalRecords == null) {
-			return returnResponseEntityEmptyAndCode404();
+		List<MedicalRecord> allMedicalRecords;
 
+		try {
+			allMedicalRecords = medicalRecordService.getAllMedicalRecords();
+			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
 	}
 }
