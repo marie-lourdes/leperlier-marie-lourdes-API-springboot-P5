@@ -62,12 +62,9 @@ public class FireStationService {
 					}).orElse(null);//;
 		
 			fireStations.add(createdFireStation);		
-			/* if( createdFireStation==null) {
-				 throw new NullPointerException (" Error has occured creating firestation,this station number doesn't exist");
-			 }*/
 				
 		}catch(NullPointerException e ) {
-		//log debug pour ce message avec 	printsacktrace
+		//ajouter log debug pour ce message avec 	printsacktrace
 		System.out.println(e.getMessage());	
 			throw new NullPointerException (" Error has occured creating firestation,this station number doesn't exist");
 			
@@ -76,26 +73,24 @@ public class FireStationService {
 		/*
 		 * }catch(Exception e) { e.printStackTrace(); throw new
 		 * NoSuchElementException("aucun element trouvé");
-		 * 
-		 * }
 		 */
 		return createdFireStation;		
 	}
 
 	// modification uniquement de la station number et non l'addresse
-	public FireStation updateFireStation(String id, FireStation updatedFireStation) {
-	FireStation 	existingFireStationUpdated = new FireStation();
+	public FireStation updateFireStation(String id, FireStation updatedFireStation) throws Exception {
+	FireStation existingFireStationUpdated =new FireStation() ;
 		try {
 			existingFireStationUpdated =	 fireStations.stream().filter(fireStation -> fireStation.getId().equals(id)).findFirst()
 					.map(existingFireStation -> {
 						existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
 						existingFireStation.setId(updatedFireStation.getStationNumber());
 						return existingFireStation;
-					}).orElseThrow(() -> new NullPointerException());//.orElse(null);
+					}).orElseThrow(() -> new Exception  ("error occured with updating firestation "+updatedFireStation+"not found "));
 			
 		}catch(NullPointerException e ) {
-			System.out.println("error occured with updating firestation not found");
-				
+			
+						
 		}
 		return existingFireStationUpdated;
 	}

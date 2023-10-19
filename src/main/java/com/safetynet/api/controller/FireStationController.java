@@ -65,8 +65,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 		try {
 			 firestationFoundById = fireStationService.updateFireStation(id, firestation);
 				return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);	
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 			
 		}
