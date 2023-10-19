@@ -36,6 +36,7 @@ public class PersonController implements  IResponseHTTPEmpty {
 	@PutMapping("/person/{id}")
 	public ResponseEntity<?> updateOnePersonById(@RequestBody Person person, @PathVariable String id) {
 		Person personFoundById; 
+		
 		try {
 			 personFoundById= personService.updatePerson(id, person);
 			return ResponseEntity.status(HttpStatus.CREATED).body( personFoundById);
@@ -44,7 +45,6 @@ public class PersonController implements  IResponseHTTPEmpty {
 			// ajouter log error
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-
 		}
 	}
 
@@ -74,11 +74,14 @@ public class PersonController implements  IResponseHTTPEmpty {
 
 	@GetMapping("/person/")
 	public @ResponseBody ResponseEntity<?> getAllPersons() {
-		List<Person> allPersons = personService.getAllPersons();
-		if (allPersons != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(allPersons);
-		} else {
-			return  returnResponseEntityEmptyAndCode404();
+		List<Person> allPersons ;
+		
+		try {
+			allPersons = personService.getAllPersons();
+			return ResponseEntity.status(HttpStatus.OK).body( allPersons );
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
 		}
 	}
 }

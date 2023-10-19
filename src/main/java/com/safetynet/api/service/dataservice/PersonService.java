@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 
 import lombok.RequiredArgsConstructor;

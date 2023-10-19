@@ -30,6 +30,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	public ResponseEntity<?> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		FireStation fireStationCreated;
+		
 		try {
 			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
 			// throw new NullPointerException ("FireStation created is empty");
@@ -46,6 +47,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	public ResponseEntity<?> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
 		FireStation fireStationCreated;
+		
 		try {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
@@ -60,6 +62,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@PutMapping("/firestation/{id}")
 	public ResponseEntity<?> updateOneFireStationById(@RequestBody FireStation firestation, @PathVariable String id) {
 		FireStation firestationFoundById;
+		
 		try {
 			firestationFoundById = fireStationService.updateFireStation(id, firestation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
