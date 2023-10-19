@@ -23,49 +23,56 @@ public class FireStationService {
 		return fireStation;
 	}
 
-	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address) {
-		Optional<FireStation> fireStationByAddress = getOneFireStationByAddress(address);
-		fireStations
-				.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
+	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address)  {
+	try {
+			FireStation fireStationByAddress = getOneFireStationByAddress(address);
+			fireStations
+					.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
 
-		fireStation.setId(fireStation.getStationNumber());
-		fireStation.setAddress(fireStationByAddress.get().getAddress());
-		fireStationByAddress.get().setStationNumber(fireStation.getStationNumber());
-		fireStationByAddress.get().setId(fireStation.getId());
-
-		// fireStation.setId( fireStationByAddress.get().getId());
-		fireStation = fireStationByAddress.get();
-		if (fireStation == null) {
-			return null;
+			fireStation.setId(fireStation.getStationNumber());
+			fireStation.setAddress(fireStationByAddress.getAddress());
+			fireStationByAddress.setStationNumber(fireStation.getStationNumber());
+			fireStationByAddress.setId(fireStation.getId());
+			fireStation = fireStationByAddress;
+			fireStations.add(fireStation);
+			return fireStation;
+		}catch(NullPointerException e ) {
+			System.out.println("aucun element crée");
+			throw new NullPointerException ("FireStation  created with new station number is empty");
+			
 		}
-		fireStations.add(fireStation);
-		return fireStation;
+		
 	}
 
 	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber) {
-		List<FireStation> fireStationsByStationNumber = getFireStationsById(stationNumber);
-		// try {
-		fireStations.removeIf(
-				fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
-
+		try {
+			List<FireStation> fireStationsByStationNumber = getFireStationsById(stationNumber);
+			fireStations.removeIf(
+					fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
+			FireStation createdFireStation = fireStationsByStationNumber.stream()
+					.filter(fireStationByStationNumber -> fireStationByStationNumber.getId().equals(stationNumber))
+					.findFirst().map(existingFireStation -> {
+						existingFireStation.setId(fireStation.getStationNumber());
+						existingFireStation.setAddress(fireStation.getAddress());
+						// existingFireStation.setAddress(updatedFireStation.getAddress());
+						return existingFireStation;
+					}).orElse(null);
+			fireStations.add(createdFireStation);
+		
+			return createdFireStation;
+		}catch(NullPointerException e ) {
+			System.out.println("aucun element crée");
+			throw new NullPointerException ("FireStation  created with address is empty");
+			
+		}
+			
 		/*
 		 * }catch(Exception e) { e.printStackTrace(); throw new
 		 * NoSuchElementException("aucun element trouvé");
 		 * 
 		 * }
 		 */
-
-		FireStation createdFireStation = fireStationsByStationNumber.stream()
-				.filter(fireStationByStationNumber -> fireStationByStationNumber.getId().equals(stationNumber))
-				.findFirst().map(existingFireStation -> {
-					existingFireStation.setId(fireStation.getStationNumber());
-					existingFireStation.setAddress(fireStation.getAddress());
-					// existingFireStation.setAddress(updatedFireStation.getAddress());
-					return existingFireStation;
-				}).orElse(null);
-
-		fireStations.add(createdFireStation);
-		return createdFireStation;
+		
 	}
 
 	// modification uniquement de la station number et non l'addresse
@@ -120,11 +127,11 @@ public class FireStationService {
 
 	}
 
-	public Optional<FireStation> getOneFireStationByAddress(String address) {
+	public FireStation getOneFireStationByAddress(String address) {
 		return fireStations.stream().filter(fireStation -> fireStation.getAddress().equals(address)).findAny()
 				.map(existingFireStation -> {
 					return existingFireStation;
-				});
+				}).orElse(null);
 	}
 
 	public List<FireStation> getAllFireStations() {

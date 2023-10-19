@@ -25,7 +25,7 @@ public class FireService {
 		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
 		Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
-		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address).get()
+		String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address)
 				.getStationNumber();
 		mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
 
