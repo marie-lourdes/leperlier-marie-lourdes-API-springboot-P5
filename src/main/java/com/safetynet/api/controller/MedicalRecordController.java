@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.IResponseHTTPEmpty;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 import jakarta.validation.Valid;
 
