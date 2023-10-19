@@ -31,7 +31,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@PostMapping("/firestation")
 	public ResponseEntity<?> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address)  {
-		FireStation fireStationCreated= new FireStation();
+		FireStation fireStationCreated;
 		try {
 	 fireStationCreated = 	fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
 		//throw new NullPointerException ("FireStation  created is empty");
@@ -50,23 +50,30 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated;
 		try {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
-		} catch (Exception e) {
-			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 			
 		}
-	
-		System.out.println(fireStation);
-		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+		
 	}
 
 	@PutMapping("/firestation/{id}")
 	public ResponseEntity<?> updateOneFireStationById(@RequestBody FireStation firestation, @PathVariable String id) {
-		FireStation firestationFoundById = fireStationService.updateFireStation(id, firestation);
-		if (firestationFoundById == null) {
+		FireStation firestationFoundById; 
+		try {
+			 firestationFoundById = fireStationService.updateFireStation(id, firestation);
+				return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);	
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 			return returnResponseEntityEmptyAndCode404();
-		} 
-		return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);	
+			
+		}
+	/*	if (firestationFoundById == null) {
+			return returnResponseEntityEmptyAndCode404();
+		} */
+	
 	}
 
 	@DeleteMapping("/firestation/{id}")
