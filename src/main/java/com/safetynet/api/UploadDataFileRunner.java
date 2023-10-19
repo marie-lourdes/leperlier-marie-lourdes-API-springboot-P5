@@ -59,7 +59,7 @@ public class UploadDataFileRunner implements CommandLineRunner {
 
 		phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
 		
-		fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
+		//fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
 		
 		floodService.getListOfHouseHoldByStationNumber("3");
 		

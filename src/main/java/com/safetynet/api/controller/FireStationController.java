@@ -30,24 +30,24 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PostMapping("/firestation")
 	public ResponseEntity<?> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
-			@RequestParam String address)  {
+			@RequestParam String address) {
 		FireStation fireStationCreated;
 		try {
-	 fireStationCreated = 	fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
-		//throw new NullPointerException ("FireStation  created is empty");
-		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
+			// throw new NullPointerException ("FireStation created is empty");
+			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		
+
 		}
-	
+
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
 	public ResponseEntity<?> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
-			@PathVariable String stationNumber)  {
+			@PathVariable String stationNumber) {
 		FireStation fireStationCreated;
 		try {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
@@ -55,68 +55,77 @@ public class FireStationController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-			
+
 		}
-		
+
 	}
 
 	@PutMapping("/firestation/{id}")
 	public ResponseEntity<?> updateOneFireStationById(@RequestBody FireStation firestation, @PathVariable String id) {
-		FireStation firestationFoundById; 
+		FireStation firestationFoundById;
 		try {
-			 firestationFoundById = fireStationService.updateFireStation(id, firestation);
-				return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);	
+			firestationFoundById = fireStationService.updateFireStation(id, firestation);
+			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
 		} catch (NullPointerException e) {
-			//e.printStackTrace();
-			//ajouter log error
+			// e.printStackTrace();
+			// ajouter log error
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-			
+
 		}
-		
+
 	}
 
 	@DeleteMapping("/firestation/{id}")
 	public ResponseEntity<Long> deleteFireStationById(@PathVariable String id) {
-	
+
 		try {
-	        fireStationService.deleteFireStationById(id);
+			fireStationService.deleteFireStationById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
-		return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+		}
 	}
-	}
+
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteFireStationByAddress(@RequestParam String address) {
-		
+
 		try {
-		fireStationService.deleteOneFireStationByAddress(address);
+			fireStationService.deleteOneFireStationByAddress(address);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
-		return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-	}
-	
+			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 	@GetMapping("/firestation/{id}")
 	public ResponseEntity<?> getFireStationById(@PathVariable String id) {
-		List<FireStation> fireStationsById = fireStationService.getFireStationsById(id);	
-			if (fireStationsById==null) {
-				return returnResponseEntityEmptyAndCode404();	
-			}
-		
-		 
-		return ResponseEntity.status(HttpStatus.OK).body(fireStationsById );
+		List<FireStation> fireStationsById;
+
+		try {
+			fireStationsById = fireStationService.getFireStationsById(id);
+			return ResponseEntity.status(HttpStatus.OK).body(fireStationsById);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+
 	}
 
 	@GetMapping("/firestation/")
 	public @ResponseBody ResponseEntity<?> getAllFireStations() {
-		List<FireStation> allFireStations = fireStationService.getAllFireStations();
-		if (allFireStations.isEmpty()) {
+		List<FireStation> allFireStations;
+		try {
+			allFireStations= fireStationService.getAllFireStations();
+			return ResponseEntity.status(HttpStatus.OK).body( allFireStations);
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		} 
-		return ResponseEntity.status(HttpStatus.OK).body(allFireStations);
+		}
+		
+		
 	}
 }
