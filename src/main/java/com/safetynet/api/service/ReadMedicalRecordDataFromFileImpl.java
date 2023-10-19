@@ -8,17 +8,14 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Component
 public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<MedicalRecord> {
 	private JsonArray datasJsonMedicalRecords;
 	private List<MedicalRecord> listOfMedicalRecords;
-	private final MedicalRecordService medicalRecordService = new MedicalRecordService();
 
 	@Override
 	public List<MedicalRecord>  readFile() throws IOException {

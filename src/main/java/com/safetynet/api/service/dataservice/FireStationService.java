@@ -3,8 +3,6 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,9 @@ public class FireStationService {
 		fireStations.add(fireStation);
 		return fireStation;
 	}
-
+	
+//ajouter illagal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
+//car les annotation permette de renvoyer erreur 400
 	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address) {
 		FireStation fireStationByAddress = new FireStation();
 		try {
@@ -43,7 +43,6 @@ public class FireStationService {
 					" Error has occured creating firestation with new station number,this address doesn't exist");
 
 		}
-
 	}
 
 	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber)
