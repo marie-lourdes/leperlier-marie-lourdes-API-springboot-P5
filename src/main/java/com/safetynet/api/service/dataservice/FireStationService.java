@@ -20,7 +20,7 @@ public class FireStationService {
 		fireStations.add(fireStation);
 		return fireStation;
 	}
-	
+
 //ajouter illagal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
 	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address) {
@@ -96,15 +96,15 @@ public class FireStationService {
 		// log.debug("Deleting medical record for {} {}", firstName, lastName);
 		boolean result = false;
 		result = fireStations.removeIf(fireStation -> fireStation.getId().equals(id));
-		
+
 		if (!result) {
 			// log.error("Failed to delete firestation for {} {}", id);
 			throw new NullPointerException("this station number of firestation to remove doesn't exist");
-		}else {
+		} else {
 			// log.info("firestation deleted by id with station number successfully for {}
 			// {}", id);
 		}
-		
+
 		return result;
 	}
 
@@ -131,7 +131,7 @@ public class FireStationService {
 				fireStationsFoundById.add(itrFireStation);
 			}
 		}
-		
+
 		if (fireStationsFoundById.isEmpty()) {
 			throw new NullPointerException("firestation not found");
 		}
@@ -149,7 +149,7 @@ public class FireStationService {
 		return fireStationFoundByAddress;
 	}
 
-	public List<FireStation> getAllFireStations() throws NullPointerException{
+	public List<FireStation> getAllFireStations() throws NullPointerException {
 		if (fireStations.isEmpty()) {
 			throw new NullPointerException("none firestation registered!");
 		}
