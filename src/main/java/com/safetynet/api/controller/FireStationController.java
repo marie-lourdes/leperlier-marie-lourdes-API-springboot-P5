@@ -65,16 +65,14 @@ public class FireStationController implements IResponseHTTPEmpty {
 		try {
 			 firestationFoundById = fireStationService.updateFireStation(id, firestation);
 				return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);	
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			//e.printStackTrace();
+			//ajouter log error
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 			
 		}
-	/*	if (firestationFoundById == null) {
-			return returnResponseEntityEmptyAndCode404();
-		} */
-	
+		
 	}
 
 	@DeleteMapping("/firestation/{id}")
