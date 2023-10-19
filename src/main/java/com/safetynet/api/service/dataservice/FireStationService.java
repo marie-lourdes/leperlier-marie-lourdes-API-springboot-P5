@@ -38,17 +38,17 @@ public class FireStationService {
 			fireStations.add(fireStation);
 			return fireStation;
 		} catch (NullPointerException e) {
-			System.out.println("aucun element crée");
-			throw new NullPointerException(" Error has occured creating firestation,this address doesn't exist");
+			//System.out.println("aucun element crée");
+			throw new NullPointerException(" Error has occured creating firestation with new station number,this address doesn't exist");
 
 		}
 
 	}
 
-	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber) {
+	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber)  throws NullPointerException {
 		FireStation createdFireStation = new FireStation();
+		
 		try {
-
 			List<FireStation> fireStationsByStationNumber = getFireStationsById(stationNumber);
 			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
 					.equals(stationNumber));
@@ -59,14 +59,13 @@ public class FireStationService {
 						existingFireStation.setAddress(fireStation.getAddress());
 						// existingFireStation.setAddress(updatedFireStation.getAddress());
 						return existingFireStation;
-					}).orElse(null);// ;
-
+					}).orElse(null);
 			fireStations.add(createdFireStation);
 
 		} catch (NullPointerException e) {
 			// ajouter log debug pour ce message avec printsacktrace
-			System.out.println(e.getMessage());
-			throw new NullPointerException(" Error has occured creating firestation,this station number doesn't exist");
+			//System.out.println(e.getMessage());
+			throw new NullPointerException(" Error has occured creating  firestation with new address,this station number doesn't exist");
 
 		}
 
@@ -91,34 +90,31 @@ public class FireStationService {
 		return existingFireStationUpdated;
 	}
 
-	public boolean deleteFireStationById(String id) {
+	public boolean deleteFireStationById(String id)  throws NullPointerException {
 		// log.debug("Deleting medical record for {} {}", firstName, lastName);
-		boolean result = false;
-		try {
+		boolean result = false;	
 			result = fireStations.removeIf(fireStation -> fireStation.getId().equals(id));
 			// log.info("firestation deleted by id with station number successfully for {}
 			// {}", id);
 			if (!result) {
-				throw new NullPointerException();
+				// log.error("Failed to delete firestation for {} {}", id);
+				throw new NullPointerException("this station number of firestation to remove doesn't exist");
 			}
-
-		} catch (NullPointerException e) {
-			// log.error("Failed to delete firestation for {} {}", id);
-			System.out.println("aucun element crée");
-
-		}
+		
 		return result;
 	}
 
-	public boolean deleteOneFireStationByAddress(String address) {
+	public boolean deleteOneFireStationByAddress(String address) throws NullPointerException{
 		// log.debug("Deleting medical record for {} {}", firstName, lastName);
-		boolean result = fireStations.removeIf(fireStation -> fireStation.getAddress().equals(address));
-		if (result) {
+		boolean result = false;
+		
+			result = fireStations.removeIf(fireStation -> fireStation.getAddress().equals(address));
 			// log.info("firestation deleted by address with station number successfully for
 			// {} {}", id);
-		} else {
-			// log.error("Failed to delete firestation for {} {}", id);
-		}
+			if (!result) {
+				// log.error("Failed to delete firestation for {} {}", id);
+				throw new NullPointerException("this address of firestation to remove doesn't exist");
+			}
 		return result;
 	}
 
