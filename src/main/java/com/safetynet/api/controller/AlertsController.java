@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
@@ -46,6 +47,7 @@ public class AlertsController implements  IResponseHTTPEmpty{
 	 CommunityEmailService  communityEmailService;
 	
 	@GetMapping("/firestation")
+	@ResponseBody 
 	public List<Map<String, String>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) throws ParseException {
 		List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService. getListOfResidentsOfStationNumber(stationNumber);
 		Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
@@ -59,6 +61,7 @@ public class AlertsController implements  IResponseHTTPEmpty{
 	}
 
 	@GetMapping("/childAlert")
+	@ResponseBody 
 	public  ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress  (@RequestParam String address){
 		try {
 			List<Map<String, String>>  childs =childAlertService.getChildsAndMembersOfHouseHold(address);
@@ -77,16 +80,19 @@ public class AlertsController implements  IResponseHTTPEmpty{
 	}
 	
 	@GetMapping("/phoneAlert")
+	@ResponseBody 
 	public  List<Map<String, String>> getPhonesOfResidentsByStationNumber (@RequestParam String stationNumber){
 		return phoneAlertService.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
 	}
 	
 	@GetMapping("/fire")
+	@ResponseBody 
 	public  List<Object>getListOfResidentsAndFireStationNearFire(@RequestParam String address){
 		return fireService.getListOfResidentsAndFireStationNearFire(address);
 	}
 	
 	@GetMapping("/flood/stations")
+	@ResponseBody 
 	public  List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String>stations){
 		List<Object> listOfHouseHoldByStationNumber =new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam =new ArrayList<Object>();
@@ -99,11 +105,13 @@ public class AlertsController implements  IResponseHTTPEmpty{
 	
 	
 	@GetMapping("/personInfo")
+	@ResponseBody 
 	public  List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String  firstName, @RequestParam String  lastName){	
 		return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 	}
 	
 	@GetMapping("/communityEmail")
+	@ResponseBody 
 	public  List<Map<String, String>> getEmailOfResidentsOfCity(@RequestParam String city){
 		return communityEmailService.getEmailOfResidentsOfCity(city);
 	}
