@@ -48,16 +48,22 @@ public class AlertsController implements  IResponseHTTPEmpty{
 	
 	@GetMapping("/firestation")
 	@ResponseBody 
-	public List<Map<String, String>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) throws ParseException {
-		List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService. getListOfResidentsOfStationNumber(stationNumber);
-		Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
+	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+		try {
+			List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService. getListOfResidentsOfStationNumber(stationNumber);
+			Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
 		
-		for(Map.Entry<String,Integer> entry :mapOfAdultsAndChild .entrySet() ) {
-			Map<String,String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
-			mapOfAdultsAndChildConvertedValueString.put(entry.getKey(),entry.getValue().toString());
-			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
+			for(Map.Entry<String,Integer> entry :mapOfAdultsAndChild .entrySet() ) {
+				Map<String,String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(),entry.getValue().toString());
+				listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
 		}
-		return  (listOfResidentsOfStationNumber)  ;
+			 return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber );
+		}catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+		
 	}
 
 	@GetMapping("/childAlert")

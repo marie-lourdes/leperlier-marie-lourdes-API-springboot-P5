@@ -48,22 +48,22 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// medicalRecordService.getAllMedicalRecords();
 		// use to logging each element of file json
-		personService.getAllPersons();
-		fireStationService.getFireStationsById("3");
+		//personService.getAllPersons();
+		//fireStationService.getFireStationsById("3");
 		
-		residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
-		residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("3");
+		//residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
+		//residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("3");
 		
-		childAlertService.getChildsAndMembersOfHouseHold("1509 Culver St");
-		childAlertService.sortAdultsAndChildsOfListOfResidentsWithFullInfo("1509 Culver St");
+		//childAlertService.getChildsAndMembersOfHouseHold("1509 Culver St");
+		//childAlertService.sortAdultsAndChildsOfListOfResidentsWithFullInfo("1509 Culver St");
 
-		phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
+		//phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
 		
 		//fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
 		
-		floodService.getListOfHouseHoldByStationNumber("3");
+		//floodService.getListOfHouseHoldByStationNumber("3");
 		
-		communityEmailService.getEmailOfResidentsOfCity("Culver");
+		//communityEmailService.getEmailOfResidentsOfCity("Culver");
 		
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());
