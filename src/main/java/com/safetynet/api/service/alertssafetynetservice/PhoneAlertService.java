@@ -13,9 +13,15 @@ public class PhoneAlertService {
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber;
 
-	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber) {
-		listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-		listOfPhonesOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber)
+			throws NullPointerException {
+		try {
+
+			listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+			listOfPhonesOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+		} catch (NullPointerException e) {
+			throw new NullPointerException("Not phone of resident found of this firestation");
+		}
 
 		for (Map<String, String> residents : listOfPhonesOfResidentOfStationNumber) {
 			residents.remove("firstName");
@@ -24,6 +30,7 @@ public class PhoneAlertService {
 			residents.remove("age");
 			System.out.println("residents" + residents);
 		}
+
 		System.out.println("list of phones of resident" + listOfPhonesOfResidentOfStationNumber);
 		return listOfPhonesOfResidentOfStationNumber;
 	}

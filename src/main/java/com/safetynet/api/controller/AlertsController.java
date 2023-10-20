@@ -1,6 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,103 +23,102 @@ import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumber
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
-public class AlertsController implements  IResponseHTTPEmpty{
+public class AlertsController implements IResponseHTTPEmpty {
 	@Autowired
-	ResidentsOfStationNumberService residentsOfStationNumberService ;
-	
-	@Autowired
-	ChildAlertService  childAlertService;
-	
-	@Autowired
-	PhoneAlertService  phoneAlertService;
-	
-	@Autowired
-	FireService  fireService;
+	ResidentsOfStationNumberService residentsOfStationNumberService;
 
 	@Autowired
-	FloodService  floodService;
-	
+	ChildAlertService childAlertService;
+
 	@Autowired
-	PersonInfoService personInfoService ;
-	
+	PhoneAlertService phoneAlertService;
+
 	@Autowired
-	 CommunityEmailService  communityEmailService;
-	
+	FireService fireService;
+
+	@Autowired
+	FloodService floodService;
+
+	@Autowired
+	PersonInfoService personInfoService;
+
+	@Autowired
+	CommunityEmailService communityEmailService;
+
 	@GetMapping("/firestation")
-	@ResponseBody 
+	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
 		try {
-			List<Map<String, String>> listOfResidentsOfStationNumber =residentsOfStationNumberService. getListOfResidentsOfStationNumber(stationNumber);
-			Map<String,Integer> mapOfAdultsAndChild = residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
-		
-			for(Map.Entry<String,Integer> entry :mapOfAdultsAndChild .entrySet() ) {
-				Map<String,String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
-				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(),entry.getValue().toString());
+			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
+					.getListOfResidentsOfStationNumber(stationNumber);
+			Map<String, Integer> mapOfAdultsAndChild = residentsOfStationNumberService
+					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
+
+			for (Map.Entry<String, Integer> entry : mapOfAdultsAndChild.entrySet()) {
+				Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
 				listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
-		}
-			 return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber );
-		}catch(NullPointerException e) {
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-		
 	}
 
 	@GetMapping("/childAlert")
-	@ResponseBody 
-	public  ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress  (@RequestParam String address){
+	@ResponseBody
+	public ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
 		try {
-			List<Map<String, String>>  childs =childAlertService.getChildsAndMembersOfHouseHold(address);
-		 return ResponseEntity.status(HttpStatus.OK).body(childs);
-		}catch(NullPointerException e) {
+			List<Map<String, String>> childs = childAlertService.getChildsAndMembersOfHouseHold(address);
+			return ResponseEntity.status(HttpStatus.OK).body(childs);
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-		
-	/*	 ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
-		 ResponseEntity<?> response=ResponseEntity.status(HttpStatus.OK).body(childs);
-		if(childs==null) {
-			return responseEmpty;//return string empty
-		}		
-		return response;*/
 	}
-	
+
 	@GetMapping("/phoneAlert")
-	@ResponseBody 
-	public  List<Map<String, String>> getPhonesOfResidentsByStationNumber (@RequestParam String stationNumber){
-		return phoneAlertService.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
+	@ResponseBody
+	public  ResponseEntity<?>getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {	
+		try {
+			List<Map<String, String>> listOfPhonesOfResidentsByStationNumber =phoneAlertService.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
+			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber );
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
 	}
-	
+
 	@GetMapping("/fire")
-	@ResponseBody 
-	public  List<Object>getListOfResidentsAndFireStationNearFire(@RequestParam String address){
+	@ResponseBody
+	public List<Object> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
 		return fireService.getListOfResidentsAndFireStationNearFire(address);
 	}
-	
+
 	@GetMapping("/flood/stations")
-	@ResponseBody 
-	public  List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String>stations){
-		List<Object> listOfHouseHoldByStationNumber =new ArrayList<Object>();
-		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam =new ArrayList<Object>();
-		for(String station: stations) {
-			listOfHouseHoldByStationNumber =floodService.getListOfHouseHoldByStationNumber(station);
-			listOfHouseHoldByStationNumberWithMoreOneRequestParam .add(listOfHouseHoldByStationNumber);
+	@ResponseBody
+	public List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
+		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
+		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
+		for (String station : stations) {
+			listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+			listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
 		}
-		 return listOfHouseHoldByStationNumberWithMoreOneRequestParam ;
+		return listOfHouseHoldByStationNumberWithMoreOneRequestParam;
 	}
-	
-	
+
 	@GetMapping("/personInfo")
-	@ResponseBody 
-	public  List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String  firstName, @RequestParam String  lastName){	
+	@ResponseBody
+	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
+			@RequestParam String lastName) {
 		return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 	}
-	
+
 	@GetMapping("/communityEmail")
-	@ResponseBody 
-	public  List<Map<String, String>> getEmailOfResidentsOfCity(@RequestParam String city){
+	@ResponseBody
+	public List<Map<String, String>> getEmailOfResidentsOfCity(@RequestParam String city) {
 		return communityEmailService.getEmailOfResidentsOfCity(city);
 	}
-	
-	
+
 }
