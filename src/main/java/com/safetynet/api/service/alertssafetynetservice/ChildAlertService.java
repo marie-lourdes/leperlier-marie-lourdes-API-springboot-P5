@@ -24,19 +24,19 @@ public class ChildAlertService {
 		long numberOfChild = 0;
 
 		for (Map<String, String> resident : listOfResidentChildAndMembersOfHouseHold) {
+			//get list age parsed of residents found by address to sort and remove info age for adults
 			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));
 			if (Integer.parseInt(resident.get("age")) > 18) {
 				resident.remove("age");
 			}
 		}
-		System.out.println("list age is child" + allMemberOfHouseHoldWithAge);
 		numberOfChild = allMemberOfHouseHoldWithAge.stream().filter(elem -> elem <= 18).count();
 		if (numberOfChild == 0) {
 			listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		}
 
 		if (listOfResidentChildAndMembersOfHouseHold.isEmpty()) {
-			throw new NullPointerException("No child found found at this address");
+			throw new NullPointerException("No child found at this address");
 		}
 
 		return listOfResidentChildAndMembersOfHouseHold;

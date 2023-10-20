@@ -80,7 +80,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/phoneAlert")
 	@ResponseBody
-	public  ResponseEntity<?>getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {	
+	public  ResponseEntity<?> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {	
 		try {
 			List<Map<String, String>> listOfPhonesOfResidentsByStationNumber =phoneAlertService.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber );
@@ -92,8 +92,14 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/fire")
 	@ResponseBody
-	public List<Object> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
-		return fireService.getListOfResidentsAndFireStationNearFire(address);
+	public ResponseEntity<?> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
+		try {
+			List<Object> listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
+			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
+		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
 	}
 
 	@GetMapping("/flood/stations")
