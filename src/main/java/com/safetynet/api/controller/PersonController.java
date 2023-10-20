@@ -26,6 +26,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	private PersonService personService;
 
 	@PostMapping("/person/")
+	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = personService.addPerson(person);
 		System.out.println(person);
@@ -33,6 +34,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	}
 
 	@PutMapping("/person/{id}")
+	@ResponseBody
 	public ResponseEntity<?> updateOnePersonById(@RequestBody Person person, @PathVariable String id) {
 		Person personFoundById;
 
@@ -60,6 +62,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/person/{id}")
+	@ResponseBody
 	public ResponseEntity<?> getOnePerson(@PathVariable String id) {
 		Person personFoundById;
 		try {
@@ -72,7 +75,8 @@ public class PersonController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/person/")
-	public @ResponseBody ResponseEntity<?> getAllPersons() {
+	@ResponseBody
+	public  ResponseEntity<?> getAllPersons() {
 		List<Person> allPersons;
 
 		try {

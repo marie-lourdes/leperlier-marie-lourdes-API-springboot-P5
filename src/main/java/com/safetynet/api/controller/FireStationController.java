@@ -27,6 +27,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	private FireStationService fireStationService;
 
 	@PostMapping("/firestation")
+	@ResponseBody
 	public ResponseEntity<?> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		FireStation fireStationCreated;
@@ -44,6 +45,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
+	@ResponseBody
 	public ResponseEntity<?> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
 		FireStation fireStationCreated;
@@ -60,6 +62,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	}
 
 	@PutMapping("/firestation/{id}")
+	@ResponseBody
 	public ResponseEntity<?> updateOneFireStationById(@RequestBody FireStation firestation, @PathVariable String id) {
 		FireStation firestationFoundById;
 
@@ -102,6 +105,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/firestation/{id}")
+	@ResponseBody
 	public ResponseEntity<?> getFireStationById(@PathVariable String id) {
 		List<FireStation> fireStationsById;
 
@@ -116,7 +120,8 @@ public class FireStationController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/firestation/")
-	public @ResponseBody ResponseEntity<?> getAllFireStations() {
+	@ResponseBody
+	public ResponseEntity<?> getAllFireStations() {
 		List<FireStation> allFireStations;
 		try {
 			allFireStations = fireStationService.getAllFireStations();

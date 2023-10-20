@@ -17,7 +17,7 @@ public class ChildAlertService {
 
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
-	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) {
+	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) throws NullPointerException {
 		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
 		List<Integer> allMemberOfHouseHoldWithAge= new ArrayList<Integer> ();
@@ -33,7 +33,10 @@ public class ChildAlertService {
 		System.out.println("list age is child"+ allMemberOfHouseHoldWithAge);
 		numberOfChild = allMemberOfHouseHoldWithAge.stream().filter(elem-> elem <=18 ).count();
 		if(numberOfChild==0) {
-			return null;
+			return null;	
+		}
+		if (listOfResidentChildAndMembersOfHouseHold.isEmpty()) {
+			throw new NullPointerException("No child found found at this address");
 		}
 		return listOfResidentChildAndMembersOfHouseHold;
 	}

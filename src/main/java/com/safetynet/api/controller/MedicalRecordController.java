@@ -26,6 +26,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	private MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecord/")
+	@ResponseBody
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
 		System.out.println(medicalRecord);
@@ -33,6 +34,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@PutMapping("/medicalRecord/{id}")
+	@ResponseBody
 	public ResponseEntity<?> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
 			@PathVariable String id) {
 		MedicalRecord medicalRecordFoundById;
@@ -60,6 +62,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/medicalRecord/{id}")
+	@ResponseBody
 	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
 		MedicalRecord medicalRecordFoundById;
 
@@ -73,7 +76,8 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/medicalRecord/")
-	public @ResponseBody ResponseEntity<?> getAllMedicalRecords() {
+	@ResponseBody 
+	public ResponseEntity<?> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecords;
 
 		try {

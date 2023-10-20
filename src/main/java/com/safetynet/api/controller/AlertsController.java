@@ -20,9 +20,10 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
+import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
-public class AlertsController {
+public class AlertsController implements  IResponseHTTPEmpty{
 	@Autowired
 	ResidentsOfStationNumberService residentsOfStationNumberService ;
 	
@@ -59,13 +60,20 @@ public class AlertsController {
 
 	@GetMapping("/childAlert")
 	public  ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress  (@RequestParam String address){
-		List<Map<String, String>>  childs =childAlertService.getChildsAndMembersOfHouseHold(address);
-		 ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
+		try {
+			List<Map<String, String>>  childs =childAlertService.getChildsAndMembersOfHouseHold(address);
+		 return ResponseEntity.status(HttpStatus.OK).body(childs);
+		}catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+		
+		/* ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
 		 ResponseEntity<?> response=ResponseEntity.status(HttpStatus.OK).body(childs);
 		if(childs==null) {
 			return responseEmpty;//return string empty
-		}			
-		return response;
+		}	*/		
+		//return response;
 	}
 	
 	@GetMapping("/phoneAlert")
