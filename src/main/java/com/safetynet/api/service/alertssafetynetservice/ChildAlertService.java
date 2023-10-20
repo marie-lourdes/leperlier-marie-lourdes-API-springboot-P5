@@ -20,28 +20,31 @@ public class ChildAlertService {
 	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) throws NullPointerException {
 		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
-		List<Integer> allMemberOfHouseHoldWithAge= new ArrayList<Integer> ();
-		long numberOfChild=0;
-		
-		for(Map<String, String> resident:listOfResidentChildAndMembersOfHouseHold ) {
-			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));			
-			if (Integer.parseInt(resident.get("age")) >18) {
+		List<Integer> allMemberOfHouseHoldWithAge = new ArrayList<Integer>();
+		long numberOfChild = 0;
+
+		for (Map<String, String> resident : listOfResidentChildAndMembersOfHouseHold) {
+			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));
+			if (Integer.parseInt(resident.get("age")) > 18) {
 				resident.remove("age");
-			}		
+			}
 		}
-	
-		System.out.println("list age is child"+ allMemberOfHouseHoldWithAge);
-		numberOfChild = allMemberOfHouseHoldWithAge.stream().filter(elem-> elem <=18 ).count();
-		if(numberOfChild==0) {
-			return null;	
+		System.out.println("list age is child" + allMemberOfHouseHoldWithAge);
+		numberOfChild = allMemberOfHouseHoldWithAge.stream().filter(elem -> elem <= 18).count();
+		if (numberOfChild == 0) {
+			listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		}
+
 		if (listOfResidentChildAndMembersOfHouseHold.isEmpty()) {
 			throw new NullPointerException("No child found found at this address");
 		}
+
 		return listOfResidentChildAndMembersOfHouseHold;
 	}
 
 	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address) {
+
 		return sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
+
 	}
 }

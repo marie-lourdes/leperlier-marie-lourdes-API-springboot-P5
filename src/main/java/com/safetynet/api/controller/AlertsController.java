@@ -71,12 +71,12 @@ public class AlertsController implements  IResponseHTTPEmpty{
 			return returnResponseEntityEmptyAndCode404();
 		}
 		
-		/* ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
+	/*	 ResponseEntity<?> responseEmpty =ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
 		 ResponseEntity<?> response=ResponseEntity.status(HttpStatus.OK).body(childs);
 		if(childs==null) {
 			return responseEmpty;//return string empty
-		}	*/		
-		//return response;
+		}		
+		return response;*/
 	}
 	
 	@GetMapping("/phoneAlert")
