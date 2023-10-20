@@ -104,15 +104,30 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public List<Object> getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
+	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
-		for (String station : stations) {
-			listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
-			listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-		}
-		return listOfHouseHoldByStationNumberWithMoreOneRequestParam;
-	}
+		
+			
+		
+				for (String station : stations) {
+					try {
+				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+				
+				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
+					}catch (NullPointerException e) {
+						
+						System.out.println(e.getMessage());
+						return returnResponseEntityEmptyAndCode404();
+					}
+				}
+			/*	if(		listOfHouseHoldByStationNumber==null) {
+					
+				}*/
+				return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberWithMoreOneRequestParam);
+			}
+		//return listOfHouseHoldByStationNumberWithMoreOneRequestParam;
+	
 
 	@GetMapping("/personInfo")
 	@ResponseBody
