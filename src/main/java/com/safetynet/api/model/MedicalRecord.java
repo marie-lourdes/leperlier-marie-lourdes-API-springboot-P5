@@ -2,15 +2,17 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
+import com.safetynet.api.utils.RegexConstants;
+
 import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
-	private final String REGEX_P = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+
 	private String id;
 	private String firstName;
 	private String lastName;
 
-	@Pattern(regexp = REGEX_P)
+	@Pattern(regexp = RegexConstants.REGEX_DATE)
 	private String birthdate;
 
 	private List<String> medications;
