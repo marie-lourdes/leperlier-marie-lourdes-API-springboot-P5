@@ -18,26 +18,25 @@ public class PersonInfoService {
 	@Autowired
 	PersonService personService;
 	
-	private List<Person> personsFoundByLastNameUpdated= new ArrayList<Person>();
-	private List<Person> personsFoundByLastName=new ArrayList<Person>();
+	private List<Person> personsFoundByFullName= new ArrayList<Person>();
+	private List<Person> 	personsFoundWithTheSameLastName =new ArrayList<Person>();
 	
 	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName) {
 		String fullName= firstName + " " + lastName;
-		 personsFoundByLastName =personService.getPersonsLastName(lastName);
-		Person personFounByIdFullName = personService.getOnePersonById(fullName);
+		Person personFoundByIdFullName = personService.getOnePersonById(fullName);
+		personsFoundByFullName.add(personFoundByIdFullName);
+		personsFoundWithTheSameLastName =personService.getPersonsLastName(lastName);
+		List<Map<String, String>>listOfResidentsWithMedicalRecord= new ArrayList<Map<String, String>>();
 	
-		personsFoundByLastNameUpdated.add(personFounByIdFullName);
-		
-		 List<Map<String, String>>listOfResidentsWithMedicalRecord= new ArrayList<Map<String, String>>();
-	
-		 for(Person person:personsFoundByLastName) {
+		//add medicalrecord for person searched
+		for(Person person:personsFoundByFullName) {
+			listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());		
+		}
+		//add medicalrecord for all person with the same last name of  person searched
+		 for(Person person:personsFoundWithTheSameLastName ) {
 			 listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());	
 		}
 		 
-		for(Person person:personsFoundByLastNameUpdated) {
-			listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());		
-		}
-		
 		return listOfResidentsWithMedicalRecord;
 	}
 }

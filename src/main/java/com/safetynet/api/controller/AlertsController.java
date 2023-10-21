@@ -110,18 +110,18 @@ public class AlertsController implements IResponseHTTPEmpty {
 	
 			for (String station : stations) {
 				try {
-				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);	
 				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-				System.out.println("list Of House Hold found a this firestation "+station+" : "+listOfHouseHoldByStationNumber+"to prevent for flood");
+				System.out.println("list Of House Hold found a this firestation "+station+" : \"+listOfHouseHoldByStationNumber+\"to prevent for flood\" House Hold found a this firestation "+station+" : "+listOfHouseHoldByStationNumber+"to prevent for flood");			
 				}catch (NullPointerException e) {
-					System.out.println(e.getMessage());
+					System.out.println(e.getMessage());	
 					//return returnResponseEntityEmptyAndCode404();
 				}
 			}
+			
 			try {
 				if(listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
-					throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood" );
-				
+					throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood" );	
 				}
 			}catch (NullPointerException e) {
 				System.out.println(e.getMessage());
