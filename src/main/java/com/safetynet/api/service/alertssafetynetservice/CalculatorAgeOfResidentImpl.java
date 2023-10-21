@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.utils.Constants;
 
 @Component
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	@Autowired
 	MedicalRecordService medicalRecordService;
-
-	private static final String DATE_FORMAT = "MM/dd/yyyy";
-	private static final String YEAR_IN_MILLISECONDS = "31536000000";
 
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
@@ -25,7 +23,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 
 		// formatage date birthdate
-		DateFormat format = new SimpleDateFormat(DATE_FORMAT);
+		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
 		try {
 			birthdate = format.parse(birthDateOfPerson);
@@ -34,7 +32,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		}
 
 		// calcule de l age
-		BigInteger yearInMs = new BigInteger(YEAR_IN_MILLISECONDS);// millisecondes par an
+		BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
 		Long ageOfPerson = new Date().getTime() - birthdate.getTime();
 		System.out.println("age " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
 
