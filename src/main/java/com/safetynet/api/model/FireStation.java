@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class FireStation {
-	@NotNull
 	private String id;
 	
 	@NotNull

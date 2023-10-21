@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class Person {
-	
 	private String id;
 	
 	@NotNull
@@ -28,7 +27,8 @@ public class Person {
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_PHONE)
 	private String phone;
-
+	
+	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_EMAIL)
 	// @Email(message = "email should be valid")
 	private String email;

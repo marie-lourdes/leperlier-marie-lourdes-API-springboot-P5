@@ -1,7 +1,6 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,12 +18,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
-import jakarta.validation.Validation;
-import jakarta.validation.ValidationException;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 
 @RestController
 public class PersonController implements IResponseHTTPEmpty {
