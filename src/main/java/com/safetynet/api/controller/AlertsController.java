@@ -104,29 +104,32 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
+	public ResponseEntity<?>getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
-		
-			
-		
-				for (String station : stations) {
-					try {
+	
+			for (String station : stations) {
+				try {
 				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
-				
 				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-					}catch (NullPointerException e) {
-						
-						System.out.println(e.getMessage());
-						return returnResponseEntityEmptyAndCode404();
-					}
+				System.out.println("list Of House Hold found a this firestation "+station+" : "+listOfHouseHoldByStationNumber+"to prevent for flood");
+				}catch (NullPointerException e) {
+					System.out.println(e.getMessage());
+					//return returnResponseEntityEmptyAndCode404();
 				}
-			/*	if(		listOfHouseHoldByStationNumber==null) {
-					
-				}*/
-				return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberWithMoreOneRequestParam);
 			}
-		//return listOfHouseHoldByStationNumberWithMoreOneRequestParam;
+			try {
+				if(listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
+					throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood" );
+				
+				}
+			}catch (NullPointerException e) {
+				System.out.println(e.getMessage());
+				return returnResponseEntityEmptyAndCode404();
+			}
+			
+		return ResponseEntity.status(HttpStatus.OK).body(	listOfHouseHoldByStationNumberWithMoreOneRequestParam);
+	}
 	
 
 	@GetMapping("/personInfo")
