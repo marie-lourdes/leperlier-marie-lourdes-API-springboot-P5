@@ -6,17 +6,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class Person {
-	@NotNull
+	
 	private String id;
 	
 	@NotNull
 	private String firstName;
 	
 	@NotNull
-	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String lastName;
 	
 	@NotNull
+	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String address;
 	
 	@NotNull
