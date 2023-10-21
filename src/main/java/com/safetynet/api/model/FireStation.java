@@ -1,33 +1,20 @@
 package com.safetynet.api.model;
 
+import com.safetynet.api.utils.RegexConstants;
+
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class FireStation {
 	@NotNull
 	private String id;
+	
 	@NotNull
 	private String stationNumber;
+	
 	@NotNull
+	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String address;
-
-	/*
-	 * private Integer numberOfAdult; private Integer numberOfChild;
-	 */
-
-	public FireStation() {
-	}
-
-	/*
-	 * public FireStation(Long id, String address) { this.id = id;
-	 * this.stationNumber=null; this.address = address;
-	 * 
-	 * }
-	 * 
-	 * public FireStation(Long id, String string2) { this.id = id;
-	 * this.stationNumber = stationNumber;
-	 * 
-	 * }
-	 */
 
 	public String getId() {
 		return id;
@@ -36,14 +23,7 @@ public class FireStation {
 	public String setId(String string) {
 		return this.id = string;
 	}
-	/*
-	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
-	 * setNumberOfAdult(Integer numberOfAdult) { this.numberOfAdult = numberOfAdult;
-	 * } public Integer getNumberOfChild() { return numberOfChild; } public void
-	 * setNumberOfChild(Integer numberOfChild) { this.numberOfChild = numberOfChild;
-	 * }
-	 */
-
+	
 	public String getAddress() {
 		return address;
 	}
@@ -62,7 +42,6 @@ public class FireStation {
 
 	@Override
 	public String toString() {
-
 		return "FireStation{" + "id:" + id + ", stationnumber:'" + stationNumber + '\'' + ", address:" + address + '}';
 	}
 

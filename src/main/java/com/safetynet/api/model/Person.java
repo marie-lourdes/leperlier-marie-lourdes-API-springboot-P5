@@ -98,13 +98,6 @@ public class Person {
 		this.email = email;
 	}
 
-	/*
-	 * public int getAge() { return age; }
-	 * 
-	 * public void setAge(int age) { this.age = age; }
-	 */
-
-	// jsonnitter?
 	@Override
 	public String toString() {
 
