@@ -19,24 +19,26 @@ public class PersonInfoService {
 	PersonService personService;
 	
 	private List<Person> personsFoundByFullName= new ArrayList<Person>();
-	private List<Person> 	personsFoundWithTheSameLastName =new ArrayList<Person>();
+	private List<Person> personsFoundByLastName=new ArrayList<Person>();
 	
-	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName) {
+	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName) throws NullPointerException {
 		String fullName= firstName + " " + lastName;
-		Person personFoundByIdFullName = personService.getOnePersonById(fullName);
-		personsFoundByFullName.add(personFoundByIdFullName);
-		personsFoundWithTheSameLastName =personService.getPersonsLastName(lastName);
-		List<Map<String, String>>listOfResidentsWithMedicalRecord= new ArrayList<Map<String, String>>();
+		 personsFoundByLastName =personService.getPersonsLastName(lastName);
+		Person personFounByIdFullName = personService.getOnePersonById(fullName);
 	
-		//add medicalrecord for person searched
-		for(Person person:personsFoundByFullName) {
-			listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());		
-		}
-		//add medicalrecord for all person with the same last name of  person searched
-		 for(Person person:personsFoundWithTheSameLastName ) {
+		personsFoundByFullName.add(personFounByIdFullName);
+		
+		 List<Map<String, String>>listOfResidentsWithMedicalRecord= new ArrayList<Map<String, String>>();
+	     // add person seached by full name
+		 for(Person person:personsFoundByFullName) {
+				listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());		
+			}
+		// add all person with the same lastname than the person searched by fullname	
+		 for(Person person:personsFoundByLastName) {
 			 listOfResidentsWithMedicalRecord= searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(person.getAddress());	
 		}
 		 
+		System.out.println("list of person searched by full name and all person with the same last name and its medical record"+listOfResidentsWithMedicalRecord);
 		return listOfResidentsWithMedicalRecord;
 	}
 }

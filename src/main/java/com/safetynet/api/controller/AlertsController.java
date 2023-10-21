@@ -134,9 +134,17 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/personInfo")
 	@ResponseBody
-	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
+	public ResponseEntity<?> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
-		return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
+		
+		try {
+			List<Map<String, String>> personByFullNameInfoAndMedicalRecord= personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
+			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
+		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+	//	return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 	}
 
 	@GetMapping("/communityEmail")

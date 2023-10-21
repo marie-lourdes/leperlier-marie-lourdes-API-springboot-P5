@@ -71,7 +71,7 @@ public class PersonService {
 		}
 
 		if (personsFoundByLastName.isEmpty()) {
-			throw new NullPointerException("person not found with lastName");
+			throw new NullPointerException("person not found with lastName: "+lastName);
 		}
 		System.out.println("personsFoundByLastName" + personsFoundByLastName);
 		return personsFoundByLastName;
