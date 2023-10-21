@@ -23,7 +23,7 @@ public class ResidentsOfStationNumberService {
 			listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 		} catch (NullPointerException e) {
-			throw new NullPointerException("Residents not found at this station number "+stationNumber);
+			throw new NullPointerException("Residents not found at this station number " + stationNumber);
 		}
 
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {

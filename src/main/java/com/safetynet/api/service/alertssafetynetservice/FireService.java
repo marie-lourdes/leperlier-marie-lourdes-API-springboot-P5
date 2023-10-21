@@ -19,12 +19,13 @@ public class FireService {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 	private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
-	
-	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws  NullPointerException {
+
+	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord.searchInfoOfResident(address);
-			
+			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
+					.searchInfoOfResident(address);
+
 			Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
 			String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address)
 					.getStationNumber();
@@ -33,7 +34,7 @@ public class FireService {
 			listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 			System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			throw new NullPointerException("Residents not found near fire address");
 		}
 		return listOfResidentAndFireStationNearFire;

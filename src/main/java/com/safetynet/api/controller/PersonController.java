@@ -1,6 +1,7 @@
 package com.safetynet.api.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,12 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidationException;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 @RestController
 public class PersonController implements IResponseHTTPEmpty {
@@ -28,14 +34,17 @@ public class PersonController implements IResponseHTTPEmpty {
 	@PostMapping("/person/")
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-		Person personCreated = personService.addPerson(person);
+		Person personCreated = new Person();
+
+		personCreated = personService.addPerson(person);
 		System.out.println(person);
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
 	@PutMapping("/person/{id}")
 	@ResponseBody
-	public ResponseEntity<?> updateOnePersonById(@RequestBody Person person, @PathVariable String id) {
+	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @PathVariable String id) {
 		Person personFoundById;
 
 		try {
@@ -76,7 +85,7 @@ public class PersonController implements IResponseHTTPEmpty {
 
 	@GetMapping("/person/")
 	@ResponseBody
-	public  ResponseEntity<?> getAllPersons() {
+	public ResponseEntity<?> getAllPersons() {
 		List<Person> allPersons;
 
 		try {

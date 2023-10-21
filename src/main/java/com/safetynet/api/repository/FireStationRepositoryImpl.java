@@ -12,13 +12,13 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.service.ReadFireStationDataFromFileImpl;
 
 @Component
-public class FireStationRepositoryImpl implements IFireStationRepository{
+public class FireStationRepositoryImpl implements IFireStationRepository {
 	@Autowired
 	ReadFireStationDataFromFileImpl readFireStations;
 
 	@Override
-	public List<FireStation> findAll() throws IOException{	
+	public List<FireStation> findAll() throws IOException {
 		return readFireStations.readFile();
 	}
-		
+
 }

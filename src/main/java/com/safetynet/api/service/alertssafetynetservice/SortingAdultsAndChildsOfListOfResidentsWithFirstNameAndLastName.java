@@ -28,7 +28,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 				listOfAdultsAndChild.add(resident);
 
 			} else {
-				//resident.remove("age");
+				// resident.remove("age");
 				listOfAdultsAndChild.add(resident);
 			}
 		}

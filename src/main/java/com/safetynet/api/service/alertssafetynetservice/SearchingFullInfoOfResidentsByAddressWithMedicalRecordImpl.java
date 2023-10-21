@@ -14,25 +14,25 @@ import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Service
-public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident  {
-	
+public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
+
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress ;
-	
+	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+
 	@Autowired
 	MedicalRecordService medicalRecordService;
-	
+
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
-		List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress.searchInfoOfResident(address);	
+		List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
+				.searchInfoOfResident(address);
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-		
-		for (Map<String, String> resident : listOfResidentsByAddress) {	
+
+		for (Map<String, String> resident : listOfResidentsByAddress) {
 			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
 			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
-			MedicalRecord medicalRecordFoundByFullName = medicalRecordService
-					.getOneMedicalRecordById(fullNamePerson);
+			MedicalRecord medicalRecordFoundByFullName = medicalRecordService.getOneMedicalRecordById(fullNamePerson);
 			resident.remove("firstName");
 
 			resident.remove("city");
@@ -40,17 +40,17 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 			resident.remove("address");
 			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
 			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
-			
+
 			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
 			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
-			TreeMap<String, String> treeMapOfMedicalRecordOfResidentUpdated =
-					 new TreeMap<String, String>(Collections.reverseOrder());
-			
+			TreeMap<String, String> treeMapOfMedicalRecordOfResidentUpdated = new TreeMap<String, String>(
+					Collections.reverseOrder());
+
 			treeMapOfMedicalRecordOfResidentUpdated.putAll(mapOfMedicalRecordOfResidentUpdated);
 			listOfResidentWithMedicalRecord.add(treeMapOfMedicalRecordOfResidentUpdated);
-			
+
 		}
 		return listOfResidentWithMedicalRecord;
 	}
-	
+
 }

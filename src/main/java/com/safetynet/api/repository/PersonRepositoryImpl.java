@@ -10,14 +10,13 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
-public class PersonRepositoryImpl implements IPersonRepository {	
+public class PersonRepositoryImpl implements IPersonRepository {
 	@Autowired
 	ReadPersonDataFromFileImpl readPersons;
 
 	@Override
 	public List<Person> findAll() throws IOException {
-		 return readPersons.readFile();		
+		return readPersons.readFile();
 	}
-
 
 }

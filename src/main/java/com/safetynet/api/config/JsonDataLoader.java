@@ -26,22 +26,16 @@ public class JsonDataLoader implements CommandLineRunner {
 	private final PersonRepositoryImpl personRepository;
 	private final FireStationRepositoryImpl fireStationRepository;
 	private final MedicalRecordRepositoryImpl medicalRecordRepository;
-	
 
 	@Autowired
-	public JsonDataLoader(
-			PersonService personService,
-			FireStationService fireStationService, 
-			MedicalRecordService medicalRecordService,
-			PersonRepositoryImpl personRepository, 
-			FireStationRepositoryImpl fireStationRepository,
-			MedicalRecordRepositoryImpl medicalRecordRepository
-	) {
+	public JsonDataLoader(PersonService personService, FireStationService fireStationService,
+			MedicalRecordService medicalRecordService, PersonRepositoryImpl personRepository,
+			FireStationRepositoryImpl fireStationRepository, MedicalRecordRepositoryImpl medicalRecordRepository) {
 		this.personService = personService;
 		this.fireStationService = fireStationService;
 		this.medicalRecordService = medicalRecordService;
 		this.personRepository = personRepository;
-		this.fireStationRepository= fireStationRepository;
+		this.fireStationRepository = fireStationRepository;
 		this.medicalRecordRepository = medicalRecordRepository;
 	}
 
@@ -50,13 +44,13 @@ public class JsonDataLoader implements CommandLineRunner {
 
 		try {
 			List<Person> personsFromFile = personRepository.findAll();
-			List<FireStation>fireStationFromFile = fireStationRepository.findAll();
+			List<FireStation> fireStationFromFile = fireStationRepository.findAll();
 			List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
-			
+
 			for (Person person : personsFromFile) {
 				personService.addPerson(person);
 			}
-			
+
 			for (FireStation fireStation : fireStationFromFile) {
 				fireStationService.addFireStation(fireStation);
 			}

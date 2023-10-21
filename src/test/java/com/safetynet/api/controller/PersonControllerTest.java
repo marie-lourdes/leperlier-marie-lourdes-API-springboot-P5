@@ -14,38 +14,29 @@ import com.safetynet.api.service.dataservice.PersonService;
 @WebMvcTest(controllers = PersonController.class)
 class PersonControllerTest {
 
-	 @Autowired
-	    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-	    @MockBean
-	    private PersonService personService;
+	@MockBean
+	private PersonService personService;
 
-	  /*  @Test
-	    public void testGetPerson() throws Exception {
-	        mockMvc.perform(get("/person/"))
-	            .andExpect(status().isOk());
+	/*
+	 * @Test public void testGetPerson() throws Exception {
+	 * mockMvc.perform(get("/person/")) .andExpect(status().isOk());
+	 * 
+	 * }
+	 */
 
-	    }*/
-	    
-	/*    @Test
-		public void testPostPerson() throws Exception {
-		
-			// WHEN
-			final MvcResult result = mockMvc.perform(
-					MockMvcRequestBuilders.post("/person")
-							.param("firstName", "marie")
-							.param("lastName", "leperlier")
-							.param("address", "address2")
-							.param("zip", "656453")
-							.param("city", "ville2")
-							.param("phone", "5456-54153")
-							.param("email", "fjrhf@frbhhj.fr"))
-					 		.andExpect(status().isOk())
-					 		.andReturn();
-			
-			assertThat(result.getResponse().getContentAsString())
-			.contains("marie");
-	    }*/
-	    
+	/*
+	 * @Test public void testPostPerson() throws Exception {
+	 * 
+	 * // WHEN final MvcResult result = mockMvc.perform(
+	 * MockMvcRequestBuilders.post("/person") .param("firstName", "marie")
+	 * .param("lastName", "leperlier") .param("address", "address2") .param("zip",
+	 * "656453") .param("city", "ville2") .param("phone", "5456-54153")
+	 * .param("email", "fjrhf@frbhhj.fr")) .andExpect(status().isOk()) .andReturn();
+	 * 
+	 * assertThat(result.getResponse().getContentAsString()) .contains("marie"); }
+	 */
+
 }
-

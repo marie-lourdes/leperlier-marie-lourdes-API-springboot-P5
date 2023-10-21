@@ -30,41 +30,42 @@ public class UploadDataFileRunner implements CommandLineRunner {
 	ResidentsOfStationNumberService residentsOfStationNumberService;
 
 	@Autowired
-	ChildAlertService childAlertService ;
-	
+	ChildAlertService childAlertService;
+
 	@Autowired
-	PhoneAlertService   phoneAlertService;
-	
+	PhoneAlertService phoneAlertService;
+
 	@Autowired
 	FireService fireService;
-	
+
 	@Autowired
-	FloodService  floodService; 
-	
+	FloodService floodService;
+
 	@Autowired
-	CommunityEmailService  communityEmailService; 
-	
+	CommunityEmailService communityEmailService;
+
 	@Override
 	public void run(String... args) throws Exception {
 		// medicalRecordService.getAllMedicalRecords();
 		// use to logging each element of file json
-		//personService.getAllPersons();
-		//fireStationService.getFireStationsById("3");
-		
-		//residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
-		//residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("3");
-		
-		//childAlertService.getChildsAndMembersOfHouseHold("1509 Culver St");
-		//childAlertService.sortAdultsAndChildsOfListOfResidentsWithFullInfo("1509 Culver St");
+		// personService.getAllPersons();
+		// fireStationService.getFireStationsById("3");
 
-		//phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
-		
-		//fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
-		
-		//floodService.getListOfHouseHoldByStationNumber("3");
-		
-		//communityEmailService.getEmailOfResidentsOfCity("Culver");
-		
+		// residentsOfStationNumberService.getListOfResidentsOfStationNumber("3");
+		// residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("3");
+
+		// childAlertService.getChildsAndMembersOfHouseHold("1509 Culver St");
+		// childAlertService.sortAdultsAndChildsOfListOfResidentsWithFullInfo("1509
+		// Culver St");
+
+		// phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("3");
+
+		// fireService.getListOfResidentsAndFireStationNearFire("1509 Culver St");
+
+		// floodService.getListOfHouseHoldByStationNumber("3");
+
+		// communityEmailService.getEmailOfResidentsOfCity("Culver");
+
 		// System.out.println("firestation APRES SUPPRESION "+
 		// fireStationService.getFireStationsFromFile());
 		// fireStationService.getFireStationsFromFile();

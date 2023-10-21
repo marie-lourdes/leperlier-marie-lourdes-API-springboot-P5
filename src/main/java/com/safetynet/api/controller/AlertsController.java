@@ -80,10 +80,11 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/phoneAlert")
 	@ResponseBody
-	public  ResponseEntity<?> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {	
+	public ResponseEntity<?> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
 		try {
-			List<Map<String, String>> listOfPhonesOfResidentsByStationNumber =phoneAlertService.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
-			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber );
+			List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = phoneAlertService
+					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
+			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
@@ -94,9 +95,10 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
 		try {
-			List<Object> listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
+			List<Object> listOfResidentsAndFireStationNearFire = fireService
+					.getListOfResidentsAndFireStationNearFire(address);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -104,58 +106,60 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public ResponseEntity<?>getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
+	public ResponseEntity<?> getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
-	
-			for (String station : stations) {
-				try {
-				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);	
-				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-			
-				}catch (NullPointerException e) {
-					System.out.println(e.getMessage());	
-				}
-			}
-			
+
+		for (String station : stations) {
 			try {
-				if(listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
-					throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood" );	
-				}
-			}catch (NullPointerException e) {
+				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
+
+			} catch (NullPointerException e) {
 				System.out.println(e.getMessage());
-				return returnResponseEntityEmptyAndCode404();
 			}
-			
-		return ResponseEntity.status(HttpStatus.OK).body(	listOfHouseHoldByStationNumberWithMoreOneRequestParam);
+		}
+
+		try {
+			if (listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
+				throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
+			}
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberWithMoreOneRequestParam);
 	}
-	
 
 	@GetMapping("/personInfo")
 	@ResponseBody
 	public ResponseEntity<?> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		try {
-			List<Map<String, String>> personByFullNameInfoAndMedicalRecord= personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
+			List<Map<String, String>> personByFullNameInfoAndMedicalRecord = personInfoService
+					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-	//	return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
+		// return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName,
+		// lastName);
 	}
 
 	@GetMapping("/communityEmail")
 	@ResponseBody
-	public ResponseEntity<?>  getEmailOfResidentsOfCity(@RequestParam String city) {
+	public ResponseEntity<?> getEmailOfResidentsOfCity(@RequestParam String city) {
 		try {
-			List<Map<String, String>> listOfEmailsOfResidentsOfCity=communityEmailService.getEmailOfResidentsOfCity(city);
+			List<Map<String, String>> listOfEmailsOfResidentsOfCity = communityEmailService
+					.getEmailOfResidentsOfCity(city);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-		//return communityEmailService.getEmailOfResidentsOfCity(city);
+		// return communityEmailService.getEmailOfResidentsOfCity(city);
 	}
 
 }

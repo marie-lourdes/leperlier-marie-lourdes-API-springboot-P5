@@ -16,42 +16,42 @@ public class FloodService {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-
-
 	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 		try {
-		
-		List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
-				.getListOfResidentsOfStationNumber(stationNumber);
-		
-	
-		// creating list of address commun between addresses found in each info of resident
-				ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber.listIterator();
-				List<String> listOfAddress = new ArrayList<String>();
-				while (itrResidentsOfStationNumber.hasNext()) {
-					Map<String, String> itrResidentNext = itrResidentsOfStationNumber.next();
 
-					if (!listOfAddress.contains(itrResidentNext.get("address"))) {
-						listOfAddress.add(itrResidentNext.get("address"));
-					}
+			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
+					.getListOfResidentsOfStationNumber(stationNumber);
+
+			// creating list of address commun between addresses found in each info of
+			// resident
+			ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber
+					.listIterator();
+			List<String> listOfAddress = new ArrayList<String>();
+			while (itrResidentsOfStationNumber.hasNext()) {
+				Map<String, String> itrResidentNext = itrResidentsOfStationNumber.next();
+
+				if (!listOfAddress.contains(itrResidentNext.get("address"))) {
+					listOfAddress.add(itrResidentNext.get("address"));
 				}
-				
-				// getting medicalrecords searching with address of each resident
-				for (String address : listOfAddress) {
-					List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-					listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
-							.searchInfoOfResident(address);
-					listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
-					
-				}
-					
-				System.out.println("list Of House Hold found at this firestation "+stationNumber+" : "+listOfHouseHoldOfStationNumber+"to prevent for flood" );			
-				System.out.println("listOfAddress" + listOfAddress);
-			
-	}catch(NullPointerException e) {
-		throw new  NullPointerException (" HouseHold not found at this firestation " + stationNumber);
-	}
+			}
+
+			// getting medicalrecords searching with address of each resident
+			for (String address : listOfAddress) {
+				List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
+				listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
+						.searchInfoOfResident(address);
+				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
+
+			}
+
+			System.out.println("list Of House Hold found at this firestation " + stationNumber + " : "
+					+ listOfHouseHoldOfStationNumber + "to prevent for flood");
+			System.out.println("listOfAddress" + listOfAddress);
+
+		} catch (NullPointerException e) {
+			throw new NullPointerException(" HouseHold not found at this firestation " + stationNumber);
+		}
 		return listOfHouseHoldOfStationNumber;
 	}
 }

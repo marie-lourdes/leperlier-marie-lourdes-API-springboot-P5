@@ -24,7 +24,8 @@ public class ChildAlertService {
 		long numberOfChild = 0;
 
 		for (Map<String, String> resident : listOfResidentChildAndMembersOfHouseHold) {
-			//get list age parsed of residents found by address to sort and remove info age for adults
+			// get list age parsed of residents found by address to sort and remove info age
+			// for adults
 			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));
 			if (Integer.parseInt(resident.get("age")) > 18) {
 				resident.remove("age");

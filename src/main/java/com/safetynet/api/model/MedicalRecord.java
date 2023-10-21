@@ -2,7 +2,6 @@ package com.safetynet.api.model;
 
 import java.util.List;
 
-
 import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
@@ -13,16 +12,16 @@ public class MedicalRecord {
 
 	@Pattern(regexp = REGEX_P)
 	private String birthdate;
-	
+
 	private List<String> medications;
 	private List<String> allergies;
 
 	public String getId() {
 		return id;
 	}
-	
-	public String setId (String id) {
-		return this.id=id;
+
+	public String setId(String id) {
+		return this.id = id;
 	}
 
 	public String getFirstName() {
@@ -67,7 +66,7 @@ public class MedicalRecord {
 
 	@Override
 	public String toString() {
-		return "MedicalRecord{" + "id:" + id+ ", first name:'" + firstName + '\'' + ", last name:" + lastName + ", birthdate:"
-				+ birthdate + ", medication:" + medications + ", allergies:" + allergies +  "}";
+		return "MedicalRecord{" + "id:" + id + ", first name:'" + firstName + '\'' + ", last name:" + lastName
+				+ ", birthdate:" + birthdate + ", medication:" + medications + ", allergies:" + allergies + "}";
 	}
 }

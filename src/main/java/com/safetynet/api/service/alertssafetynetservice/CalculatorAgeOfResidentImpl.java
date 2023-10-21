@@ -16,8 +16,9 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	@Autowired
 	MedicalRecordService medicalRecordService;
 
-	private static final String DATE_FORMAT = "MM/dd/yyyy" ;
-	private static final String YEAR_IN_MILLISECONDS= "31536000000" ;
+	private static final String DATE_FORMAT = "MM/dd/yyyy";
+	private static final String YEAR_IN_MILLISECONDS = "31536000000";
+
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
 

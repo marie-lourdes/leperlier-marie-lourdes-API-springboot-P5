@@ -76,7 +76,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/medicalRecord/")
-	@ResponseBody 
+	@ResponseBody
 	public ResponseEntity<?> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecords;
 

@@ -18,7 +18,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 	private List<MedicalRecord> listOfMedicalRecords;
 
 	@Override
-	public List<MedicalRecord>  readFile() throws IOException {
+	public List<MedicalRecord> readFile() throws IOException {
 		listOfMedicalRecords = new LinkedList<MedicalRecord>();
 
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
@@ -52,9 +52,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 				listOfAllergies.add(indexAllergies++, (String) value.toString());
 			}
 			medicalRecord.setAllergies(listOfAllergies);
-			
-			
-			
+
 			listOfMedicalRecords.add(medicalRecord);
 			System.out.println("element of medicalRecords" + elem.asJsonObject());
 
@@ -62,7 +60,6 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 		System.out.println("list of medicalRecords" + listOfMedicalRecords);
 
 		return listOfMedicalRecords;
-		
 
 	}
 }

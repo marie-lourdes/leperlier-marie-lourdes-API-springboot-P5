@@ -12,22 +12,22 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
-public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfResident{
+public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfResident {
 	@Autowired
 	PersonService personService;
-	
+
 	private List<Person> residentsFoundByCity = new ArrayList<Person>();
-	
+
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
-		List<Map<String, String>> listOfResidentsFoundByCity= new ArrayList<Map<String, String>>();
+		List<Map<String, String>> listOfResidentsFoundByCity = new ArrayList<Map<String, String>>();
 		residentsFoundByCity = personService.getPersonsByCity(city);
-		
+
 		for (Person person : residentsFoundByCity) {
-			Map<String, String> residentFoundByCity = new HashMap<String, String>();	
+			Map<String, String> residentFoundByCity = new HashMap<String, String>();
 			residentFoundByCity.put("email", person.getEmail());
-		
-			System.out.println("residentFoundByCity" +residentFoundByCity);
+
+			System.out.println("residentFoundByCity" + residentFoundByCity);
 			listOfResidentsFoundByCity.add(residentFoundByCity);
 		}
 

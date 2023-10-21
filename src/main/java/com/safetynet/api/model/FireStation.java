@@ -3,11 +3,11 @@ package com.safetynet.api.model;
 import jakarta.validation.constraints.NotNull;
 
 public class FireStation {
-@NotNull
+	@NotNull
 	private String id;
-@NotNull
+	@NotNull
 	private String stationNumber;
-@NotNull
+	@NotNull
 	private String address;
 
 	/*
@@ -17,27 +17,24 @@ public class FireStation {
 	public FireStation() {
 	}
 
-	/*public FireStation(Long id, String address) {
-		this.id = id;
-		this.stationNumber=null;
-		this.address = address;
-
-	}
-
-	public FireStation(Long id, String string2) {
-		this.id = id;
-		this.stationNumber = stationNumber;
-
-	}*/
-
-
+	/*
+	 * public FireStation(Long id, String address) { this.id = id;
+	 * this.stationNumber=null; this.address = address;
+	 * 
+	 * }
+	 * 
+	 * public FireStation(Long id, String string2) { this.id = id;
+	 * this.stationNumber = stationNumber;
+	 * 
+	 * }
+	 */
 
 	public String getId() {
 		return id;
 	}
 
 	public String setId(String string) {
-		return this.id =string;
+		return this.id = string;
 	}
 	/*
 	 * public Integer getNumberOfAdult() { return numberOfAdult; } public void
@@ -62,7 +59,6 @@ public class FireStation {
 	public void setStationNumber(String stationNumber) {
 		this.stationNumber = stationNumber;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -70,5 +66,4 @@ public class FireStation {
 		return "FireStation{" + "id:" + id + ", stationnumber:'" + stationNumber + '\'' + ", address:" + address + '}';
 	}
 
-	
 }
