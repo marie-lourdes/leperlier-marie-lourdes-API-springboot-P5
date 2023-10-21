@@ -6,18 +6,25 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class Person {
-	
+	@NotNull
 	private String id;
+	
 	@NotNull
 	private String firstName;
+	
 	@NotNull
+	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String lastName;
+	
 	@NotNull
 	private String address;
+	
 	@NotNull
 	private String zip;
+	
 	@NotNull
 	private String city;
+	
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_PHONE)
 	private String phone;
@@ -25,31 +32,6 @@ public class Person {
 	@Pattern(regexp = RegexConstants.REGEX_EMAIL)
 	// @Email(message = "email should be valid")
 	private String email;
-
-//	private int age;
-
-	public Person() {
-	}
-
-	public Person(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public Person(String firstName, String lastName, String address, String phone) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.phone = phone;
-
-	}
-
-	/*
-	 * public Person( String lastName, int age, String address, String phone) {
-	 * 
-	 * this.lastName = lastName; this.age= age; this.address= address; this.phone=
-	 * phone; }
-	 */
 
 	public String getId() {
 		return id;
