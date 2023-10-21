@@ -10,12 +10,13 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import com.safetynet.api.utils.DataSourceConstants;
+
 public interface IDatasFileReader<T> {
 	List<T> readFile() throws IOException;
 
-	default JsonArray readDataJson(String dataNameJson) throws IOException {
-		String path = "src/main/resources/datasSafetyNetAlerts.json";
-		InputStream is = new FileInputStream(path);
+	default JsonArray readDataJson(String dataNameJson) throws IOException {	
+		InputStream is = new FileInputStream( DataSourceConstants.PATH);
 		JsonReader jsonReader = Json.createReader(is);
 		JsonObject datasJsonObject = jsonReader.readObject();
 		JsonArray jsonArray = datasJsonObject.getJsonArray(dataNameJson);
