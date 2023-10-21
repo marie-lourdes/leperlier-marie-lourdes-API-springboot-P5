@@ -1,8 +1,8 @@
 package com.safetynet.api.utils;
 
 public class Constants {
-		public static final String REGEX_P = "^(.+)@(\\S+)$";
-		
+		public static final String REGEX_EMAIL = "^(.+)@(\\S+)[.](\\S+)$";
+		public static final String REGEX_PHONE ="\\d{3}[-]?\\d{3}[-]?\\d{4}$";
 		//constructor private  for utility class 
 		private Constants() {
 			

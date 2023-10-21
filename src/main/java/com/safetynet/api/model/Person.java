@@ -8,15 +8,21 @@ import jakarta.validation.constraints.Pattern;
 public class Person {
 	
 	private String id;
+	@NotNull
 	private String firstName;
+	@NotNull
 	private String lastName;
+	@NotNull
 	private String address;
+	@NotNull
 	private String zip;
+	@NotNull
 	private String city;
 	@NotNull
+	@Pattern(regexp = Constants.REGEX_PHONE)
 	private String phone;
 
-	@Pattern(regexp = Constants.REGEX_P)
+	@Pattern(regexp = Constants.REGEX_EMAIL)
 	// @Email(message = "email should be valid")
 	private String email;
 
