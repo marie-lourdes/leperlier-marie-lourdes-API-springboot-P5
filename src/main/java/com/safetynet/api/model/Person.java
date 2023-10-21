@@ -1,6 +1,6 @@
 package com.safetynet.api.model;
 
-import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,10 +19,10 @@ public class Person {
 	@NotNull
 	private String city;
 	@NotNull
-	@Pattern(regexp = Constants.REGEX_PHONE)
+	@Pattern(regexp = RegexConstants.REGEX_PHONE)
 	private String phone;
 
-	@Pattern(regexp = Constants.REGEX_EMAIL)
+	@Pattern(regexp = RegexConstants.REGEX_EMAIL)
 	// @Email(message = "email should be valid")
 	private String email;
 
