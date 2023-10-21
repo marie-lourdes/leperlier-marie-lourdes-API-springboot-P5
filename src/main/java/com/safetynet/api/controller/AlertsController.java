@@ -112,10 +112,9 @@ public class AlertsController implements IResponseHTTPEmpty {
 				try {
 				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);	
 				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-				System.out.println("list Of House Hold found a this firestation "+station+" : \"+listOfHouseHoldByStationNumber+\"to prevent for flood\" House Hold found a this firestation "+station+" : "+listOfHouseHoldByStationNumber+"to prevent for flood");			
+			
 				}catch (NullPointerException e) {
 					System.out.println(e.getMessage());	
-					//return returnResponseEntityEmptyAndCode404();
 				}
 			}
 			
@@ -136,7 +135,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
-		
 		try {
 			List<Map<String, String>> personByFullNameInfoAndMedicalRecord= personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
@@ -149,8 +147,15 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/communityEmail")
 	@ResponseBody
-	public List<Map<String, String>> getEmailOfResidentsOfCity(@RequestParam String city) {
-		return communityEmailService.getEmailOfResidentsOfCity(city);
+	public ResponseEntity<?>  getEmailOfResidentsOfCity(@RequestParam String city) {
+		try {
+			List<Map<String, String>> listOfEmailsOfResidentsOfCity=communityEmailService.getEmailOfResidentsOfCity(city);
+			return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
+		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
+		}
+		//return communityEmailService.getEmailOfResidentsOfCity(city);
 	}
 
 }

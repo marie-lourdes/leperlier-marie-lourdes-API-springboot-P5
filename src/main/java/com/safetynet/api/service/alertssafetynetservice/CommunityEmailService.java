@@ -9,15 +9,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CommunityEmailService {
-@Autowired
-SearchingInfoEmailOfResidentsByCitympl infoEmailOfResidentsByCity;
+	@Autowired
+	SearchingInfoEmailOfResidentsByCitympl infoEmailOfResidentsByCity;
 
-private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
+	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 
-public List<Map<String, String>> getEmailOfResidentsOfCity(String city) {
-	
-	listEmailsOfResidentsOfCity= infoEmailOfResidentsByCity.searchInfoOfResident(city);
-		System.out.println("listEmailsOfResidentsOfCity" + listEmailsOfResidentsOfCity);
+	public List<Map<String, String>> getEmailOfResidentsOfCity(String city)  throws NullPointerException {
+       try {
+    	   listEmailsOfResidentsOfCity = infoEmailOfResidentsByCity.searchInfoOfResident(city);
+   		System.out.println("listEmailsOfResidentsOfCity" + listEmailsOfResidentsOfCity);
+   		
+       }catch(NullPointerException e) {
+    	   throw new NullPointerException("list of email not found found in this city "+city);
+       }
+		
 		return listEmailsOfResidentsOfCity;
-}
+	}
 }
