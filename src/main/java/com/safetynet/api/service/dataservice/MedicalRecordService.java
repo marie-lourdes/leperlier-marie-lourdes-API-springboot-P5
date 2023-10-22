@@ -12,30 +12,29 @@ import org.springframework.stereotype.Service;
 import com.safetynet.api.model.MedicalRecord;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 
 public class MedicalRecordService {
 
-    Logger log= LogManager.getLogger(MedicalRecordService.class);
+	Logger log = LogManager.getLogger(MedicalRecordService.class);
 	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
-		 log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " +
-		 medicalRecord.getLastName());
-		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
+		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 		medicalRecords.add(medicalRecord);
 
-		 log.info("Medical record added successfully: {}",
-		 medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		log.info("Medical record added successfully: {}",
+				medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 		return medicalRecord;
 	}
 
 	public MedicalRecord updateMedicalRecord(String id, MedicalRecord updatedMedicalRecord) {
-		// log.debug("Updating medical record for: {}", firstName + " " + lastName);
+		log.debug("Updating medical record for: {}", id);
+
 		MedicalRecord existingMedicalRecordUpdated = new MedicalRecord();
 		existingMedicalRecordUpdated = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id))
 				.findFirst().map(existingMedicalRecord -> {
@@ -45,27 +44,34 @@ public class MedicalRecordService {
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException(
 						"error occured with updating medical record" + updatedMedicalRecord + "not found "));
+
+		log.info("Medical record updated successfully for: {}", id);
 		return existingMedicalRecordUpdated;
 	}
 
 	public boolean deleteOneMedicalRecordById(String id) {
-		 log.debug("Deleting medical record for {} {}", id);
+		log.debug("Deleting medical record for {} {}", id);
+
 		boolean result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getId().equals(id));
 		if (!result) {
-			 log.error("Failed to delete medical record for {} {}", id);
-			throw new NullPointerException("thismedical record  to remove doesn't exist");
+			log.error("Failed to delete medical record for {} {}", id);
+			throw new NullPointerException("this medical record  to remove doesn't exist");
 		} else {
-			 log.info("Medical record deleted successfully for {} {}", id);
+			log.info("Medical record deleted successfully for {} {}", id);
 		}
 		return result;
 	}
 
 	public MedicalRecord getOneMedicalRecordById(String id) {
+		log.debug("Retrieving  one medical record for {}", id);
+
 		MedicalRecord personFoundById = new MedicalRecord();
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException("medical record not found with id"));
+
+		log.info("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
 	}
 
@@ -74,7 +80,7 @@ public class MedicalRecordService {
 		if (medicalRecords.isEmpty()) {
 			throw new NullPointerException("none medical record registered!");
 		}
-		System.out.println("Retrieving all medical records" + medicalRecords);
+		log.info("All medical records retrieved successfully for: {}", medicalRecords);
 		return medicalRecords;
 	}
 }
