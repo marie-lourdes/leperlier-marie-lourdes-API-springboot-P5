@@ -43,21 +43,21 @@ public class MedicalRecordService {
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException(
-						"error occured with updating medical record" + updatedMedicalRecord + "not found "));
+						"Failed to update medical record, " + updatedMedicalRecord.getFirstName() + " " + updatedMedicalRecord.getLastName()+" not found" ));
 
 		log.info("Medical record updated successfully for: {}", id);
 		return existingMedicalRecordUpdated;
 	}
 
 	public boolean deleteOneMedicalRecordById(String id) {
-		log.debug("Deleting medical record for {} {}", id);
+		log.debug("Deleting medical record for {}", id);
 
 		boolean result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getId().equals(id));
 		if (!result) {
-			log.error("Failed to delete medical record for {} {}", id);
-			throw new NullPointerException("this medical record  to remove doesn't exist");
+			log.error("Failed to delete medical record for {}", id);
+			throw new NullPointerException(" Medical record :"+ id +"  to delete not found");
 		} else {
-			log.info("Medical record deleted successfully for {} {}", id);
+			log.info("Medical record deleted successfully for {}", id);
 		}
 		return result;
 	}
@@ -69,18 +69,20 @@ public class MedicalRecordService {
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("medical record not found with id"));
+				}).orElseThrow(() -> new NullPointerException("Medical record not found for"+id));
 
 		log.info("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
 	}
 
 	public List<MedicalRecord> getAllMedicalRecords() {
-		// log.debug("Retrieving all medical records");
+		 log.debug("Retrieving all medical records");
+		 
 		if (medicalRecords.isEmpty()) {
 			throw new NullPointerException("none medical record registered!");
 		}
-		log.info("All medical records retrieved successfully for: {}", medicalRecords);
+		
+		log.info("All medical records retrieved successfully: {}", medicalRecords);
 		return medicalRecords;
 	}
 }

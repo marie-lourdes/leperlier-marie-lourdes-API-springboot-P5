@@ -2,6 +2,8 @@ package com.safetynet.api.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 public class MedicalRecordController implements IResponseHTTPEmpty {
+	Logger log = LogManager.getLogger(MedicalRecordController.class);
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
@@ -45,7 +48,8 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
 			// ajouter log error
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
+			//System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
@@ -56,7 +60,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordService.deleteOneMedicalRecordById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -70,7 +74,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
@@ -84,7 +88,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			allMedicalRecords = medicalRecordService.getAllMedicalRecords();
 			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
