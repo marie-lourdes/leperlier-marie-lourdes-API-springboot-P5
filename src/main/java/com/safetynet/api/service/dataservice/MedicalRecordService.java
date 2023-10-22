@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 public class MedicalRecordService {
 
-	Logger log = LogManager.getLogger(MedicalRecordService.class);
+	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
 	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
@@ -43,7 +43,7 @@ public class MedicalRecordService {
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update medical record, " + updatedMedicalRecord.getFirstName() + " " + updatedMedicalRecord.getLastName()+" not found" ));
+						"Failed to update medical record, " + updatedMedicalRecord.getId() + " not found" ));
 
 		log.info("Medical record updated successfully for: {}", id);
 		return existingMedicalRecordUpdated;
@@ -69,7 +69,7 @@ public class MedicalRecordService {
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("Medical record not found for"+id));
+				}).orElseThrow(() -> new NullPointerException("Medical record not found for "+id));
 
 		log.info("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
@@ -79,7 +79,7 @@ public class MedicalRecordService {
 		 log.debug("Retrieving all medical records");
 		 
 		if (medicalRecords.isEmpty()) {
-			throw new NullPointerException("none medical record registered!");
+			throw new NullPointerException("None medical record registered!");
 		}
 		
 		log.info("All medical records retrieved successfully: {}", medicalRecords);
