@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
-
+	
+	@Autowired
+	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
 
@@ -20,6 +22,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
 
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
+			resident.put("age",
+					calculatorAgeOfResident.calculateAgeOfResident(resident.get("firstName")+" " + resident.get("lastName")).toString());
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 				resident.remove("address");
 				resident.remove("city");

@@ -78,10 +78,12 @@ public class MedicalRecordService {
 		log.debug("Retrieving all medical records");
 
 		if (medicalRecords.isEmpty()) {
+			log.error("Failed to retrieve all  medical records ");
 			throw new NullPointerException("None medical record registered!");
+		}else {
+			log.info("All medical records retrieved successfully: {}", medicalRecords);
 		}
 
-		log.info("All medical records retrieved successfully: {}", medicalRecords);
 		return medicalRecords;
 	}
 }

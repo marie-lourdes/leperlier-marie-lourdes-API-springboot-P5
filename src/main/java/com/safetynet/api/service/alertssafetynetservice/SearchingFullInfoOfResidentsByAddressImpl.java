@@ -34,8 +34,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			residentWithSameAddress.put("city", person.getCity());
 			residentWithSameAddress.put("phone", person.getPhone());
 			residentWithSameAddress.put("email", person.getEmail());
-			residentWithSameAddress.put("age",
-					calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
+		
 			System.out.println(" residents with same address" + residentWithSameAddress);
 			listOfresidentsWithSameAddress.add(residentWithSameAddress);
 		}

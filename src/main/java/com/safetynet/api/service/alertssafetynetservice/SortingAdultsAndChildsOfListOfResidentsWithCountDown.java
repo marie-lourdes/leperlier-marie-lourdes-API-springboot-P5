@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	
+	@Autowired
+	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 	private List<Map<String, String>> ResidentsOfStationNumberWithAge = new ArrayList<Map<String, String>>();
@@ -23,8 +26,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 		Integer indexChild = 1;
 		Integer indexAdult = 1;
 		for (Map<String, String> resident : ResidentsOfStationNumberWithAge) {
-			System.out.println("resident of map" + resident.get("age"));
-
+			resident.put("age",
+					calculatorAgeOfResident.calculateAgeOfResident(resident.get("firstName")+" " + resident.get("lastName")).toString());
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 
 				mapOfAdultsAndChild.put("childs", indexChild++);

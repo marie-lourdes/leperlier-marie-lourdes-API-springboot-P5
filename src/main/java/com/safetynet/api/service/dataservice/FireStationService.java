@@ -169,10 +169,12 @@ public class FireStationService {
 		log.debug("Retrieving all firestations");
 
 		if (fireStations.isEmpty()) {
+			log.error("Failed to retrieve all  firestations ");
 			throw new NullPointerException("None firestation registered!");
+		}else {
+			log.info("All firestations retrieved successfully: {}", fireStations);
 		}
-
-		log.info("All firestations retrieved successfully: {}", fireStations);
+		
 		return fireStations;
 	}
 }

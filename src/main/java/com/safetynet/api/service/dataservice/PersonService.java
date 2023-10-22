@@ -20,10 +20,10 @@ public class PersonService {
 
 	public Person addPerson(Person person) {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-
+		
 		person.setId(person.getFirstName() + " " + person.getLastName());
 		persons.add(person);
-
+		
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -61,12 +61,12 @@ public class PersonService {
 
 	public Person getOnePersonById(String id) throws NullPointerException {
 		log.debug("Retrieving  one person for id {}", id);
-
+		
 		Person personFoundById = new Person();
-		personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
-				.map(existingPerson -> {
-					return existingPerson;
-				}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
+personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+			.map(existingPerson -> {
+				return existingPerson;
+			}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
 
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
@@ -146,10 +146,13 @@ public class PersonService {
 		log.debug("Retrieving all persons");
 
 		if (persons.isEmpty()) {
+			log.error("Failed to retrieve all  persons");
 			throw new NullPointerException("None person registered!");
+		}else {
+
+			log.info("All persons retrieved successfully: {}", persons);
 		}
 
-		log.info("All persons retrieved successfully: {}", persons);
 		return persons;
 	}
 }
