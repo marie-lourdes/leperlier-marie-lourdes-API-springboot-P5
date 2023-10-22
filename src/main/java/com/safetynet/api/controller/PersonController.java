@@ -67,7 +67,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getOnePerson(@PathVariable String id) {
 		Person personFoundById;
-		
+
 		try {
 			personFoundById = personService.getOnePersonById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);

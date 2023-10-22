@@ -2,6 +2,8 @@ package com.safetynet.api.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 public class FireStationController implements IResponseHTTPEmpty {
+	private static final Logger log = LogManager.getLogger(FireStationController.class);
 	@Autowired
 	private FireStationService fireStationService;
 
@@ -34,13 +37,11 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 		try {
 			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
-			// throw new NullPointerException ("FireStation created is empty");
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-
 		}
 	}
 
@@ -54,11 +55,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-
 		}
-
 	}
 
 	@PutMapping("/firestation/{id}")
@@ -71,12 +70,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.CREATED).body(firestationFoundById);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
-			// ajouter log error
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-
 		}
-
 	}
 
 	@DeleteMapping("/firestation/{id}")
@@ -86,7 +82,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationService.deleteFireStationById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -98,10 +94,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationService.deleteOneFireStationByAddress(address);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
-
 	}
 
 	@GetMapping("/firestation/{id}")
@@ -113,10 +108,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationsById = fireStationService.getFireStationsById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(fireStationsById);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-
 	}
 
 	@GetMapping("/firestation/")
@@ -127,9 +121,8 @@ public class FireStationController implements IResponseHTTPEmpty {
 			allFireStations = fireStationService.getAllFireStations();
 			return ResponseEntity.status(HttpStatus.OK).body(allFireStations);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-
 	}
 }
