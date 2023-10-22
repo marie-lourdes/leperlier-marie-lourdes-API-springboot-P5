@@ -29,10 +29,8 @@ public class PersonController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
-
 		personCreated = personService.addPerson(person);
 		System.out.println(person);
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
@@ -68,6 +66,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getOnePerson(@PathVariable String id) {
 		Person personFoundById;
+		
 		try {
 			personFoundById = personService.getOnePersonById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
