@@ -76,7 +76,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			List<Map<String, String>> childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
