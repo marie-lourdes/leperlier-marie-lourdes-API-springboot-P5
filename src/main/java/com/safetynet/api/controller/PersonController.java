@@ -2,6 +2,8 @@ package com.safetynet.api.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 public class PersonController implements IResponseHTTPEmpty {
+	private static final Logger log = LogManager.getLogger(PersonController.class);
 	@Autowired
 	private PersonService personService;
 
@@ -30,7 +33,6 @@ public class PersonController implements IResponseHTTPEmpty {
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
 		personCreated = personService.addPerson(person);
-		System.out.println(person);
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
@@ -44,8 +46,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
-			// ajouter log error
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
@@ -57,7 +58,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			personService.deleteOnePersonById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -85,7 +86,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			allPersons = personService.getAllPersons();
 			return ResponseEntity.status(HttpStatus.OK).body(allPersons);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}

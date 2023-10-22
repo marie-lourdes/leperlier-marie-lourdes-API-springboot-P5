@@ -24,9 +24,7 @@ public class PersonService {
 		person.setId(person.getFirstName() + " " + person.getLastName());
 		persons.add(person);
 		
-
-		log.info("Person added successfully: {}",
-				person.getFirstName() + " " + person.getLastName());
+		log.info("Person added successfully: {}", person);
 		return person;
 	}
 
@@ -45,7 +43,7 @@ public class PersonService {
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update person, " +updatedPerson.getId() + " not found"));
 		
-		log.info("Person updated successfully for: {}", id);
+		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
 	}
 

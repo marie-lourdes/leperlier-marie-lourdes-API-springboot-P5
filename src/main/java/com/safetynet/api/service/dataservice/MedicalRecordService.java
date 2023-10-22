@@ -27,8 +27,7 @@ public class MedicalRecordService {
 		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 		medicalRecords.add(medicalRecord);
 
-		log.info("Medical record added successfully: {}",
-				medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		log.info("Medical record added successfully: {}", medicalRecord);
 		return medicalRecord;
 	}
 
@@ -45,7 +44,7 @@ public class MedicalRecordService {
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update medical record, " + updatedMedicalRecord.getId() + " not found" ));
 
-		log.info("Medical record updated successfully for: {}", id);
+		log.info("Medical record updated successfully for: {}", 	updatedMedicalRecord);
 		return existingMedicalRecordUpdated;
 	}
 

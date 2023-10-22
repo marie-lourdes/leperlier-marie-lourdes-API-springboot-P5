@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 public class MedicalRecordController implements IResponseHTTPEmpty {
-	Logger log = LogManager.getLogger(MedicalRecordController.class);
+	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
@@ -32,7 +32,6 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
-		System.out.println(medicalRecord);
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
 	}
 
@@ -47,9 +46,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
-			// ajouter log error
 			log.error(e.getMessage());
-			//System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
