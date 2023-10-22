@@ -26,6 +26,7 @@ public class ResidentsOfStationNumberService {
 	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber)
 			throws NullPointerException {
 		log.debug("Retrieving  all residents of station number {}", stationNumber);
+		
 		try {
 			listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
@@ -34,24 +35,25 @@ public class ResidentsOfStationNumberService {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 			throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 		}
+		
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {
 			residents.remove("age");
 			System.out.println("residents" + residents);
 		}
-		log.info(" List of residents retrieved of station number {}",listOfResidentOfStationNumber);
+		log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
 
 	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber)
 			throws NullPointerException {
-		log.debug("Sorting  all residents by category adult and child of station number {}", stationNumber);
+		log.debug("Sorting  all residents with countdown of adult and child of station number {}", stationNumber);
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
 				.sortAdultsAndChilds(stationNumber, listOfResidentOfStationNumber);
 		if (mapCountDownOfAdultsAndChilds.isEmpty()) {
 			throw new NullPointerException(
-					"Error has occured sorting Adults and childs  because not found at this station number");
+					"Error has occured sorting with countdown of adult and childs  because not found at this station number");
 		}else {
-			log.debug("all residents  sorted by category adult and child of station number {}", stationNumber);
+			log.debug("all residents  sorted with countdown of adult and child of station number {}", stationNumber);
 		}
 		
 		return mapCountDownOfAdultsAndChilds;
