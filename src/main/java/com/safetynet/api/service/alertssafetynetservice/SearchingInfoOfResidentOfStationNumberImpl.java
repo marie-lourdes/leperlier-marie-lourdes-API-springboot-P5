@@ -22,8 +22,6 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	@Autowired
 	FireStationService fireStationService;
 
-	
-
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 
 	@Override

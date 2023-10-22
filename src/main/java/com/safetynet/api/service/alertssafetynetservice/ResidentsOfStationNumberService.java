@@ -34,7 +34,10 @@ public class ResidentsOfStationNumberService {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 			throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 		}
-	
+		for (Map<String, String> residents : listOfResidentOfStationNumber) {
+			residents.remove("age");
+			System.out.println("residents" + residents);
+		}
 		log.info(" List of residents retrieved of station number {}",listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
@@ -43,12 +46,14 @@ public class ResidentsOfStationNumberService {
 			throws NullPointerException {
 		log.debug("Sorting  all residents by category adult and child of station number {}", stationNumber);
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
-				.sortAdultsAndChilds(stationNumber);
+				.sortAdultsAndChilds(stationNumber, listOfResidentOfStationNumber);
 		if (mapCountDownOfAdultsAndChilds.isEmpty()) {
 			throw new NullPointerException(
 					"Error has occured sorting Adults and childs  because not found at this station number");
+		}else {
+			log.debug("all residents  sorted by category adult and child of station number {}", stationNumber);
 		}
-		log.debug("all residents  sorted by category adult and child of station number {}", stationNumber);
+		
 		return mapCountDownOfAdultsAndChilds;
 	}
 }

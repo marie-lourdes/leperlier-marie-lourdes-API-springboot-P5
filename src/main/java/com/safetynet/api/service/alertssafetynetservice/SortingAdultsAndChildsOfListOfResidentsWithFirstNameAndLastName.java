@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
-	
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
