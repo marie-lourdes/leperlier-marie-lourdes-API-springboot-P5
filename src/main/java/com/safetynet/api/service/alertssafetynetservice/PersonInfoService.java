@@ -27,7 +27,6 @@ public class PersonInfoService {
 
 	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName)
 			throws NullPointerException {
-		
 		String fullName = firstName + " " + lastName;
 		log.debug("Retrieving resident by full name {} and other residents with the same last name: {}", fullName, lastName);
 		

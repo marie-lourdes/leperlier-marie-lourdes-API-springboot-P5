@@ -143,7 +143,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}	
 	}
