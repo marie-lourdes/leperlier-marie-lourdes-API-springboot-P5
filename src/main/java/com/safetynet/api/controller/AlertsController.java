@@ -156,7 +156,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getEmailOfResidentsOfCity(city);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
