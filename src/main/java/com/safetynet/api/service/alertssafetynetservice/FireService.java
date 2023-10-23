@@ -17,7 +17,7 @@ public class FireService {
 	FireStationService fireStationService;
 
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 	private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {

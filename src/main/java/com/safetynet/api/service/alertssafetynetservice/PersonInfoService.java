@@ -13,7 +13,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Service
 public class PersonInfoService {
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	 SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	@Autowired
 	PersonService personService;

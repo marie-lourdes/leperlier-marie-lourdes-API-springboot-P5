@@ -15,7 +15,7 @@ import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Service
-public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
+public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
 
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
@@ -36,6 +36,7 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 			MedicalRecord medicalRecordFoundByFullName = medicalRecordService.getOneMedicalRecordById(fullNamePerson);
 			resident.remove("firstName");
 
+			resident.remove("zip");
 			resident.remove("city");
 			resident.remove("email");
 			resident.remove("address");
