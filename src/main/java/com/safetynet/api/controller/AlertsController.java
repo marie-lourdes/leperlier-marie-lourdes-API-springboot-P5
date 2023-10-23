@@ -89,7 +89,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
