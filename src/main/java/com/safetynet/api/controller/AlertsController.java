@@ -109,7 +109,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public ResponseEntity<?> getListOfHouseHoldByStationNumber(@RequestParam List<String> stations) {
+	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
 
@@ -117,9 +117,8 @@ public class AlertsController implements IResponseHTTPEmpty {
 			try {
 				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
 				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-
 			} catch (NullPointerException e) {
-				System.out.println(e.getMessage());
+				log.error(e.getMessage());
 			}
 		}
 
