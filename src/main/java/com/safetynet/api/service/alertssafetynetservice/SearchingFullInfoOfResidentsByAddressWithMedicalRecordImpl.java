@@ -3,6 +3,7 @@ package com.safetynet.api.service.alertssafetynetservice;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,8 +30,8 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 
 		for (Map<String, String> resident : listOfResidentsByAddress) {
-			Map<String, String> mapOfMedicalRecord = new HashMap<String, String>();
-			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new HashMap<String, String>();
+			Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
+			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new LinkedHashMap<String, String>();
 			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
 			MedicalRecord medicalRecordFoundByFullName = medicalRecordService.getOneMedicalRecordById(fullNamePerson);
 			resident.remove("firstName");
@@ -41,13 +42,11 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
 			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
 
-			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
+			
 			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
-			TreeMap<String, String> treeMapOfMedicalRecordOfResidentUpdated = new TreeMap<String, String>(
-					Collections.reverseOrder());
-
-			treeMapOfMedicalRecordOfResidentUpdated.putAll(mapOfMedicalRecordOfResidentUpdated);
-			listOfResidentWithMedicalRecord.add(treeMapOfMedicalRecordOfResidentUpdated);
+			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
+		
+			listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResidentUpdated);
 
 		}
 		return listOfResidentWithMedicalRecord;

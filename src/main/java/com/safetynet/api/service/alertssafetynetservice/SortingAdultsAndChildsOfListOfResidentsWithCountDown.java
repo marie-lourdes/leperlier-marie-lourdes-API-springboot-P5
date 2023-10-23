@@ -17,7 +17,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
-	//private List<Map<String, String>> ResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 
 	public Map<String, Integer> sortAdultsAndChilds(String request,List<Map<String, String>> ResidentsOfStationNumber) {
 		Integer indexChild = 1;

@@ -49,7 +49,7 @@ public class ChildAlertService {
 
 		if (listOfResidentChildAndMembersOfHouseHold.isEmpty()) {
 			log.error("Failed to retrieve all childs and members of household at this address: {}",address);
-			throw new NullPointerException("No child found at this address"+address);
+			throw new NullPointerException("No child found at this address "+address);
 		}else {
 			log.debug(numberOfChild +" childs found for  this address :{}",  address);
 		}
