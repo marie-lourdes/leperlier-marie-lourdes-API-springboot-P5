@@ -41,8 +41,7 @@ public class SearchingFullInfoOfResidentsByAddressWithMedicalRecordImpl implemen
 			resident.remove("address");
 			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
 			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
-
-			
+		
 			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
 			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
 		

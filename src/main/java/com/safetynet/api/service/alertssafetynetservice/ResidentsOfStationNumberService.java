@@ -37,7 +37,7 @@ public class ResidentsOfStationNumberService {
 		}
 		
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {
-			residents.remove("age");
+			//residents.remove("age");
 			System.out.println("residents" + residents);
 		}
 		log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);

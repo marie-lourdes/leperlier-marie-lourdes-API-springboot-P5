@@ -21,8 +21,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
 
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
-			resident.put("age",
-					calculatorAgeOfResident.calculateAgeOfResident(resident.get("firstName")+" " + resident.get("lastName")).toString());
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 				resident.remove("address");
 				resident.remove("city");

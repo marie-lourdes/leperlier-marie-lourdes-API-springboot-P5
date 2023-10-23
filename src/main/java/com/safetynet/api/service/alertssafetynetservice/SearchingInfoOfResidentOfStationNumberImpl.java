@@ -1,8 +1,8 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +21,9 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 	@Autowired
 	FireStationService fireStationService;
+	
+	@Autowired
+	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 
@@ -37,12 +40,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 			for (Person person : persons) {
 				if (person.getAddress().equals(itrFireStation.getAddress())) {
-					Map<String, String> residentOfStationNumber = new HashMap<String, String>();
+					Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
 					residentOfStationNumber.put("firstName", person.getFirstName());
 					residentOfStationNumber.put("lastName", person.getLastName());
 					residentOfStationNumber.put("address", person.getAddress());
 					residentOfStationNumber.put("phone", person.getPhone());
-					
+					residentOfStationNumber.put("age",
+							calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
 					System.out.println(" residentOfStationNumber" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
