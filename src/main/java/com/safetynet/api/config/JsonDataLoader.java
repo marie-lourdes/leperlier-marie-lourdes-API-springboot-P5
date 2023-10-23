@@ -47,10 +47,13 @@ public class JsonDataLoader implements CommandLineRunner {
 		try {
 			List<Person> personsFromFile = personRepository.findAll();
 			log.debug("All datas persons readed from file");
+			
 			List<FireStation> fireStationFromFile = fireStationRepository.findAll();
 			log.debug("All datas firestations readed from file");
+			
 			List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
 			log.debug("All datas medical records readed from file");
+			
 			for (Person person : personsFromFile) {
 				personService.addPerson(person);
 			}
@@ -63,9 +66,8 @@ public class JsonDataLoader implements CommandLineRunner {
 				medicalRecordService.addMedicalRecord(medicalRecord);
 			}
 		} catch (IOException e) {
-
 			e.printStackTrace();
-
+			log.error(e.getMessage());
 		}
 	}
 
