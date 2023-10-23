@@ -19,6 +19,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoPhoneOfResidentsByStationNumberImpl.class);
+	
 	@Autowired
 	FireStationService fireStationService;
 

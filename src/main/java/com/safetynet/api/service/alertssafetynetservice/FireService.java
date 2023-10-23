@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.service.dataservice.FireStationService;
+import com.safetynet.api.service.dataservice.PersonService;
 
 @Service
 public class FireService {
+	private static final Logger log = LogManager.getLogger(FireService.class);
 
 	@Autowired
 	FireStationService fireStationService;
@@ -21,6 +25,7 @@ public class FireService {
 	private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
+		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
@@ -35,8 +40,11 @@ public class FireService {
 			System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 		} catch (NullPointerException e) {
+			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents not found near fire address");
 		}
+		
+		log.debug(" All residents with its fireStation retrieved  near fire address : {}", address);
 		return listOfResidentAndFireStationNearFire;
 
 	}

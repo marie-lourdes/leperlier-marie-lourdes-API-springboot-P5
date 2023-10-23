@@ -29,7 +29,6 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	private List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
-		//List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<Person> persons = personService.getAllPersons();
 
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
@@ -50,7 +49,6 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 					System.out.println(" residentOfStationNumber" + residentOfStationNumber);
 					listOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
-
 			}
 		}
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
