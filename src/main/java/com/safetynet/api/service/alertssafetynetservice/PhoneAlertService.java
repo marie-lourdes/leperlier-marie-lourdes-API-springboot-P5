@@ -21,40 +21,14 @@ public class PhoneAlertService {
 	private static final Logger log = LogManager.getLogger( PhoneAlertService .class);
 	
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
-	
+	SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
 
-	@Autowired
-	FireStationService fireStationService;
-	
-	@Autowired
-	PersonService personService;
-	
-	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber =new ArrayList<Map<String, String>>();;
-	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
+	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();;
 	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber)
 			throws NullPointerException {
 		log.debug("Retrieving all phones of residents of firestation");
 		try {
-		List<Person> persons = personService.getAllPersons();
-
-		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
-		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-		
-		while (itrFireStations.hasNext()) {
-			FireStation itrFireStation = itrFireStations.next();
-
-			for (Person person : persons) {
-				if (person.getAddress().equals(itrFireStation.getAddress())) {
-					Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
-					
-					residentOfStationNumber.put("phone", person.getPhone());		
-					log.debug("Phone retrieved for each resident of station number: {}",residentOfStationNumber);
-					
-					listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
-				}
-			}
-		}
+			listOfPhonesOfResidentOfStationNumber =  infoPhoneOfResidentsByStationNumber.searchInfoOfResident(stationNumber);
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve phones of this firestation : {}",stationNumber);
 			throw new NullPointerException("Not phone of resident found of this firestation : "+ stationNumber);
