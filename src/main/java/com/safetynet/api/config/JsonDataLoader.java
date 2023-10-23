@@ -46,28 +46,52 @@ public class JsonDataLoader implements CommandLineRunner {
 
 		try {
 			List<Person> personsFromFile = personRepository.findAll();
-			log.debug("All datas persons readed from file");
-			
+			if (personsFromFile.isEmpty()) {
+				throw new IOException(" Failed to read persons from file");
+			}else {
+				log.debug("All datas persons readed from file");
+			}
+		
+
 			List<FireStation> fireStationFromFile = fireStationRepository.findAll();
-			log.debug("All datas firestations readed from file");
+			if (fireStationFromFile.isEmpty()) {
+				throw new IOException(" Failed to read firestations from file");
+			}else {
+				log.debug("All datas firestations readed from file");
+			}
 			
+
 			List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
-			log.debug("All datas medical records readed from file");
-			
+			if (medicalRecordsFromFile.isEmpty()) {
+				throw new IOException(" Failed to read medical records from file");
+			}else {
+				log.debug("All datas medical records readed from file");
+			}
+		
+
 			for (Person person : personsFromFile) {
 				personService.addPerson(person);
+				if (person == null) {
+					throw new IOException(" Failed to add person from file");
+				}
 			}
 
 			for (FireStation fireStation : fireStationFromFile) {
 				fireStationService.addFireStation(fireStation);
+				if (fireStation == null) {
+					throw new IOException(" Failed to add firestation  from file");
+				}
 			}
 
 			for (MedicalRecord medicalRecord : medicalRecordsFromFile) {
 				medicalRecordService.addMedicalRecord(medicalRecord);
+				if (medicalRecord == null) {
+					throw new IOException(" Failed to add medical record from file");
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.error("Failed to read data from file json"+e.getMessage());
+			log.error( e.getMessage());
 		}
 	}
 
