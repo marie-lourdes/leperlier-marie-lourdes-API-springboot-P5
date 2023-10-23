@@ -67,7 +67,7 @@ public class JsonDataLoader implements CommandLineRunner {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+			log.error("Failed to read data from file json"+e.getMessage());
 		}
 	}
 

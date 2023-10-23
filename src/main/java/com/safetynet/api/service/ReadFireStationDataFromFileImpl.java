@@ -22,8 +22,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 		listOfFireStations = new LinkedList<FireStation>();
 
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
-		// creer une methode dans l Interface IDatasFileReader pour generer JsonArray et
-		// eviter de repeter de tous les class impl le path
+		// use method astract  readDataJson from interface generic IDatasFileReader	 
 		datasJsonFireStations = readDataJson("firestations");
 
 		// create list linked of fireStations
@@ -35,13 +34,12 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 
 			listOfFireStations.add(fireStation);
 			System.out.println("element of fireStations" + elem.asJsonObject());
-
 		}
-		// listOfFireStations.add();
+		
 		System.out.println("list of fireStations" + listOfFireStations);
 
 		return listOfFireStations;
-		// return datasJsonPersonParsed ;
+		
 	}
 
 }
