@@ -19,7 +19,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
-		System.out.println("calculating age of persn");
+		System.out.println("calculating age of person");
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 
 		// formatage date birthdate

@@ -26,10 +26,10 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
-
+	private List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
-		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+		//List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<Person> persons = personService.getAllPersons();
 
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
@@ -44,7 +44,7 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 					residentOfStationNumber.put("firstName", person.getFirstName());
 					residentOfStationNumber.put("lastName", person.getLastName());
 					residentOfStationNumber.put("address", person.getAddress());
-					residentOfStationNumber.put("phone", person.getPhone());
+					residentOfStationNumber.put("phone", person.getPhone());		
 					residentOfStationNumber.put("age",
 							calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
 					System.out.println(" residentOfStationNumber" + residentOfStationNumber);
