@@ -41,7 +41,7 @@ public class FireService {
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
-			throw new NullPointerException("Residents not found near fire address");
+			throw new NullPointerException("Residents  and firestation not found near fire address");
 		}
 		
 		log.debug(" All residents with its fireStation retrieved  near fire address : {}", address);
