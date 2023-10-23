@@ -127,7 +127,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 				throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
 			}
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 
@@ -145,9 +145,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		}
-		// return personInfoService.getInfoAndMedicalRecordOfPersonByFullName(firstName,
-		// lastName);
+		}	
 	}
 
 	@GetMapping("/communityEmail")
@@ -161,7 +159,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 			System.out.println(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-		// return communityEmailService.getEmailOfResidentsOfCity(city);
 	}
-
+	
 }

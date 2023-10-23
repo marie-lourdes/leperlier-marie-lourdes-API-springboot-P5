@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.api.service.dataservice.PersonService;
-
 @Service
 public class FloodService {
 	private static final Logger log = LogManager.getLogger(FloodService.class);
@@ -23,6 +21,7 @@ public class FloodService {
 
 	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
+		
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 		try {
 
@@ -48,13 +47,13 @@ public class FloodService {
 				listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
 						.searchInfoOfResident(address);	
 				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
-
 			}
 			
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
 			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
 		}
+		
 		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber, listOfHouseHoldOfStationNumber );
 		return listOfHouseHoldOfStationNumber;
 	}

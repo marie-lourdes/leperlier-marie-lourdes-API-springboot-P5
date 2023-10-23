@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.service.dataservice.FireStationService;
-import com.safetynet.api.service.dataservice.PersonService;
 
 @Service
 public class FireService {
@@ -26,6 +25,7 @@ public class FireService {
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
+		
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
@@ -37,14 +37,13 @@ public class FireService {
 			mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
 
 			listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
-			System.out.println("listOfResidentWithMedicalRecord" + listOfResidentWithMedicalRecord);
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents  and firestation not found near fire address");
 		}
 		
-		log.debug(" All residents with its fireStation retrieved  near fire address : {}", address);
+		log.info(" All residents with its fireStation retrieved  near fire address : {}", 	listOfResidentAndFireStationNearFire);
 		return listOfResidentAndFireStationNearFire;
 
 	}
