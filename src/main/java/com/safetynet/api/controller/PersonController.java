@@ -72,7 +72,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			personFoundById = personService.getOnePersonById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}

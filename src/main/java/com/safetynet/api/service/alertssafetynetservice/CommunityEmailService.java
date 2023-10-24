@@ -26,9 +26,6 @@ public class CommunityEmailService {
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve emails of residents of the city : {}", city);
 			throw new NullPointerException("List of email not found of residents of  this city : " + city);
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.error( "An error has occured in getting emails of residents of the city");
 		}
 		
 		log.info(" All emails of residents retrieved of the city  {} : {}", city,listEmailsOfResidentsOfCity);

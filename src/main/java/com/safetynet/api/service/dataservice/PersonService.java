@@ -34,9 +34,7 @@ public class PersonService {
 	public Person updatePerson(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
 
-		Person existingPersonUpdated = new Person();
-		try {
-			existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+		Person 	existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						existingPerson.setAddress(updatedPerson.getAddress());
 						existingPerson.setCity(updatedPerson.getCity());
@@ -46,10 +44,7 @@ public class PersonService {
 						return existingPerson;
 					}).orElseThrow(
 							() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in updating person");
-		}
+	
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
 	}
@@ -59,33 +54,24 @@ public class PersonService {
 
 		boolean result = false;
 		result = persons.removeIf(person -> person.getId().equals(id));
-		try {
 			if (!result) {
 				log.error("Failed to delete person for {}", id);
 				throw new NullPointerException(" Person " + id + "  to delete not found");
 			} else {
 				log.info("Person deleted successfully for {}", id);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in deleting a person");
-		}
+		
 		return result;
 	}
 
 	public Person getOnePersonById(String id) throws NullPointerException {
-		log.debug("Retrieving  one person for id {}", id);
-
-		Person personFoundById = new Person();
-		try {
-			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+		log.debug("Retrieving  one person for id {}", id);	
+		
+			Person personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
 					}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in getting all persons");
-		}
+		
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
 	}

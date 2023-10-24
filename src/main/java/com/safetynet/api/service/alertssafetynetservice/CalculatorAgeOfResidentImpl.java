@@ -18,7 +18,7 @@ import com.safetynet.api.utils.Constants;
 @Component
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
-	
+	private BigInteger age;
 	@Autowired
 	MedicalRecordService medicalRecordService;
 
@@ -27,7 +27,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		System.out.println("calculating age of person");
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 
-		// formatage date birthdate
+		// format date birthdate
 		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
 		try {
@@ -36,15 +36,20 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 			e.printStackTrace();
 		}catch(Exception e) {
 			e.printStackTrace();
+			log.error( "An error has occured in formating birthdate of person");
+		}
+
+		//calcul age
+		try {
+			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
+			Long ageOfPerson = new Date().getTime() - birthdate.getTime();
+			age =BigInteger.valueOf(ageOfPerson).divide(yearInMs);
+			System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
+		}catch(Exception  e) {
+			e.printStackTrace();
 			log.error( "An error has occured in calculating age");
 		}
 
-		// calcule de l age
-		
-		BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
-		Long ageOfPerson = new Date().getTime() - birthdate.getTime();
-		System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
-
-		return BigInteger.valueOf(ageOfPerson).divide(yearInMs);
+		return age;
 	}
 }

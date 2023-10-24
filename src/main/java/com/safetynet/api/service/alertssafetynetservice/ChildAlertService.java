@@ -22,7 +22,7 @@ public class ChildAlertService {
 
 	public List<Map<String, String>> getChildsAndMembersOfHouseHold(String address) throws NullPointerException {
 		log.debug("Retrieving  Childs And Members Of HouseHold at this address: {}",  address);
-		try {
+		
 		listOfResidentChildAndMembersOfHouseHold = new ArrayList<Map<String, String>>();
 		listOfResidentChildAndMembersOfHouseHold = sortAdultsAndChildsOfListOfResidentsWithFullInfo(address);
 		log.debug("All residents  sorted with category  adult and child at this address: {}", address);
@@ -51,10 +51,7 @@ public class ChildAlertService {
 		}else {
 			log.debug(numberOfChild +" childs found for  this address :{}",  address);
 		}
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.error( "An error has occured in getting childs members of houseHold");
-		}
+		
 		log.info(" List of childs and members of household retrieved successfully by address {}", listOfResidentChildAndMembersOfHouseHold);
 		return listOfResidentChildAndMembersOfHouseHold;
 	}
