@@ -34,6 +34,19 @@ public class Person {
 	// @Email(message = "email should be valid")
 	private String email;
 
+	public Person() {
+		
+	}
+	
+	public Person (String firstName,String lastName,String address,String zip,String city,String phone,String email) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.address=address;
+		this.zip=zip;
+		this.city=city;
+		this.phone=phone;
+		this.email=email;
+	}
 	public String getId() {
 		return id;
 	}

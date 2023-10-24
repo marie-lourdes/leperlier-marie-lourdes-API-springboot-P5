@@ -11,9 +11,4 @@ public class SafetyNetAlertsApplication {
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
 
 	}
-
-	@Bean
-	UploadDataFileRunner uploadDataRunner() {
-		return new UploadDataFileRunner();
-	}
 }
