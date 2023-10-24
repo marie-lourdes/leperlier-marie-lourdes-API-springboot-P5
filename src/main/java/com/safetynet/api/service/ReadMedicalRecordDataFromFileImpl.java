@@ -59,7 +59,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 			}
 		} catch (Exception e) {
 			e.getStackTrace();
-			log.error("An error has occured in reading medical records from file");
+			log.error("An error has occured in getting datas medical records from Json");
 		}
 		System.out.println("list of medicalRecords" + listOfMedicalRecords);
 

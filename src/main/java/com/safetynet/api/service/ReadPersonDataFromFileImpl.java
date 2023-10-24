@@ -19,11 +19,13 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 	@Override
 	public List<Person> readFile() throws IOException {
 		listOfPersons = new LinkedList<Person>();
-		// listOfPersons = new ArrayList<Person>();
+	
+		try {
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 		datasJsonPersons = readDataJson("persons");
 
 		// create list linked of persons
+		log.debug("Parsing data json persons");
 		for (JsonValue elem : datasJsonPersons) {
 			Person person = new Person();
 			person.setId(elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));
@@ -39,8 +41,11 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 			System.out.println("element of persons" + elem.asJsonObject());
 
 		}
-		// listOfPersons.add();
-		System.out.println("list of persons" + listOfPersons);
+		}catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in getting datas persons from Json");
+		}
+		log.debug("List of persons parsed from Json {}", listOfPersons);
 
 		return listOfPersons;
 		// return datasJsonPersonParsed ;
