@@ -20,42 +20,46 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 	@Override
 	public List<MedicalRecord> readFile() throws IOException {
 		listOfMedicalRecords = new LinkedList<MedicalRecord>();
+		try {
+			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
+			datasJsonMedicalRecords = readDataJson("medicalrecords");
 
-		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
-		datasJsonMedicalRecords = readDataJson("medicalrecords");
+			// create list linked of medicalRecords
+			for (JsonValue elem : datasJsonMedicalRecords) {
+				MedicalRecord medicalRecord = new MedicalRecord();
+				medicalRecord.setId(
+						elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));
+				medicalRecord.setFirstName(elem.asJsonObject().getString("firstName"));
+				medicalRecord.setLastName(elem.asJsonObject().getString("lastName"));
+				medicalRecord.setBirthdate(elem.asJsonObject().getString("birthdate"));
 
-		// create list linked of medicalRecords
-		for (JsonValue elem : datasJsonMedicalRecords) {
-			MedicalRecord medicalRecord = new MedicalRecord();
-			medicalRecord.setId(
-					elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));
-			medicalRecord.setFirstName(elem.asJsonObject().getString("firstName"));
-			medicalRecord.setLastName(elem.asJsonObject().getString("lastName"));
-			medicalRecord.setBirthdate(elem.asJsonObject().getString("birthdate"));
+				// create ArrayList of medications from JsonArray medications
+				JsonArray medicationsArray = elem.asJsonObject().getJsonArray("medications");
+				List<String> listOfMedications = new ArrayList<String>();
 
-			// create ArrayList of medications from JsonArray medications
-			JsonArray medicationsArray = elem.asJsonObject().getJsonArray("medications");
-			List<String> listOfMedications = new ArrayList<String>();
+				int indexMedications = 0;
+				for (JsonValue value : medicationsArray) {
+					listOfMedications.add(indexMedications++, (String) value.toString());
+				}
+				medicalRecord.setMedications(listOfMedications);
 
-			int indexMedications = 0;
-			for (JsonValue value : medicationsArray) {
-				listOfMedications.add(indexMedications++, (String) value.toString());
+				// create ArrayList of allergies from JsonArray allergies
+				JsonArray allergiesArray = elem.asJsonObject().getJsonArray("allergies");
+				List<String> listOfAllergies = new ArrayList<String>();
+
+				int indexAllergies = 0;
+				for (JsonValue value : allergiesArray) {
+					listOfAllergies.add(indexAllergies++, (String) value.toString());
+				}
+				medicalRecord.setAllergies(listOfAllergies);
+
+				listOfMedicalRecords.add(medicalRecord);
+				System.out.println("element of medicalRecords" + elem.asJsonObject());
+
 			}
-			medicalRecord.setMedications(listOfMedications);
-
-			// create ArrayList of allergies from JsonArray allergies
-			JsonArray allergiesArray = elem.asJsonObject().getJsonArray("allergies");
-			List<String> listOfAllergies = new ArrayList<String>();
-
-			int indexAllergies = 0;
-			for (JsonValue value : allergiesArray) {
-				listOfAllergies.add(indexAllergies++, (String) value.toString());
-			}
-			medicalRecord.setAllergies(listOfAllergies);
-
-			listOfMedicalRecords.add(medicalRecord);
-			System.out.println("element of medicalRecords" + elem.asJsonObject());
-
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in reading medical records from file");
 		}
 		System.out.println("list of medicalRecords" + listOfMedicalRecords);
 

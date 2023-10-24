@@ -24,26 +24,29 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 	@Override
 	public List<FireStation> readFile() throws IOException {
 		listOfFireStations = new LinkedList<FireStation>();
+		try {
+			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
+			// use method astract readDataJson from interface generic IDatasFileReader
+			datasJsonFireStations = readDataJson("firestations");
 
-		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
-		// use method astract  readDataJson from interface generic IDatasFileReader	 
-		datasJsonFireStations = readDataJson("firestations");
+			// create list linked of fireStations
+			for (JsonValue elem : datasJsonFireStations) {
+				FireStation fireStation = new FireStation();
+				fireStation.setId(elem.asJsonObject().getString("station"));
+				fireStation.setStationNumber(elem.asJsonObject().getString("station"));
+				fireStation.setAddress(elem.asJsonObject().getString("address"));
 
-		// create list linked of fireStations
-		for (JsonValue elem : datasJsonFireStations) {
-			FireStation fireStation = new FireStation();
-			fireStation.setId(elem.asJsonObject().getString("station"));
-			fireStation.setStationNumber(elem.asJsonObject().getString("station"));
-			fireStation.setAddress(elem.asJsonObject().getString("address"));
-
-			listOfFireStations.add(fireStation);
-			System.out.println("element of fireStations" + elem.asJsonObject());
+				listOfFireStations.add(fireStation);
+				System.out.println("element of fireStations" + elem.asJsonObject());
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in reading firestations from file");
 		}
-		
 		System.out.println("list of fireStations" + listOfFireStations);
 
 		return listOfFireStations;
-		
+
 	}
 
 }
