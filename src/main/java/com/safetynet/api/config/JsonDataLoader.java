@@ -68,7 +68,6 @@ public class JsonDataLoader implements CommandLineRunner {
 				log.debug("All datas medical records readed from file");
 			}
 		
-
 			for (Person person : personsFromFile) {
 				personService.addPerson(person);
 				if (person == null) {
@@ -92,6 +91,8 @@ public class JsonDataLoader implements CommandLineRunner {
 		} catch (IOException e) {
 			e.printStackTrace();
 			log.error( e.getMessage());
+		}catch(Exception e) {
+			log.error( "An error has occured ");
 		}
 	}
 

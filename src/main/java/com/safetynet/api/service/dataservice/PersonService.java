@@ -20,10 +20,13 @@ public class PersonService {
 
 	public Person addPerson(Person person) {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-		
-		person.setId(person.getFirstName() + " " + person.getLastName());
-		persons.add(person);
-		
+		try {
+			person.setId(person.getFirstName() + " " + person.getLastName());
+			persons.add(person);
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in creating person");
+		}
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -32,42 +35,57 @@ public class PersonService {
 		log.debug("Updating person for: {}", id);
 
 		Person existingPersonUpdated = new Person();
-		existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
-				.map(existingPerson -> {
-					existingPerson.setAddress(updatedPerson.getAddress());
-					existingPerson.setCity(updatedPerson.getCity());
-					existingPerson.setZip(updatedPerson.getZip());
-					existingPerson.setPhone(updatedPerson.getPhone());
-					existingPerson.setEmail(updatedPerson.getEmail());
-					return existingPerson;
-				}).orElseThrow(() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
-
+		try {
+			existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+					.map(existingPerson -> {
+						existingPerson.setAddress(updatedPerson.getAddress());
+						existingPerson.setCity(updatedPerson.getCity());
+						existingPerson.setZip(updatedPerson.getZip());
+						existingPerson.setPhone(updatedPerson.getPhone());
+						existingPerson.setEmail(updatedPerson.getEmail());
+						return existingPerson;
+					}).orElseThrow(
+							() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in updating person");
+		}
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
 	}
 
 	public boolean deleteOnePersonById(String id) throws NullPointerException {
 		log.debug("Deleting person for {}", id);
-		boolean result = persons.removeIf(person -> person.getId().equals(id));
 
-		if (!result) {
-			log.error("Failed to delete person for {}", id);
-			throw new NullPointerException(" Person " + id + "  to delete not found");
-		} else {
-			log.info("Person deleted successfully for {}", id);
+		boolean result = false;
+		result = persons.removeIf(person -> person.getId().equals(id));
+		try {
+			if (!result) {
+				log.error("Failed to delete person for {}", id);
+				throw new NullPointerException(" Person " + id + "  to delete not found");
+			} else {
+				log.info("Person deleted successfully for {}", id);
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in deleting a person");
 		}
 		return result;
 	}
 
 	public Person getOnePersonById(String id) throws NullPointerException {
 		log.debug("Retrieving  one person for id {}", id);
-		
-		Person personFoundById = new Person();
-personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
-			.map(existingPerson -> {
-				return existingPerson;
-			}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
 
+		Person personFoundById = new Person();
+		try {
+			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+					.map(existingPerson -> {
+						return existingPerson;
+					}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in getting all persons");
+		}
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
 	}
@@ -81,14 +99,14 @@ personFoundById = persons.stream().filter(person -> person.getId().equals(id)).f
 			Person itrPerson = itrPersons.next();
 
 			if (itrPerson.getLastName().equals(lastName)) {
-				personsFoundByLastName.add(itrPerson);	
+				personsFoundByLastName.add(itrPerson);
 			}
 		}
 
 		if (personsFoundByLastName.isEmpty()) {
 			log.error("Failed to retrieve person  for last name {}", lastName);
 			throw new NullPointerException("Person(s) not found for lastName: " + lastName);
-		}else {
+		} else {
 			log.info("Person retrieved  successfully for last name  {}", lastName);
 		}
 
@@ -103,7 +121,7 @@ personFoundById = persons.stream().filter(person -> person.getId().equals(id)).f
 		Iterator<Person> itrPersons = persons.listIterator();
 		while (itrPersons.hasNext()) {
 			Person itrPerson = itrPersons.next();
-			if (itrPerson.getAddress().equals(address)) {	
+			if (itrPerson.getAddress().equals(address)) {
 				personsFoundByAddress.add(itrPerson);
 			}
 		}
@@ -111,7 +129,7 @@ personFoundById = persons.stream().filter(person -> person.getId().equals(id)).f
 		if (personsFoundByAddress.isEmpty()) {
 			log.error("Failed to retrieve person  for address {}", address);
 			throw new NullPointerException("Person(s) not found by address: " + address);
-		}else {
+		} else {
 			log.info("Person retrieved  successfully for address {}", address);
 		}
 
@@ -148,7 +166,7 @@ personFoundById = persons.stream().filter(person -> person.getId().equals(id)).f
 		if (persons.isEmpty()) {
 			log.error("Failed to retrieve all  persons");
 			throw new NullPointerException("None person registered!");
-		}else {
+		} else {
 
 			log.info("All persons retrieved successfully: {}", persons);
 		}

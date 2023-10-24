@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
 public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfoOfResident {
+	private static final Logger log = LogManager.getLogger(SearchingFullInfoOfResidentsByAddressImpl.class);
 	@Autowired
 	PersonService personService;
 
@@ -24,23 +27,28 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		List<Map<String, String>> listOfresidentsWithSameAddress = new ArrayList<Map<String, String>>();
-		residentsFoundByAddress = personService.getPersonsByAddress(address);
+		try {
 
-		for (Person person : residentsFoundByAddress) {
-			Map<String, String> residentWithSameAddress = new LinkedHashMap<String, String>();
-			residentWithSameAddress.put("firstName", person.getFirstName());
-			residentWithSameAddress.put("lastName", person.getLastName());
-			residentWithSameAddress.put("address", person.getAddress());
-			residentWithSameAddress.put("city", person.getCity());
-			residentWithSameAddress.put("zip", person.getZip());
-			residentWithSameAddress.put("phone", person.getPhone());
-			residentWithSameAddress.put("email", person.getEmail());
-			residentWithSameAddress.put("age",
-					calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
-			System.out.println(" residents with same address" + residentWithSameAddress);
-			listOfresidentsWithSameAddress.add(residentWithSameAddress);
+			residentsFoundByAddress = personService.getPersonsByAddress(address);
+
+			for (Person person : residentsFoundByAddress) {
+				Map<String, String> residentFoundByAddress = new LinkedHashMap<String, String>();
+				residentFoundByAddress.put("firstName", person.getFirstName());
+				residentFoundByAddress.put("lastName", person.getLastName());
+				residentFoundByAddress.put("address", person.getAddress());
+				residentFoundByAddress.put("city", person.getCity());
+				residentFoundByAddress.put("zip", person.getZip());
+				residentFoundByAddress.put("phone", person.getPhone());
+				residentFoundByAddress.put("email", person.getEmail());
+				residentFoundByAddress.put("age",
+						calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
+				System.out.println(" residents with same address" + residentFoundByAddress);
+				listOfresidentsWithSameAddress.add(residentFoundByAddress);
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occured in searching  full info of residents with the same address");
 		}
-
 		System.out.println("listOfresidentsWithSameAddress" + listOfresidentsWithSameAddress);
 		return listOfresidentsWithSameAddress;
 	}

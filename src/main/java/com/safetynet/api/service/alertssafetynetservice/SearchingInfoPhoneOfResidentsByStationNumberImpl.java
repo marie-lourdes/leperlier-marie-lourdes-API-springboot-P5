@@ -31,6 +31,7 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
+		try {
 		List<Person> persons = personService.getAllPersons();
 
 		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
@@ -49,6 +50,11 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 					listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
 				}
 			}
+		}
+		
+		}catch(Exception e) {
+			e.getStackTrace();
+			log.error( "An error has occured in searching phones of residents of the  station number ");
 		}
 		return listOfPhonesOfResidentOfStationNumber;
 	}

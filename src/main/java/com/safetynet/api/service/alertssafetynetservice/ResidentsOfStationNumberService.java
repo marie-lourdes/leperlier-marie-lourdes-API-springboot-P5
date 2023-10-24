@@ -31,6 +31,9 @@ public class ResidentsOfStationNumberService {
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 			throw new NullPointerException("Residents not found at this station number: " + stationNumber);
+		}catch(Exception e) {
+			e.getStackTrace();
+			log.error( "An error has occured in getting residents of station number");
 		}
 		
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {

@@ -25,6 +25,9 @@ public class PhoneAlertService {
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve phones of this firestation : {}",stationNumber);
 			throw new NullPointerException("Not phone of resident found of this firestation : "+ stationNumber);
+		}catch(Exception e) {
+			e.getStackTrace();
+			log.error( "An error has occured in getting phones of residents by station number");
 		}
 		
 		log.info("List of phones of residents of firestation retrieved successfully : {}", listOfPhonesOfResidentOfStationNumber);

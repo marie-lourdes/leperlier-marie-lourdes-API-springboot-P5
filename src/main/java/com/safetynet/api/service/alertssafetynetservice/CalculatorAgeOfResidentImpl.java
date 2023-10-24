@@ -6,14 +6,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.safetynet.api.controller.PersonController;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.Constants;
 
 @Component
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
+	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
+	
 	@Autowired
 	MedicalRecordService medicalRecordService;
 
@@ -29,6 +34,9 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (ParseException e) {
 			e.printStackTrace();
+		}catch(Exception e) {
+			e.getStackTrace();
+			log.error( "An error has occured in calculating age");
 		}
 
 		// calcule de l age
