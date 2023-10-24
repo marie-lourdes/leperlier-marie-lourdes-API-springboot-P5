@@ -45,13 +45,9 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 			e.getStackTrace();
 			log.error("An error has occured in getting datas persons from Json");
 		}
+		
 		log.debug("List of persons parsed from Json {}", listOfPersons);
-
 		return listOfPersons;
 		// return datasJsonPersonParsed ;
-	}
-
-	public List<Person> getListOfPersons() {
-		return listOfPersons;
 	}
 }

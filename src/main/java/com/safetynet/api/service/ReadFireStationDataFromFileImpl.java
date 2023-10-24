@@ -28,7 +28,8 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 			// use method astract readDataJson from interface generic IDatasFileReader
 			datasJsonFireStations = readDataJson("firestations");
-
+			
+			log.debug("Parsing data json firestations");
 			// create list linked of fireStations
 			for (JsonValue elem : datasJsonFireStations) {
 				FireStation fireStation = new FireStation();
@@ -41,12 +42,12 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 			}
 		} catch (Exception e) {
 			e.getStackTrace();
-			log.error("An error has occured in reading firestations from file");
+			log.error("An error has occured in getting datas firestations from Json");
 		}
 		System.out.println("list of fireStations" + listOfFireStations);
 
+		log.debug("List of firestations parsed from Json {}", listOfFireStations);
 		return listOfFireStations;
-
 	}
 
 }
