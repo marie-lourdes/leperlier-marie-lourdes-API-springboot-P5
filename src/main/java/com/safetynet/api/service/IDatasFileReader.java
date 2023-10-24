@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
@@ -24,21 +23,26 @@ public interface IDatasFileReader<T> {
 	default JsonArray readDataJson(String dataNameJson) throws IOException{
 		
 		JsonArray jsonArray = null;
-		try {
-			InputStream is = new FileInputStream(DataSourceConstants.PATH);
-			log.debug("Reading datas {} from file json", dataNameJson);
-			JsonReader jsonReader = Json.createReader(is);
-			log.debug("Parsing data Json  {}",dataNameJson);
-			JsonObject datasJsonObject = jsonReader.readObject();
-			jsonArray = datasJsonObject.getJsonArray(dataNameJson);
 		
-			//System.out.println("all datas Json " + dataNameJson + " read:" + jsonArray);
-			jsonReader.close();
-			is.close();	
+		try {
+			if(DataSourceConstants.PATH !=null) {
+				InputStream is = new FileInputStream(DataSourceConstants.PATH);
+				
+				log.debug("Reading datas {} from file json", dataNameJson);
+				JsonReader jsonReader = Json.createReader(is);
+				
+				log.debug("Parsing data Json  {}",dataNameJson);
+				JsonObject datasJsonObject = jsonReader.readObject();
+				jsonArray = datasJsonObject.getJsonArray(dataNameJson);
 			
-			log.debug("Datas {} read and parsed from file json", dataNameJson);
-			log.debug("All datas Json  {}  from file json : {}", dataNameJson,jsonArray);
-		}catch (Exception e) {
+				jsonReader.close();
+				is.close();	
+				
+				log.debug("Datas {} read and parsed from file json", dataNameJson);
+				log.debug("All datas Json  {}  from file json : {}", dataNameJson,jsonArray);
+			}
+		
+		}catch (Exception e) {		
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
 		}

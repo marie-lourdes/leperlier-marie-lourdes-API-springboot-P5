@@ -32,7 +32,7 @@ public class ResidentsOfStationNumberService {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 			throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in getting residents of station number");
 		}
 		

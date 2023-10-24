@@ -53,7 +53,7 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 		}
 		
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in searching phones of residents of the  station number ");
 		}
 		return listOfPhonesOfResidentOfStationNumber;

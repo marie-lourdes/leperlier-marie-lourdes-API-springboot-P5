@@ -53,7 +53,7 @@ public class PersonInfoService {
 		} catch (NullPointerException e) {
 			throw new NullPointerException("List of person not found  searched by full name : " + fullName);
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in getting info of person ");
 		}
 		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",fullName, lastName, listOfResidentsWithMedicalRecord);

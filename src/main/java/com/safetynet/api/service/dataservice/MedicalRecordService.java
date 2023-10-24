@@ -27,7 +27,7 @@ public class MedicalRecordService {
 			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 			medicalRecords.add(medicalRecord);
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in creating medical record");
 		}
 		log.info("Medical record added successfully: {}", medicalRecord);
@@ -49,7 +49,7 @@ public class MedicalRecordService {
 					}).orElseThrow(() -> new NullPointerException(
 							"Failed to update medical record, " + updatedMedicalRecord.getId() + " not found"));
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in updating medical record");
 		}
 		log.info("Medical record updated successfully for: {}", updatedMedicalRecord);
@@ -69,7 +69,7 @@ public class MedicalRecordService {
 				log.info("Medical record deleted successfully for {}", id);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in deleting  medical record");
 		}
 		return result;
@@ -86,7 +86,7 @@ public class MedicalRecordService {
 					}).orElseThrow(() -> new NullPointerException("Medical record not found for: " + id));
 
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting one  medical record by id");
 		}
 		log.info("Medical record retrieved successfully for: {}", id);
@@ -103,7 +103,7 @@ public class MedicalRecordService {
 				log.info("All medical records retrieved successfully: {}", medicalRecords);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting all medical records");
 		}
 		return medicalRecords;

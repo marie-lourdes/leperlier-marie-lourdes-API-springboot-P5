@@ -42,7 +42,7 @@ public class FireService {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents  and firestation not found near fire address");
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in getting residents and fire stations near fire");
 		}
 		

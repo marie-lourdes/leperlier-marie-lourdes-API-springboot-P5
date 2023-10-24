@@ -37,7 +37,7 @@ public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfR
 			listOfResidentsFoundByCity.add(residentFoundByCity);
 		}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in searching  full info  emails of residents of the city");
 		}
 		System.out.println(" listOfResidentsFoundByCity" + listOfResidentsFoundByCity);

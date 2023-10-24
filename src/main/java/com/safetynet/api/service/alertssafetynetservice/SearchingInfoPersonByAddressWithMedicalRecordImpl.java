@@ -51,7 +51,7 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl  implements ISear
 
 		}
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in searching info of person found by address with medical records");
 		}
 		return listOfPersonWithMedicalRecord;

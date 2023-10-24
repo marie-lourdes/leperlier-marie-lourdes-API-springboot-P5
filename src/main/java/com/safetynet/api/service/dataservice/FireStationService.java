@@ -49,7 +49,7 @@ public class FireStationService {
 			throw new NullPointerException(
 					"Failed to replace firestation with new station number , the address: " + address + " not found");
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in creating firestation with mapping station number");
 		}
 		return fireStation;
@@ -77,7 +77,7 @@ public class FireStationService {
 			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
 					+ stationNumber + " not found");
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in creating firestation with mapping address");
 		}
 
@@ -104,7 +104,7 @@ public class FireStationService {
 			log.info("FireStation updated successfully for station number: {}", updatedFireStation);
 
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in updating firestation");
 		}
 		return existingFireStationUpdated;
@@ -125,7 +125,7 @@ public class FireStationService {
 				log.info("Firestation deleted  successfully for id station number {}", id);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in deleting firestation by station number");
 		}
 		return result;
@@ -144,7 +144,7 @@ public class FireStationService {
 				log.info("Firestation deleted successfully for address  {}", address);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in deleting firestation by address");
 		}
 		return result;
@@ -169,7 +169,7 @@ public class FireStationService {
 				log.info("Firestation(s) retrieved  successfully for  id station number {}", id);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting firestations by id station number");
 		}
 		log.info("List of firestations retrieved by station number successfully : {}", fireStationsFoundById);
@@ -189,7 +189,7 @@ public class FireStationService {
 					}).orElseThrow(() -> new NullPointerException("Firestation not found by address: " + address));
 
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting one firestation by address");
 		}
 		log.info("Firestation retrieved successfully for address: {}", address);
@@ -206,7 +206,7 @@ public class FireStationService {
 				log.info("All firestations retrieved successfully: {}", fireStations);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting all firestations");
 		}
 		return fireStations;

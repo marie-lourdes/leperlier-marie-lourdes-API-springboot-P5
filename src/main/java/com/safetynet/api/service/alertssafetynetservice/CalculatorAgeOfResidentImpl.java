@@ -35,7 +35,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in calculating age");
 		}
 

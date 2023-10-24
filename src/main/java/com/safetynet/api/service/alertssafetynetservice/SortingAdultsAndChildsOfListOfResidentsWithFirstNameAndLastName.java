@@ -41,7 +41,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 			}
 
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in sorting residents with full name of childs and all info of adults");
 		}
 		System.out.println("listOfAdultsAndChildSorted" + listOfAdultsAndChild);

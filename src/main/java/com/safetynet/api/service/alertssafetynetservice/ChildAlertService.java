@@ -52,7 +52,7 @@ public class ChildAlertService {
 			log.debug(numberOfChild +" childs found for  this address :{}",  address);
 		}
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in getting childs members of houseHold");
 		}
 		log.info(" List of childs and members of household retrieved successfully by address {}", listOfResidentChildAndMembersOfHouseHold);

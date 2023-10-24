@@ -24,7 +24,7 @@ public class PersonService {
 			person.setId(person.getFirstName() + " " + person.getLastName());
 			persons.add(person);
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in creating person");
 		}
 		log.info("Person added successfully: {}", person);
@@ -47,7 +47,7 @@ public class PersonService {
 					}).orElseThrow(
 							() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in updating person");
 		}
 		log.info("Person updated successfully for: {}", updatedPerson);
@@ -67,7 +67,7 @@ public class PersonService {
 				log.info("Person deleted successfully for {}", id);
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in deleting a person");
 		}
 		return result;
@@ -83,7 +83,7 @@ public class PersonService {
 						return existingPerson;
 					}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("An error has occured in getting all persons");
 		}
 		log.info("Person retrieved successfully for id : {}", id);

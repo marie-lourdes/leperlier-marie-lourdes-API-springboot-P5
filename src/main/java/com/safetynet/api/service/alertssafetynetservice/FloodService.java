@@ -53,7 +53,7 @@ public class FloodService {
 			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
 			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in getting household in case of flood");
 		}
 		

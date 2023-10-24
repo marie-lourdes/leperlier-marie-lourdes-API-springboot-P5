@@ -51,7 +51,7 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 
 		}
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error( "An error has occured in searching info of residents by address with medical records");
 		}
 		return listOfResidentWithMedicalRecord;

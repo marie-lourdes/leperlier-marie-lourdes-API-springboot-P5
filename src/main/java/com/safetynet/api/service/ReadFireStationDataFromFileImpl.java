@@ -26,24 +26,27 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 			// use method astract readDataJson from interface generic IDatasFileReader
 			datasJsonFireStations = readDataJson("firestations");
-			
+
 			// create list linked of fireStations
 			for (JsonValue elem : datasJsonFireStations) {
 				FireStation fireStation = new FireStation();
 				fireStation.setId(elem.asJsonObject().getString("station"));
 				fireStation.setStationNumber(elem.asJsonObject().getString("station"));
 				fireStation.setAddress(elem.asJsonObject().getString("address"));
-				
-				listOfFireStations.add(fireStation);	
+
+				listOfFireStations.add(fireStation);
 			}
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (NullPointerException e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			log.error("Missing datas firestations from file Json");
-		}catch (Exception e) {
-			e.getStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
-	
+
 		log.debug("List of firestations parsed from Json {}", listOfFireStations);
 		return listOfFireStations;
 	}
