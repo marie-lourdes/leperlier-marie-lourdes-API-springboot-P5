@@ -22,10 +22,10 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 		listOfMedicalRecords = new LinkedList<MedicalRecord>();
 		try {
 			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
-			// create list linked of medicalRecords
+			// use method astract readDataJson from interface generic IDatasFileReader
 			datasJsonMedicalRecords = readDataJson("medicalrecords");
 			
-			log.debug("Parsing data json medical records");
+			// create list linked of medicalRecords
 			for (JsonValue elem : datasJsonMedicalRecords) {
 				MedicalRecord medicalRecord = new MedicalRecord();
 				medicalRecord.setId(
@@ -53,14 +53,15 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 					listOfAllergies.add(indexAllergies++, (String) value.toString());
 				}
 				medicalRecord.setAllergies(listOfAllergies);
-
-				listOfMedicalRecords.add(medicalRecord);
-				System.out.println("element of medicalRecords" + elem.asJsonObject());
-
+				
+				listOfMedicalRecords.add(medicalRecord);	
 			}
-		} catch (Exception e) {
+		}catch (NullPointerException e) {
 			e.getStackTrace();
-			log.error("An error has occured in getting datas medical records from Json");
+			log.error("Missing data medical records from file Json");
+		}catch (Exception e) {
+			e.getStackTrace();
+			log.error("An error has occuredin reading datas medical records from Json");
 		}
 
 		log.debug("List of medical records parsed from Json {}", listOfMedicalRecords);

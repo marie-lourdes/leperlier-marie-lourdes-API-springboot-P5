@@ -22,10 +22,10 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 	
 		try {
 		// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
+		// use method astract readDataJson from interface generic IDatasFileReader
 		datasJsonPersons = readDataJson("persons");
-
+		
 		// create list linked of persons
-		log.debug("Parsing data json persons");
 		for (JsonValue elem : datasJsonPersons) {
 			Person person = new Person();
 			person.setId(elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));
@@ -38,12 +38,13 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 			person.setEmail(elem.asJsonObject().getString("email"));
 
 			listOfPersons.add(person);
-			System.out.println("element of persons" + elem.asJsonObject());
-
 		}
+		}catch (NullPointerException e) {
+			e.getStackTrace();
+			log.error("Missing data persons from file Json");
 		}catch (Exception e) {
 			e.getStackTrace();
-			log.error("An error has occured in getting datas persons from Json");
+			log.error("An error has occured in reading datas persons from Json");
 		}
 		
 		log.debug("List of persons parsed from Json {}", listOfPersons);

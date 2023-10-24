@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,6 @@ public class JsonDataLoader implements CommandLineRunner {
 	private final FireStationRepositoryImpl fireStationRepository;
 	private final MedicalRecordRepositoryImpl medicalRecordRepository;
 
-	@Autowired
 	public JsonDataLoader(PersonService personService, FireStationService fireStationService,
 			MedicalRecordService medicalRecordService, PersonRepositoryImpl personRepository,
 			FireStationRepositoryImpl fireStationRepository, MedicalRecordRepositoryImpl medicalRecordRepository) {
@@ -47,25 +45,25 @@ public class JsonDataLoader implements CommandLineRunner {
 		try {
 			List<Person> personsFromFile = personRepository.findAll();
 			if (personsFromFile.isEmpty()) {
-				throw new IOException(" Failed to read persons from file");
+				throw new IOException(" Failed to load datas persons from file");
 			}else {
-				log.debug("All datas persons readed from file");
+				log.debug("All datas persons load from file");
 			}
 		
 
 			List<FireStation> fireStationFromFile = fireStationRepository.findAll();
-			if (fireStationFromFile.isEmpty()) {
-				throw new IOException(" Failed to read firestations from file");
+		if (fireStationFromFile.isEmpty()) {
+				throw new IOException(" Failed to load datas firestations from file");
 			}else {
-				log.debug("All datas firestations readed from file");
+				log.debug("All datas firestations load from file");
 			}
 			
 
 			List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
 			if (medicalRecordsFromFile.isEmpty()) {
-				throw new IOException(" Failed to read medical records from file");
+				throw new IOException(" Failed to load datas  medical records from file");
 			}else {
-				log.debug("All datas medical records readed from file");
+				log.debug("All datas medical records load from file");
 			}
 		
 			for (Person person : personsFromFile) {
@@ -88,11 +86,11 @@ public class JsonDataLoader implements CommandLineRunner {
 					throw new IOException(" Failed to add medical record from file");
 				}
 			}
-		} catch (IOException e) {
+		}catch (IOException e) {
 			e.printStackTrace();
 			log.error( e.getMessage());
 		}catch(Exception e) {
-			log.error( "An error has occured ");
+			log.error( "An error has occured loading datas Json ");
 		}
 	}
 

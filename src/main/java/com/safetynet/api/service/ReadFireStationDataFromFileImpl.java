@@ -1,7 +1,6 @@
 package com.safetynet.api.service;
 
 import java.io.IOException;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.controller.PersonController;
 import com.safetynet.api.model.FireStation;
 
 @Component
@@ -29,23 +27,23 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 			// use method astract readDataJson from interface generic IDatasFileReader
 			datasJsonFireStations = readDataJson("firestations");
 			
-			log.debug("Parsing data json firestations");
 			// create list linked of fireStations
 			for (JsonValue elem : datasJsonFireStations) {
 				FireStation fireStation = new FireStation();
 				fireStation.setId(elem.asJsonObject().getString("station"));
 				fireStation.setStationNumber(elem.asJsonObject().getString("station"));
 				fireStation.setAddress(elem.asJsonObject().getString("address"));
-
-				listOfFireStations.add(fireStation);
-				System.out.println("element of fireStations" + elem.asJsonObject());
+				
+				listOfFireStations.add(fireStation);	
 			}
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			e.getStackTrace();
-			log.error("An error has occured in getting datas firestations from Json");
+			log.error("Missing datas firestations from file Json");
+		}catch (Exception e) {
+			e.getStackTrace();
+			log.error(e.getMessage());
 		}
-		System.out.println("list of fireStations" + listOfFireStations);
-
+	
 		log.debug("List of firestations parsed from Json {}", listOfFireStations);
 		return listOfFireStations;
 	}
