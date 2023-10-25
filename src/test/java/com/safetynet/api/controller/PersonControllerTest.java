@@ -28,21 +28,37 @@ class PersonControllerTest {
 	private PersonService personService;
 
 	
-	/*  @Test public void testGetPerson() throws Exception {
+	  @Test
+	  public void givenCorrectUriwhenRequestAllPersonsThenRetrieveCorrectResponse() throws Exception {
 	  mockMvc.perform(get("/person/")) .andExpect(status().isOk());
 	 
-	  }*/
-	  @Test public void testGetPersonbyId() throws Exception {
-		  mockMvc.perform(get("/person/John ")) .andExpect(status().isNotFound());
+	  }
+	  
+	  @Test
+	  public void givenIncorrectUriwhenRequestAllPersonsThenRetrieve404() throws Exception {
+		  mockMvc.perform(get("/person/")) .andExpect(status().isNotFound());
+		 
+		  }
+	  
+	  @Test 
+	  public void givenCorrectIdwhenRequestOnePersonThenRetrieveCorrectResponse() throws Exception {
+		  mockMvc.perform(get("/person/John Boyd ")) .andExpect(status().isOk());
+		 
+		  }
+	  
+	  @Test 
+	  public void givenIncorrectIdwhenRequestOnePersonThenRetrieve404() throws Exception {
+		  mockMvc.perform(get("/person/John lenon")) .andExpect(status().isNotFound());
 		 
 		  }
 	 
-	/*  @Test public void testPostPerson() throws Exception {
+  @Test
+  public void givenPersonCreatedWhenPostThenTheResponseBodyRetrievedMatchWithPersonCreated() throws Exception {
 		  Person employee = new Person("John", "boyd","1509 Culver St","ville","9785","456-544-7895","jhvjf@frjhg.com");
 		  // when -  action or the behaviour that we are going test
 	        ResultActions response = mockMvc.perform(post("/person/", employee ));
 	        
-	        response.andExpect(status().isOk())
+	        response.andExpect(status().isCreated())
             .andDo(print())
             .andExpect((ResultMatcher) is(employee.getFirstName()))
             .andExpect( (ResultMatcher) is(employee.getLastName()))
@@ -50,8 +66,8 @@ class PersonControllerTest {
             .andExpect( (ResultMatcher) is(employee.getCity()))
             .andExpect((ResultMatcher) is(employee.getZip()))
             .andExpect( (ResultMatcher) is(employee.getPhone()))
-            .andExpect( (ResultMatcher) is(employee.getEmail()));*/
-	  
+            .andExpect( (ResultMatcher) is(employee.getEmail()));
+  }	  
 	/* final MvcResult result = mockMvc.perform(
 	  MockMvcRequestBuilders.post("/person/")
 	  .param("firstName", "John")
