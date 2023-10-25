@@ -38,7 +38,9 @@ public class Person {
 		
 	}
 	
-	public Person (String firstName,String lastName,String address,String zip,String city,String phone,String email) {
+	//use for person service test
+	public Person (String id,String firstName,String lastName,String address,String zip,String city,String phone,String email) {
+		this.id=id;
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.address=address;
