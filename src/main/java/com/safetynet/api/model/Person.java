@@ -39,7 +39,7 @@ public class Person {
 	}
 	
 	//use for person service test
-	public Person (String id,String firstName,String lastName,String address,String zip,String city,String phone,String email) {
+	public Person (String id,String firstName,String lastName,String address,String city,String zip,String phone,String email) {
 		this.id=id;
 		this.firstName=firstName;
 		this.lastName=lastName;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
@@ -16,8 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
-	private final List<Person> persons = new ArrayList<>();
-
+	
+	private   List<Person> persons = new ArrayList<>();
+	
 	public Person addPerson(Person person) {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 		try {
@@ -157,6 +159,13 @@ public class PersonService {
 			log.info("All persons retrieved successfully: {}", persons);
 		}
 
+		return persons;
+	}
+	
+	public List<Person> setPersons(List<Person>  persons) {
+		return this.persons=persons;
+	}
+	public List<Person> getPersons() {
 		return persons;
 	}
 }

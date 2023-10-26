@@ -64,9 +64,9 @@ public class PersonController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@GetMapping("/person/{id}")
+	@GetMapping("/person")
 	@ResponseBody
-	public ResponseEntity<?> getOnePerson(@PathVariable String id) {
+	public ResponseEntity<?> getOnePerson(@RequestParam String id) {
 		Person personFoundById;
 
 		try {
@@ -78,7 +78,7 @@ public class PersonController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@GetMapping("/person/")
+/*	@GetMapping("/person/")
 	@ResponseBody
 	public ResponseEntity<?> getAllPersons() {
 		List<Person> allPersons;
@@ -90,5 +90,5 @@ public class PersonController implements IResponseHTTPEmpty {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-	}
+	}*/
 }

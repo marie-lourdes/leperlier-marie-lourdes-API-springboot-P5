@@ -38,7 +38,10 @@ public class JsonDataLoader implements CommandLineRunner {
 		this.fireStationRepository = fireStationRepository;
 		this.medicalRecordRepository = medicalRecordRepository;
 	}
-
+	
+public void loadData() {
+	
+}
 	@Override
 	public void run(String... args) {
 
