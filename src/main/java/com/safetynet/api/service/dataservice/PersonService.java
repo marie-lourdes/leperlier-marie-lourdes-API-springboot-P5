@@ -72,7 +72,7 @@ public class PersonService {
 			Person personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
-					}).orElseThrow(() -> new NullPointerException("Person not found for id: " + id));
+					}).orElse(null);
 		
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;

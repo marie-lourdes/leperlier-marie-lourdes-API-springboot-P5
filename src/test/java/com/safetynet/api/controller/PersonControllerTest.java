@@ -1,26 +1,26 @@
 package com.safetynet.api.controller;
 
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.safetynet.api.config.JsonDataLoader;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@ContextConfiguration(locations = "file:src/main/resources/META-INF/application-context.xml")
-@Import(JsonDataLoader.class)
+/*@ContextConfiguration(locations = "file:src/main/resources/META-INF/application-context.xml")
+@Import(JsonDataLoader.class)*/
+@AutoConfigureJsonTesters
 @WebMvcTest(controllers=PersonController.class)
 
 
@@ -32,9 +32,12 @@ class PersonControllerTest {
 	@MockBean
 	private  PersonService personService;
 	
-	private  List<Person> persons = new ArrayList<>();
+	 @Autowired
+	 private JacksonTester<Person> jsonPerson;
 	
-	private Person person;
+	/*private  List<Person> persons = new ArrayList<>();
+	
+	private Person person;*/
 	
 	/*  @Test
 	  public void givenCorrectUri_WhenRequestAllPersons_ThenRetrieveCorrectResponse() throws Exception {
@@ -56,33 +59,34 @@ class PersonControllerTest {
 	  
 	  @Test 
 	  public void givenCorrectId_WhenRequestOnePerson_ThenRetrieveCorrectResponse()  throws Exception {
+		  // given
+	        given(personService.getOnePersonById("John Boyd")).willReturn(new Person ("John Boyd","John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com"));
+	        
+		/*  Person person = new Person();
+		  when(personService.getOnePersonById("John Boyd")).thenReturn( person);*/
+	
+		 /* personService.getOnePersonById("Tenley Boyd");*/
 		
-		  Person person = new Person();
-		  when(personService.getOnePersonById("Tenley Boyd")).thenReturn( person);
-		  personService= new PersonService();
-		  personService.getOnePersonById("Tenley Boyd");
-		
-			  mockMvc.perform(MockMvcRequestBuilders.get("/person")
-					  .param("id","Tenley Boyd")) 
-			          .andExpect(MockMvcResultMatchers.status().isOk());
+	        MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.get("/person")
+					  .param("id","John Boyd")).andReturn().getResponse();
+	        assertEquals( HttpStatus.OK.value(),result.getStatus());
+	        assertEquals(result.getContentAsString(),
+	        		 jsonPerson.write(new Person ("John Boyd","John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com")).getJson());
 			
 	  }
 	
 	  
 	  @Test 
 	  public void givenIncorrectId_whenRequestOnePerson_ThenRetrieve404() throws Exception {
-	
-		//when(personService.getOnePersonById("Tenley Boy")).thenReturn( person);
-		 //test no valid return 200!!!
-
-
+		 
+	        given(personService.getOnePersonById("Tenley Boy")).willReturn(null);
 		
-		  personService.getOnePersonById("Tenley Boy");
-			//personService= new PersonService();
-		  mockMvc.perform(MockMvcRequestBuilders.get("/person")
-				  .param("id"," Tenley Boy")) 
-		          .andExpect(MockMvcResultMatchers.status().isNotFound());
-		//  assertThrows(NullPointerException.class, () ->   personService.getOnePersonById("Tenley Boy"));
+
+	        MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.get("/person")
+				  .param("id"," Tenley Boy")).andReturn().getResponse();
+	        assertEquals( HttpStatus.NOT_FOUND.value(),result.getStatus());
+	        
+		// assertThrows(NullPointerException.class, () ->   personService.getOnePersonById("Tenley Boy"));
 		  }
 	  
  /* @Test
