@@ -44,8 +44,8 @@ public class PersonService {
 						existingPerson.setPhone(updatedPerson.getPhone());
 						existingPerson.setEmail(updatedPerson.getEmail());
 						return existingPerson;
-					}).orElse(null);
-						
+					}).orElseThrow(
+							() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
 	
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
@@ -58,6 +58,7 @@ public class PersonService {
 		result = persons.removeIf(person -> person.getId().equals(id));
 			if (!result) {
 				log.error("Failed to delete person for {}", id);
+			
 			} else {
 				log.info("Person deleted successfully for {}", id);
 			}

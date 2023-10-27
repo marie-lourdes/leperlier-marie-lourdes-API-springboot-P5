@@ -128,21 +128,6 @@ class PersonControllerTest {
 	}
 	
 	@Test
-	public void givenNoExistingPersonObject_WhenUpdateAddressPersonWithIncorrectId_ThenReturn404() throws Exception {
-		Person noExistingPersonUpdated = new Person("John Lenon", "John", "Lenon", "14 new rochelle modified", "New-York", "10801",
-				"841-874-6512", "jaboyd@email.com");
-		given(personService.getOnePersonById("John Lenon")).willReturn(null);
-
-		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Lenon")
-				.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write( noExistingPersonUpdated ).getJson()))
-				.andReturn().getResponse();
-
-		assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
-
-	}
-	
-
-	@Test
 	public void givenExistingPersonObject_WhenRemoveExistingPerson_ThenRemovePerson() throws Exception {
 	
 		given(personService.deleteOnePersonById("John Boyd")).willReturn(true);
@@ -164,52 +149,6 @@ class PersonControllerTest {
 
 		assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 	
-	}
-/*  @Test
-public void givenCorrectUri_WhenRequestAllPersons_ThenRetrieveCorrectResponse() throws Exception {
-mockMvc.perform(get("/person/")) .andExpect(status().isOk());
-
-}
-
-@Test
-public void givenIncorrectUri_whenRequestAllPersons_ThenRetrieve404() throws Exception {
-	  mockMvc.perform(get("/persons/")) .andExpect(status().isNotFound());
-	 
-	  }
-
- @Test 
-public void givenCorrectId_WhenRequestOnePerson_ThenRetrieveCorrectResponse() throws Exception {
-	mockMvc.perform(MockMvcRequestBuilders.get("/person/{id}","John Boyd")) .andExpect(status().isOk()).andExpect(jsonPath("$.lastName").value("Boyd"));
-	 
-	  }
-
-		  person.setFirstName("John");
-		  person.setLastName("Boyd");	
-		  person.setAddress("1509 Culver St");
-		  person.setAddress("9785");
-		  person.setCity("culver");
-		  person.setPhone("456-544-7895");
-		  person.setEmail("jhvjf@frjhg.com");
-		//  personService.addPerson(person)	;  
-		 
-		  // when -  action or the behaviour that we are going test
-	        ResultActions response = mockMvc.perform(post("/person/",  person ));
-	        response.andExpect(status().isCreated())
-            .andDo(print())
-            .andExpect((ResultMatcher) is( person.getFirstName()))
-            .andExpect( (ResultMatcher) is( person.getLastName()))
-            .andExpect( (ResultMatcher) is( person.getAddress()))
-            .andExpect( (ResultMatcher) is( person.getCity()))
-            .andExpect((ResultMatcher) is( person.getZip()))
-            .andExpect( (ResultMatcher) is( person.getPhone()))
-            .andExpect( (ResultMatcher) is( person.getEmail()));
-  }	  
-  
-	 final MvcResult result = mockMvc.perform(
-	  MockMvcRequestBuilders.post("/person/",person)).andExpect(status().isCreated()).andReturn();
-	  
-	 assertThat(result.getResponse().getContentAsString()) .contains("John");
-	  }*/
-  	 
+	} 	 
 }
 

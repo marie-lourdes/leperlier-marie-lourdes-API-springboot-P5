@@ -40,12 +40,9 @@ public class PersonController implements IResponseHTTPEmpty {
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
+		Person personFoundById;
 		try {
-			Person personFoundById =new Person();
 			personFoundById = personService.updatePerson(id, person);
-			if(personFoundById ==null) {
-			throw new NullPointerException("Failed to update person,the id: " + id + " not found");
-			}
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
@@ -55,7 +52,8 @@ public class PersonController implements IResponseHTTPEmpty {
 	}
 
 	@DeleteMapping("/person")
-	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {	
+	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
+		
 		try {
 			boolean personIsRemoved = false;
 			personIsRemoved =personService.deleteOnePersonById(id);
@@ -72,6 +70,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	@GetMapping("/person")
 	@ResponseBody
 	public ResponseEntity<?> getOnePersonById(@RequestParam String id) {
+
 		try {
 			Person personFoundById= new Person();
 			personFoundById = personService.getOnePersonById(id);
