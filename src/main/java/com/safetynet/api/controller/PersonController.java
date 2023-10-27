@@ -29,7 +29,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	@Autowired
 	private PersonService personService;
 
-	@PostMapping("/person/")
+	@PostMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
@@ -62,33 +62,25 @@ public class PersonController implements IResponseHTTPEmpty {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
-		
 	}
 
 	@GetMapping("/person")
 	@ResponseBody
-	public ResponseEntity<?> getOnePerson(@RequestParam String id) {
-	
-		//personFoundById = personService.getOnePersonById(id);
+	public ResponseEntity<?> getOnePersonById(@RequestParam String id) {
+
 		try {
 			Person personFoundById= new Person();
 			personFoundById = personService.getOnePersonById(id);
+			
 			if(personFoundById==null) {
 				throw new NullPointerException("Person not found for id: " + id);
 			}
-			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
-		
+			
+			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);	
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-		
-	/*	if(personFoundById==null) {
-			//log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}else {
-			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
-		}*/
 	}
 
 /*	@GetMapping("/person/")

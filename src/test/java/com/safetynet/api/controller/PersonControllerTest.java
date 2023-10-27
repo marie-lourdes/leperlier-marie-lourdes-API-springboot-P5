@@ -2,6 +2,7 @@ package com.safetynet.api.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -61,14 +63,10 @@ class PersonControllerTest {
 	  public void givenCorrectId_WhenRequestOnePerson_ThenRetrieveCorrectResponse()  throws Exception {
 		  // given
 	        given(personService.getOnePersonById("John Boyd")).willReturn(new Person ("John Boyd","John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com"));
-	        
-		/*  Person person = new Person();
-		  when(personService.getOnePersonById("John Boyd")).thenReturn( person);*/
-	
-		 /* personService.getOnePersonById("Tenley Boyd");*/
 		
 	        MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.get("/person")
 					  .param("id","John Boyd")).andReturn().getResponse();
+	        
 	        assertEquals( HttpStatus.OK.value(),result.getStatus());
 	        assertEquals(result.getContentAsString(),
 	        		 jsonPerson.write(new Person ("John Boyd","John","Boyd","1509 Culver St","Culver","97451","841-874-6512","jaboyd@email.com")).getJson());
@@ -79,21 +77,36 @@ class PersonControllerTest {
 	  @Test 
 	  public void givenIncorrectId_whenRequestOnePerson_ThenRetrieve404() throws Exception {
 		 
-	        given(personService.getOnePersonById("Tenley Boy")).willReturn(null);
+	        given(personService.getOnePersonById("Tenley Boy")).willThrow(NullPointerException.class);
 		
 
 	        MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.get("/person")
 				  .param("id"," Tenley Boy")).andReturn().getResponse();
-	        assertEquals( HttpStatus.NOT_FOUND.value(),result.getStatus());
 	        
-		// assertThrows(NullPointerException.class, () ->   personService.getOnePersonById("Tenley Boy"));
+	        assertEquals( HttpStatus.NOT_FOUND.value(),result.getStatus());   		
+		 assertThrows(NullPointerException.class, () ->   personService.getOnePersonById("Tenley Boy"));
 		  }
 	  
- /* @Test
+  @Test
   public void givenPersonObject_whenCreatePerson_thenReturnSavedPerson()  throws Exception {
-		  Person person = new Person();
-		
-		  person.setFirstName("John");
+  
+
+      MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(
+		  jsonPerson.write(new Person("firstname","lastname","17 address created","city created","97451","841-874-6512","personcreated@email.com")).getJson())).andReturn().getResponse();
+	
+      assertEquals( HttpStatus.CREATED.value(),result.getStatus());  	
+  }
+  
+@Test
+public void givenPersonObjectWidthDataNoValid_whenCreatePerson_thenReturn400()  throws Exception {
+
+
+  MockHttpServletResponse result=  mockMvc.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(
+	  jsonPerson.write(new Person("firstname created","lastname created","address created","city created","97451","841-874-512","personcreated@email")).getJson())).andReturn().getResponse();
+
+  assertEquals( HttpStatus.BAD_REQUEST.value(),result.getStatus());  	
+}
+		/*  person.setFirstName("John");
 		  person.setLastName("Boyd");	
 		  person.setAddress("1509 Culver St");
 		  person.setAddress("9785");
@@ -101,7 +114,7 @@ class PersonControllerTest {
 		  person.setPhone("456-544-7895");
 		  person.setEmail("jhvjf@frjhg.com");
 		//  personService.addPerson(person)	;  
-		  /*
+		 
 		  // when -  action or the behaviour that we are going test
 	        ResultActions response = mockMvc.perform(post("/person/",  person ));
 	        response.andExpect(status().isCreated())
@@ -120,6 +133,6 @@ class PersonControllerTest {
 	  
 	 assertThat(result.getResponse().getContentAsString()) .contains("John");
 	  }*/
-	 
+  	 
 }
 

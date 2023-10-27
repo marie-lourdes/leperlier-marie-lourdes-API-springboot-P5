@@ -73,7 +73,7 @@ public class PersonService {
 					.map(existingPerson -> {
 						return existingPerson;
 					}).orElse(null);
-		
+	
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
 	}
