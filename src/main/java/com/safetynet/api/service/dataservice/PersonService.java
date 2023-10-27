@@ -44,8 +44,8 @@ public class PersonService {
 						existingPerson.setPhone(updatedPerson.getPhone());
 						existingPerson.setEmail(updatedPerson.getEmail());
 						return existingPerson;
-					}).orElseThrow(
-							() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
+					}).orElse(null);
+						
 	
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;

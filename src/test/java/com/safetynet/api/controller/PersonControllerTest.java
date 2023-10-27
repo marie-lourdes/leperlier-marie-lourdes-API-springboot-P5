@@ -127,6 +127,20 @@ class PersonControllerTest {
 
 	}
 	
+	@Test
+	public void givenNoExistingPersonObject_WhenUpdateAddressPersonWithIncorrectId_ThenReturn404() throws Exception {
+		Person noExistingPersonUpdated = new Person("John Lenon", "John", "Lenon", "14 new rochelle modified", "New-York", "10801",
+				"841-874-6512", "jaboyd@email.com");
+		given(personService.getOnePersonById("John Lenon")).willReturn(null);
+
+		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Lenon")
+				.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write( noExistingPersonUpdated ).getJson()))
+				.andReturn().getResponse();
+
+		assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+
+	}
+	
 
 	@Test
 	public void givenExistingPersonObject_WhenRemoveExistingPerson_ThenRemovePerson() throws Exception {
