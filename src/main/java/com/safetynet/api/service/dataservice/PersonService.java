@@ -58,7 +58,6 @@ public class PersonService {
 		result = persons.removeIf(person -> person.getId().equals(id));
 			if (!result) {
 				log.error("Failed to delete person for {}", id);
-				throw new NullPointerException(" Person " + id + "  to delete not found");
 			} else {
 				log.info("Person deleted successfully for {}", id);
 			}

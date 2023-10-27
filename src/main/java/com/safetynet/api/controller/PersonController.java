@@ -37,14 +37,14 @@ public class PersonController implements IResponseHTTPEmpty {
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
-	@PutMapping("/person/{id}")
+	@PutMapping("/person")
 	@ResponseBody
-	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @PathVariable String id) {
+	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		Person personFoundById;
 
 		try {
 			personFoundById = personService.updatePerson(id, person);
-			return ResponseEntity.status(HttpStatus.CREATED).body(personFoundById);
+			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
 			log.error(e.getMessage());
@@ -52,11 +52,15 @@ public class PersonController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@DeleteMapping("/person/{id}")
-	public ResponseEntity<Long> deleteOnePersonById(@PathVariable String id) {
-
+	@DeleteMapping("/person")
+	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
+		
 		try {
-			personService.deleteOnePersonById(id);
+			boolean personIsRemoved = false;
+			personIsRemoved =personService.deleteOnePersonById(id);
+			if(!personIsRemoved) {
+				throw new NullPointerException(" Person " + id + "  to delete not found");
+			}	
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

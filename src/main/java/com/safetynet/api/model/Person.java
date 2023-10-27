@@ -59,6 +59,16 @@ public class Person {
 		this.phone=phone;
 		this.email=email;
 	}
+	
+	//use for person service /controller test
+		public Person (String address,String city,String zip,String phone,String email) {
+			this.address=address;
+			this.zip=zip;
+			this.city=city;
+			this.phone=phone;
+			this.email=email;
+		}
+		
 	public String getId() {
 		return id;
 	}
