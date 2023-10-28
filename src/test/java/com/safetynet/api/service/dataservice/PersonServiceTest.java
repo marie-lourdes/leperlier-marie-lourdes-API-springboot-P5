@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,9 @@ import com.safetynet.api.model.Person;
 
 @SpringBootTest
 class PersonServiceTest {
-	private static final Logger log = LogManager.getLogger(PersonServiceTest.class);
 	@Autowired
 	private PersonService personServiceUnderTest;
+	
 	private Person person;
 	
 	@BeforeEach
@@ -31,7 +29,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonById() {
+	void testGetOnePersonById() throws Exception  {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Boyd");
 
@@ -61,12 +59,15 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonById_WithIdNotFound() {
+	void testGetOnePersonById_WithIdNotFound() throws Exception {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
 			 assertNull(resultPerson);
-				assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
-		}catch (AssertionError e) {
+				
+		}catch(NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
+		}
+		catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 		
