@@ -2,10 +2,14 @@ package com.safetynet.api.service.dataservice;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +22,9 @@ import com.safetynet.api.model.Person;
 class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
-	
+
 	private Person person;
-	
+
 	@BeforeEach
 	public void setUpPerTest() {
 		person = new Person("John Boyd", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
@@ -29,7 +33,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonById() throws Exception  {
+	void testGetOnePersonById() throws Exception {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Boyd");
 
@@ -40,10 +44,8 @@ class PersonServiceTest {
 			String expectedZip = person.getZip();
 			String expectedPhone = person.getPhone();
 			String expectedEmail = person.getEmail();
-
-			assertAll("assertion all data of person found by id",
-					() -> assertNotNull(resultPerson),
-					() -> assertEquals(expectedFirstName +" "+ expectedLastName, resultPerson.getId(),
+			assertAll("assertion all data of person found by id", () -> assertNotNull(resultPerson),
+					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPerson.getId(),
 							"the id should  be the first name and last name of person"),
 					() -> assertEquals(expectedFirstName, resultPerson.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPerson.getLastName()),
@@ -52,7 +54,6 @@ class PersonServiceTest {
 					() -> assertEquals(expectedZip, resultPerson.getZip()),
 					() -> assertEquals(expectedPhone, resultPerson.getPhone()),
 					() -> assertEquals(expectedEmail, resultPerson.getEmail()));
-		
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -62,14 +63,40 @@ class PersonServiceTest {
 	void testGetOnePersonById_WithIdNotFound() throws Exception {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
-			 assertNull(resultPerson);
-				
-		}catch(NullPointerException e) {
+			assertNull(resultPerson);
+
+		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
-		}
-		catch (AssertionError e) {
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-		
+
+	}
+
+	@Test
+	void testGetOnePersonByLastName() throws Exception {
+		try {
+			List<Person> resultPerson = personServiceUnderTest.getPersonsByLastName("Boyd");
+
+			String expectedLastName = person.getLastName();
+			for (Person personFoundByLastName : resultPerson) {
+				assertEquals(expectedLastName, personFoundByLastName.getLastName());
+			}
+			assertFalse(resultPerson.isEmpty());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testGetOnePersonByLastName_WithLastNameNotFound() throws Exception {
+		try {
+			List<Person> resultPerson = personServiceUnderTest.getPersonsByLastName("Boy");
+			assertTrue(resultPerson.isEmpty());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByLastName("Boy"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
 	}
 }

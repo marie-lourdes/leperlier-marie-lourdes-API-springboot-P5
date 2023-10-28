@@ -66,18 +66,21 @@ public class PersonService {
 
 	public Person getOnePersonById(String id) {
 		log.debug("Retrieving  one person for id {}", id);
+		
 		Person personFoundById = new Person();
 		try {
 			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
 					}).orElse(null);
+			
 			if (personFoundById == null) {
 				throw new NullPointerException("Person not found for id: " + id);
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			
 			log.error(e.getMessage());
 		}
 
@@ -86,8 +89,9 @@ public class PersonService {
 
 	}
 
-	public List<Person> getPersonsLastName(String lastName) {
+	public List<Person> getPersonsByLastName(String lastName) {
 		log.debug("Retrieving  person(s)  for last name {}", lastName);
+		
 		List<Person> personsFoundByLastName = new ArrayList<>();
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
@@ -105,6 +109,7 @@ public class PersonService {
 			} else {
 				log.info("Person retrieved  successfully for last name  {}", lastName);
 			}
+			
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		} catch (Exception e) {
@@ -172,14 +177,6 @@ public class PersonService {
 			log.info("All persons retrieved successfully: {}", persons);
 		}
 
-		return persons;
-	}
-
-	public List<Person> setPersons(List<Person> persons) {
-		return this.persons = persons;
-	}
-
-	public List<Person> getPersons() {
 		return persons;
 	}
 }

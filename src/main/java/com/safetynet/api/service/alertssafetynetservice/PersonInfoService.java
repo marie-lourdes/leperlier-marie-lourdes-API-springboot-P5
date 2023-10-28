@@ -31,7 +31,7 @@ public class PersonInfoService {
 		log.debug("Retrieving resident by full name {} and other residents with the same last name: {}", fullName, lastName);
 		
 		try {
-			personsFoundByLastName = personService.getPersonsLastName(lastName);
+			personsFoundByLastName = personService.getPersonsByLastName(lastName);
 			Person personFounByIdFullName = personService.getOnePersonById(fullName);
 
 			personsFoundByFullName.add(personFounByIdFullName);
