@@ -120,24 +120,31 @@ public class PersonService {
 		return personsFoundByLastName;
 	}
 
-	public List<Person> getPersonsByAddress(String address) throws NullPointerException {
+	public List<Person> getPersonsByAddress(String address) {
 		log.debug("Retrieving  person(s)  for address {}", address);
 
 		List<Person> personsFoundByAddress = new ArrayList<>();
-		Iterator<Person> itrPersons = persons.listIterator();
-		while (itrPersons.hasNext()) {
-			Person itrPerson = itrPersons.next();
-			if (itrPerson.getAddress().equals(address)) {
-				personsFoundByAddress.add(itrPerson);
+		try{
+			Iterator<Person> itrPersons = persons.listIterator();
+			while (itrPersons.hasNext()) {
+				Person itrPerson = itrPersons.next();
+				if (itrPerson.getAddress().equals(address)) {
+					personsFoundByAddress.add(itrPerson);
+				}
 			}
-		}
 
-		if (personsFoundByAddress.isEmpty()) {
-			log.error("Failed to retrieve person  for address {}", address);
-			throw new NullPointerException("Person(s) not found by address: " + address);
-		} else {
-			log.info("Person retrieved  successfully for address {}", address);
+			if (personsFoundByAddress.isEmpty()) {
+				log.error("Failed to retrieve person  for address {}", address);
+				throw new NullPointerException("Person(s) not found by address: " + address);
+			} else {
+				log.info("Person retrieved  successfully for address {}", address);
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
+		
 
 		log.info("List of persons retrieved by address successfully : {}", personsFoundByAddress);
 		return personsFoundByAddress;

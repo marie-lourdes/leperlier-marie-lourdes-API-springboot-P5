@@ -64,7 +64,6 @@ class PersonServiceTest {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
 			assertNull(resultPerson);
-
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
 		} catch (AssertionError e) {
@@ -76,13 +75,13 @@ class PersonServiceTest {
 	@Test
 	void testGetOnePersonByLastName() throws Exception {
 		try {
-			List<Person> resultPerson = personServiceUnderTest.getPersonsByLastName("Boyd");
+			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boyd");
 
 			String expectedLastName = person.getLastName();
-			for (Person personFoundByLastName : resultPerson) {
+			for (Person personFoundByLastName : resultPersons) {
 				assertEquals(expectedLastName, personFoundByLastName.getLastName());
 			}
-			assertFalse(resultPerson.isEmpty());
+			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -91,12 +90,40 @@ class PersonServiceTest {
 	@Test
 	void testGetOnePersonByLastName_WithLastNameNotFound() throws Exception {
 		try {
-			List<Person> resultPerson = personServiceUnderTest.getPersonsByLastName("Boy");
-			assertTrue(resultPerson.isEmpty());
+			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boy");
+			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByLastName("Boy"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
+	
+	@Test
+	void testGetOnePersonByAddress() throws Exception {
+		try {
+			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 Culver St");
+			String expectedAddress = person.getAddress();	
+			for (Person personFoundByAddress : resultPersons) {
+				assertEquals(expectedAddress , personFoundByAddress.getAddress());
+			}
+			assertFalse(resultPersons.isEmpty());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
+@Test
+	void testGetOnePersonByAddress_WithAddressNotFound() throws Exception {
+	try {
+		List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("112 address no existing ");
+		assertTrue(resultPersons.isEmpty());
+	} catch (NullPointerException e) {
+		assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByAddress("112 address no existing "));
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+	}
+	
+
 }
