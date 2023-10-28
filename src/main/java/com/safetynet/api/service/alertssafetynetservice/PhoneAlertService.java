@@ -16,7 +16,7 @@ public class PhoneAlertService {
 	@Autowired
 	SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
 
-	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();;
+	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber)
 			throws NullPointerException {
 		log.debug("Retrieving all phones of residents of firestation");

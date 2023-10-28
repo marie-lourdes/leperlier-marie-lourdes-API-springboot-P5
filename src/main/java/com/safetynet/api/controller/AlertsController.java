@@ -112,24 +112,30 @@ public class AlertsController implements IResponseHTTPEmpty {
 	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
-
-		for (String station : stations) {
-			try {
-				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
-				listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-			} catch (NullPointerException e) {
-				log.error(e.getMessage());
-			}
-		}
-
 		try {
+		for (String station : stations) {
+			
+				
+				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+			
+			} 
+			
+		
+		listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
+		if (listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
+			throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
+		}
+		}catch (NullPointerException e) {
+			log.error(e.getMessage());
+			}
+	/*	try {
 			if (listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
 				throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		}
+		}*/
 
 		return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberWithMoreOneRequestParam);
 	}

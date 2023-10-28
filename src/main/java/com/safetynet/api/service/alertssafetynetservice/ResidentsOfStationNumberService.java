@@ -27,10 +27,15 @@ public class ResidentsOfStationNumberService {
 		
 		try {
 			listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);	
+			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+			
+			if(listOfResidentOfStationNumber.isEmpty()) {
+				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
+			}
+			log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
-			throw new NullPointerException("Residents not found at this station number: " + stationNumber);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.error( "An error has occured in getting residents of station number");
@@ -40,7 +45,7 @@ public class ResidentsOfStationNumberService {
 			//residents.remove("age");
 			System.out.println("residents" + residents);
 		}
-		log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);
+	
 		return listOfResidentOfStationNumber;
 	}
 

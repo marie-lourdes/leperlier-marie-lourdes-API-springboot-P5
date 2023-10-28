@@ -66,21 +66,21 @@ public class PersonService {
 
 	public Person getOnePersonById(String id) {
 		log.debug("Retrieving  one person for id {}", id);
-		
+
 		Person personFoundById = new Person();
 		try {
 			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
 					}).orElse(null);
-			
+
 			if (personFoundById == null) {
 				throw new NullPointerException("Person not found for id: " + id);
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		} catch (Exception e) {
-			
+
 			log.error(e.getMessage());
 		}
 
@@ -91,7 +91,7 @@ public class PersonService {
 
 	public List<Person> getPersonsByLastName(String lastName) {
 		log.debug("Retrieving  person(s)  for last name {}", lastName);
-		
+
 		List<Person> personsFoundByLastName = new ArrayList<>();
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
@@ -109,7 +109,7 @@ public class PersonService {
 			} else {
 				log.info("Person retrieved  successfully for last name  {}", lastName);
 			}
-			
+
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		} catch (Exception e) {
@@ -124,7 +124,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s)  for address {}", address);
 
 		List<Person> personsFoundByAddress = new ArrayList<>();
-		try{
+		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
 				Person itrPerson = itrPersons.next();
@@ -144,29 +144,34 @@ public class PersonService {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		
 
 		log.info("List of persons retrieved by address successfully : {}", personsFoundByAddress);
 		return personsFoundByAddress;
 	}
 
-	public List<Person> getPersonsByCity(String city) throws NullPointerException {
+	public List<Person> getPersonsByCity(String city)  {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
-		Iterator<Person> itrPersons = persons.listIterator();
-		while (itrPersons.hasNext()) {
-			Person itrPerson = itrPersons.next();
-			if (itrPerson.getCity().equals(city)) {
-				personsFoundByCity.add(itrPerson);
+		try {
+			Iterator<Person> itrPersons = persons.listIterator();
+			while (itrPersons.hasNext()) {
+				Person itrPerson = itrPersons.next();
+				if (itrPerson.getCity().equals(city)) {
+					personsFoundByCity.add(itrPerson);
+				}
 			}
-		}
 
-		if (personsFoundByCity.isEmpty()) {
-			log.error("Failed to retrieve person for city {}", city);
-			throw new NullPointerException("Person(s) not found by city" + city);
-		} else {
-			log.info("Person retrieved successfully for city {}", city);
+			if (personsFoundByCity.isEmpty()) {
+				log.error("Failed to retrieve person for city {}", city);
+				throw new NullPointerException("Person(s) not found by city" + city);
+			} else {
+				log.info("Person retrieved successfully for city {}", city);
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
 
 		log.info("List of persons retrieved by city successfully : {}", personsFoundByCity);

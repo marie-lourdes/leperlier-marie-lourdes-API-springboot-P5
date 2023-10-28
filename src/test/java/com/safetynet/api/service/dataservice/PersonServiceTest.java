@@ -116,14 +116,39 @@ class PersonServiceTest {
 @Test
 	void testGetOnePersonByAddress_WithAddressNotFound() throws Exception {
 	try {
-		List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("112 address no existing ");
+		List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("112 address no existing");
 		assertTrue(resultPersons.isEmpty());
 	} catch (NullPointerException e) {
-		assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByAddress("112 address no existing "));
+		assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByAddress("112 address no existing"));
 	} catch (AssertionError e) {
 		fail(e.getMessage());
 	}
 	}
 	
 
+@Test
+void testGetOnePersonByCity() throws Exception {
+	try {
+		List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Culver");
+		String expectedCity = person.getCity();	
+		for (Person personFoundByCity: resultPersons) {
+			assertEquals(expectedCity , personFoundByCity.getCity());
+		}
+		assertFalse(resultPersons.isEmpty());
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+}
+
+@Test
+void testGetOnePersonByCity_WithCityNotFound() throws Exception {
+try {
+	List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("city no existing");
+	assertTrue(resultPersons.isEmpty());
+} catch (NullPointerException e) {
+	assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByAddress("city no existing"));
+} catch (AssertionError e) {
+	fail(e.getMessage());
+}
+}
 }

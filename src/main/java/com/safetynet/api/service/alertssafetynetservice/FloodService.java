@@ -23,8 +23,8 @@ public class FloodService {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
 		
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
-		try {
-
+		
+try {
 			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
 
@@ -48,10 +48,14 @@ public class FloodService {
 						.searchInfoOfResident(address);	
 				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
 			}
+		
+		} catch (NullPointerException e) {	
 			
-		} catch (NullPointerException e) {
+				throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
+			
+
+		}catch (Exception e) {
 			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
-			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
 		}
 		
 		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber, listOfHouseHoldOfStationNumber );
