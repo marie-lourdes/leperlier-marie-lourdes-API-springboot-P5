@@ -65,16 +65,21 @@ public class PersonService {
 		return result;
 	}
 
-	public Person getOnePersonById(String id) throws NullPointerException {
+	public Person getOnePersonById(String id) {
 		log.debug("Retrieving  one person for id {}", id);
 		Person personFoundById =new Person();
 		try {
 			 personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
-					}).orElseThrow(()->new NullPointerException("Person not found for id: " + id));
-		
-		}catch(Exception e ) {
+					}).orElse(null);
+			 if(personFoundById ==null) {
+					throw new NullPointerException("Person not found for id: " + id);
+				}
+		}catch(NullPointerException e) {
+			log.error(e.getMessage());
+		}
+		catch(Exception e ) {		
 			log.error(e.getMessage());
 		}
 			

@@ -67,7 +67,7 @@ public class PersonController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@GetMapping("/person")
+/*	@GetMapping("/person")
 	@ResponseBody
 	public ResponseEntity<?> getOnePersonById(@RequestParam String id) {
 
@@ -84,7 +84,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
-	}
+	}*/
 
 /*	@GetMapping("/person/")
 	@ResponseBody

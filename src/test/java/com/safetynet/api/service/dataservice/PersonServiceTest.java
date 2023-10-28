@@ -54,7 +54,7 @@ class PersonServiceTest {
 					() -> assertEquals(expectedZip, resultPerson.getZip()),
 					() -> assertEquals(expectedPhone, resultPerson.getPhone()),
 					() -> assertEquals(expectedEmail, resultPerson.getEmail()));
-
+		
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -65,6 +65,7 @@ class PersonServiceTest {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
 			 assertNull(resultPerson);
+				assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("Tenley Boy"));
 		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
