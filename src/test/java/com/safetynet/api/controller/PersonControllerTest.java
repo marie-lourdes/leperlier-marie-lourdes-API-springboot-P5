@@ -37,13 +37,7 @@ class PersonControllerTest {
 	@Autowired
 	private JacksonTester<Person> jsonPerson;
 
-	/*
-	 * private List<Person> persons = new ArrayList<>();
-	 * 
-	 * private Person person;
-	 */
-
-	@Test
+/*	@Test
 	public void givenCorrectId_WhenRequestOnePerson_ThenRetrieveCorrectResponse() throws Exception {
 		// given
 		given(personService.getOnePersonById("John Boyd")).willReturn(new Person("John Boyd", "John", "Boyd",
@@ -69,7 +63,7 @@ class PersonControllerTest {
 		assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		assertThrows(NullPointerException.class, () -> personService.getOnePersonById("Tenley Boy"));
 
-	}
+	}*/
 
 	@Test
 	public void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {

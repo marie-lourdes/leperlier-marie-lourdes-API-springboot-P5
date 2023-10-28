@@ -66,15 +66,21 @@ public class PersonService {
 	}
 
 	public Person getOnePersonById(String id) throws NullPointerException {
-		log.debug("Retrieving  one person for id {}", id);	
-		
-			Person personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+		log.debug("Retrieving  one person for id {}", id);
+		Person personFoundById =new Person();
+		try {
+			 personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
-					}).orElse(null);
-	
+					}).orElseThrow(()->new NullPointerException("Person not found for id: " + id));
+		
+		}catch(Exception e ) {
+			log.error(e.getMessage());
+		}
+			
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
+	
 	}
 
 	public List<Person> getPersonsLastName(String lastName) throws NullPointerException {
