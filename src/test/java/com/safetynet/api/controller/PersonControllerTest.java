@@ -50,7 +50,7 @@ class PersonControllerTest {
 		assertEquals(jsonPerson.write(new Person("John Boyd", "John", "Boyd", "1509 Culver St", "Culver", "97451",
 				"841-874-6512", "jaboyd@email.com")).getJson(), result.getContentAsString());
 
-	}*/
+	}
 
 	@Test
 	public void givenIncorrectId_WhenRequestOnePerson_ThenRetrieve404() throws Exception {
@@ -65,7 +65,7 @@ class PersonControllerTest {
 
 	}
 
-/*	@Test
+	@Test
 	public void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {
 		MockHttpServletResponse result = mockMvc
 				.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ class PersonControllerTest {
 
 		assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 
-	}
+	}*/
 
 	@Test
 	public void givenPersonObjectWithDataNoValid_WhenCreatePerson_ThenReturn400() throws Exception {
@@ -143,6 +143,6 @@ class PersonControllerTest {
 
 		assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 	
-	} 	 */
+	} 	 
 }
 

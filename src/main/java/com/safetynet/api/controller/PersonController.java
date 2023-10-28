@@ -66,37 +66,4 @@ public class PersonController implements IResponseHTTPEmpty {
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-/*	@GetMapping("/person")
-	@ResponseBody
-	public ResponseEntity<?> getOnePersonById(@RequestParam String id) {
-
-		try {
-			Person personFoundById= new Person();
-			personFoundById = personService.getOnePersonById(id);
-			
-			if(personFoundById==null) {
-				throw new NullPointerException("Person not found for id: " + id);
-			}
-			
-			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);	
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}
-	}*/
-
-/*	@GetMapping("/person/")
-	@ResponseBody
-	public ResponseEntity<?> getAllPersons() {
-		List<Person> allPersons;
-
-		try {
-			allPersons = personService.getAllPersons();
-			return ResponseEntity.status(HttpStatus.OK).body(allPersons);
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}
-	}*/
 }
