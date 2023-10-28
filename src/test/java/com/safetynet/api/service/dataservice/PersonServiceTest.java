@@ -65,7 +65,7 @@ class PersonServiceTest {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
 			 assertNull(resultPerson);
-				assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("Tenley Boy"));
+				assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
 		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
