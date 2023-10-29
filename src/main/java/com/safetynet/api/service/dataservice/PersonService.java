@@ -198,9 +198,7 @@ public class PersonService {
 	}
 	
 	//using for test
-	public void reinitPersons() {
-		persons.clear();
-		log.info("All persons clear: {}", persons);
-		
+	public void reInitPersons() {
+		persons.clear();			
 	}
 }

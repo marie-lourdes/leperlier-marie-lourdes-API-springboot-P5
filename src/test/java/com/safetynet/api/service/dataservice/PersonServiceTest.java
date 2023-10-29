@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import com.safetynet.api.model.Person;
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
-	private PersonService personServiceUnderTest;
+	private  static PersonService personServiceUnderTest;
 
 	private static Person person;
 
@@ -30,6 +31,11 @@ class PersonServiceTest {
 	static void setUp() {
 		person = new Person("John Boyd", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
+	}
+	
+	@AfterAll
+	static void cleanUp() {
+		personServiceUnderTest.reInitPersons();
 	}
 
 	@Test
@@ -116,7 +122,19 @@ class PersonServiceTest {
 	
 	@Test
 	void deleteOnePersonById()throws Exception{
-		
+		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
+				"millie@email.com");
+
+		personServiceUnderTest.addPerson(personCreated);
+		try {
+		 personServiceUnderTest.updatePerson("Millie Boyd", personUpdated);
+			assertNull(resultPersonUpdated);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> personServiceUnderTest.updatePerson("John Boy", personUpdated));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
@@ -253,7 +271,7 @@ class PersonServiceTest {
 	//assertnull or asserttrue isEmpty? test no stable
 	@Test
 	void testGetAllPersons_NotFound() throws Exception {
-		personServiceUnderTest.reinitPersons();
+		personServiceUnderTest.reInitPersons();
 		try {
 			 personServiceUnderTest.getAllPersons();
 		} catch (NullPointerException e) {
