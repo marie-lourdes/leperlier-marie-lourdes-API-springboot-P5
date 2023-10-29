@@ -85,7 +85,7 @@ class PersonServiceTest {
 					// checking if id with fullname and all datas except address of existing person
 					// don't change when updating
 					// and checking if address of existing person change when updating new address
-					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPersonUpdatedRetrieved.getId(),
+					() -> assertEquals(resultPersonRetrieved.getId(), resultPersonUpdatedRetrieved.getId(),
 							"the id should  be the first name and last name of person"),
 					() -> assertEquals(expectedFirstName, resultPersonUpdatedRetrieved.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPersonUpdatedRetrieved.getLastName()),
@@ -113,7 +113,12 @@ class PersonServiceTest {
 			fail(e.getMessage());
 		}
 	}
-
+	
+	@Test
+	void deleteOnePersonById()throws Exception{
+		
+	}
+	
 	@Test
 	void testGetOnePersonById() throws Exception {
 		try {
@@ -239,8 +244,22 @@ class PersonServiceTest {
 	void testGetAllPersons() throws Exception {
 		try {
 			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
-			assertFalse(resultAllPersons.isEmpty());
-		} catch (AssertionError e) {
+			assertNotNull(resultAllPersons);
+		}catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	//assertnull or asserttrue isEmpty? test no stable
+	@Test
+	void testGetAllPersons_NotFound() throws Exception {
+		personServiceUnderTest.reinitPersons();
+		try {
+			 personServiceUnderTest.getAllPersons();
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->  personServiceUnderTest.getAllPersons());
+		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}

@@ -199,7 +199,8 @@ public class PersonService {
 	
 	//using for test
 	public void reinitPersons() {
-		this.persons=null;
+		persons.clear();
+		log.info("All persons clear: {}", persons);
 		
 	}
 }
