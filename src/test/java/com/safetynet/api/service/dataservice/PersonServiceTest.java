@@ -23,7 +23,7 @@ import com.safetynet.api.model.Person;
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
-	private  static PersonService personServiceUnderTest;
+	private  PersonService personServiceUnderTest;
 
 	private static Person person;
 
@@ -32,11 +32,11 @@ class PersonServiceTest {
 		person = new Person("John Boyd", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
 	}
-	
-	@AfterAll
+
+	/*@AfterAll
 	static void cleanUp() {
 		personServiceUnderTest.reInitPersons();
-	}
+	}*/
 
 	@Test
 	void testAddPerson() throws Exception {
@@ -119,24 +119,41 @@ class PersonServiceTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	void deleteOnePersonById()throws Exception{
+	void deleteOnePersonById() throws Exception {
 		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
 				"millie@email.com");
 
 		personServiceUnderTest.addPerson(personCreated);
 		try {
-		 personServiceUnderTest.updatePerson("Millie Boyd", personUpdated);
-			assertNull(resultPersonUpdated);
-		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() -> personServiceUnderTest.updatePerson("John Boy", personUpdated));
+			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boyd");
+			Person resultPersonRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
+			assertTrue(resultPersonRemoved);
+			assertNull(resultPersonRemovedRetrieved);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
+	@Test
+	void deleteOnePersonById_WithIncorrectId() throws Exception {
+		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
+				"millie@email.com");
+
+		personServiceUnderTest.addPerson(personCreated);
+		try {
+			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boy");
+			Person resultPersonNoRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
+			assertFalse(resultPersonRemoved);
+			assertNotNull(resultPersonNoRemovedRetrieved);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.deleteOnePersonById("Millie Boyd"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
 	@Test
 	void testGetOnePersonById() throws Exception {
 		try {
@@ -263,21 +280,20 @@ class PersonServiceTest {
 		try {
 			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
 			assertNotNull(resultAllPersons);
-		}catch (AssertionError e) {
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
-	//assertnull or asserttrue isEmpty? test no stable
+
+	// assertnull or asserttrue isEmpty? test no stable
 	@Test
 	void testGetAllPersons_NotFound() throws Exception {
 		personServiceUnderTest.reInitPersons();
 		try {
-			 personServiceUnderTest.getAllPersons();
+			personServiceUnderTest.getAllPersons();
 		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() ->  personServiceUnderTest.getAllPersons());
-		}catch (AssertionError e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getAllPersons());
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
