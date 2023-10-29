@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
-
 	private List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) {
@@ -24,6 +24,7 @@ public class PersonService {
 		try {
 			person.setId(person.getFirstName() + " " + person.getLastName());
 			persons.add(person);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("An error has occured in creating person");
@@ -149,7 +150,7 @@ public class PersonService {
 		return personsFoundByAddress;
 	}
 
-	public List<Person> getPersonsByCity(String city)  {
+	public List<Person> getPersonsByCity(String city) {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
