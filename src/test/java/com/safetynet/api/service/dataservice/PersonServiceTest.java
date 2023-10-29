@@ -273,12 +273,12 @@ class PersonServiceTest {
 	@Test
 	void testGetPersonsByCity_WithCityNotFound() throws Exception {
 		try {
-			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("city no existing");
+			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("city no existing");
 
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> personServiceUnderTest.getPersonsByAddress("city no existing"));
+					() -> personServiceUnderTest.getPersonsByCity("city no existing"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
