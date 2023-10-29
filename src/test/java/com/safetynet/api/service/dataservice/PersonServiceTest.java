@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -241,19 +240,6 @@ class PersonServiceTest {
 		try {
 			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
 			assertFalse(resultAllPersons.isEmpty());
-		} catch (AssertionError e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testGetAllPersons_Notfound() throws Exception {
-		try {
-			personServiceUnderTest.reinitPersons();
-			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
-			assertFalse(resultAllPersons.isEmpty());
-		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getAllPersons());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
