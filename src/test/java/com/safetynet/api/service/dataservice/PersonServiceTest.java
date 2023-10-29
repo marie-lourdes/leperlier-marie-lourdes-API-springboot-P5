@@ -23,7 +23,7 @@ import com.safetynet.api.model.Person;
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
-	private  PersonService personServiceUnderTest;
+	private PersonService personServiceUnderTest;
 
 	private static Person person;
 
@@ -33,10 +33,9 @@ class PersonServiceTest {
 				"jaboyd@email.com");
 	}
 
-	/*@AfterAll
-	static void cleanUp() {
-		personServiceUnderTest.reInitPersons();
-	}*/
+	/*
+	 * @AfterAll static void cleanUp() { personServiceUnderTest.reInitPersons(); }
+	 */
 
 	@Test
 	void testAddPerson() throws Exception {
@@ -44,8 +43,8 @@ class PersonServiceTest {
 				"millie@email.com");
 
 		personServiceUnderTest.addPerson(personCreated);
-		Person resultPersonCreatedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
 
+		Person resultPersonCreatedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
 		String expectedFirstName = personCreated.getFirstName();
 		String expectedLastName = personCreated.getLastName();
 		String expectedAddress = personCreated.getAddress();
@@ -109,8 +108,10 @@ class PersonServiceTest {
 	void testUpdatePerson_WithIncorrectId() throws Exception {
 		Person personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
+
 		try {
 			Person resultPersonUpdated = personServiceUnderTest.updatePerson("John Boy", personUpdated);
+
 			assertNull(resultPersonUpdated);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
@@ -121,14 +122,15 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void deleteOnePersonById() throws Exception {
+	void testDeleteOnePersonById() throws Exception {
 		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
 				"millie@email.com");
-
 		personServiceUnderTest.addPerson(personCreated);
+
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boyd");
 			Person resultPersonRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
+
 			assertTrue(resultPersonRemoved);
 			assertNull(resultPersonRemovedRetrieved);
 		} catch (AssertionError e) {
@@ -137,14 +139,15 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void deleteOnePersonById_WithIncorrectId() throws Exception {
+	void testDeleteOnePersonById_WithIncorrectId() throws Exception {
 		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
 				"millie@email.com");
-
 		personServiceUnderTest.addPerson(personCreated);
+
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boy");
 			Person resultPersonNoRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
+
 			assertFalse(resultPersonRemoved);
 			assertNotNull(resultPersonNoRemovedRetrieved);
 		} catch (NullPointerException e) {
@@ -185,6 +188,7 @@ class PersonServiceTest {
 	void testGetOnePersonById_WithIdNotFound() throws Exception {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Lenon");
+
 			assertNull(resultPerson);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getOnePersonById("John Lenon"));
@@ -213,6 +217,7 @@ class PersonServiceTest {
 	void testGePersonsByLastName_WithLastNameNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boy");
+
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByLastName("Boy"));
@@ -226,6 +231,7 @@ class PersonServiceTest {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 Culver St");
 			String expectedAddress = person.getAddress();
+
 			for (Person personFoundByAddress : resultPersons) {
 				assertEquals(expectedAddress, personFoundByAddress.getAddress());
 			}
@@ -239,6 +245,7 @@ class PersonServiceTest {
 	void testGetPersonsByAddress_WithAddressNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("112 address no existing");
+
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
@@ -252,6 +259,7 @@ class PersonServiceTest {
 	void testGetPersonsByCity() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Culver");
+
 			String expectedCity = person.getCity();
 			for (Person personFoundByCity : resultPersons) {
 				assertEquals(expectedCity, personFoundByCity.getCity());
@@ -266,6 +274,7 @@ class PersonServiceTest {
 	void testGetPersonsByCity_WithCityNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("city no existing");
+
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
@@ -279,6 +288,7 @@ class PersonServiceTest {
 	void testGetAllPersons() throws Exception {
 		try {
 			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
+
 			assertNotNull(resultAllPersons);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
