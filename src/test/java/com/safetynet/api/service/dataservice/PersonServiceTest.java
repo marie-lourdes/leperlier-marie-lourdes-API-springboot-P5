@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -67,7 +68,7 @@ class PersonServiceTest {
 		try {
 			// existing person before updating
 			Person resultPersonRetrieved = personServiceUnderTest.getOnePersonById("John Boyd");
-		
+
 			// existing person after updating
 			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Boyd", personUpdated);
 
@@ -155,7 +156,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByLastName() throws Exception {
+	void testGetPersonsByLastName() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boyd");
 
@@ -170,7 +171,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByLastName_WithLastNameNotFound() throws Exception {
+	void testGePersonsByLastName_WithLastNameNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boy");
 			assertTrue(resultPersons.isEmpty());
@@ -182,7 +183,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByAddress() throws Exception {
+	void testGetPersonsByAddress() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 Culver St");
 			String expectedAddress = person.getAddress();
@@ -196,7 +197,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByAddress_WithAddressNotFound() throws Exception {
+	void testGetPersonsByAddress_WithAddressNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("112 address no existing");
 			assertTrue(resultPersons.isEmpty());
@@ -209,7 +210,7 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByCity() throws Exception {
+	void testGetPersonsByCity() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Culver");
 			String expectedCity = person.getCity();
@@ -223,13 +224,36 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testGetOnePersonByCity_WithCityNotFound() throws Exception {
+	void testGetPersonsByCity_WithCityNotFound() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("city no existing");
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> personServiceUnderTest.getPersonsByAddress("city no existing"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testGetAllPersons() throws Exception {
+		try {
+			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
+			assertFalse(resultAllPersons.isEmpty());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testGetAllPersons_Notfound() throws Exception {
+		try {
+			personServiceUnderTest.reinitPersons();
+			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
+			assertFalse(resultAllPersons.isEmpty());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getAllPersons());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
