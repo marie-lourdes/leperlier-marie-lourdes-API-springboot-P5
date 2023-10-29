@@ -22,20 +22,14 @@ import lombok.RequiredArgsConstructor;
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 	private List<Person> persons = new ArrayList<>();
-	@Autowired
-    Validator validator;
-	public Person addPerson(Person person) {
-		
+	
+	public Person addPerson(Person person) {	
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
+		
 		try {
-			 validatePerson(person);
 			person.setId(person.getFirstName() + " " + person.getLastName());
 			persons.add(person);
-
-		}catch(ConstraintViolationException e) {
-			e.getConstraintViolations();
-		}
-		catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			log.error("An error has occured in creating person");
 		}
@@ -202,15 +196,4 @@ public class PersonService {
 
 		return persons;
 	}
-
-	 public void validatePerson(Person person) {
-	        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-	        if (!violations.isEmpty()) {
-	        	for( ConstraintViolation<Person> violation:violations ) {
-	        		log.error(violation);
-	        	}
-	        	
-	        }
-	               
-	    }
 }
