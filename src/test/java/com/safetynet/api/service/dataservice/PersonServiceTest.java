@@ -58,16 +58,27 @@ class PersonServiceTest {
 				() -> assertEquals(expectedPhone, resultPersonCreatedRetrieved.getPhone()),
 				() -> assertEquals(expectedEmail, resultPersonCreatedRetrieved.getEmail()));
 	}
+	
+	@Test
+	void testAddPerson_WithDataNoValid() throws Exception {
+		Person personCreated = new Person("M", "Boyd", "rue de Dax", "Dax", "40100", "841-874-12",
+				"millie@email.com");
+
+		personServiceUnderTest.addPerson(personCreated);
+		Person resultPersonCreatedRetrieved = personServiceUnderTest.getOnePersonById("M Boyd");
+
+		 assertNull(resultPersonCreatedRetrieved);
+			
+	}
 
 	@Test
 	void testUpdatePerson() throws Exception {
-		//existing person before updating
-		Person resultPersonRetrieved = personServiceUnderTest.getOnePersonById("John Boyd");
-		
 		Person personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
-		personServiceUnderTest.updatePerson("John Boyd", personUpdated);
 		
+		//existing person before updating
+		Person resultPersonRetrieved = personServiceUnderTest.getOnePersonById("John Boyd");
+		personServiceUnderTest.updatePerson("John Boyd", personUpdated);
 		//existing person after updating
 		Person resultPersonUpdatedRetrieved = personServiceUnderTest.getOnePersonById("John Boyd");
 
@@ -77,8 +88,7 @@ class PersonServiceTest {
 		String expectedCity = resultPersonRetrieved.getCity();
 		String expectedZip = resultPersonRetrieved.getZip();
 		String expectedPhone = resultPersonRetrieved.getPhone();
-		String expectedEmail = resultPersonRetrieved.getEmail();
-		
+		String expectedEmail = resultPersonRetrieved.getEmail();	
 		assertAll("assertion all data of person updated found by id", 
 				() -> assertNotNull(resultPersonUpdatedRetrieved),
 				
@@ -94,7 +104,12 @@ class PersonServiceTest {
 				() -> assertEquals(expectedPhone, resultPersonUpdatedRetrieved.getPhone()),
 				() -> assertEquals(expectedEmail, resultPersonUpdatedRetrieved.getEmail()));
 	}
-
+	
+	@Test
+	void testUpdatePerson_WithIncorrectId() throws Exception {
+		
+	}
+	
 	@Test
 	void testGetOnePersonById() throws Exception {
 		try {

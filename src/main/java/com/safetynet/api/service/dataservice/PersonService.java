@@ -3,14 +3,18 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 
-import jakarta.validation.Valid;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,14 +22,20 @@ import lombok.RequiredArgsConstructor;
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 	private List<Person> persons = new ArrayList<>();
-
+	@Autowired
+    Validator validator;
 	public Person addPerson(Person person) {
+		
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 		try {
+			 validatePerson(person);
 			person.setId(person.getFirstName() + " " + person.getLastName());
 			persons.add(person);
 
-		} catch (Exception e) {
+		}catch(ConstraintViolationException e) {
+			e.getConstraintViolations();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			log.error("An error has occured in creating person");
 		}
@@ -192,4 +202,15 @@ public class PersonService {
 
 		return persons;
 	}
+
+	 public void validatePerson(Person person) {
+	        Set<ConstraintViolation<Person>> violations = validator.validate(person);
+	        if (!violations.isEmpty()) {
+	        	for( ConstraintViolation<Person> violation:violations ) {
+	        		log.error(violation);
+	        	}
+	        	
+	        }
+	               
+	    }
 }
