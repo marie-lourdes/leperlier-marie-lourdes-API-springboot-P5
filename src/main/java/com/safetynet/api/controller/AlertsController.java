@@ -111,6 +111,10 @@ public class AlertsController implements IResponseHTTPEmpty {
 		}
 	}
 
+	/* when testing , after resquest all param stations ,
+	 *  if request one no existing keep all data retrived according to stations param, 
+	 *  no fixing this error refactoring the method getListOfHouseHoldByStationNumberIfFlood() with list.clear() or removeall() "
+	 */
 	@GetMapping("/flood/stations")
 	@ResponseBody
 	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
