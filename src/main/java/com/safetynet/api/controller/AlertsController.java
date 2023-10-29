@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.CommunityEmailService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
@@ -22,11 +23,14 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
+import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
 public class AlertsController implements IResponseHTTPEmpty {
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
+	@Autowired
+	FireStationService fireStationService;
 	@Autowired
 	ResidentsOfStationNumberService residentsOfStationNumberService;
 
@@ -111,33 +115,21 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
-		List<Object> listOfHouseHoldByStationNumberWithMoreOneRequestParam = new ArrayList<Object>();
-		try {
-		for (String station : stations) {
-			
-				
-				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
-			
-			} 
-			
 		
-		listOfHouseHoldByStationNumberWithMoreOneRequestParam.add(listOfHouseHoldByStationNumber);
-		if (listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
-			throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
-		}
-		}catch (NullPointerException e) {
-			log.error(e.getMessage());
+		try {
+			for (String station : stations) {
+				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);		
 			}
-	/*	try {
-			if (listOfHouseHoldByStationNumberWithMoreOneRequestParam.isEmpty()) {
-				throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
+			if (listOfHouseHoldByStationNumber.isEmpty()) {
+				throw new NullPointerException(
+						"HouseHold not found at this/theses station(s) to prevent for flood");
 			}
+			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumber);
+
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		}*/
-
-		return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberWithMoreOneRequestParam);
+		}
 	}
 
 	@GetMapping("/personInfo")
@@ -151,7 +143,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		}	
+		}
 	}
 
 	@GetMapping("/communityEmail")
@@ -166,5 +158,5 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
-	
+
 }

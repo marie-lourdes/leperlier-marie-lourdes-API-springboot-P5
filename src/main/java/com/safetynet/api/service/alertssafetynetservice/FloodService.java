@@ -19,12 +19,12 @@ public class FloodService {
 	@Autowired
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
+	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
-		
+
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
-		
-try {
+
+		try {
 			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
 
@@ -38,27 +38,27 @@ try {
 
 				if (!listOfAddress.contains(itrResidentNext.get("address"))) {
 					listOfAddress.add(itrResidentNext.get("address"));
-				}			
+				}
 			}
 
 			// getting medicalrecords searching with address of each resident
 			for (String address : listOfAddress) {
 				List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 				listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
-						.searchInfoOfResident(address);	
+						.searchInfoOfResident(address);
 				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
 			}
-		
-		} catch (NullPointerException e) {	
-			
+			if (listOfHouseHoldOfStationNumber.isEmpty()) {
 				throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
-			
-
-		}catch (Exception e) {
+			}
+			log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
+					listOfHouseHoldOfStationNumber);
+		} catch (NullPointerException e) {
+			log.error(e.getMessage());
+		} catch (Exception e) {
 			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
 		}
-		
-		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber, listOfHouseHoldOfStationNumber );
+
 		return listOfHouseHoldOfStationNumber;
 	}
 }
