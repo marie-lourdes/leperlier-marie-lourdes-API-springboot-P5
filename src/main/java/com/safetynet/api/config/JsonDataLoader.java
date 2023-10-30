@@ -40,40 +40,18 @@ public class JsonDataLoader implements CommandLineRunner {
 		this.medicalRecordRepository = medicalRecordRepository;
 	}
 
-	public void loadData() {
-
-	}
-
 	@Override
 	public void run(String... args) {
 
 		try {
 			List<Person> personsFromFile = this.loadDatasPersonFromFileJson();
 
-			List<FireStation> fireStationFromFile = this.loadDatasFireStationFromFileJson();
+			List<FireStation> fireStationsFromFile = this.loadDatasFireStationFromFileJson();
 
 			List<MedicalRecord> medicalRecordsFromFile = this.loadDatasMedicalRecordFromFileJson();
 
-			for (Person person : personsFromFile) {
-				personService.addPerson(person);
-				if (person == null) {
-					throw new IOException(" Failed to add person from file");
-				}
-			}
+			addAllDatasFromFileJson(personsFromFile, fireStationsFromFile, medicalRecordsFromFile);
 
-			for (FireStation fireStation : fireStationFromFile) {
-				fireStationService.addFireStation(fireStation);
-				if (fireStation == null) {
-					throw new IOException(" Failed to add firestation  from file");
-				}
-			}
-
-			for (MedicalRecord medicalRecord : medicalRecordsFromFile) {
-				medicalRecordService.addMedicalRecord(medicalRecord);
-				if (medicalRecord == null) {
-					throw new IOException(" Failed to add medical record from file");
-				}
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -82,54 +60,64 @@ public class JsonDataLoader implements CommandLineRunner {
 		}
 	}
 
-	public List<Person> loadDatasPersonFromFileJson() {
-		List<Person> personFromFile = new ArrayList<Person>();
-		try {
-			personFromFile = personRepository.findAll();
-			if (personFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas persons from file");
-			} else {
-				log.debug("All datas persons load from file");
-			}
+	public List<Person> loadDatasPersonFromFileJson() throws IOException {
+		List<Person> personsFromFile = personRepository.findAll();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
+		if (personsFromFile.isEmpty()) {
+			throw new IOException(" Failed to load datas persons from file");
+		} else {
+			log.debug("All datas persons load from file");
 		}
-		return personFromFile;
+
+		return personsFromFile;
 	}
 
-	public List<FireStation> loadDatasFireStationFromFileJson() {
-		List<FireStation> fireStationFromFile = new ArrayList<FireStation>();
-		try {
-			fireStationFromFile = fireStationRepository.findAll();
-			if (fireStationFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas firestations from file");
-			} else {
-				log.debug("All datas firestations load from file");
-			}
+	public List<FireStation> loadDatasFireStationFromFileJson() throws IOException {
+		List<FireStation> fireStationsFromFile = fireStationRepository.findAll();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
+		if (fireStationsFromFile.isEmpty()) {
+			throw new IOException(" Failed to load datas firestations from file");
+		} else {
+			log.debug("All datas firestations load from file");
 		}
-		return fireStationFromFile;
+
+		return fireStationsFromFile;
 	}
 
-	public List<MedicalRecord> loadDatasMedicalRecordFromFileJson() {
-		List<MedicalRecord> medicalRecordsFromFile = new ArrayList<MedicalRecord>();
-		try {
-			medicalRecordsFromFile = medicalRecordRepository.findAll();
-			if (medicalRecordsFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas  medical records from file");
-			} else {
-				log.debug("All datas medical records load from file");
-			}
+	public List<MedicalRecord> loadDatasMedicalRecordFromFileJson() throws IOException {
+		List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
+		if (medicalRecordsFromFile.isEmpty()) {
+			throw new IOException(" Failed to load datas  medical records from file");
+		} else {
+			log.debug("All datas medical records load from file");
 		}
+
 		return medicalRecordsFromFile;
+	}
+
+	public void addAllDatasFromFileJson(List<Person> personsFromFile, List<FireStation> fireStationsFromFile,
+			List<MedicalRecord> medicalRecordsFromFile) throws IOException {
+
+		for (Person person : personsFromFile) {
+			personService.addPerson(person);
+			if (person == null) {
+				throw new IOException(" Failed to add person from file");
+			}
+		}
+
+		for (FireStation fireStation : fireStationsFromFile) {
+			fireStationService.addFireStation(fireStation);
+			if (fireStation == null) {
+				throw new IOException(" Failed to add firestation  from file");
+			}
+		}
+
+		for (MedicalRecord medicalRecord : medicalRecordsFromFile) {
+			medicalRecordService.addMedicalRecord(medicalRecord);
+			if (medicalRecord == null) {
+				throw new IOException(" Failed to add medical record from file");
+			}
+		}
 	}
 }
