@@ -9,33 +9,32 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.safetynet.api.config.JsonDataLoader;
 import com.safetynet.api.model.Person;
 
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
-
 	private static Person person;
-
+	
 	@BeforeAll
-	static void setUp() {
-		person = new Person("John Boyd", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
-				"jaboyd@email.com");
+	static void setUp() throws IOException {
+		person = new Person("John ", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
+				"jaboyd@email.com");	
 	}
-
-	/*
-	 * @AfterAll static void cleanUp() { personServiceUnderTest.reInitPersons(); }
-	 */
 
 	@Test
 	void testAddPerson() throws Exception {
