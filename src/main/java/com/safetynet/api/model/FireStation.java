@@ -18,11 +18,16 @@ public class FireStation {
 	public  FireStation() {}
 	
 	//use for firestation service /controller test
-	public  FireStation(String stationNumber,String address) {
+	public  FireStation( String id,String stationNumber,String address) {
+		this.id=id;
 		this.stationNumber= stationNumber;
 		this.address=address;
 	}
-	
+	//use for firestation service /controller test
+		public  FireStation(String stationNumber,String address) {
+			this.stationNumber= stationNumber;
+			this.address=address;
+		}
 	//use for firestation service /controller test
 		public  FireStation(String address) {
 			this.address=address;

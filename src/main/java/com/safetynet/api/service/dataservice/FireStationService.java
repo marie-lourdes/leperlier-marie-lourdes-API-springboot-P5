@@ -26,8 +26,7 @@ public class FireStationService {
 
 //ajouter illagal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
-	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address)
-			throws NullPointerException {
+	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address) 	throws NullPointerException{
 		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
 
 		FireStation fireStationByAddress = new FireStation();
@@ -45,10 +44,11 @@ public class FireStationService {
 
 			log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
 
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NullPointerException(
 					"Failed to replace firestation with new station number , the address: " + address + " not found");
-		} 
+		}
 		return fireStation;
 	}
 
@@ -70,14 +70,11 @@ public class FireStationService {
 						return existingFireStation;
 					}).orElse(null);
 			fireStations.add(createdFireStation);
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
 					+ stationNumber + " not found");
 		}
-		/*
-		 * }catch(Exception e) { e.printStackTrace(); throw new
-		 * NoSuchElementException("aucun element trouvé");
-		 */
 		log.info("Firestation replaced with new address  and  added successfully: {}", fireStation);
 		return createdFireStation;
 	}
