@@ -22,6 +22,11 @@ public class FireStation {
 		this.stationNumber= stationNumber;
 		this.address=address;
 	}
+	
+	//use for firestation service /controller test
+		public  FireStation(String address) {
+			this.address=address;
+		}
 	public String getId() {
 		return id;
 	}

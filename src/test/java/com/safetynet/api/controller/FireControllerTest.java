@@ -30,28 +30,41 @@ class FireControllerTest {
 	private JacksonTester<FireStation> jsonFireStation;
 	
 	@Test
-	public void givenFireStationObjectWithStationNumber_WhenCreateFireStation_ThenReturnSavedFireStation() throws Exception {
-		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation")
-				.param("address", "1509 Culver St")
+	public void givenFireStationObjectWithAddress_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturnSavedFireStation() throws Exception {
+		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation/9")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(jsonFireStation.write(new FireStation("3","112 address modified")).getJson()))
+				.content(jsonFireStation.write(new FireStation("9","112 address modified")).getJson()))
 				.andReturn().getResponse();
 
 		assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 	}
 	@Test
-	public void givenFireStationObjectWithStationNumberNoValid_WhenCreateFireStation_ThenReturn400() throws Exception {
-		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation")
-				.param("address", "1509 Culver St")
+	public void  givenFireStationObjectWithAddressNoValid_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturn400() throws Exception {
+		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation/9")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(jsonFireStation.write(new FireStation("3","address modified")).getJson()))
+				.content(jsonFireStation.write(new FireStation("9","address modified")).getJson()))
 				.andReturn().getResponse();
 
 		assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 	}
-/*	@Test
-	void test() {
-		fail("Not yet implemented");
-	}*/
+	@Test
+	public void  givenFireStationObjectWithStationNumber_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturnSavedFireStation() throws Exception {
+		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation")
+				.param("address", "1509 Culver St")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonFireStation.write(new FireStation("8", "1509 Culver St")).getJson()))
+				.andReturn().getResponse();
 
+		assertEquals(HttpStatus.CREATED.value(), result.getStatus());
+	}
+	@Test
+	public void  givenFireStationObjectWithStationNumberNoValid_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturn400() throws Exception {
+		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/firestation")
+				.param("address", "1509 Culver St")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonFireStation.write(new FireStation("1509 Culver St")).getJson()))
+				.andReturn().getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
+	}
 }
