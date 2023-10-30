@@ -1,6 +1,7 @@
 package com.safetynet.api.config;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,37 +39,21 @@ public class JsonDataLoader implements CommandLineRunner {
 		this.fireStationRepository = fireStationRepository;
 		this.medicalRecordRepository = medicalRecordRepository;
 	}
-	
-public void loadData() {
-	
-}
+
+	public void loadData() {
+
+	}
+
 	@Override
 	public void run(String... args) {
 
 		try {
-			List<Person> personsFromFile = personRepository.findAll();
-			if (personsFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas persons from file");
-			}else {
-				log.debug("All datas persons load from file");
-			}
-		
+			List<Person> personsFromFile = this.loadDatasPersonFromFileJson();
 
-			List<FireStation> fireStationFromFile = fireStationRepository.findAll();
-		if (fireStationFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas firestations from file");
-			}else {
-				log.debug("All datas firestations load from file");
-			}
-			
+			List<FireStation> fireStationFromFile = this.loadDatasFireStationFromFileJson();
 
-			List<MedicalRecord> medicalRecordsFromFile = medicalRecordRepository.findAll();
-			if (medicalRecordsFromFile.isEmpty()) {
-				throw new IOException(" Failed to load datas  medical records from file");
-			}else {
-				log.debug("All datas medical records load from file");
-			}
-		
+			List<MedicalRecord> medicalRecordsFromFile = this.loadDatasMedicalRecordFromFileJson();
+
 			for (Person person : personsFromFile) {
 				personService.addPerson(person);
 				if (person == null) {
@@ -89,12 +74,62 @@ public void loadData() {
 					throw new IOException(" Failed to add medical record from file");
 				}
 			}
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-			log.error( e.getMessage());
-		}catch(Exception e) {
-			log.error( "An error has occured loading datas Json ");
+			log.error(e.getMessage());
+		} catch (Exception e) {
+			log.error("An error has occured loading datas Json ");
 		}
 	}
 
+	public List<Person> loadDatasPersonFromFileJson() {
+		List<Person> personFromFile = new ArrayList<Person>();
+		try {
+			personFromFile = personRepository.findAll();
+			if (personFromFile.isEmpty()) {
+				throw new IOException(" Failed to load datas persons from file");
+			} else {
+				log.debug("All datas persons load from file");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return personFromFile;
+	}
+
+	public List<FireStation> loadDatasFireStationFromFileJson() {
+		List<FireStation> fireStationFromFile = new ArrayList<FireStation>();
+		try {
+			fireStationFromFile = fireStationRepository.findAll();
+			if (fireStationFromFile.isEmpty()) {
+				throw new IOException(" Failed to load datas firestations from file");
+			} else {
+				log.debug("All datas firestations load from file");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return fireStationFromFile;
+	}
+
+	public List<MedicalRecord> loadDatasMedicalRecordFromFileJson() {
+		List<MedicalRecord> medicalRecordsFromFile = new ArrayList<MedicalRecord>();
+		try {
+			medicalRecordsFromFile = medicalRecordRepository.findAll();
+			if (medicalRecordsFromFile.isEmpty()) {
+				throw new IOException(" Failed to load datas  medical records from file");
+			} else {
+				log.debug("All datas medical records load from file");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		return medicalRecordsFromFile;
+	}
 }
