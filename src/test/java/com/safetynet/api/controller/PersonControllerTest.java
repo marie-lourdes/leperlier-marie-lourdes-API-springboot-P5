@@ -3,9 +3,12 @@ package com.safetynet.api.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,6 +20,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
@@ -42,6 +46,7 @@ class PersonControllerTest {
 							"city created", "97451", "841-874-2512", "personcreated@email.com")).getJson()))
 					.andReturn().getResponse();
 			
+			verify(personService).addPerson(any(Person.class));
 			assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -57,7 +62,8 @@ class PersonControllerTest {
 				.content(jsonPerson.write(new Person("firstname created", "lastname created", "address created",
 						"city created", "97451", "841-874-2512", "personcreated@email.com")).getJson()))
 				.andReturn().getResponse();
-
+		
+		verify(personService,Mockito.times(0)).addPerson(any(Person.class));
 		assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 				fail(e.getMessage());
@@ -72,15 +78,13 @@ class PersonControllerTest {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write(existingPersonUpdated).getJson()))
 					.andReturn().getResponse();
-
+			
+			verify(personService).updatePerson(any(String.class),any(Person.class));
 			assertEquals(HttpStatus.OK.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
-		}
-		
-
+		}		
 	}
-
 
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressNoValidPerson_ThenReturn400() throws Exception {
@@ -91,14 +95,12 @@ class PersonControllerTest {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write( existingPersonUpdatedAddressNoValid ).getJson()))
 					.andReturn().getResponse();
-
+			
+			verify(personService, Mockito.times(0)).updatePerson(any(String.class),any(Person.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-		
-		
-
 	}
 	
 	@Test
@@ -108,14 +110,12 @@ class PersonControllerTest {
 
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Boyd"))
 					.andReturn().getResponse();
-
+			
+			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
-		}
-	
-	
-	
+		}	
 	}
 	
 	@Test
@@ -123,13 +123,12 @@ class PersonControllerTest {
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Lenon"))
 					.andReturn().getResponse();
-
+			
+			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
-		}
-	
-		
+		}	
 	} 	 
 }
 
