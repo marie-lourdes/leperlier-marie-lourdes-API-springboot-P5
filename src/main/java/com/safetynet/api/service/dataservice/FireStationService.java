@@ -191,10 +191,9 @@ public class FireStationService {
 	}
 
 	public void generateId(FireStation fireStationCreated) {
-
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
-		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber());
+		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber()+"-"+Math.round(Math.random()*100+1));
 	}
 
 }
