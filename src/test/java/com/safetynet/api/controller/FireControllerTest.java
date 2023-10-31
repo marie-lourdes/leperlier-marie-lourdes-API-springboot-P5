@@ -53,9 +53,9 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewAddress_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturnSavedFireStation()
 			throws Exception {
-		try {
-			FireStation fireStationCreatedWithNewAddress = new FireStation("9", "112 address modified");
-			
+		FireStation fireStationCreatedWithNewAddress = new FireStation("9","9", "112 address modified");
+		
+		try {	
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation/9").contentType(MediaType.APPLICATION_JSON)
 							.content(jsonFireStation.write(fireStationCreatedWithNewAddress).getJson()))
@@ -71,9 +71,9 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewAddressNoValid_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturn400()
 			throws Exception {
-		try {
-			FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9", "address modified");
-			
+		FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9","9", "address modified");
+		
+		try {	
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation/9").contentType(MediaType.APPLICATION_JSON)
 							.content(jsonFireStation.write(fireStationCreatedWithNewAddressNoValid).getJson()))
@@ -93,22 +93,23 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewAddress_WhenReplaceNoExistingFireStationAndNoExistingStationNumber_ThenReturn404()
 			throws Exception {
+		FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9","9", "112 address modified");
+		
 		try {
-			FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9", "112 address modified");
 			fireStationService = new FireStationService();
 			given(fireStationService.addAddressOfExistingFireStation(NoExistingStationNumberOfFireStationCreated, "9"))
 					.willThrow(NullPointerException.class);
 
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation/9").contentType(MediaType.APPLICATION_JSON)
-							.content(jsonFireStation.write(new FireStation("9", "112 address modified")).getJson()))
+							.content(jsonFireStation.write(NoExistingStationNumberOfFireStationCreated ).getJson()))
 					.andReturn().getResponse();
 
 			verify(fireStationService).addAddressOfExistingFireStation(any(FireStation.class), any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationService
-					.addStationNumberOfExistingFireStation(new FireStation("9", "112 address modified"), "9"));
+					.addStationNumberOfExistingFireStation(NoExistingStationNumberOfFireStationCreated , "9"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -136,9 +137,9 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewStationNumberNoValid_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturn400()
 			throws Exception {
-		try {
-			FireStation fireStationCreatedWithNewStationNumberNoValid = new FireStation("1509 Culver St");
-			
+		FireStation fireStationCreatedWithNewStationNumberNoValid = new FireStation("1509 Culver St");
+		
+		try {	
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation").param("address", "1509 Culver St")
 							.contentType(MediaType.APPLICATION_JSON)
@@ -158,8 +159,9 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewStationNumber_WhenReplaceNoExistingFireStationAndNoExistingAddress_ThenReturn404()
 			throws Exception {
+		FireStation NoExistingAddressOfFireStationCreated = new FireStation("8", "1509 Culver St");
+		
 		try {
-			FireStation NoExistingAddressOfFireStationCreated = new FireStation("8", "1509 Culver St");
 			fireStationService = new FireStationService();
 			given(fireStationService.addStationNumberOfExistingFireStation(NoExistingAddressOfFireStationCreated,
 					"1509 Culver S")).willThrow(NullPointerException.class);
@@ -174,7 +176,7 @@ class FireControllerTest {
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationService
-					.addStationNumberOfExistingFireStation(new FireStation("8", "1509 Culver St"), "1509 Culver S"));
+					.addStationNumberOfExistingFireStation( NoExistingAddressOfFireStationCreated , "1509 Culver S"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -182,9 +184,9 @@ class FireControllerTest {
 
 	@Test
 	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStation_ThenReturnUpdatedFireStation() throws Exception {
-		try {
-			FireStation existingFireStationUpdated = new FireStation ("10","112 Steppes Pl");
-			
+		FireStation existingFireStationUpdated = new FireStation ("10","112 Steppes Pl");
+		
+		try {		
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("id", "3")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonFireStation.write(existingFireStationUpdated ).getJson()))
 					.andReturn().getResponse();
@@ -195,4 +197,21 @@ class FireControllerTest {
 			fail(e.getMessage());
 		}		
 	}
+
+	@Test
+	public void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStation_ThenReturn400() throws Exception {
+		FireStation existingFireStationUpdatedStationNumberNoValid = new FireStation ("112 Steppes Pl");
+		
+		try {		
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("id", "3")
+					.contentType(MediaType.APPLICATION_JSON).content(jsonFireStation.write( existingFireStationUpdatedStationNumberNoValid).getJson()))
+					.andReturn().getResponse();
+			
+			verify(fireStationService,Mockito.times(0)).updateFireStation(any(String.class),any(FireStation.class));
+			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}		
+	}
+
 }

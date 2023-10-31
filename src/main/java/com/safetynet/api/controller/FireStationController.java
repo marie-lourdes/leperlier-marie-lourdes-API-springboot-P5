@@ -113,7 +113,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@GetMapping("/firestation/")
+	@GetMapping("/firestation")
 	@ResponseBody
 	public ResponseEntity<?> getAllFireStations() {
 		List<FireStation> allFireStations;

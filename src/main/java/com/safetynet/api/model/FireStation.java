@@ -1,37 +1,44 @@
 package com.safetynet.api.model;
 
+import org.springframework.data.annotation.Id;
+
 import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class FireStation {
+	@Id
 	private String id;
-	
+
 	@NotNull
 	private String stationNumber;
-	
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String address;
-	
-	public  FireStation() {}
-	
-	//use for firestation service /controller test
-	public  FireStation( String id,String stationNumber,String address) {
-		this.id=id;
-		this.stationNumber= stationNumber;
-		this.address=address;
+
+	public FireStation() {
 	}
-	//use for firestation service /controller test
-		public  FireStation(String stationNumber,String address) {
-			this.stationNumber= stationNumber;
-			this.address=address;
-		}
-	//use for firestation service /controller test
-		public  FireStation(String address) {
-			this.address=address;
-		}
+
+	// use for firestation service /controller test
+	public FireStation(String id, String stationNumber, String address) {
+		this.id = id;
+		this.stationNumber = stationNumber;
+		this.address = address;
+	}
+
+	// use for firestation service /controller test
+	public FireStation(String stationNumber, String address) {
+		this.stationNumber = stationNumber;
+		this.address = address;
+	}
+
+	// use for firestation service /controller test
+	public FireStation(String address) {
+		this.address = address;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -39,7 +46,7 @@ public class FireStation {
 	public String setId(String string) {
 		return this.id = string;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
