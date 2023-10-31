@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class FireStation {
-	private String id;
+	private Integer id;
 
 	@NotNull
 	private String stationNumber;
@@ -19,7 +19,7 @@ public class FireStation {
 	}
 
 	// use for firestation service /controller test
-	public FireStation(String id, String stationNumber, String address) {
+	public FireStation(Integer id, String stationNumber, String address) {
 		this.id = id;
 		this.stationNumber = stationNumber;
 		this.address = address;
@@ -36,12 +36,12 @@ public class FireStation {
 		this.address = address;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public String setId(String string) {
-		return this.id = string;
+	public Integer setId(Integer id) {
+		return this.id = id;
 	}
 
 	public String getAddress() {

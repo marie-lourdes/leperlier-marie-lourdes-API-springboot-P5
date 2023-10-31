@@ -34,7 +34,7 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 		try {
 		List<Person> persons = personService.getAllPersons();
 
-		fireStationFoundByStationNumber = fireStationService.getFireStationsById(stationNumber);
+		fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
 		while (itrFireStations.hasNext()) {

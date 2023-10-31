@@ -3,6 +3,7 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +20,10 @@ public class FireStationService {
 	private List<FireStation> fireStations = new ArrayList<>();
 
 	public FireStation addFireStation(FireStation fireStation) {
-		fireStation.setId(fireStation.getStationNumber());
+		
+	//	fireStation.setId(fireStation.getStationNumber());
 		fireStations.add(fireStation);
+		this.generateId();
 		return fireStation;
 	}
 
@@ -36,7 +39,7 @@ public class FireStationService {
 			fireStations.removeIf(
 					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
 
-			fireStation.setId(fireStation.getStationNumber());
+			//fireStation.setId(fireStation.getStationNumber());
 			fireStation.setAddress(fireStationByAddress.getAddress());
 			fireStationByAddress.setStationNumber(fireStation.getStationNumber());
 			fireStationByAddress.setId(fireStation.getId());
@@ -60,13 +63,13 @@ public class FireStationService {
 		FireStation createdFireStation = new FireStation();
 
 		try {
-			List<FireStation> fireStationsByStationNumber = getFireStationsById(stationNumber);
+			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
 			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
 					.equals(stationNumber));
 			createdFireStation = fireStationsByStationNumber.stream()
-					.filter(fireStationByStationNumber -> fireStationByStationNumber.getId().equals(stationNumber))
+					.filter(fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
-						existingFireStation.setId(fireStation.getStationNumber());
+						existingFireStation.setId(fireStation.getId());
 						existingFireStation.setAddress(fireStation.getAddress());
 						return existingFireStation;
 					}).orElse(null);
@@ -85,10 +88,10 @@ public class FireStationService {
 		log.debug("Updating fireStation for id station number: {}", id);
 
 		FireStation existingFireStationUpdated = new FireStation();
-		existingFireStationUpdated = fireStations.stream().filter(fireStation -> fireStation.getId().equals(id))
+		existingFireStationUpdated = fireStations.stream().filter(fireStation -> fireStation.getId().toString().equals(id))
 				.findFirst().map(existingFireStation -> {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
-					existingFireStation.setId(updatedFireStation.getStationNumber());
+					existingFireStation.setId(updatedFireStation.getId());
 					return existingFireStation;
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update firestation,the station number  :" + id + " not found"));
@@ -128,27 +131,27 @@ public class FireStationService {
 		return result;
 	}
 
-	public List<FireStation> getFireStationsById(String id) throws NullPointerException {
-		log.debug("Retrieving  firestation(s)  for id station number {}", id);
+	public List<FireStation> getFireStationsByStationNumber(String stationNumber) throws NullPointerException {
+		log.debug("Retrieving  firestation(s)  for  station number {}", stationNumber);
 
-		List<FireStation> fireStationsFoundById = new ArrayList<>();
+		List<FireStation> fireStationsFoundByStationNumber = new ArrayList<>();
 		Iterator<FireStation> itrFireStations = fireStations.listIterator();
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
-			if (itrFireStation.getId().equals(id)) {
-				fireStationsFoundById.add(itrFireStation);
+			if (itrFireStation.getStationNumber().equals(stationNumber)) {
+				 fireStationsFoundByStationNumber.add(itrFireStation);
 			}
 		}
 
-		if (fireStationsFoundById.isEmpty()) {
-			log.error("Failed to retrieve firestation(s) by id station number for {}", id);
-			throw new NullPointerException("Firestation(s) not found by id station number: " + id);
+		if ( fireStationsFoundByStationNumber.isEmpty()) {
+			log.error("Failed to retrieve firestation(s) by  station number for {}", stationNumber);
+			throw new NullPointerException("Firestation(s) not found by  station number: " + stationNumber);
 		} else {
-			log.info("Firestation(s) retrieved  successfully for  id station number {}", id);
+			log.info("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
 		}
 
-		log.info("List of firestations retrieved by station number successfully : {}", fireStationsFoundById);
-		return fireStationsFoundById;
+		log.info("List of firestations retrieved by station number successfully : {}",  fireStationsFoundByStationNumber);
+		return  fireStationsFoundByStationNumber;
 
 	}
 
@@ -178,8 +181,24 @@ public class FireStationService {
 		return fireStations;
 	}
 
-	public Long generateId() {
-		return (long) 0;
-	}
+	public void generateId() {
+		//Integer index= 0;
+		ListIterator<FireStation> fireStationsItr = fireStations.listIterator();
+		
+		while(fireStationsItr.hasNext()) {
+			/*FireStation firestationItrPrev = fireStationsItr.previous();*/
+			FireStation firestationItr = fireStationsItr.next();
+			
+			firestationItr.setId(fireStations.indexOf(fireStationsItr));
+			
+		}
+		
+		/*for(FireStation fireStation: fireStations) {
+			if(fireStation.getId()==0 ) {
+				
+				fireStation.setId(index++);
+			}*/
+		}
+	
 
 }
