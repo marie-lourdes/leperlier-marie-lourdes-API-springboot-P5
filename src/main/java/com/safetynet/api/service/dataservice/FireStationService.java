@@ -91,20 +91,20 @@ public class FireStationService {
 	}
 
 	// update only station number not address of firestation
-	public FireStation updateFireStation(String id, FireStation updatedFireStation) throws NullPointerException {
-		log.debug("Updating fireStation for id station number: {}", id);
+	public FireStation updateFireStation(String address, FireStation updatedFireStation) throws NullPointerException {
+		log.debug("Updating station number of fireStation  for address : {}",address);
 
 		FireStation existingFireStationUpdated = new FireStation();
 		existingFireStationUpdated = fireStations.stream()
-				.filter(fireStation -> fireStation.getId().toString().equals(id)).findFirst()
+				.filter(fireStation -> fireStation.getAddress().equals(address)).findFirst()
 				.map(existingFireStation -> {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
 					existingFireStation.setId(updatedFireStation.getId());
 					return existingFireStation;
 				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update firestation,the station number  :" + id + " not found"));
+						"Failed to update station number of fireStation, the address :" + address + " not found"));
 
-		log.info("FireStation updated successfully for station number: {}", updatedFireStation);
+		log.info("FireStation updated successfully for address: {}", updatedFireStation);
 		return existingFireStationUpdated;
 	}
 

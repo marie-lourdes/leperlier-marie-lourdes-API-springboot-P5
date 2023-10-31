@@ -62,12 +62,12 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PutMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<?> updateOneFireStationById(@Valid @RequestBody FireStation firestation, @RequestParam String id) {
-		FireStation firestationFoundById;
+	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation, @RequestParam String address) {
+		FireStation firestationFoundByAddress;
 
 		try {
-			firestationFoundById = fireStationService.updateFireStation(id, firestation);
-			return ResponseEntity.status(HttpStatus.OK).body(firestationFoundById);
+			firestationFoundByAddress= fireStationService.updateFireStation(address, firestation);
+			return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
 			log.error(e.getMessage());
