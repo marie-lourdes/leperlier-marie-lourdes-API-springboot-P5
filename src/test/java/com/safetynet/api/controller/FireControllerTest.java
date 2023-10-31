@@ -43,17 +43,17 @@ class FireControllerTest {
 	private static FireStation fireStationTest;
 	private static List<FireStation> listFireStationsTest;
 
-	@BeforeAll
+/*	@BeforeAll
 	public static void setUp() {
 		fireStationTest = new FireStation("9", "9", "112 address ");
 		listFireStationsTest = new ArrayList<FireStation>();
 		listFireStationsTest.add(fireStationTest);
-	}
+	}*/
 
 	@Test
 	public void givenFireStationObjectWithNewAddress_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturnSavedFireStation()
 			throws Exception {
-		FireStation fireStationCreatedWithNewAddress = new FireStation("9","9", "112 address modified");
+		FireStation fireStationCreatedWithNewAddress = new FireStation("9", "112 address modified");
 		
 		try {	
 			MockHttpServletResponse result = mockMvc
@@ -71,7 +71,7 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewAddressNoValid_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturn400()
 			throws Exception {
-		FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9","9", "address modified");
+		FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9", "address modified");
 		
 		try {	
 			MockHttpServletResponse result = mockMvc
@@ -93,7 +93,7 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewAddress_WhenReplaceNoExistingFireStationAndNoExistingStationNumber_ThenReturn404()
 			throws Exception {
-		FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9","9", "112 address modified");
+		FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9", "112 address modified");
 		
 		try {
 			fireStationService = new FireStationService();
@@ -118,7 +118,7 @@ class FireControllerTest {
 	@Test
 	public void givenFireStationObjectWithNewStationNumber_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturnSavedFireStation()
 			throws Exception {
-		FireStation existingFireStationUpdated = new FireStation("3", "3","1509 Culver St");
+		FireStation existingFireStationUpdated = new FireStation("3","1509 Culver St");
 		
 		try {
 			MockHttpServletResponse result = mockMvc

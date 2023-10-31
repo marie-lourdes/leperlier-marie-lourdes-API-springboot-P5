@@ -20,14 +20,21 @@ public class FireStationService {
 	private List<FireStation> fireStations = new ArrayList<>();
 
 	public FireStation addFireStation(FireStation fireStation) {
-		
-	//	fireStation.setId(fireStation.getStationNumber());
-		fireStations.add(fireStation);
-		this.generateId();
+		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
+
+		try {
+			this.generateId(fireStation);
+			fireStations.add(fireStation);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("An error has occured in creating firestation");
+		}
+
+		log.info("FireStation added successfully: {}", fireStation);
 		return fireStation;
 	}
 
-//ajouter illagal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
+//ajouter illegal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
 	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address)
 			throws NullPointerException {
@@ -39,7 +46,7 @@ public class FireStationService {
 			fireStations.removeIf(
 					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
 
-			//fireStation.setId(fireStation.getStationNumber());
+			// fireStation.setId(fireStation.getStationNumber());
 			fireStation.setAddress(fireStationByAddress.getAddress());
 			fireStationByAddress.setStationNumber(fireStation.getStationNumber());
 			fireStationByAddress.setId(fireStation.getId());
@@ -66,8 +73,8 @@ public class FireStationService {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
 			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
 					.equals(stationNumber));
-			createdFireStation = fireStationsByStationNumber.stream()
-					.filter(fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
+			createdFireStation = fireStationsByStationNumber.stream().filter(
+					fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
 						existingFireStation.setId(fireStation.getId());
 						existingFireStation.setAddress(fireStation.getAddress());
@@ -88,8 +95,9 @@ public class FireStationService {
 		log.debug("Updating fireStation for id station number: {}", id);
 
 		FireStation existingFireStationUpdated = new FireStation();
-		existingFireStationUpdated = fireStations.stream().filter(fireStation -> fireStation.getId().toString().equals(id))
-				.findFirst().map(existingFireStation -> {
+		existingFireStationUpdated = fireStations.stream()
+				.filter(fireStation -> fireStation.getId().toString().equals(id)).findFirst()
+				.map(existingFireStation -> {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
 					existingFireStation.setId(updatedFireStation.getId());
 					return existingFireStation;
@@ -139,19 +147,20 @@ public class FireStationService {
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
 			if (itrFireStation.getStationNumber().equals(stationNumber)) {
-				 fireStationsFoundByStationNumber.add(itrFireStation);
+				fireStationsFoundByStationNumber.add(itrFireStation);
 			}
 		}
 
-		if ( fireStationsFoundByStationNumber.isEmpty()) {
+		if (fireStationsFoundByStationNumber.isEmpty()) {
 			log.error("Failed to retrieve firestation(s) by  station number for {}", stationNumber);
 			throw new NullPointerException("Firestation(s) not found by  station number: " + stationNumber);
 		} else {
 			log.info("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
 		}
 
-		log.info("List of firestations retrieved by station number successfully : {}",  fireStationsFoundByStationNumber);
-		return  fireStationsFoundByStationNumber;
+		log.info("List of firestations retrieved by station number successfully : {}",
+				fireStationsFoundByStationNumber);
+		return fireStationsFoundByStationNumber;
 
 	}
 
@@ -181,24 +190,11 @@ public class FireStationService {
 		return fireStations;
 	}
 
-	public void generateId() {
-		//Integer index= 0;
-		ListIterator<FireStation> fireStationsItr = fireStations.listIterator();
-		
-		while(fireStationsItr.hasNext()) {
-			/*FireStation firestationItrPrev = fireStationsItr.previous();*/
-			FireStation firestationItr = fireStationsItr.next();
-			
-			firestationItr.setId(fireStations.indexOf(fireStationsItr));
-			
-		}
-		
-		/*for(FireStation fireStation: fireStations) {
-			if(fireStation.getId()==0 ) {
-				
-				fireStation.setId(index++);
-			}*/
-		}
-	
+	public void generateId(FireStation fireStationCreated) {
+
+		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
+		String numberOfAddress = addressSplit[0];
+		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber());
+	}
 
 }
