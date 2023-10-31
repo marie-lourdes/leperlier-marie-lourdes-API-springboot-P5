@@ -184,10 +184,10 @@ class FireControllerTest {
 
 	@Test
 	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStation_ThenReturnUpdatedFireStation() throws Exception {
-		FireStation existingFireStationUpdated = new FireStation ("10","112 Steppes Pl");
+		FireStation existingFireStationUpdated = new FireStation ("5","748 Townings Dr");
 		
 		try {		
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("address", "112 Steppes Pl")
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("address", "748 Townings Dr")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonFireStation.write(existingFireStationUpdated ).getJson()))
 					.andReturn().getResponse();
 			
@@ -200,10 +200,10 @@ class FireControllerTest {
 
 	@Test
 	public void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStation_ThenReturn400() throws Exception {
-		FireStation existingFireStationUpdatedStationNumberNoValid = new FireStation ("112 Steppes Pl");
+		FireStation existingFireStationUpdatedStationNumberNoValid = new FireStation ("748 Townings Dr");
 		
 		try {		
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("address", "112 Steppes Pl")
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation").param("address", "748 Townings Dr")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonFireStation.write( existingFireStationUpdatedStationNumberNoValid).getJson()))
 					.andReturn().getResponse();
 			

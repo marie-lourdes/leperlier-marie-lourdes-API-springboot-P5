@@ -45,8 +45,7 @@ public class FireStationService {
 			fireStationByAddress = getOneFireStationByAddress(address);
 			fireStations.removeIf(
 					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
-
-			// fireStation.setId(fireStation.getStationNumber());
+			this.generateId(fireStation);
 			fireStation.setAddress(fireStationByAddress.getAddress());
 			fireStationByAddress.setStationNumber(fireStation.getStationNumber());
 			fireStationByAddress.setId(fireStation.getId());
@@ -76,7 +75,7 @@ public class FireStationService {
 			createdFireStation = fireStationsByStationNumber.stream().filter(
 					fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
-						existingFireStation.setId(fireStation.getId());
+						this.generateId(existingFireStation );
 						existingFireStation.setAddress(fireStation.getAddress());
 						return existingFireStation;
 					}).orElse(null);
@@ -99,7 +98,6 @@ public class FireStationService {
 				.filter(fireStation -> fireStation.getAddress().equals(address)).findFirst()
 				.map(existingFireStation -> {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
-					existingFireStation.setId(updatedFireStation.getId());
 					return existingFireStation;
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update station number of fireStation, the address :" + address + " not found"));
