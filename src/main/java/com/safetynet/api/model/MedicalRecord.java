@@ -8,8 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
-
 	private String id;
+	
 	@NotNull
 	private String firstName;
 	

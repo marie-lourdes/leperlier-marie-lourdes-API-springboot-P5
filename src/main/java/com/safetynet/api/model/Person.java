@@ -2,7 +2,6 @@ package com.safetynet.api.model;
 
 import com.safetynet.api.utils.RegexConstants;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 

@@ -1,14 +1,11 @@
 package com.safetynet.api.model;
 
-import org.springframework.data.annotation.Id;
-
 import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class FireStation {
-	@Id
 	private String id;
 
 	@NotNull

@@ -28,8 +28,8 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 			// create list linked of medicalRecords
 			for (JsonValue elem : datasJsonMedicalRecords) {
 				MedicalRecord medicalRecord = new MedicalRecord();
-				medicalRecord.setId(
-						elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));
+			/*	medicalRecord.setId(
+						elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));*/
 				medicalRecord.setFirstName(elem.asJsonObject().getString("firstName"));
 				medicalRecord.setLastName(elem.asJsonObject().getString("lastName"));
 				medicalRecord.setBirthdate(elem.asJsonObject().getString("birthdate"));
