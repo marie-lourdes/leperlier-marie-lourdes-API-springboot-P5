@@ -28,8 +28,6 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 			// create list linked of persons
 			for (JsonValue elem : datasJsonPersons) {
 				Person person = new Person();
-			/*	person.setId(
-						elem.asJsonObject().getString("firstName") + " " + elem.asJsonObject().getString("lastName"));*/
 				person.setFirstName(elem.asJsonObject().getString("firstName"));
 				person.setLastName(elem.asJsonObject().getString("lastName"));
 				person.setAddress(elem.asJsonObject().getString("address"));
@@ -53,6 +51,5 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 
 		log.debug("List of persons parsed from Json {}", listOfPersons);
 		return listOfPersons;
-		// return datasJsonPersonParsed ;
 	}
 }
