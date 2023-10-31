@@ -34,8 +34,8 @@ public class ResidentsOfStationNumberService {
 			}
 			log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);
 		} catch (NullPointerException e) {
-			log.error("Failed to retrieve all residents of station number {}", stationNumber);
-			
+			e.printStackTrace();
+			log.error("Failed to retrieve all residents of station number {}", stationNumber);		
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.error( "An error has occured in getting residents of station number");

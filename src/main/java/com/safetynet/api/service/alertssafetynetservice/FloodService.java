@@ -54,8 +54,10 @@ public class FloodService {
 			log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
 					listOfHouseHoldOfStationNumber);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
 		}
 

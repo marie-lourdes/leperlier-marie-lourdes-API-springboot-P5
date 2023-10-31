@@ -52,6 +52,7 @@ public class JsonDataLoader implements CommandLineRunner {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("An error has occured loading datas Json ");
 		}
 	}

@@ -23,6 +23,7 @@ public class PhoneAlertService {
 		try {
 			listOfPhonesOfResidentOfStationNumber =  infoPhoneOfResidentsByStationNumber.searchInfoOfResident(stationNumber);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error("Failed to retrieve phones of this firestation : {}",stationNumber);
 			throw new NullPointerException("Not phone of resident found of this firestation : "+ stationNumber);
 		}

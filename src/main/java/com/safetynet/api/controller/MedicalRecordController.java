@@ -45,7 +45,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordFoundById = medicalRecordService.updateMedicalRecord(id, medicalRecord);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
-			// e.printStackTrace();
+			 e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -57,6 +57,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordService.deleteOneMedicalRecordById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
@@ -71,6 +72,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -85,6 +87,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			allMedicalRecords = medicalRecordService.getAllMedicalRecords();
 			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}

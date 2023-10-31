@@ -51,6 +51,7 @@ public class PersonInfoService {
 				log.debug("Resident retrieved by  full name  {} : {}", fullName,listOfResidentsWithMedicalRecord );
 			}
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			throw new NullPointerException("List of person not found  searched by full name : " + fullName);
 		}catch(Exception e) {
 			e.printStackTrace();

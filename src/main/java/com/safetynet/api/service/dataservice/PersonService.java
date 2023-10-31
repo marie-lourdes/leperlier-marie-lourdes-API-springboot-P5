@@ -113,6 +113,7 @@ public class PersonService {
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 
@@ -140,8 +141,10 @@ public class PersonService {
 				log.info("Person retrieved  successfully for address {}", address);
 			}
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 
@@ -169,8 +172,10 @@ public class PersonService {
 				log.info("Person retrieved successfully for city {}", city);
 			}
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 
