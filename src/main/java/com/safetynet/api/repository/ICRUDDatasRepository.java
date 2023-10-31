@@ -8,7 +8,5 @@ import org.springframework.data.repository.Repository;
 
 @NoRepositoryBean // more generic ,to reuse with other data of BDD
 public interface ICRUDDatasRepository<T, ID> extends Repository<T, ID> {
-
 	List<T> findAll() throws IOException;
-
 }

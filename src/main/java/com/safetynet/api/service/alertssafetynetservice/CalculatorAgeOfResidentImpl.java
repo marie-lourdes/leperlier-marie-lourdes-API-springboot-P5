@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.api.controller.PersonController;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.Constants;
 

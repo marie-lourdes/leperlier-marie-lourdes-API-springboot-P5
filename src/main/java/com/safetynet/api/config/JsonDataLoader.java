@@ -1,7 +1,6 @@
 package com.safetynet.api.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
