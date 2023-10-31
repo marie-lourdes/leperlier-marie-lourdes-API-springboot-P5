@@ -36,99 +36,106 @@ class PersonControllerTest {
 
 	@Autowired
 	private JacksonTester<Person> jsonPerson;
-	
+
 	@Test
 	public void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {
 		try {
+			Person personCreated = new Person("Millie", "Leperlier", "112 address", "city", "97451",
+					"841-874-2512", "millie@email.com");
+
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/person")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(jsonPerson.write(new Person("milie", "millie", "112 address created",
-							"city created", "97451", "841-874-2512", "personcreated@email.com")).getJson()))
+					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write(personCreated ).getJson()))
 					.andReturn().getResponse();
-			
+
 			verify(personService).addPerson(any(Person.class));
 			assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-	
+
 	}
 
 	@Test
 	public void givenPersonObjectWithAddressNoValid_WhenCreatePerson_ThenReturn400() throws Exception {
 		try {
-		MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/person")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(jsonPerson.write(new Person("firstname created", "lastname created", "address created",
-						"city created", "97451", "841-874-2512", "personcreated@email.com")).getJson()))
-				.andReturn().getResponse();
-		
-		verify(personService,Mockito.times(0)).addPerson(any(Person.class));
-		assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
-		} catch (AssertionError e) {
-				fail(e.getMessage());
-			}
-	}
+			Person personCreatedWithAddressNovalid = new Person("Millie", "Leperlier",
+					"address", "city", "97451", "841-874-2512", "millie@email.com");
 
-	@Test
-	public void givenExistingPersonObject_WhenUpdateAddressPerson_ThenReturnUpdatedPerson() throws Exception {
-		try {
-			Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver", "97451",
-					"841-874-6512", "jaboyd@email.com");
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
-					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write(existingPersonUpdated).getJson()))
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON)
+							.content(jsonPerson.write(personCreatedWithAddressNovalid).getJson()))
 					.andReturn().getResponse();
-			
-			verify(personService).updatePerson(any(String.class),any(Person.class));
-			assertEquals(HttpStatus.OK.value(), result.getStatus());
-		} catch (AssertionError e) {
-			fail(e.getMessage());
-		}		
-	}
 
-	@Test
-	public void givenExistingPersonObject_WhenUpdateAddressNoValidPerson_ThenReturn400() throws Exception {
-		try {
-			Person existingPersonUpdatedAddressNoValid = new Person("John Boyd", "John", "Boyd", "quatorze  address modified", "Culver", "97451",
-					"841-874-6512", "jaboyd@email.com");
-
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
-					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write( existingPersonUpdatedAddressNoValid ).getJson()))
-					.andReturn().getResponse();
-			
-			verify(personService, Mockito.times(0)).updatePerson(any(String.class),any(Person.class));
+			verify(personService, Mockito.times(0)).addPerson(any(Person.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
+	@Test
+	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
+		try {
+			Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver",
+					"97451", "841-874-6512", "jaboyd@email.com");
+
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
+					.param("id", "John Boyd").contentType(MediaType.APPLICATION_JSON)
+					.content(jsonPerson.write(existingPersonUpdated).getJson())).andReturn().getResponse();
+
+			verify(personService).updatePerson(any(String.class), any(Person.class));
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenExistingPersonObject_WhenUpdateAddressNoValidOfPerson_ThenReturn400() throws Exception {
+		try {
+			Person existingPersonUpdatedAddressNoValid = new Person("John Boyd", "John", "Boyd",
+					"quatorze  address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
+							.contentType(MediaType.APPLICATION_JSON)
+							.content(jsonPerson.write(existingPersonUpdatedAddressNoValid).getJson()))
+					.andReturn().getResponse();
+
+			verify(personService, Mockito.times(0)).updatePerson(any(String.class), any(Person.class));
+			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
 	@Test
 	public void givenExistingPersonObject_WhenRemoveExistingPerson_ThenRemovePerson() throws Exception {
 		try {
 			given(personService.deleteOnePersonById("John Boyd")).willReturn(true);
 
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Boyd"))
-					.andReturn().getResponse();
-			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Boyd")).andReturn()
+					.getResponse();
+
 			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
-		}	
+		}
 	}
-	
+
 	@Test
 	public void givenNoExistingPersonObject_WhenRemoveNoExistingPerson_ThenReturn404() throws Exception {
 		try {
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Lenon"))
-					.andReturn().getResponse();
-			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Lenon")).andReturn()
+					.getResponse();
+
 			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
-		}	
-	} 	 
+		}
+	}
 }
-

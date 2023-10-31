@@ -60,9 +60,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@PutMapping("/firestation/{id}")
+	@PutMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<?> updateOneFireStationById(@RequestBody FireStation firestation, @PathVariable String id) {
+	public ResponseEntity<?> updateOneFireStationById(@Valid @RequestBody FireStation firestation, @RequestParam String id) {
 		FireStation firestationFoundById;
 
 		try {

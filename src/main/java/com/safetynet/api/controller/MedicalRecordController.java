@@ -37,7 +37,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 
 	@PutMapping("/medicalRecord/{id}")
 	@ResponseBody
-	public ResponseEntity<?> updateOneMedicalRecordById(@RequestBody MedicalRecord medicalRecord,
+	public ResponseEntity<?> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@PathVariable String id) {
 		MedicalRecord medicalRecordFoundById;
 
