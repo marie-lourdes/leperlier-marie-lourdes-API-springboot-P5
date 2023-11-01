@@ -105,7 +105,7 @@ public class FireStationService {
 		return existingFireStationUpdated;
 	}
 
-	public boolean deleteFireStationById(String id) throws NullPointerException {
+	public boolean deleteFireStationByStationNumber(String id) throws NullPointerException {
 		log.debug("Deleting firestation for id station number{}", id);
 
 		boolean result = false;

@@ -77,10 +77,10 @@ public class FireStationController implements IResponseHTTPEmpty {
 	}
 
 	@DeleteMapping("/firestation/{id}")
-	public ResponseEntity<Long> deleteFireStationById(@PathVariable String id) {
+	public ResponseEntity<Long> deleteFireStationByStationNumber(@PathVariable String id) {
 
 		try {
-			fireStationService.deleteFireStationById(id);
+			fireStationService.deleteFireStationByStationNumber(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
