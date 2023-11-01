@@ -246,12 +246,13 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenExistingPersonObject_WhenRemoveExistingFireStationByStationNumber_ThenRemovePerson() throws Exception {
+	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByStationNumber_ThenRemoveFireStation()
+			throws Exception {
 		try {
-			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(false);
-			MockHttpServletResponse result = mockMvc
-					.perform(MockMvcRequestBuilders.delete("/firestation/3")).andReturn()
-					.getResponse();
+			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(true);
+			
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/3"))
+					.andReturn().getResponse();
 
 			verify(fireStationService).deleteFireStationByStationNumber(any(String.class));
 			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
@@ -260,4 +261,17 @@ class FireControllerTest {
 		}
 	}
 
+	@Test
+	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationAndNoExistingStationNumber_ThenReturn404()
+			throws Exception {
+		try {		
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/8"))
+					.andReturn().getResponse();
+
+			verify(fireStationService).deleteFireStationByStationNumber(any(String.class));
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
 }
