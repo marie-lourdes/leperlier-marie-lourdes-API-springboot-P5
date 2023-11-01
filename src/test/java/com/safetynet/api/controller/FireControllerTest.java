@@ -216,4 +216,26 @@ class FireControllerTest {
 		}
 	}
 
+	@Test
+	public void givenExistingPersonObject_WhenUpdateStationNumberOfNoExistingFireStation_ThenReturn404() throws Exception {
+FireStation NoExistingfireStationUpdated = new FireStation("5", "748 Townings Dr");
+		
+		try {
+			fireStationService = new FireStationService();
+			given(fireStationService.updateFireStation("748 Townings D",NoExistingfireStationUpdated )).willThrow(NullPointerException.class);
+			
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/firestation")
+					.param("address", "748 Townings D").contentType(MediaType.APPLICATION_JSON)
+					.content(jsonFireStation.write(NoExistingfireStationUpdated ).getJson())).andReturn().getResponse();
+
+			verify(fireStationService).updateFireStation(any(String.class), any(FireStation.class));
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		}catch(NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> fireStationService.updateFireStation("748 Townings D", NoExistingfireStationUpdated));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
 }
