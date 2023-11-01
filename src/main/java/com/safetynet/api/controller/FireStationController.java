@@ -37,9 +37,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 		try {
 			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
-			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);		
+			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -49,7 +49,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
-	FireStation fireStationCreated = new FireStation();
+		FireStation fireStationCreated = new FireStation();
 
 		try {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
@@ -63,30 +63,35 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PutMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation, @RequestParam String address) {
+	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
+			@RequestParam String address) {
 		FireStation firestationFoundByAddress;
 
 		try {
-			firestationFoundByAddress= fireStationService.updateFireStation(address, firestation);
+			firestationFoundByAddress = fireStationService.updateFireStation(address, firestation);
 			return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
 		} catch (NullPointerException e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
 	}
 
-	@DeleteMapping("/firestation/{id}")
-	public ResponseEntity<Long> deleteFireStationByStationNumber(@PathVariable String id) {
-
+	@DeleteMapping("/firestation/{stationNumber}")
+	public ResponseEntity<Long> deleteFireStationByStationNumber(@PathVariable String stationNumber) {
 		try {
-			fireStationService.deleteFireStationByStationNumber(id);
+			boolean	fireStationIsRemoved =	fireStationService.deleteFireStationByStationNumber(stationNumber);
+			if(!fireStationIsRemoved ) {
+				throw new NullPointerException(
+						" Firestation with this station number: " + stationNumber + "  to delete not found");
+			}	
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
+	
 	}
 
 	@DeleteMapping("/firestation")

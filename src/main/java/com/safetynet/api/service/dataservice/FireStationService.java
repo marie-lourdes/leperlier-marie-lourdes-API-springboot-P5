@@ -74,7 +74,7 @@ public class FireStationService {
 			createdFireStation = fireStationsByStationNumber.stream().filter(
 					fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
-						this.generateId(existingFireStation );
+						this.generateId(existingFireStation);
 						existingFireStation.setAddress(fireStation.getAddress());
 						return existingFireStation;
 					}).orElse(null);
@@ -90,7 +90,7 @@ public class FireStationService {
 
 	// update only station number not address of firestation
 	public FireStation updateFireStation(String address, FireStation updatedFireStation) throws NullPointerException {
-		log.debug("Updating station number of fireStation  for address : {}",address);
+		log.debug("Updating station number of fireStation  for address : {}", address);
 
 		FireStation existingFireStationUpdated = new FireStation();
 		existingFireStationUpdated = fireStations.stream()
@@ -105,17 +105,16 @@ public class FireStationService {
 		return existingFireStationUpdated;
 	}
 
-	public boolean deleteFireStationByStationNumber(String id) throws NullPointerException {
-		log.debug("Deleting firestation for id station number{}", id);
+	public boolean deleteFireStationByStationNumber(String stationNumber) throws NullPointerException {
+		log.debug("Deleting firestation for station number{}", stationNumber);
 
 		boolean result = false;
-		result = fireStations.removeIf(fireStation -> fireStation.getId().equals(id));
+		result = fireStations.removeIf(fireStation -> fireStation.getId().equals(stationNumber));
 
 		if (!result) {
-			log.error("Failed to delete firestation for id station number {}", id);
-			throw new NullPointerException(" Firestation with this station number: " + id + "  to delete not found");
+			log.error("Failed to delete firestation for station number {}", stationNumber);		
 		} else {
-			log.info("Firestation deleted  successfully for id station number {}", id);
+			log.info("Firestation deleted  successfully for station number {}", stationNumber);
 		}
 
 		return result;
@@ -190,7 +189,8 @@ public class FireStationService {
 	public void generateId(FireStation fireStationCreated) {
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
-		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber()+"-"+Math.round(Math.random()*100+1));
+		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
+				+ Math.round(Math.random() * 100 + 1));
 	}
 
 }

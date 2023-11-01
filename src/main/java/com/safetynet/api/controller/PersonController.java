@@ -51,8 +51,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
 		
 		try {
-			boolean personIsRemoved = false;
-			personIsRemoved =personService.deleteOnePersonById(id);
+			boolean	personIsRemoved =personService.deleteOnePersonById(id);
 			if(!personIsRemoved) {
 				throw new NullPointerException(" Person " + id + "  to delete not found");
 			}	
