@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 @AutoConfigureJsonTesters

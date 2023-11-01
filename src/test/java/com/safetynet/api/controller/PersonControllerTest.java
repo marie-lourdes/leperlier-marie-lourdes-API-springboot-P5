@@ -72,7 +72,7 @@ class PersonControllerTest {
 			fail(e.getMessage());
 		}
 	}
-
+	
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
 		Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver", "97451",

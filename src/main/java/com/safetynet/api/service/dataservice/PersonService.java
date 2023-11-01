@@ -18,7 +18,10 @@ public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) {
+	public Person addPerson(Person person) throws NullPointerException {
+		if (person== null) {
+			throw new NullPointerException("Person created is empty" );
+		}
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 
 		try {

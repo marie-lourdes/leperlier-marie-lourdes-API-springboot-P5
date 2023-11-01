@@ -28,8 +28,7 @@ class PersonServiceTest {
 
 	@BeforeAll
 	static void setUp() throws IOException {
-		person = new Person("John ", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
-				"jaboyd@email.com");
+		person = new Person("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
 	}
 
 	@Test
@@ -58,6 +57,18 @@ class PersonServiceTest {
 				() -> assertEquals(expectedZip, resultPersonCreatedRetrieved.getZip()),
 				() -> assertEquals(expectedPhone, resultPersonCreatedRetrieved.getPhone()),
 				() -> assertEquals(expectedEmail, resultPersonCreatedRetrieved.getEmail()));
+	}
+
+	@Test
+	void testAddPerson_WithPersonCreatedEmpty() throws Exception {
+		Person personCreatedEmpty = new Person();
+		try {
+			personServiceUnderTest.addPerson(personCreatedEmpty);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.addPerson(personCreatedEmpty));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
