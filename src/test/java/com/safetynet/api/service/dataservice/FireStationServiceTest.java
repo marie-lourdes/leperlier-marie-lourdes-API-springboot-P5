@@ -44,5 +44,4 @@ class FireStationServiceTest {
 				() -> assertEquals(expectedStationNumber, resultFireStationCreatedRetrieved.getStationNumber()),
 				() -> assertEquals(expectedAddress, resultFireStationCreatedRetrieved.getAddress()));
 	}
-
 }
