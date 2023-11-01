@@ -109,18 +109,4 @@ public class FireStationController implements IResponseHTTPEmpty {
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-	@GetMapping("/firestation/")
-	@ResponseBody
-	public ResponseEntity<?> getAllFireStations() {
-		List<FireStation> allFireStations;
-		try {
-			allFireStations = fireStationService.getAllFireStations();
-			return ResponseEntity.status(HttpStatus.OK).body(allFireStations);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}
-	}
 }
