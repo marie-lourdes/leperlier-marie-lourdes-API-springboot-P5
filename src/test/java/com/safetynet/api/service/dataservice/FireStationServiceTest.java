@@ -37,7 +37,7 @@ class FireStationServiceTest {
 		String expectedStationNumber = fireStationCreated.getStationNumber();
 		String expectedAddress = fireStationCreated.getAddress();
 	
-		assertAll("assertion all data of person created found by address",
+		assertAll("assertion all data of firestation created found by address",
 				() -> assertNotNull(resultFireStationCreatedRetrieved),
 				// checking setting id with request post
 				() -> assertNotNull(resultFireStationCreatedRetrieved.getId()),
