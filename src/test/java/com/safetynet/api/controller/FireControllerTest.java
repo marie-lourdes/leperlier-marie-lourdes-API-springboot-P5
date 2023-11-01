@@ -274,4 +274,21 @@ class FireControllerTest {
 			fail(e.getMessage());
 		}
 	}
+
+	@Test
+	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByAddress_ThenRemoveFireStation()
+			throws Exception {
+		try {
+			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(true);
+			
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/3"))
+					.andReturn().getResponse();
+
+			verify(fireStationService).deleteFireStationByStationNumber(any(String.class));
+			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
 }

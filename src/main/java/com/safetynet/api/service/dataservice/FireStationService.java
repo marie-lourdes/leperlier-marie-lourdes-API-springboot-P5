@@ -112,7 +112,7 @@ public class FireStationService {
 		result = fireStations.removeIf(fireStation -> fireStation.getId().equals(stationNumber));
 
 		if (!result) {
-			log.error("Failed to delete firestation for station number {}", stationNumber);		
+			log.error("Failed to delete firestation for station number {}", stationNumber);
 		} else {
 			log.info("Firestation deleted  successfully for station number {}", stationNumber);
 		}
@@ -127,7 +127,6 @@ public class FireStationService {
 		result = fireStations.removeIf(fireStation -> fireStation.getAddress().equals(address));
 		if (!result) {
 			log.error("Failed to delete firestation for address {}", address);
-			throw new NullPointerException(" Firestation with this address: " + address + "  to delete not found");
 		} else {
 			log.info("Firestation deleted successfully for address  {}", address);
 		}
@@ -192,5 +191,4 @@ public class FireStationService {
 		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
 				+ Math.round(Math.random() * 100 + 1));
 	}
-
 }

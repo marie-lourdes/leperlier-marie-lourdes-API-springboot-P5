@@ -80,25 +80,28 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@DeleteMapping("/firestation/{stationNumber}")
 	public ResponseEntity<Long> deleteFireStationByStationNumber(@PathVariable String stationNumber) {
 		try {
-			boolean	fireStationIsRemoved =	fireStationService.deleteFireStationByStationNumber(stationNumber);
-			if(!fireStationIsRemoved ) {
+			boolean fireStationIsRemoved = fireStationService.deleteFireStationByStationNumber(stationNumber);
+			if (!fireStationIsRemoved) {
 				throw new NullPointerException(
 						" Firestation with this station number: " + stationNumber + "  to delete not found");
-			}	
+			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
-	
+
 	}
 
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteFireStationByAddress(@RequestParam String address) {
 
 		try {
-			fireStationService.deleteOneFireStationByAddress(address);
+			boolean fireStationIsRemoved = fireStationService.deleteOneFireStationByAddress(address);
+			if (!fireStationIsRemoved) {
+				throw new NullPointerException(" Firestation with this address: " + address + "  to delete not found");
+			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
