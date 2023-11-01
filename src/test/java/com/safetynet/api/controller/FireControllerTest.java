@@ -279,13 +279,27 @@ class FireControllerTest {
 	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByAddress_ThenRemoveFireStation()
 			throws Exception {
 		try {
-			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(true);
+			given(fireStationService.deleteOneFireStationByAddress("748 Townings Dr")).willReturn(true);
 			
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/3"))
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation").param("address","748 Townings Dr"))
 					.andReturn().getResponse();
 
-			verify(fireStationService).deleteFireStationByStationNumber(any(String.class));
+			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
 			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationAndNoExistingAddress_ThenReturn404()
+			throws Exception {
+		try {		
+			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation").param("address","no existing address"))
+					.andReturn().getResponse();
+
+			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
