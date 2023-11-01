@@ -28,12 +28,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-
-	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
-	private List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+	
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
+		
+		  List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+		 List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
 		try {
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);

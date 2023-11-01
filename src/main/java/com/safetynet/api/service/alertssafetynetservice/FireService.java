@@ -21,11 +21,11 @@ public class FireService {
 
 	@Autowired
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
-	private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
+	//private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
-
+		 List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord

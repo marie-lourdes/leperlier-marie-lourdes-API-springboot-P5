@@ -26,14 +26,13 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	@Autowired
 	PersonService personService;
 
-	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();;
-	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
-
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String stationNumber) throws NullPointerException{
+	public List<Map<String, String>> searchInfoOfResident(String stationNumber) throws NullPointerException {
+		List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		try {
 			List<Person> persons = personService.getAllPersons();
-
+		
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 

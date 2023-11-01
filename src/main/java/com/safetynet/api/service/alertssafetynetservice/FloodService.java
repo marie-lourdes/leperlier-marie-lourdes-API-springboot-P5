@@ -19,15 +19,14 @@ public class FloodService {
 	@Autowired
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) {
+	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException  {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
 
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 
-		try {
 			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
-
+			
 			// creating list of address commun between addresses found in each info of
 			// resident
 			ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber
@@ -46,19 +45,17 @@ public class FloodService {
 				List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 				listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
 						.searchInfoOfResident(address);
+				
 				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
+				
 			}
+			
+			log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
+					listOfHouseHoldOfStationNumber);
 			if (listOfHouseHoldOfStationNumber.isEmpty()) {
 				throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
 			}
-			log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
-					listOfHouseHoldOfStationNumber);
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-		} catch (Exception e) {
-			log.error("Failed to retrieve   House Hold for firestation: {}", stationNumber);
-		}
-
+		
 		return listOfHouseHoldOfStationNumber;
 	}
 }

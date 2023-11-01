@@ -119,16 +119,17 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@GetMapping("/flood/stations")
 	@ResponseBody
 	public ResponseEntity<?> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
-		List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
+		List<Object> listOfHouseHoldByStationNumberparams = new ArrayList<Object>();
 
 		try {
 			for (String station : stations) {
+				List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
 				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
+				listOfHouseHoldByStationNumberparams.add(listOfHouseHoldByStationNumber);
+				
 			}
-			if (listOfHouseHoldByStationNumber.isEmpty()) {
-				throw new NullPointerException("HouseHold not found at this/theses station(s) to prevent for flood");
-			}
-			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumber);
+			
+			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberparams);
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
