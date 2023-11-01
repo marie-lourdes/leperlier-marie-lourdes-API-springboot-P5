@@ -16,7 +16,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 public class PersonInfoService {
 	private static final Logger log = LogManager.getLogger(PersonInfoService.class);
 	@Autowired
-	 SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	@Autowired
 	PersonService personService;
@@ -28,8 +28,9 @@ public class PersonInfoService {
 	public List<Map<String, String>> getInfoAndMedicalRecordOfPersonByFullName(String firstName, String lastName)
 			throws NullPointerException {
 		String fullName = firstName + " " + lastName;
-		log.debug("Retrieving resident by full name {} and other residents with the same last name: {}", fullName, lastName);
-		
+		log.debug("Retrieving resident by full name {} and other residents with the same last name: {}", fullName,
+				lastName);
+
 		try {
 			personsFoundByLastName = personService.getPersonsByLastName(lastName);
 			Person personFounByIdFullName = personService.getOnePersonById(fullName);
@@ -41,23 +42,24 @@ public class PersonInfoService {
 			for (Person person : personsFoundByLastName) {
 				listOfResidentsWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
 						.searchInfoOfResident(person.getAddress());
-				log.debug("List of  residents retrieved with same last name : {}", listOfResidentsWithMedicalRecord );
+				log.debug("List of  residents retrieved with same last name : {}", listOfResidentsWithMedicalRecord);
 			}
-			
+
 			// add person searched by full name
 			for (Person person : personsFoundByFullName) {
 				listOfResidentsWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
 						.searchInfoOfResident(person.getAddress());
-				log.debug("Resident retrieved by  full name  {} : {}", fullName,listOfResidentsWithMedicalRecord );
+				log.debug("Resident retrieved by  full name  {} : {}", fullName, listOfResidentsWithMedicalRecord);
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			throw new NullPointerException("List of person not found  searched by full name : " + fullName);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in getting info of person ");
+			log.error("An error has occured in getting info of person ");
 		}
-		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",fullName, lastName, listOfResidentsWithMedicalRecord);
+		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",
+				fullName, lastName, listOfResidentsWithMedicalRecord);
 		return listOfResidentsWithMedicalRecord;
 	}
 }

@@ -48,7 +48,7 @@ class FireControllerTest {
 	 */
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumber_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturnSavedFireStation()
+	public void givenFireStationObjectWithNewStationNumber_WhenReplaceAllExistingFireStationByAddress_ThenReturnSavedFireStation()
 			throws Exception {
 		FireStation fireStationCreatedWithNewStationNumber = new FireStation("3", "1509 Culver St");
 
@@ -67,7 +67,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumberNoValid_WhenReplaceAllExistingFireStationFoundByAddress_ThenReturn400()
+	public void givenFireStationObjectWithNewStationNumberNoValid_WhenReplaceAllExistingFireStationByAddress_ThenReturn400()
 			throws Exception {
 		FireStation fireStationCreatedWithNewStationNumberNoValid = new FireStation("1509 Culver St");
 
@@ -90,7 +90,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumber_WhenReplaceNoExistingFireStationAndNoExistingAddress_ThenReturn404()
+	public void givenFireStationObjectWithNewStationNumber_WhenReplaceNoExistingFireStationByAddress_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingAddressOfFireStationCreated = new FireStation("8", "1509 Culver St");
 
@@ -116,7 +116,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddress_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturnSavedFireStation()
+	public void givenFireStationObjectWithNewAddress_WhenReplaceAllExistingFireStationByStationNumber_ThenReturnSavedFireStation()
 			throws Exception {
 		FireStation fireStationCreatedWithNewAddress = new FireStation("9", "112 address modified");
 
@@ -134,7 +134,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddressNoValid_WhenReplaceAllExistingFireStationFoundByStationNumber_ThenReturn400()
+	public void givenFireStationObjectWithNewAddressNoValid_WhenReplaceAllExistingFireStationByStationNumber_ThenReturn400()
 			throws Exception {
 		FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9", "address modified");
 
@@ -156,7 +156,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddress_WhenReplaceNoExistingFireStationAndNoExistingStationNumber_ThenReturn404()
+	public void givenFireStationObjectWithNewAddress_WhenReplaceNoExistingFireStationByStationNumber_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9", "112 address modified");
 
@@ -181,7 +181,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStation_ThenReturnUpdatedFireStation()
+	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByAddress_ThenReturnUpdatedFireStation()
 			throws Exception {
 		FireStation existingFireStationUpdated = new FireStation("5", "748 Townings Dr");
 
@@ -200,7 +200,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStation_ThenReturn400()
+	public void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStationByAddress_ThenReturn400()
 			throws Exception {
 		FireStation existingFireStationUpdatedStationNumberNoValid = new FireStation("748 Townings Dr");
 
@@ -220,7 +220,7 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenExistingPersonObject_WhenUpdateStationNumberOfNoExistingFireStation_ThenReturn404()
+	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByNoExistingAddress_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingfireStationUpdated = new FireStation("5", "748 Townings Dr");
 
@@ -250,7 +250,7 @@ class FireControllerTest {
 			throws Exception {
 		try {
 			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(true);
-			
+
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/3"))
 					.andReturn().getResponse();
 
@@ -262,14 +262,16 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationAndNoExistingStationNumber_ThenReturn404()
+	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByStationNumber_ThenReturn404()
 			throws Exception {
-		try {		
+		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/8"))
 					.andReturn().getResponse();
 
 			verify(fireStationService).deleteFireStationByStationNumber(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> fireStationService.deleteFireStationByStationNumber("8"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -280,8 +282,9 @@ class FireControllerTest {
 			throws Exception {
 		try {
 			given(fireStationService.deleteOneFireStationByAddress("748 Townings Dr")).willReturn(true);
-			
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation").param("address","748 Townings Dr"))
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/firestation").param("address", "748 Townings Dr"))
 					.andReturn().getResponse();
 
 			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
@@ -292,17 +295,21 @@ class FireControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationAndNoExistingAddress_ThenReturn404()
+	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByAddress_ThenReturn404()
 			throws Exception {
-		try {		
-			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation").param("address","no existing address"))
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/firestation").param("address", "no existing address"))
 					.andReturn().getResponse();
 
 			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> fireStationService.deleteOneFireStationByAddress("no existing address"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
 }

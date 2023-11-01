@@ -25,11 +25,11 @@ class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
 	private static Person person;
-	
+
 	@BeforeAll
 	static void setUp() throws IOException {
 		person = new Person("John ", "John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512",
-				"jaboyd@email.com");	
+				"jaboyd@email.com");
 	}
 
 	@Test
@@ -272,8 +272,7 @@ class PersonServiceTest {
 
 			assertTrue(resultPersons.isEmpty());
 		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() -> personServiceUnderTest.getPersonsByCity("city no existing"));
+			assertThrows(NullPointerException.class, () -> personServiceUnderTest.getPersonsByCity("city no existing"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

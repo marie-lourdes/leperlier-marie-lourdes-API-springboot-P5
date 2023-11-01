@@ -19,7 +19,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoOfResidentOfStationNumberImpl.class);
-	
+
 	@Autowired
 	PersonService personService;
 

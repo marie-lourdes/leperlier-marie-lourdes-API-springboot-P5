@@ -40,7 +40,7 @@ class PersonControllerTest {
 	public void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {
 		Person personCreated = new Person("Millie", "Leperlier", "112 address", "city", "97451", "841-874-2512",
 				"millie@email.com");
-		
+
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.post("/person")
 					.contentType(MediaType.APPLICATION_JSON).content(jsonPerson.write(personCreated).getJson()))
@@ -58,7 +58,7 @@ class PersonControllerTest {
 	public void givenPersonObjectWithAddressNoValid_WhenCreatePerson_ThenReturn400() throws Exception {
 		Person personCreatedWithAddressNovalid = new Person("Millie", "Leperlier", "address", "city", "97451",
 				"841-874-2512", "millie@email.com");
-		
+
 		try {
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON)
@@ -75,9 +75,9 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
-		Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver",
-				"97451", "841-874-6512", "jaboyd@email.com");
-		
+		Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver", "97451",
+				"841-874-6512", "jaboyd@email.com");
+
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
 					.param("id", "John Boyd").contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +94,7 @@ class PersonControllerTest {
 	public void givenExistingPersonObjectWithAddressNoValid_WhenUpdateOfPerson_ThenReturn400() throws Exception {
 		Person existingPersonUpdatedAddressNoValid = new Person("John Boyd", "John", "Boyd",
 				"quatorze  address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
-		
+
 		try {
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.put("/person").param("id", "John Boyd")
@@ -115,18 +115,19 @@ class PersonControllerTest {
 	public void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
 		Person NoExistingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver",
 				"97451", "841-874-6512", "jaboyd@email.com");
-		
+
 		try {
 			personService = new PersonService();
-			given(personService.updatePerson("John Lenon",NoExistingPersonUpdated)).willThrow(NullPointerException.class);
-			
+			given(personService.updatePerson("John Lenon", NoExistingPersonUpdated))
+					.willThrow(NullPointerException.class);
+
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
 					.param("id", "John Lenon").contentType(MediaType.APPLICATION_JSON)
 					.content(jsonPerson.write(NoExistingPersonUpdated).getJson())).andReturn().getResponse();
 
 			verify(personService).updatePerson(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> personService.updatePerson("John Lenon", NoExistingPersonUpdated));
 		} catch (AssertionError e) {

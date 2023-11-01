@@ -16,7 +16,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCitympl.class);
-	
+
 	@Autowired
 	PersonService personService;
 
@@ -24,18 +24,18 @@ public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfR
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
-		
+
 		List<Map<String, String>> listOfResidentsFoundByCity = new ArrayList<Map<String, String>>();
 		try {
-		residentsFoundByCity = personService.getPersonsByCity(city);
+			residentsFoundByCity = personService.getPersonsByCity(city);
 
-		for (Person person : residentsFoundByCity) {
-			Map<String, String> residentFoundByCity = new HashMap<String, String>();
-			residentFoundByCity.put("email", person.getEmail());
+			for (Person person : residentsFoundByCity) {
+				Map<String, String> residentFoundByCity = new HashMap<String, String>();
+				residentFoundByCity.put("email", person.getEmail());
 
-			System.out.println("residentFoundByCity" + residentFoundByCity);
-			listOfResidentsFoundByCity.add(residentFoundByCity);
-		}
+				System.out.println("residentFoundByCity" + residentFoundByCity);
+				listOfResidentsFoundByCity.add(residentFoundByCity);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("An error has occured in searching  full info  emails of residents of the city");

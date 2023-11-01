@@ -25,7 +25,7 @@ public class FireService {
 
 	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
-		
+
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
@@ -43,8 +43,9 @@ public class FireService {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents  and firestation not found near fire address");
 		}
-		
-		log.info(" All residents with its fireStation retrieved  near fire address : {}", 	listOfResidentAndFireStationNearFire);
+
+		log.info(" All residents with its fireStation retrieved  near fire address : {}",
+				listOfResidentAndFireStationNearFire);
 		return listOfResidentAndFireStationNearFire;
 
 	}

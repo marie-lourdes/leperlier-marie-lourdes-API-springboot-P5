@@ -20,29 +20,29 @@ public interface IDatasFileReader<T> {
 
 	List<T> readFile() throws IOException;
 
-	default JsonArray readDataJson(String dataNameJson) throws IOException{
-		
+	default JsonArray readDataJson(String dataNameJson) throws IOException {
+
 		JsonArray jsonArray = null;
-		
+
 		try {
-			if(DataSourceConstants.PATH !=null) {
+			if (DataSourceConstants.PATH != null) {
 				InputStream is = new FileInputStream(DataSourceConstants.PATH);
-				
+
 				log.debug("Reading datas {} from file json", dataNameJson);
 				JsonReader jsonReader = Json.createReader(is);
-				
-				log.debug("Parsing data Json  {}",dataNameJson);
+
+				log.debug("Parsing data Json  {}", dataNameJson);
 				JsonObject datasJsonObject = jsonReader.readObject();
 				jsonArray = datasJsonObject.getJsonArray(dataNameJson);
-			
+
 				jsonReader.close();
-				is.close();	
-				
+				is.close();
+
 				log.debug("Datas {} read and parsed from file json", dataNameJson);
-				log.debug("All datas Json  {}  from file json : {}", dataNameJson,jsonArray);
+				log.debug("All datas Json  {}  from file json : {}", dataNameJson, jsonArray);
 			}
-		
-		}catch (Exception e) {		
+
+		} catch (Exception e) {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
 		}

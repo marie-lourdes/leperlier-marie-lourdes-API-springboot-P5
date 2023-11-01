@@ -45,7 +45,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordFoundById = medicalRecordService.updateMedicalRecord(id, medicalRecord);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}

@@ -7,67 +7,70 @@ import jakarta.validation.constraints.Pattern;
 
 public class Person {
 	private String id;
-	
+
 	@NotNull
 	private String firstName;
-	
+
 	@NotNull
 	private String lastName;
-	
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String address;
-	
+
 	@NotNull
 	private String zip;
-	
+
 	@NotNull
 	private String city;
-	
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_PHONE)
 	private String phone;
-	
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_EMAIL)
 	// @Email(message = "email should be valid")
 	private String email;
 
 	public Person() {
-		
+
 	}
-	
-	//use for person service /controller test
-	public Person (String id,String firstName,String lastName,String address,String city,String zip,String phone,String email) {
-		this.id=id;
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.address=address;
-		this.zip=zip;
-		this.city=city;
-		this.phone=phone;
-		this.email=email;
+
+	// use for person service /controller test
+	public Person(String id, String firstName, String lastName, String address, String city, String zip, String phone,
+			String email) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.zip = zip;
+		this.city = city;
+		this.phone = phone;
+		this.email = email;
 	}
-	//use for person service /controller test
-	public Person (String firstName,String lastName,String address,String city,String zip,String phone,String email) {
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.address=address;
-		this.zip=zip;
-		this.city=city;
-		this.phone=phone;
-		this.email=email;
+
+	// use for person service /controller test
+	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
+			String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.zip = zip;
+		this.city = city;
+		this.phone = phone;
+		this.email = email;
 	}
-	
-	//use for person service /controller test
-		public Person (String address,String city,String zip,String phone,String email) {
-			this.address=address;
-			this.zip=zip;
-			this.city=city;
-			this.phone=phone;
-			this.email=email;
-		}
-		
+
+	// use for person service /controller test
+	public Person(String address, String city, String zip, String phone, String email) {
+		this.address = address;
+		this.zip = zip;
+		this.city = city;
+		this.phone = phone;
+		this.email = email;
+	}
+
 	public String getId() {
 		return id;
 	}

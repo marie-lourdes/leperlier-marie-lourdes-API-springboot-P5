@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResidentsOfStationNumberService {
 	private static final Logger log = LogManager.getLogger(ResidentsOfStationNumberService.class);
-	
+
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
@@ -24,28 +24,28 @@ public class ResidentsOfStationNumberService {
 	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber)
 			throws NullPointerException {
 		log.debug("Retrieving  all residents of station number {}", stationNumber);
-		
+
 		try {
 			listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
-			
-			if(listOfResidentOfStationNumber.isEmpty()) {
+
+			if (listOfResidentOfStationNumber.isEmpty()) {
 				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
-			log.info(" List of residents retrieved successfully of station number {}",listOfResidentOfStationNumber);
+			log.info(" List of residents retrieved successfully of station number {}", listOfResidentOfStationNumber);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			log.error("Failed to retrieve all residents of station number {}", stationNumber);		
-		}catch(Exception e) {
+			log.error("Failed to retrieve all residents of station number {}", stationNumber);
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in getting residents of station number");
+			log.error("An error has occured in getting residents of station number");
 		}
-		
+
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {
-			//residents.remove("age");
+			// residents.remove("age");
 			System.out.println("residents" + residents);
 		}
-	
+
 		return listOfResidentOfStationNumber;
 	}
 
@@ -57,10 +57,10 @@ public class ResidentsOfStationNumberService {
 		if (mapCountDownOfAdultsAndChilds.isEmpty()) {
 			throw new NullPointerException(
 					"Error has occured sorting with countdown of adult and childs  because not found at this station number");
-		}else {
+		} else {
 			log.debug("all residents  sorted with countdown of adult and child of station number {}", stationNumber);
 		}
-		
+
 		return mapCountDownOfAdultsAndChilds;
 	}
 }

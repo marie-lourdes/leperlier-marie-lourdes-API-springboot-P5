@@ -9,19 +9,19 @@ import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
 	private String id;
-	
+
 	@NotNull
 	private String firstName;
-	
+
 	@NotNull
 	private String lastName;
-	
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_DATE)
 	private String birthdate;
 
 	private List<String> medications;
-	
+
 	private List<String> allergies;
 
 	public String getId() {

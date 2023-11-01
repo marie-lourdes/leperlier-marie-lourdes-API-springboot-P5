@@ -33,20 +33,20 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in formating birthdate of person");
+			log.error("An error has occured in formating birthdate of person");
 		}
 
-		//calcul age
+		// calcul age
 		try {
 			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
 			Long ageOfPerson = new Date().getTime() - birthdate.getTime();
-			age =BigInteger.valueOf(ageOfPerson).divide(yearInMs);
+			age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
 			System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
-		}catch(Exception  e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in calculating age");
+			log.error("An error has occured in calculating age");
 		}
 
 		return age;

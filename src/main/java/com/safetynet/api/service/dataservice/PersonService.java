@@ -17,14 +17,14 @@ import lombok.RequiredArgsConstructor;
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 	private List<Person> persons = new ArrayList<>();
-	
-	public Person addPerson(Person person) {	
+
+	public Person addPerson(Person person) {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-		
+
 		try {
 			person.setId(person.getFirstName() + " " + person.getLastName());
 			persons.add(person);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("An error has occured in creating person");
 		}
@@ -196,9 +196,9 @@ public class PersonService {
 
 		return persons;
 	}
-	
-	//using for test
+
+	// using for test
 	public void reInitPersons() {
-		persons.clear();			
+		persons.clear();
 	}
 }

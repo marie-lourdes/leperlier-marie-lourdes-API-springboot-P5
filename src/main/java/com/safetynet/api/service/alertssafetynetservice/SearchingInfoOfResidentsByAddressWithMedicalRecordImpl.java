@@ -15,7 +15,8 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @Service
 public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
-	private static final Logger log = LogManager.getLogger(SearchingInfoOfResidentsByAddressWithMedicalRecordImpl .class);
+	private static final Logger log = LogManager
+			.getLogger(SearchingInfoOfResidentsByAddressWithMedicalRecordImpl.class);
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
 
@@ -25,34 +26,35 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-		
+
 		try {
-		List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
-				.searchInfoOfResident(address);
-	
-		for (Map<String, String> resident : listOfResidentsByAddress) {
-			Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
-			Map<String, String> mapOfMedicalRecordOfResidentUpdated = new LinkedHashMap<String, String>();
-			String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
-			MedicalRecord medicalRecordFoundByFullName = medicalRecordService.getOneMedicalRecordById(fullNamePerson);
-			resident.remove("firstName");
+			List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
+					.searchInfoOfResident(address);
 
-			resident.remove("zip");
-			resident.remove("city");
-			resident.remove("email");
-			resident.remove("address");
-			mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
-			mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
-		
-			mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
-			mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
-		
-			listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResidentUpdated);
+			for (Map<String, String> resident : listOfResidentsByAddress) {
+				Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
+				Map<String, String> mapOfMedicalRecordOfResidentUpdated = new LinkedHashMap<String, String>();
+				String fullNamePerson = resident.get("firstName") + " " + resident.get("lastName");
+				MedicalRecord medicalRecordFoundByFullName = medicalRecordService
+						.getOneMedicalRecordById(fullNamePerson);
+				resident.remove("firstName");
 
-		}
-		}catch(Exception e) {
+				resident.remove("zip");
+				resident.remove("city");
+				resident.remove("email");
+				resident.remove("address");
+				mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
+				mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
+
+				mapOfMedicalRecordOfResidentUpdated.put("resident", resident.toString());
+				mapOfMedicalRecordOfResidentUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
+
+				listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResidentUpdated);
+
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in searching info of residents by address with medical records");
+			log.error("An error has occured in searching info of residents by address with medical records");
 		}
 		return listOfResidentWithMedicalRecord;
 	}

@@ -15,7 +15,7 @@ public class FireStationRepositoryImpl implements IFireStationRepository {
 	ReadFireStationDataFromFileImpl readFireStations;
 
 	@Override
-	public List<FireStation> findAll() throws IOException {	
+	public List<FireStation> findAll() throws IOException {
 		return readFireStations.readFile();
 	}
 

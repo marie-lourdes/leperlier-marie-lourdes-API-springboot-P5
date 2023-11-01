@@ -27,7 +27,7 @@ public class JsonDataLoader implements CommandLineRunner {
 	private final PersonRepositoryImpl personRepository;
 	private final FireStationRepositoryImpl fireStationRepository;
 	private final MedicalRecordRepositoryImpl medicalRecordRepository;
-	
+
 	public JsonDataLoader(PersonService personService, FireStationService fireStationService,
 			MedicalRecordService medicalRecordService, PersonRepositoryImpl personRepository,
 			FireStationRepositoryImpl fireStationRepository, MedicalRecordRepositoryImpl medicalRecordRepository) {
@@ -45,7 +45,7 @@ public class JsonDataLoader implements CommandLineRunner {
 			List<Person> personsFromFile = this.loadDatasPersonFromFileJson();
 			List<FireStation> fireStationsFromFile = this.loadDatasFireStationFromFileJson();
 			List<MedicalRecord> medicalRecordsFromFile = this.loadDatasMedicalRecordFromFileJson();
-			
+
 			addAllDatasFromFileJson(personsFromFile, fireStationsFromFile, medicalRecordsFromFile);
 
 		} catch (IOException e) {

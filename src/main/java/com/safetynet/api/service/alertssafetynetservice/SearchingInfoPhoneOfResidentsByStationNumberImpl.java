@@ -19,7 +19,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoPhoneOfResidentsByStationNumberImpl.class);
-	
+
 	@Autowired
 	FireStationService fireStationService;
 
@@ -32,29 +32,29 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
 		try {
-		List<Person> persons = personService.getAllPersons();
+			List<Person> persons = personService.getAllPersons();
 
-		fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
-		Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
+			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
+			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
-		while (itrFireStations.hasNext()) {
-			FireStation itrFireStation = itrFireStations.next();
+			while (itrFireStations.hasNext()) {
+				FireStation itrFireStation = itrFireStations.next();
 
-			for (Person person : persons) {
-				if (person.getAddress().equals(itrFireStation.getAddress())) {
-					Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
+				for (Person person : persons) {
+					if (person.getAddress().equals(itrFireStation.getAddress())) {
+						Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
 
-					residentOfStationNumber.put("phone", person.getPhone());
-					log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
+						residentOfStationNumber.put("phone", person.getPhone());
+						log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
 
-					listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+						listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+					}
 				}
 			}
-		}
-		
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			log.error( "An error has occured in searching phones of residents of the  station number ");
+			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
 		return listOfPhonesOfResidentOfStationNumber;
 	}
