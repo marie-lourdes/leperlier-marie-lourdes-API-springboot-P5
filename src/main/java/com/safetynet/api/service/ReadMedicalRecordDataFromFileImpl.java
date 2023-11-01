@@ -55,13 +55,10 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 				listOfMedicalRecords.add(medicalRecord);
 			}
 		} catch (ClassCastException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error("Missing data medical records from file Json");
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occuredin reading datas medical records from Json");
 		}
 

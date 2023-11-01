@@ -19,18 +19,14 @@ public class PersonService {
 	private List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) throws NullPointerException {
-		if (person== null) {
-			throw new NullPointerException("Person created is empty" );
+		if (person == null) {
+			throw new NullPointerException("Person created is empty");
 		}
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 
-		try {
-			person.setId(person.getFirstName() + " " + person.getLastName());
-			persons.add(person);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in creating person");
-		}
+		person.setId(person.getFirstName() + " " + person.getLastName());
+		persons.add(person);
+
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -59,7 +55,6 @@ public class PersonService {
 		result = persons.removeIf(person -> person.getId().equals(id));
 		if (!result) {
 			log.error("Failed to delete person for {}", id);
-
 		} else {
 			log.info("Person deleted successfully for {}", id);
 		}
@@ -71,7 +66,7 @@ public class PersonService {
 		log.debug("Retrieving  one person for id {}", id);
 
 		Person personFoundById = new Person();
-		try {
+		
 			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 					.map(existingPerson -> {
 						return existingPerson;
@@ -80,12 +75,7 @@ public class PersonService {
 			if (personFoundById == null) {
 				throw new NullPointerException("Person not found for id: " + id);
 			}
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-		} catch (Exception e) {
-
-			log.error(e.getMessage());
-		}
+		
 
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
@@ -115,9 +105,6 @@ public class PersonService {
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
 		}
 
 		log.info("List of persons retrieved by last name successfully : {}", personsFoundByLastName);
@@ -144,10 +131,6 @@ public class PersonService {
 				log.info("Person retrieved  successfully for address {}", address);
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 
@@ -175,10 +158,6 @@ public class PersonService {
 				log.info("Person retrieved successfully for city {}", city);
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 
@@ -193,10 +172,9 @@ public class PersonService {
 			log.error("Failed to retrieve all  persons");
 			throw new NullPointerException("None person registered!");
 		} else {
-
 			log.info("All persons retrieved successfully: {}", persons);
 		}
-
+		
 		return persons;
 	}
 

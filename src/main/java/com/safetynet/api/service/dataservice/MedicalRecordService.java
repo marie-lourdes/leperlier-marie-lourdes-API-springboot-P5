@@ -21,13 +21,10 @@ public class MedicalRecordService {
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-		try {
+	
 			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 			medicalRecords.add(medicalRecord);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in creating medical record");
-		}
+		
 		log.info("Medical record added successfully: {}", medicalRecord);
 		return medicalRecord;
 	}

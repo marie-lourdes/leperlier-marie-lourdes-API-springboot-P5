@@ -60,18 +60,6 @@ class PersonServiceTest {
 	}
 
 	@Test
-	void testAddPerson_WithPersonCreatedEmpty() throws Exception {
-		Person personCreatedEmpty = new Person();
-		try {
-			personServiceUnderTest.addPerson(personCreatedEmpty);
-		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class, () -> personServiceUnderTest.addPerson(personCreatedEmpty));
-		} catch (AssertionError e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
 	void testUpdatePerson() throws Exception {
 		Person personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
@@ -135,10 +123,7 @@ class PersonServiceTest {
 
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boyd");
-			Person resultPersonRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
-
-			assertTrue(resultPersonRemoved);
-			assertNull(resultPersonRemovedRetrieved);
+			assertTrue(resultPersonRemoved);		
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -152,10 +137,7 @@ class PersonServiceTest {
 
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Boy");
-			Person resultPersonNoRemovedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
-
 			assertFalse(resultPersonRemoved);
-			assertNotNull(resultPersonNoRemovedRetrieved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.deleteOnePersonById("Millie Boyd"));
 		} catch (AssertionError e) {

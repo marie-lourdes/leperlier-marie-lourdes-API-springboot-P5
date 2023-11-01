@@ -148,7 +148,6 @@ class FireControllerTest {
 			verify(fireStationService, Mockito.times(0)).addAddressOfExistingFireStation(any(FireStation.class),
 					any(String.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
-
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

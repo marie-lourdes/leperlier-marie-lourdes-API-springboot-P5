@@ -30,7 +30,7 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	private List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
+	public List<Map<String, String>> searchInfoOfResident(String stationNumber) throws NullPointerException{
 		try {
 			List<Person> persons = personService.getAllPersons();
 
@@ -43,7 +43,6 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 				for (Person person : persons) {
 					if (person.getAddress().equals(itrFireStation.getAddress())) {
 						Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
-
 						residentOfStationNumber.put("phone", person.getPhone());
 						log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
 
@@ -51,9 +50,7 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 					}
 				}
 			}
-
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
 		return listOfPhonesOfResidentOfStationNumber;

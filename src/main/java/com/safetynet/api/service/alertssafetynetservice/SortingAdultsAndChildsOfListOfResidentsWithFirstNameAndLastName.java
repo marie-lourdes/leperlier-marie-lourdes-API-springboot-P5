@@ -33,18 +33,15 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 					resident.remove("phone");
 					resident.remove("email");
 					listOfAdultsAndChild.add(resident);
-
 				} else {
 					// resident.remove("age");
 					listOfAdultsAndChild.add(resident);
 				}
 			}
-
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in sorting residents with full name of childs and all info of adults");
 		}
-		System.out.println("listOfAdultsAndChildSorted" + listOfAdultsAndChild);
+		log.debug("List of residents sorted  with full name of childs and all info of adults :" + listOfAdultsAndChild);
 		return listOfResidentsFoundByAddress;
 	}
 }

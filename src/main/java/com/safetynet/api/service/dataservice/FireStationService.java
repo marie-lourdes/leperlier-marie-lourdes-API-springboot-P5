@@ -21,13 +21,8 @@ public class FireStationService {
 	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
-		try {
-			this.generateId(fireStation);
-			fireStations.add(fireStation);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("An error has occured in creating firestation");
-		}
+		this.generateId(fireStation);
+		fireStations.add(fireStation);
 
 		log.info("FireStation added successfully: {}", fireStation);
 		return fireStation;
@@ -40,24 +35,26 @@ public class FireStationService {
 		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
 
 		FireStation fireStationByAddress = new FireStation();
-		try {
-			fireStationByAddress = getOneFireStationByAddress(address);
-			fireStations.removeIf(
-					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
-			this.generateId(fireStation);
-			fireStation.setAddress(fireStationByAddress.getAddress());
-			fireStationByAddress.setStationNumber(fireStation.getStationNumber());
-			fireStationByAddress.setId(fireStation.getId());
-			fireStation = fireStationByAddress;
-			fireStations.add(fireStation);
 
-			log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
+		fireStationByAddress = getOneFireStationByAddress(address);
+		fireStations
+				.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (fireStation == null) {
 			throw new NullPointerException(
 					"Failed to replace firestation with new station number , the address: " + address + " not found");
 		}
+
+		this.generateId(fireStation);
+		fireStation.setAddress(fireStationByAddress.getAddress());
+		fireStationByAddress.setStationNumber(fireStation.getStationNumber());
+		fireStationByAddress.setId(fireStation.getId());
+		fireStation = fireStationByAddress;
+
+		fireStations.add(fireStation);
+
+		log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
+
 		return fireStation;
 	}
 
@@ -67,23 +64,22 @@ public class FireStationService {
 				stationNumber);
 		FireStation createdFireStation = new FireStation();
 
-		try {
-			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
-			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
-					.equals(stationNumber));
-			createdFireStation = fireStationsByStationNumber.stream().filter(
-					fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
-					.findFirst().map(existingFireStation -> {
-						this.generateId(existingFireStation);
-						existingFireStation.setAddress(fireStation.getAddress());
-						return existingFireStation;
-					}).orElse(null);
-			fireStations.add(createdFireStation);
-		} catch (Exception e) {
-			e.printStackTrace();
+		List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
+		fireStations.removeIf(
+				fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
+		createdFireStation = fireStationsByStationNumber.stream().filter(
+				fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
+				.findFirst().map(existingFireStation -> {
+					this.generateId(existingFireStation);
+					existingFireStation.setAddress(fireStation.getAddress());
+					return existingFireStation;
+				}).orElse(null);
+		if (createdFireStation == null) {
 			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
 					+ stationNumber + " not found");
 		}
+		fireStations.add(createdFireStation);
+
 		log.info("Firestation replaced with new address  and  added successfully: {}", fireStation);
 		return createdFireStation;
 	}

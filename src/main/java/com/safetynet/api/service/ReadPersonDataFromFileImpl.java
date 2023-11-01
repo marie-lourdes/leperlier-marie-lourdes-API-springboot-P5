@@ -39,13 +39,10 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 				listOfPersons.add(person);
 			}
 		} catch (ClassCastException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error("Missing data persons from file Json");
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in reading datas persons from Json");
 		}
 

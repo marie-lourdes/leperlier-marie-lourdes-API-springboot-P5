@@ -37,10 +37,9 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in sorting residents with countdown of adults and childs");
 		}
-		System.out.println("resident Adults And Child sorted" + mapOfAdultsAndChild);
+		log.debug("List of residents  sorted with coundDown of Adults And Childs: " + mapOfAdultsAndChild);
 		return mapOfAdultsAndChild;
 	}
 }

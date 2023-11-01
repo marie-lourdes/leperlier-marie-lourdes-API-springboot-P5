@@ -52,10 +52,8 @@ public class PersonInfoService {
 				log.debug("Resident retrieved by  full name  {} : {}", fullName, listOfResidentsWithMedicalRecord);
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			throw new NullPointerException("List of person not found  searched by full name : " + fullName);
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in getting info of person ");
 		}
 		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",

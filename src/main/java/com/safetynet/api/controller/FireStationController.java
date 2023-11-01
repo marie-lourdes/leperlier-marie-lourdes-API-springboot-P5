@@ -36,7 +36,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -52,7 +51,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -68,7 +66,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 			firestationFoundByAddress = fireStationService.updateFireStation(address, firestation);
 			return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -84,7 +81,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
@@ -100,7 +96,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}

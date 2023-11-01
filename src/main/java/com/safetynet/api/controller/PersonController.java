@@ -40,8 +40,7 @@ public class PersonController implements IResponseHTTPEmpty {
 		try {
 			personFoundById = personService.updatePerson(id, person);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		} catch (NullPointerException e) {	
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -57,7 +56,6 @@ public class PersonController implements IResponseHTTPEmpty {
 			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}

@@ -46,7 +46,6 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				listOfresidentsWithSameAddress.add(residentFoundByAddress);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in searching  full info of residents with the same address");
 		}
 		System.out.println("listOfresidentsWithSameAddress" + listOfresidentsWithSameAddress);

@@ -21,11 +21,9 @@ public class PhoneAlertService {
 	public List<Map<String, String>> getListOfPhonesOfResidentsOfStationNumber(String stationNumber)
 			throws NullPointerException {
 		log.debug("Retrieving all phones of residents of firestation");
-		try {
-			listOfPhonesOfResidentOfStationNumber = infoPhoneOfResidentsByStationNumber
-					.searchInfoOfResident(stationNumber);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+
+		listOfPhonesOfResidentOfStationNumber = infoPhoneOfResidentsByStationNumber.searchInfoOfResident(stationNumber);
+		if (listOfPhonesOfResidentOfStationNumber.isEmpty()) {
 			log.error("Failed to retrieve phones of this firestation : {}", stationNumber);
 			throw new NullPointerException("Not phone of resident found of this firestation : " + stationNumber);
 		}

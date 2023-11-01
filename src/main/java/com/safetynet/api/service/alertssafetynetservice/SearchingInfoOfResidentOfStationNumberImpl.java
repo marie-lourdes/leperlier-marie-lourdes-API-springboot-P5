@@ -57,7 +57,6 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured in searching info of residents of station number");
 		}
 		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);

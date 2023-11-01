@@ -67,7 +67,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -80,7 +79,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 			List<Map<String, String>> childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -94,7 +92,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -108,7 +105,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getListOfResidentsAndFireStationNearFire(address);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -135,7 +131,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumber);
 
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -150,7 +145,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -164,7 +158,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.getEmailOfResidentsOfCity(city);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
