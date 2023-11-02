@@ -23,29 +23,29 @@ import com.safetynet.api.model.Person;
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
-	private  PersonService personServiceUnderTest;
-
-	private  Person personTest;
+	private PersonService personServiceUnderTest;
+	
+	private Person personTest;
+	private Person personTest2;
 	private List<Person> persons;
-	private  Person personTest2;
 	private Person personUpdated = new Person("100 rue de Dax modified", "Dax", "97451", "841-874-6512",
 			"joe@email.com");
 
 	@BeforeEach
-	 void setUpPerTest() {
+	void setUpPerTest() {
 		personTest = new Person("John", "Leperlier", "1509 rue Dax", "Dax", "40100", "841-874-6512", "john@email.com");
 		personTest2 = new Person("Millie", "Leperlier", "100 rue de Dax", "Dax", "40100", "841-874-6512",
 				"millie@email.com");
 		personServiceUnderTest.addPerson(personTest);
 		personServiceUnderTest.addPerson(personTest2);
-		persons=personServiceUnderTest.getAllPersons();
+		persons = personServiceUnderTest.getAllPersons();
 	}
-	
+
 	@AfterEach
 	void reInitPerTest() {
 		persons.clear();
 	}
-	
+
 	@Test
 	void testAddPerson() throws Exception {
 		Person PersonCreated = new Person("Minnie", "Cooper", "17 boulevard de New-York", "New-York", "10803",
@@ -200,13 +200,13 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Leperlier");
 
 			String expectedLastName = "Leperlier";
-			int countPersonLastName =0;
+			int expectedCountPersonByLastName = 0;
 			for (Person personFoundByLastName : resultPersons) {
-				countPersonLastName++;
+				expectedCountPersonByLastName++;
 				assertEquals(expectedLastName, personFoundByLastName.getLastName());
 			}
-			System.out.println("count lastname test"+countPersonLastName );
-			assertTrue(countPersonLastName ==2);
+			System.out.println("count lastname test" + expectedCountPersonByLastName);
+			assertTrue(expectedCountPersonByLastName == 2);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -230,8 +230,8 @@ class PersonServiceTest {
 	void testGetPersonsByAddress() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 rue Dax");
-			String expectedAddress = personTest.getAddress();
-
+			
+			String expectedAddress = "1509 rue Dax";
 			for (Person personFoundByAddress : resultPersons) {
 				assertEquals(expectedAddress, personFoundByAddress.getAddress());
 			}
@@ -261,9 +261,13 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Dax");
 
 			String expectedCity = personTest.getCity();
+			
+			int expectedCountPersonByCity= 0;
 			for (Person personFoundByCity : resultPersons) {
+				expectedCountPersonByCity++;
 				assertEquals(expectedCity, personFoundByCity.getCity());
 			}
+			assertTrue(expectedCountPersonByCity==2);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
