@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class MedicalRecordService {
 
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
-	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
+	private  List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
