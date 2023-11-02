@@ -30,7 +30,7 @@ public class FireStationService {
 
 //ajouter illegal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
-	public FireStation addStationNumberOfExistingFireStation( String address,FireStation fireStation)
+	public FireStation addStationNumberOfExistingFireStation(String address, FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
 
@@ -55,7 +55,7 @@ public class FireStationService {
 		return fireStation;
 	}
 
-	public FireStation addAddressOfExistingFireStation( String stationNumber,FireStation fireStation)
+	public FireStation addAddressOfExistingFireStation(String stationNumber, FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Replacing a firestation with new address based onstation number existing firestation: {}",
 				stationNumber);
@@ -65,9 +65,9 @@ public class FireStationService {
 		fireStations.removeIf(
 				fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
 		createdFireStation = fireStationsByStationNumber.stream().filter(
-				fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
+				fireStationByStationNumber -> fireStationByStationNumber.getStationNumber().equals(stationNumber))
 				.findFirst().map(existingFireStation -> {
-					fireStation.setAddress(existingFireStation.getAddress());
+					fireStation.setStationNumber(existingFireStation.getStationNumber());
 					this.generateId(fireStation);
 					return fireStation;
 				}).orElse(null);
@@ -188,7 +188,7 @@ public class FireStationService {
 			String numberOfAddress = addressSplit[0];
 			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
 					+ Math.round(Math.random() * 100 + 1);
-			
+
 			fireStationCreated.setId(ID);
 			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
 		}

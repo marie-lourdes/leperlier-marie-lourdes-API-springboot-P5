@@ -85,7 +85,7 @@ class FireStationServiceTest {
 	void testAddStationNumberOfExistingFireStation() throws Exception {
 		FireStation fireStationCreatedWithNewStationNumber = new FireStation("8", "46  rue de la mairie");
 		try {
-            //Before replacing this firestation
+			// Before replacing this firestation
 			FireStation existingFireStationFoundByAddress = fireStationServiceUnderTest
 					.getOneFireStationByAddress("46  rue de la mairie");
 
@@ -103,13 +103,11 @@ class FireStationServiceTest {
 					() -> assertFalse(fireStations.contains(existingFireStationFoundByAddress)),
 					// checking setting id
 					() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
-					// checking id is different for new firestation created
+					// checking id is different than existing "fireStationTest"for new firestation
+					// created
 					() -> assertTrue(existingFireStationFoundByAddress
 							.getId() != resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
-					() -> assertTrue(
-							expectedStationNumberCreated != existingFireStationFoundByAddress.getStationNumber()
-									&& expectedStationNumberCreated == "8"));
-
+					() -> assertTrue(expectedStationNumberCreated != "5" && expectedStationNumberCreated == "8"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
