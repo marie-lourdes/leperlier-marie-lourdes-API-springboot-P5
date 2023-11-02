@@ -82,26 +82,26 @@ class PersonServiceTest {
 		try {
 
 			// existing personTest before updating
-			Person resultPersonRetrieved = personServiceUnderTest.getOnePersonById("John Leperlier");
+			Person personRetrievedById = personServiceUnderTest.getOnePersonById("John Leperlier");
 
 			// existing personTest after updating
 			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Leperlier", personUpdated);
 
-			String expectedFirstName = resultPersonRetrieved.getFirstName();
-			String expectedLastName = resultPersonRetrieved.getLastName();
+			String expectedFirstName = personRetrievedById.getFirstName();
+			String expectedLastName = personRetrievedById.getLastName();
 			String expectedAddress = personUpdated.getAddress();
-			String expectedCity = resultPersonRetrieved.getCity();
-			String expectedZip = resultPersonRetrieved.getZip();
-			String expectedPhone = resultPersonRetrieved.getPhone();
-			String expectedEmail = resultPersonRetrieved.getEmail();
+			String expectedCity = personRetrievedById.getCity();
+			String expectedZip = personRetrievedById.getZip();
+			String expectedPhone = personRetrievedById.getPhone();
+			String expectedEmail = personRetrievedById.getEmail();
 			assertAll("assertion all data of personTest updated found by id",
 					() -> assertNotNull(resultPersonUpdatedRetrieved),
-					() -> assertSame(resultPersonRetrieved, resultPersonUpdatedRetrieved),
+					() -> assertSame(personRetrievedById, resultPersonUpdatedRetrieved),
 
 					// checking if id with fullname and all datas except address of existing person
 					// don't change when updating
 					// and checking if address of existing personchange when updating new address
-					() -> assertEquals(resultPersonRetrieved.getId(), resultPersonUpdatedRetrieved.getId(),
+					() -> assertEquals(personRetrievedById.getId(), resultPersonUpdatedRetrieved.getId(),
 							"the id should  be the first name and last name of personTest"),
 					() -> assertEquals(expectedFirstName, resultPersonUpdatedRetrieved.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPersonUpdatedRetrieved.getLastName()),

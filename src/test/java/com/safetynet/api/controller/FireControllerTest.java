@@ -58,7 +58,7 @@ class FireControllerTest {
 							.content(jsonFireStation.write(fireStationCreatedWithNewStationNumber).getJson()))
 					.andReturn().getResponse();
 
-			verify(fireStationService).addStationNumberOfExistingFireStation(any(FireStation.class), any(String.class));
+			verify(fireStationService).addStationNumberOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -80,8 +80,7 @@ class FireControllerTest {
 
 			// verify if constraint validation in model and in controller with @valid stop
 			// the instruction post before call FireStationService
-			verify(fireStationService, Mockito.times(0)).addStationNumberOfExistingFireStation(any(FireStation.class),
-					any(String.class));
+			verify(fireStationService, Mockito.times(0)).addStationNumberOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -95,8 +94,7 @@ class FireControllerTest {
 
 		try {
 			fireStationService = new FireStationService();
-			given(fireStationService.addStationNumberOfExistingFireStation(NoExistingAddressOfFireStationCreated,
-					"1509 Culver S")).willThrow(NullPointerException.class);
+			given(fireStationService.addStationNumberOfExistingFireStation("1509 Culver S",NoExistingAddressOfFireStationCreated)).willThrow(NullPointerException.class);
 
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation").param("address", "1509 Culver S")
@@ -104,11 +102,11 @@ class FireControllerTest {
 							.content(jsonFireStation.write(NoExistingAddressOfFireStationCreated).getJson()))
 					.andReturn().getResponse();
 
-			verify(fireStationService).addStationNumberOfExistingFireStation(any(FireStation.class), any(String.class));
+			verify(fireStationService).addStationNumberOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationService
-					.addStationNumberOfExistingFireStation(NoExistingAddressOfFireStationCreated, "1509 Culver S"));
+					.addStationNumberOfExistingFireStation("1509 Culver S",NoExistingAddressOfFireStationCreated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -125,7 +123,7 @@ class FireControllerTest {
 							.content(jsonFireStation.write(fireStationCreatedWithNewAddress).getJson()))
 					.andReturn().getResponse();
 
-			verify(fireStationService).addAddressOfExistingFireStation(any(FireStation.class), any(String.class));
+			verify(fireStationService).addAddressOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.CREATED.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -145,8 +143,7 @@ class FireControllerTest {
 
 			// verify if constraint validation in model and in controller with @valid stop
 			// the instruction post before call FireStationService
-			verify(fireStationService, Mockito.times(0)).addAddressOfExistingFireStation(any(FireStation.class),
-					any(String.class));
+			verify(fireStationService, Mockito.times(0)).addAddressOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -160,7 +157,7 @@ class FireControllerTest {
 
 		try {
 			fireStationService = new FireStationService();
-			given(fireStationService.addAddressOfExistingFireStation(NoExistingStationNumberOfFireStationCreated, "9"))
+			given(fireStationService.addAddressOfExistingFireStation("9",NoExistingStationNumberOfFireStationCreated ))
 					.willThrow(NullPointerException.class);
 
 			MockHttpServletResponse result = mockMvc
@@ -168,11 +165,11 @@ class FireControllerTest {
 							.content(jsonFireStation.write(NoExistingStationNumberOfFireStationCreated).getJson()))
 					.andReturn().getResponse();
 
-			verify(fireStationService).addAddressOfExistingFireStation(any(FireStation.class), any(String.class));
+			verify(fireStationService).addAddressOfExistingFireStation(any(String.class),any(FireStation.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationService
-					.addStationNumberOfExistingFireStation(NoExistingStationNumberOfFireStationCreated, "9"));
+					.addStationNumberOfExistingFireStation("9",NoExistingStationNumberOfFireStationCreated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

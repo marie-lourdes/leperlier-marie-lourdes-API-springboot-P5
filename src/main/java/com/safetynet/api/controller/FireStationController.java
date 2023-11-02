@@ -33,7 +33,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(fireStation, address);
+			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(address,fireStation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -48,7 +48,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addAddressOfExistingFireStation(fireStation, stationNumber);
+			fireStationCreated = fireStationService.addAddressOfExistingFireStation(stationNumber,fireStation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

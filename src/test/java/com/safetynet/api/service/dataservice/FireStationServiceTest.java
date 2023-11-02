@@ -2,6 +2,7 @@ package com.safetynet.api.service.dataservice;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -78,12 +79,40 @@ class FireStationServiceTest {
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-
 	}
 
-	/*
-	 * @Test void testAddStationNumberOfExistingFireStation() throws Exception{
-	 * 
-	 * }
-	 */
+	@Test
+	void testAddStationNumberOfExistingFireStation() throws Exception {
+		FireStation fireStationCreatedWithNewStationNumber = new FireStation("8", "46  rue de la mairie");
+		try {
+            //Before replacing this firestation
+			FireStation existingFireStationFoundByAddress = fireStationServiceUnderTest
+					.getOneFireStationByAddress("46  rue de la mairie");
+
+			fireStationServiceUnderTest.addStationNumberOfExistingFireStation("46  rue de la mairie",
+					fireStationCreatedWithNewStationNumber);
+			// After replacing the firestation with new firestation and new station number
+			FireStation resultFireStationCreatedRetrievedWithNewStationNumber = fireStationServiceUnderTest
+					.getOneFireStationByAddress("46  rue de la mairie");
+			String expectedStationNumberCreated = fireStationCreatedWithNewStationNumber.getStationNumber();
+			assertAll(
+					"assertion of new station number of firestation created which replace existing firestation found by address",
+					() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber),
+					// checking ancien firestation is removed and replaced by new firestation with
+					// new station number created
+					() -> assertFalse(fireStations.contains(existingFireStationFoundByAddress)),
+					// checking setting id
+					() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
+					// checking id is different for new firestation created
+					() -> assertTrue(existingFireStationFoundByAddress
+							.getId() != resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
+					() -> assertTrue(
+							expectedStationNumberCreated != existingFireStationFoundByAddress.getStationNumber()
+									&& expectedStationNumberCreated == "8"));
+
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
 }

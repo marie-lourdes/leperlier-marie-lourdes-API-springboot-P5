@@ -30,7 +30,7 @@ public class FireStationService {
 
 //ajouter illegal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
-	public FireStation addStationNumberOfExistingFireStation(FireStation fireStation, String address)
+	public FireStation addStationNumberOfExistingFireStation( String address,FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
 
@@ -45,11 +45,8 @@ public class FireStationService {
 					"Failed to replace firestation with new station number , the address: " + address + " not found");
 		}
 
-		this.generateId(fireStation);
 		fireStation.setAddress(fireStationByAddress.getAddress());
-		fireStationByAddress.setStationNumber(fireStation.getStationNumber());
-		fireStationByAddress.setId(fireStation.getId());
-		fireStation = fireStationByAddress;
+		this.generateId(fireStation);
 
 		fireStations.add(fireStation);
 
@@ -58,7 +55,7 @@ public class FireStationService {
 		return fireStation;
 	}
 
-	public FireStation addAddressOfExistingFireStation(FireStation fireStation, String stationNumber)
+	public FireStation addAddressOfExistingFireStation( String stationNumber,FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Replacing a firestation with new address based onstation number existing firestation: {}",
 				stationNumber);
@@ -70,9 +67,9 @@ public class FireStationService {
 		createdFireStation = fireStationsByStationNumber.stream().filter(
 				fireStationByStationNumber -> fireStationByStationNumber.getId().toString().equals(stationNumber))
 				.findFirst().map(existingFireStation -> {
-					this.generateId(existingFireStation);
-					existingFireStation.setAddress(fireStation.getAddress());
-					return existingFireStation;
+					fireStation.setAddress(existingFireStation.getAddress());
+					this.generateId(fireStation);
+					return fireStation;
 				}).orElse(null);
 		if (createdFireStation == null) {
 			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
