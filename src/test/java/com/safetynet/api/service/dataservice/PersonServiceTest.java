@@ -24,7 +24,7 @@ import com.safetynet.api.model.Person;
 class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
-	
+
 	private Person personTest;
 	private Person personTest2;
 	private List<Person> persons;
@@ -141,8 +141,6 @@ class PersonServiceTest {
 
 	@Test
 	void testDeleteOnePersonById_WithIncorrectId() throws Exception {
-		personServiceUnderTest.addPerson(personTest2);
-
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("John Lenon");
 			assertFalse(resultPersonRemoved);
@@ -230,7 +228,7 @@ class PersonServiceTest {
 	void testGetPersonsByAddress() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 rue Dax");
-			
+
 			String expectedAddress = "1509 rue Dax";
 			for (Person personFoundByAddress : resultPersons) {
 				assertEquals(expectedAddress, personFoundByAddress.getAddress());
@@ -261,13 +259,13 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Dax");
 
 			String expectedCity = personTest.getCity();
-			
-			int expectedCountPersonByCity= 0;
+
+			int expectedCountPersonByCity = 0;
 			for (Person personFoundByCity : resultPersons) {
 				expectedCountPersonByCity++;
 				assertEquals(expectedCity, personFoundByCity.getCity());
 			}
-			assertTrue(expectedCountPersonByCity==2);
+			assertTrue(expectedCountPersonByCity == 2);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());

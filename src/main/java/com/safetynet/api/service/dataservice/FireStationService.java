@@ -191,6 +191,7 @@ public class FireStationService {
 			String numberOfAddress = addressSplit[0];
 			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
 					+ Math.round(Math.random() * 100 + 1);
+			
 			fireStationCreated.setId(ID);
 			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
 		}
