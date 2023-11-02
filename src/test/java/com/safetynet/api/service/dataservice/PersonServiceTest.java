@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +24,29 @@ import com.safetynet.api.model.Person;
 @SpringBootTest
 class PersonServiceTest {
 	@Autowired
-	private PersonService personServiceUnderTest;
+	private static PersonService personServiceUnderTest;
 	
-	private static Person person;
+	private static Person personTest1;
+	private static List<Person> persons;
 	private static Person personCreated;
 	private static Person personUpdated;
 	
 	@BeforeAll
 	static void setUp() throws IOException {
-		person = new Person("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+		personTest1 = new Person("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
 		personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
 				"millie@email.com");
 		personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
+		personServiceUnderTest.addPerson(personTest1);
+		//personServiceUnderTest.addPerson(	personCreated );
 	}
 
+	// using for test
+	@AfterAll
+void reInitPersons() {
+		persons.clear();
+	}
 	@Test
 	void testAddPerson() throws Exception {
 		
@@ -51,10 +60,10 @@ class PersonServiceTest {
 		String expectedZip = personCreated.getZip();
 		String expectedPhone = personCreated.getPhone();
 		String expectedEmail = personCreated.getEmail();
-		assertAll("assertion all data of person created found by id", () -> assertNotNull(resultPersonCreatedRetrieved),
+		assertAll("assertion all data of personTest1 created found by id", () -> assertNotNull(resultPersonCreatedRetrieved),
 				// checking setting id with fullname in method addPerson() of PersonService
 				() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPersonCreatedRetrieved.getId(),
-						"the id should  be the first name and last name of person"),
+						"the id should  be the first name and last name of personTest1"),
 				() -> assertEquals(expectedFirstName, resultPersonCreatedRetrieved.getFirstName()),
 				() -> assertEquals(expectedLastName, resultPersonCreatedRetrieved.getLastName()),
 				() -> assertEquals(expectedAddress, resultPersonCreatedRetrieved.getAddress()),
@@ -66,31 +75,31 @@ class PersonServiceTest {
 
 	@Test
 	void testUpdatePerson() throws Exception {
-		Person personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
+		Person personTest1Updated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
 				"jaboyd@email.com");
 		try {
-			// existing person before updating
+			// existing personTest1 before updating
 			Person resultPersonRetrieved = personServiceUnderTest.getOnePersonById("John Boyd");
 
-			// existing person after updating
-			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Boyd", personUpdated);
+			// existing personTest1 after updating
+			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Boyd", personTest1Updated);
 
 			String expectedFirstName = resultPersonRetrieved.getFirstName();
 			String expectedLastName = resultPersonRetrieved.getLastName();
-			String expectedAddress = personUpdated.getAddress();
+			String expectedAddress = personTest1Updated.getAddress();
 			String expectedCity = resultPersonRetrieved.getCity();
 			String expectedZip = resultPersonRetrieved.getZip();
 			String expectedPhone = resultPersonRetrieved.getPhone();
 			String expectedEmail = resultPersonRetrieved.getEmail();
-			assertAll("assertion all data of person updated found by id",
+			assertAll("assertion all data of personTest1 updated found by id",
 					() -> assertNotNull(resultPersonUpdatedRetrieved),
 					() -> assertSame(resultPersonRetrieved, resultPersonUpdatedRetrieved),
 
-					// checking if id with fullname and all datas except address of existing person
+					// checking if id with fullname and all datas except address of existing personTest1
 					// don't change when updating
-					// and checking if address of existing person change when updating new address
+					// and checking if address of existing personTest1 change when updating new address
 					() -> assertEquals(resultPersonRetrieved.getId(), resultPersonUpdatedRetrieved.getId(),
-							"the id should  be the first name and last name of person"),
+							"the id should  be the first name and last name of personTest1"),
 					() -> assertEquals(expectedFirstName, resultPersonUpdatedRetrieved.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPersonUpdatedRetrieved.getLastName()),
 					() -> assertEquals(expectedAddress, resultPersonUpdatedRetrieved.getAddress()),
@@ -148,16 +157,16 @@ class PersonServiceTest {
 		try {
 			Person resultPerson = personServiceUnderTest.getOnePersonById("John Boyd");
 
-			String expectedFirstName = person.getFirstName();
-			String expectedLastName = person.getLastName();
-			String expectedAddress = person.getAddress();
-			String expectedCity = person.getCity();
-			String expectedZip = person.getZip();
-			String expectedPhone = person.getPhone();
-			String expectedEmail = person.getEmail();
-			assertAll("assertion all data of person found by id", () -> assertNotNull(resultPerson),
+			String expectedFirstName = personTest1.getFirstName();
+			String expectedLastName = personTest1.getLastName();
+			String expectedAddress = personTest1.getAddress();
+			String expectedCity = personTest1.getCity();
+			String expectedZip = personTest1.getZip();
+			String expectedPhone = personTest1.getPhone();
+			String expectedEmail = personTest1.getEmail();
+			assertAll("assertion all data of personTest1 found by id", () -> assertNotNull(resultPerson),
 					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPerson.getId(),
-							"the id should  be the first name and last name of person"),
+							"the id should  be the first name and last name of personTest1"),
 					() -> assertEquals(expectedFirstName, resultPerson.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPerson.getLastName()),
 					() -> assertEquals(expectedAddress, resultPerson.getAddress()),
@@ -189,7 +198,7 @@ class PersonServiceTest {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Boyd");
 
-			String expectedLastName = person.getLastName();
+			String expectedLastName = personTest1.getLastName();
 			for (Person personFoundByLastName : resultPersons) {
 				assertEquals(expectedLastName, personFoundByLastName.getLastName());
 			}
@@ -216,7 +225,7 @@ class PersonServiceTest {
 	void testGetPersonsByAddress() throws Exception {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByAddress("1509 Culver St");
-			String expectedAddress = person.getAddress();
+			String expectedAddress = personTest1.getAddress();
 
 			for (Person personFoundByAddress : resultPersons) {
 				assertEquals(expectedAddress, personFoundByAddress.getAddress());
@@ -246,7 +255,7 @@ class PersonServiceTest {
 		try {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Culver");
 
-			String expectedCity = person.getCity();
+			String expectedCity = personTest1.getCity();
 			for (Person personFoundByCity : resultPersons) {
 				assertEquals(expectedCity, personFoundByCity.getCity());
 			}

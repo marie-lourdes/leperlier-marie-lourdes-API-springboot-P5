@@ -178,8 +178,4 @@ public class PersonService {
 		return persons;
 	}
 
-	// using for test
-	public void reInitPersons() {
-		persons.clear();
-	}
 }

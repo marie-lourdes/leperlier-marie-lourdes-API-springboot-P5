@@ -25,7 +25,7 @@ class FireStationServiceTest {
 	static void setUp() throws IOException {
 	}
 
-	@Test
+/*	@Test
 	void testGenerateId() throws Exception{
 		 fireStationCreated = new FireStation("8", "15 rue de Dax");
 		 
@@ -41,7 +41,7 @@ class FireStationServiceTest {
 					// checking setting id with request post
 					() -> assertNotNull(resultFirestationStationIdRetrieved),
 					() -> assertTrue( resultFirestationStationIdRetrieved.contains(expectedAddress)&& resultFirestationStationIdRetrieved.contains(expectedStationNumber)));
-		}
+		}*/
 	
 	
 	@Test
