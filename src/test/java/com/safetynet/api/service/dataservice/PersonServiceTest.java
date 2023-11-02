@@ -25,17 +25,21 @@ class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
 	private static Person person;
-
+	private static Person personCreated;
+	private static Person personUpdated;
+	
 	@BeforeAll
 	static void setUp() throws IOException {
 		person = new Person("John", "Boyd", "1509 Culver St", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+		personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
+				"millie@email.com");
+		personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
+				"jaboyd@email.com");
 	}
 
 	@Test
 	void testAddPerson() throws Exception {
-		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
-				"millie@email.com");
-
+		
 		personServiceUnderTest.addPerson(personCreated);
 
 		Person resultPersonCreatedRetrieved = personServiceUnderTest.getOnePersonById("Millie Boyd");
@@ -100,9 +104,6 @@ class PersonServiceTest {
 
 	@Test
 	void testUpdatePerson_WithIncorrectId() throws Exception {
-		Person personUpdated = new Person("1509 Culver St modified", "Culver", "97451", "841-874-6512",
-				"jaboyd@email.com");
-
 		try {
 			Person resultPersonUpdated = personServiceUnderTest.updatePerson("John Boy", personUpdated);
 
@@ -117,8 +118,6 @@ class PersonServiceTest {
 
 	@Test
 	void testDeleteOnePersonById() throws Exception {
-		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
-				"millie@email.com");
 		personServiceUnderTest.addPerson(personCreated);
 
 		try {
@@ -131,8 +130,6 @@ class PersonServiceTest {
 
 	@Test
 	void testDeleteOnePersonById_WithIncorrectId() throws Exception {
-		Person personCreated = new Person("Millie", "Boyd", "100 rue de Dax", "Dax", "40100", "841-874-6512",
-				"millie@email.com");
 		personServiceUnderTest.addPerson(personCreated);
 
 		try {

@@ -27,6 +27,11 @@ class FireStationServiceTest {
 	}
 
 	@Test
+	void testGenerateId()throws Exception{
+		
+	}
+	
+	@Test
 	void testAddFireStation() throws Exception {
 		FireStation fireStationCreated = new FireStation("8", "15 rue de Dax");
 
@@ -44,4 +49,9 @@ class FireStationServiceTest {
 				() -> assertEquals(expectedStationNumber, resultFireStationCreatedRetrieved.getStationNumber()),
 				() -> assertEquals(expectedAddress, resultFireStationCreatedRetrieved.getAddress()));
 	}
+
+	/*@Test
+	void testAddStationNumberOfExistingFireStation() throws Exception{
+		 
+	 }*/
 }
