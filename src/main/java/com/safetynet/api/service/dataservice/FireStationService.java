@@ -182,9 +182,19 @@ public class FireStationService {
 	}
 
 	public void generateId(FireStation fireStationCreated) {
-		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
-		String numberOfAddress = addressSplit[0];
-		fireStationCreated.setId(numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
-				+ Math.round(Math.random() * 100 + 1));
+		log.debug("generating id for firesattion created  : {}", fireStationCreated);
+		try {
+			if (fireStationCreated.getAddress() != null) {
+				String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
+				String numberOfAddress = addressSplit[0];
+				final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
+						+ Math.round(Math.random() * 100 + 1);
+				fireStationCreated.setId(ID);
+				log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
+			}
+
+		} catch (Exception e) {
+			log.error("Failed to generate id of firestation created: {}", fireStationCreated);
+		}
 	}
 }
