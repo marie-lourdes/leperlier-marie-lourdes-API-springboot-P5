@@ -3,8 +3,7 @@ package com.safetynet.api.service.dataservice;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
@@ -20,16 +19,30 @@ class FireStationServiceTest {
 	@Autowired
 	private FireStationService fireStationServiceUnderTest;
 	private static FireStation fireStation;
+	private static FireStation fireStationCreated;
 
 	@BeforeAll
 	static void setUp() throws IOException {
-		fireStation = new FireStation("3 ", "1509 Culver St");
 	}
 
 	@Test
-	void testGenerateId()throws Exception{
-		
-	}
+	void testGenerateId() throws Exception{
+		 fireStationCreated = new FireStation("8", "15 rue de Dax");
+		 
+		 fireStationServiceUnderTest.generateId(fireStationCreated);
+		 fireStationServiceUnderTest.addFireStation(fireStationCreated);
+			FireStation resultFireStationCreatedRetrievedWithIdGenerated = fireStationServiceUnderTest
+					.getOneFireStationByAddress("15 rue de Dax");
+			String resultFirestationStationIdRetrieved=  resultFireStationCreatedRetrievedWithIdGenerated.getId();
+			String expectedStationNumber = fireStationCreated.getStationNumber();
+			String expectedAddress = fireStationCreated.getAddress();
+			assertAll("assertion genration id of firestation created found by address",
+					() -> assertNotNull(resultFireStationCreatedRetrievedWithIdGenerated ),
+					// checking setting id with request post
+					() -> assertNotNull(resultFirestationStationIdRetrieved),
+					() -> assertTrue( resultFirestationStationIdRetrieved.contains(expectedAddress)&& resultFirestationStationIdRetrieved.contains(expectedStationNumber)));
+		}
+	
 	
 	@Test
 	void testAddFireStation() throws Exception {

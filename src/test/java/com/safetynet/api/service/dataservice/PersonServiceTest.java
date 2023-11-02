@@ -24,6 +24,7 @@ import com.safetynet.api.model.Person;
 class PersonServiceTest {
 	@Autowired
 	private PersonService personServiceUnderTest;
+	
 	private static Person person;
 	private static Person personCreated;
 	private static Person personUpdated;
