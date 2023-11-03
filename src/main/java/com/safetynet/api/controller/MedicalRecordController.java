@@ -28,7 +28,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-	@PostMapping("/medicalRecord/")
+	@PostMapping("/medicalRecord")
 	@ResponseBody
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
@@ -75,7 +75,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@GetMapping("/medicalRecord/")
+	@GetMapping("/medicalRecord")
 	@ResponseBody
 	public ResponseEntity<?> getAllMedicalRecords() {
 		List<MedicalRecord> allMedicalRecords;
