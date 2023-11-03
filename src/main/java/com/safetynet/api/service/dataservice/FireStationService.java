@@ -30,38 +30,40 @@ public class FireStationService {
 
 //ajouter illegal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
 //car les annotation permette de renvoyer erreur 400
-	public FireStation addStationNumberOfExistingFireStation(String address, FireStation fireStation)
+	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation)
 			throws NullPointerException {
-		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
+		log.debug("Adding a firestation with new station number and existing address: {}", address);
 
-		FireStation fireStationByAddress = new FireStation();
+		FireStation createdFireStation = new FireStation();
 		try {
-			fireStationByAddress = getOneFireStationByAddress(address);
-			fireStations.removeIf(
-					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
-			fireStation.setAddress(fireStationByAddress.getAddress());
-			this.generateId(fireStation);
+			List<FireStation> fireStationsByAddress = getFireStationsByAddress(address);
+			
+			createdFireStation =  fireStationsByAddress.stream().filter(
+					fireStationByAddress -> fireStationByAddress.getAddress().equals(address))
+					.findFirst().map(existingFireStation -> {
+						fireStation.setAddress(existingFireStation.getAddress());
+						this.generateId(fireStation);
+						return fireStation;
+					}).orElse(null);
 
-			fireStations.add(fireStation);
-			log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
+			fireStations.add(createdFireStation);
+			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException(
-					"Failed to replace firestation with new station number , the address: " + address + " not found");
+					"Failed to add  firestation with new station number , the address: " + address + " not found");
 		}
 
 		return fireStation;
 	}
 
-	public FireStation addAddressOfExistingFireStation(String stationNumber, FireStation fireStation)
+	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
 			throws NullPointerException {
-		log.debug("Replacing a firestation with new address based onstation number existing firestation: {}",
+		log.debug("Adding a firestation with new address and existing station number: {}",
 				stationNumber);
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
-			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
-					.equals(stationNumber));
-
+			
 			createdFireStation = fireStationsByStationNumber.stream().filter(
 					fireStationByStationNumber -> fireStationByStationNumber.getStationNumber().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
@@ -71,9 +73,9 @@ public class FireStationService {
 					}).orElse(null);
 
 			fireStations.add(createdFireStation);
-			log.info("Firestation replaced with new address  and  added successfully: {}", fireStation);
+			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
 		} catch (NullPointerException e) {
-			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
+			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
 					+ stationNumber + " not found");
 		}
 
@@ -151,17 +153,28 @@ public class FireStationService {
 
 	}
 
-	public FireStation getOneFireStationByAddress(String address) throws NullPointerException {
+	public List<FireStation> getFireStationsByAddress(String address) throws NullPointerException {
 		log.debug("Retrieving  firestation  for address {}", address);
 
-		FireStation fireStationFoundByAddress = new FireStation();
-		fireStationFoundByAddress = fireStations.stream()
-				.filter(fireStation -> fireStation.getAddress().equals(address)).findAny().map(existingFireStation -> {
-					return existingFireStation;
-				}).orElseThrow(() -> new NullPointerException("Firestation not found by address: " + address));
+		List<FireStation>  fireStationsFoundByAddress = new ArrayList<>();
+		Iterator<FireStation> itrFireStations = fireStations.listIterator();
+		while (itrFireStations.hasNext()) {
+			FireStation itrFireStation = itrFireStations.next();
+			if (itrFireStation.getStationNumber().equals(address)) {
+				 fireStationsFoundByAddress.add(itrFireStation);
+			}
+		}
 
-		log.info("Firestation retrieved successfully for address: {}", address);
-		return fireStationFoundByAddress;
+		if (fireStationsFoundByAddress .isEmpty()) {
+			log.error("Failed to retrieve firestation(s) by  address for {}",address);
+			throw new NullPointerException("Firestation(s) not found by  address: " + address);
+		} else {
+			log.info("Firestation(s) retrieved  successfully for  address {}", address);
+		}
+
+		log.info("List of firestations retrieved by address successfully : {}",
+				fireStationsFoundByAddress);
+		return fireStationsFoundByAddress;
 	}
 
 	public List<FireStation> getAllFireStations() throws NullPointerException {

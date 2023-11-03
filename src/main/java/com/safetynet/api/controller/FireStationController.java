@@ -1,11 +1,14 @@
 package com.safetynet.api.controller;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,7 +36,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addStationNumberOfExistingFireStation(address,fireStation);
+			fireStationCreated = fireStationService.addStationNumberOfFireStationWithExistingAddress(address,fireStation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -48,7 +51,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addAddressOfExistingFireStation(stationNumber,fireStation);
+			fireStationCreated = fireStationService. addAddressOfFireStationWithExistingStationNumber(stationNumber,fireStation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -98,6 +101,18 @@ public class FireStationController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+		}
+	}
+	@GetMapping("/firestation/")
+	@ResponseBody
+	public ResponseEntity<?> getAllFireStations() {
+		List<FireStation> allFireStations;
+		try {
+			allFireStations = fireStationService.getAllFireStations();
+			return ResponseEntity.status(HttpStatus.OK).body(allFireStations);
+		} catch (NullPointerException e) {
+			log.error(e.getMessage());
+			return returnResponseEntityEmptyAndCode404();
 		}
 	}
 }

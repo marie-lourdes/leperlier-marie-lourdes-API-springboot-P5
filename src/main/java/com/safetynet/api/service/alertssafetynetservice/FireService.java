@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.service.dataservice.FireStationService;
 
 @Service
@@ -32,9 +33,10 @@ public class FireService {
 					.searchInfoOfResident(address);
 
 			Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
-			String fireStationFoundByAddressFire = fireStationService.getOneFireStationByAddress(address)
-					.getStationNumber();
-			mapOfFireStationFoundByAddressFire.put("stationNumber", fireStationFoundByAddressFire);
+			List<FireStation> fireStationsFoundByAddressFire = fireStationService.getFireStationsByAddress(address);
+				for( FireStation	fireStation:fireStationsFoundByAddressFire ) {
+						mapOfFireStationFoundByAddressFire.put("stationNumber", fireStation.getStationNumber());
+				}
 
 			listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);

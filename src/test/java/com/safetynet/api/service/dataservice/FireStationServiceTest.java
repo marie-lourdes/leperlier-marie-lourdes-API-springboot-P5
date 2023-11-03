@@ -49,8 +49,8 @@ class FireStationServiceTest {
 		fireStationServiceUnderTest.generateId(fireStationCreated);
 		fireStations.add(fireStationCreated);
 
-		FireStation resultFireStationCreatedRetrievedByAddress = fireStationServiceUnderTest
-				.getOneFireStationByAddress("15 rue de Dax");
+		List<FireStation> resultFireStationCreatedRetrievedByAddress = fireStationServiceUnderTest
+				.getFireStationsByAddress("15 rue de Dax");
 		String resultFirestationStationRetrievedWithIdGererated = resultFireStationCreatedRetrievedByAddress.getId();
 		assertAll("assertion generation id of firestation created found by address",
 				// checking setting id not null
@@ -67,8 +67,8 @@ class FireStationServiceTest {
 		try {
 			fireStationServiceUnderTest.addFireStation(fireStationCreated);
 
-			FireStation resultFireStationCreatedRetrieved = fireStationServiceUnderTest
-					.getOneFireStationByAddress("15 rue de Dax");
+			List<FireStation>resultFireStationCreatedRetrieved = fireStationServiceUnderTest
+					.getFireStationsByAddress("15 rue de Dax");
 			String expectedStationNumber = fireStationCreated.getStationNumber();
 			String expectedAddress = fireStationCreated.getAddress();
 
@@ -88,15 +88,15 @@ class FireStationServiceTest {
 		FireStation fireStationCreatedWithNewStationNumber = new FireStation("8", "46  rue de la mairie");
 		try {
 			// Before replacing this firestation
-			FireStation existingFireStationFoundByAddress = fireStationServiceUnderTest
-					.getOneFireStationByAddress("46  rue de la mairie");
+			List<FireStation> existingFireStationFoundByAddress = fireStationServiceUnderTest
+					.getFireStationsByAddress("46  rue de la mairie");
 
-			fireStationServiceUnderTest.addStationNumberOfExistingFireStation("46  rue de la mairie",
+			fireStationServiceUnderTest.addStationNumberOfFireStationWithExistingAddress("46  rue de la mairie",
 					fireStationCreatedWithNewStationNumber);
-			
+
 			// After replacing the ancien firestation found by address
-			FireStation	resultFireStationCreatedRetrievedWithNewStationNumber= fireStationServiceUnderTest
-					.getOneFireStationByAddress("46  rue de la mairie");
+			List<FireStation> resultFireStationCreatedRetrievedWithNewStationNumber = fireStationServiceUnderTest
+					.getFireStationsByAddress("46  rue de la mairie");
 			String expectedStationNumberCreated = fireStationCreatedWithNewStationNumber.getStationNumber();
 			assertAll(
 					"assertion of new station number of firestation created which replace existing firestation found by address",
@@ -122,24 +122,60 @@ class FireStationServiceTest {
 		FireStation fireStationCreatedWithNewStationNumber = new FireStation("8", "45 No existing address");
 		try {
 
-fireStationServiceUnderTest.addStationNumberOfExistingFireStation(" 45 No existing address",
+			fireStationServiceUnderTest.addStationNumberOfFireStationWithExistingAddress(" 45 No existing address",
 					fireStationCreatedWithNewStationNumber);
 
-			FireStation resultFireStationCreatedRetrievedWithNewStationNumber=fireStationServiceUnderTest.getOneFireStationByAddress("45 No existing address");
-			
+			List<FireStation> resultFireStationCreatedRetrievedWithNewStationNumber = fireStationServiceUnderTest
+					.getFireStationsByAddress("45 No existing address");
+
 			assertAll(
 					"assertion of new station number of firestation created which replace existing firestation found by address",
 					() -> assertNull(resultFireStationCreatedRetrievedWithNewStationNumber),
 					// checking the firestation created is no present in the list of firestation
 					() -> assertFalse(fireStations.contains(resultFireStationCreatedRetrievedWithNewStationNumber)));
-					
+
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> fireStationServiceUnderTest.addStationNumberOfExistingFireStation(" 45 No existing address",
+					() -> fireStationServiceUnderTest.addStationNumberOfFireStationWithExistingAddress(" 45 No existing address",
 							fireStationCreatedWithNewStationNumber));
-		}catch (AssertionError e) {
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
+/*	@Test
+	void testAddAddressOfExistingFireStation() throws Exception {
+		FireStation fireStationCreatedWithNewAddress = new FireStation("8", "46  rue de la mairie");
+		try {
+			// Before replacing this firestation
+			List<FireStation >existingFireStationsFoundByStationNumber = fireStationServiceUnderTest.getFireStationsByStationNumber("6" );
+
+			fireStationServiceUnderTest.addAddressOfExistingFireStation("6",
+					fireStationCreatedWithNewAddress );
+
+			// After replacing the ancien firestation found by station number
+			List<FireStation >resultFireStationsCreatedRetrievedWithNewStationNumber = fireStationServiceUnderTest.getFireStationsByStationNumber("6");
+			String expectedAddressCreated =fireStationCreatedWithNewAddress .getStationNumber();
+			for(FireStation  fireStation:resultFireStationsCreatedRetrievedWithNewStationNumber ) {
+				assertAll(
+						"assertion of new station number of firestation created which replace existing firestation found by address",
+						() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber),
+						() -> assertTrue(fireStations.contains(resultFireStationCreatedRetrievedWithNewStationNumber)),
+						// checking ancien firestation is removed and replaced by new firestation with
+						// new station number created
+						() -> assertFalse(fireStations.contains(existingFireStationFoundByAddress)),
+						// checking setting id
+						() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
+						// checking id is different than existing "fireStationTest"for new firestation
+						// created
+						() -> assertTrue(existingFireStationFoundByAddress
+								.getId() != resultFireStationCreatedRetrievedWithNewStationNumber.getId()),
+						() -> assertTrue(expectedStationNumberCreated != "5" && expectedStationNumberCreated == "8"));
+			}
+		
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}*/
+
 }
