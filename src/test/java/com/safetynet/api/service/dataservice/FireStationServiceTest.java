@@ -192,7 +192,7 @@ class FireStationServiceTest {
 			// existing fireStationTest1 before updating
 			List<FireStation> existingFireStationsByAddress = fireStationServiceUnderTest
 					.getFireStationsByAddress("46  rue de la mairie");
-			
+
 			String expectedAddress = " ";
 			String idOfExistingFireStation = " ";
 			String expectedStationNumber = " ";
@@ -200,25 +200,25 @@ class FireStationServiceTest {
 			for (FireStation existingFireStationFoundByAddress : existingFireStationsByAddress) {
 				if (existingFireStationFoundByAddress.getStationNumber() == "5") {
 					idOfExistingFireStation = existingFireStationFoundByAddress.getId();
-					expectedStationNumber=existingFireStationFoundByAddress.getStationNumber();
+					expectedStationNumber = existingFireStationFoundByAddress.getStationNumber();
 					expectedAddress = existingFireStationFoundByAddress.getAddress();
 					existingFireStation = existingFireStationFoundByAddress;
 				}
 			}
-			
-			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest.updateFireStation("46  rue de la mairie",
-					fireStationTest1Updated);
-			
+
+			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest
+					.updateFireStation("46  rue de la mairie", fireStationTest1Updated);
+
 			// existing fireStationTest1 after updating
 			List<FireStation> existingFireStationsUpdatedByAddress = fireStationServiceUnderTest
 					.getFireStationsByAddress("46  rue de la mairie");
-			
+
 			assertNotNull(resultFireStationUpdatedRetrieved);
 			// checking firestation updated with new station number is present in list of
 			// existing firestations found by address
 			assertTrue(existingFireStationsUpdatedByAddress.contains(resultFireStationUpdatedRetrieved));
 			assertNotNull(fireStationServiceUnderTest.getFireStationsByStationNumber("11"));
-			
+
 			for (FireStation existingFireStationFoundByAddress : existingFireStationsUpdatedByAddress) {
 				if (existingFireStationFoundByAddress.getStationNumber() == "11") {
 					assertSame(existingFireStationFoundByAddress, resultFireStationUpdatedRetrieved);
@@ -227,7 +227,7 @@ class FireStationServiceTest {
 					// checking if address of existing firestation don'change when updating
 					// station number
 					assertEquals(expectedAddress, existingFireStationFoundByAddress.getAddress());
-					// checking station number of existing firestation change when updating	
+					// checking station number of existing firestation change when updating
 					assertNotEquals(expectedStationNumber, existingFireStationFoundByAddress.getStationNumber());
 				}
 			}
@@ -239,26 +239,38 @@ class FireStationServiceTest {
 	@Test
 	void testUpdateFireStation_WithNoExistingFireStationByAddress() throws Exception {
 		try {
-			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest.updateFireStation("45 No existing address",
-					fireStationTest1Updated);
-			
-		assertNull( resultFireStationUpdatedRetrieved);
+			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest
+					.updateFireStation("45 No existing address", fireStationTest1Updated);
+
+			assertNull(resultFireStationUpdatedRetrieved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest
-					.updateFireStation("45 No existing address",
-							fireStationTest1Updated));
+					.updateFireStation("45 No existing address", fireStationTest1Updated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
 
-@Test
-void testDeleteFireStationByStationNumber() throws Exception{
-	try {
-		boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("6");
-		assertTrue( resultFireStationRemoved);
-	} catch (AssertionError e) {
-		fail(e.getMessage());
+	@Test
+	void testDeleteFireStationByStationNumber() throws Exception {
+		try {
+			boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("6");
+			assertTrue(resultFireStationRemoved);
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
 	}
-}
+
+	@Test
+	void testDeleteFireStationByStationNumber__WithNoExistingFireStationByStationNumber() throws Exception {
+		try {
+			boolean resultPersonRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("12");
+			assertFalse(resultPersonRemoved);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> fireStationServiceUnderTest.deleteFireStationByStationNumber("12"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
 }
