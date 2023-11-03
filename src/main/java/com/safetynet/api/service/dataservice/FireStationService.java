@@ -160,7 +160,7 @@ public class FireStationService {
 		Iterator<FireStation> itrFireStations = fireStations.listIterator();
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
-			if (itrFireStation.getStationNumber().equals(address)) {
+			if (itrFireStation.getAddress().equals(address)) {
 				 fireStationsFoundByAddress.add(itrFireStation);
 			}
 		}
