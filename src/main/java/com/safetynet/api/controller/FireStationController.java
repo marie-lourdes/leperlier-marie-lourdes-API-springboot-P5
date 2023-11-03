@@ -51,7 +51,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService. addAddressOfFireStationWithExistingStationNumber(stationNumber,fireStation);
+			fireStationCreated = fireStationService.addAddressOfFireStationWithExistingStationNumber(stationNumber,fireStation);
 			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
