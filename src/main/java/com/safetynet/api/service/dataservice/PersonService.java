@@ -30,8 +30,8 @@ public class PersonService {
 
 	public Person updatePerson(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
-
-		Person existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+		Person existingPersonUpdated =null;
+		 existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
 					existingPerson.setAddress(updatedPerson.getAddress());
 					existingPerson.setCity(updatedPerson.getCity());

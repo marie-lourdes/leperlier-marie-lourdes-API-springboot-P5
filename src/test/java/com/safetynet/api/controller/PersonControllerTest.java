@@ -75,7 +75,7 @@ class PersonControllerTest {
 	
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
-		Person existingPersonUpdated = new Person("John", "Leperlier", "14 address modified", "Culver", "97451",
+		Person existingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver", "97451",
 				"841-874-6512", "jaboyd@email.com");
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
@@ -91,7 +91,7 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObjectWithAddressNoValid_WhenUpdateOfPerson_ThenReturn400() throws Exception {
-		Person existingPersonUpdatedAddressNoValid = new Person("John Boyd", "John", "Boyd",
+		Person existingPersonUpdatedAddressNoValid = new Person( "John", "Boyd",
 				"quatorze  address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
 
 		try {
@@ -112,7 +112,7 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
-		Person NoExistingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver",
+		Person NoExistingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver",
 				"97451", "841-874-6512", "jaboyd@email.com");
 
 		try {

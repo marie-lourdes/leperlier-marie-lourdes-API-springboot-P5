@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,11 +36,11 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
 	}
 
-	@PutMapping("/medicalRecord/{id}")
+	@PutMapping("/medicalRecord")
 	@ResponseBody
 	public ResponseEntity<?> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
-			@PathVariable String id) {
-		MedicalRecord medicalRecordFoundById;
+			@RequestParam String id) {
+		MedicalRecord medicalRecordFoundById= new MedicalRecord();
 
 		try {
 			medicalRecordFoundById = medicalRecordService.updateMedicalRecord(id, medicalRecord);
@@ -50,8 +51,8 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		}
 	}
 
-	@DeleteMapping("/medicalRecord/{id}")
-	public ResponseEntity<?> deleteOneMedicalRecordByName(@PathVariable String id) {
+	@DeleteMapping("/medicalRecord")
+	public ResponseEntity<?> deleteOneMedicalRecordByName(@RequestParam  String id) {
 		try {
 			medicalRecordService.deleteOneMedicalRecordById(id);
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);

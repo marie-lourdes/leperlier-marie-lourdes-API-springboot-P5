@@ -29,7 +29,7 @@ public class MedicalRecordService {
 		return medicalRecord;
 	}
 
-	public MedicalRecord updateMedicalRecord(String id, MedicalRecord updatedMedicalRecord) {
+	public MedicalRecord updateMedicalRecord(String id, MedicalRecord updatedMedicalRecord) throws NullPointerException {
 		log.debug("Updating medical record for: {}", id);
 
 		MedicalRecord existingMedicalRecordUpdated = new MedicalRecord();
@@ -46,7 +46,7 @@ public class MedicalRecordService {
 		return existingMedicalRecordUpdated;
 	}
 
-	public boolean deleteOneMedicalRecordById(String id) {
+	public boolean deleteOneMedicalRecordById(String id)	throws NullPointerException {
 		log.debug("Deleting medical record for {}", id);
 
 		boolean result = false;
@@ -61,7 +61,7 @@ public class MedicalRecordService {
 		return result;
 	}
 
-	public MedicalRecord getOneMedicalRecordById(String id) {
+	public MedicalRecord getOneMedicalRecordById(String id) 	throws  NullPointerException{
 		log.debug("Retrieving  one medical record for {}", id);
 
 		MedicalRecord personFoundById = new MedicalRecord();
@@ -74,7 +74,7 @@ public class MedicalRecordService {
 		return personFoundById;
 	}
 
-	public List<MedicalRecord> getAllMedicalRecords() {
+	public List<MedicalRecord> getAllMedicalRecords() 	throws  NullPointerException{
 		log.debug("Retrieving all medical records");
 
 		if (medicalRecords.isEmpty()) {

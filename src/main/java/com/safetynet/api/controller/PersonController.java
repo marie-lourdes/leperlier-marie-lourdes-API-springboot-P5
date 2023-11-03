@@ -36,7 +36,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
-		Person personFoundById;
+		Person personFoundById= new Person();
 		try {
 			personFoundById = personService.updatePerson(id, person);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
@@ -48,7 +48,6 @@ public class PersonController implements IResponseHTTPEmpty {
 
 	@DeleteMapping("/person")
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
-
 		try {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);
 			if (!personIsRemoved) {
