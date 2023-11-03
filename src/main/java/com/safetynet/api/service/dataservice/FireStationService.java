@@ -193,9 +193,6 @@ public class FireStationService {
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("generating id for firestation created  : {}", fireStationCreated);
 
-		if (fireStationCreated.getStationNumber() == null && fireStationCreated.getAddress() == null) {
-			log.error("Failed to generate id of firestation empty: {}", fireStationCreated);
-		} else {
 			String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 			String numberOfAddress = addressSplit[0];
 			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
@@ -203,6 +200,5 @@ public class FireStationService {
 
 			fireStationCreated.setId(ID);
 			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
-		}
-	}
+		}	
 }

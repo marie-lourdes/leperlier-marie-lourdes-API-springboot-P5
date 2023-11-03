@@ -254,7 +254,7 @@ class FireStationServiceTest {
 	void testDeleteFireStationByStationNumber() throws Exception {
 		try {
 			boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("6");
-			
+
 			assertTrue(resultFireStationRemoved);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -265,7 +265,7 @@ class FireStationServiceTest {
 	void testDeleteFireStationByStationNumber_WithNoExistingFireStationByStationNumber() throws Exception {
 		try {
 			boolean resultPersonRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("13");
-			
+
 			assertFalse(resultPersonRemoved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
@@ -280,7 +280,7 @@ class FireStationServiceTest {
 		try {
 			boolean resultFireStationRemoved = fireStationServiceUnderTest
 					.deleteFireStationByAddress("16 rue du quartiers des combatants");
-			
+
 			assertTrue(resultFireStationRemoved);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -319,36 +319,37 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	void testGetFireStationsByStationNumber_WithNoExistingStationNumber() throws Exception {
+	void testGetFireStationsByStationNumber_WithStationNumberNotFound() throws Exception {
 		try {
 			List<FireStation> resultFireStations = fireStationServiceUnderTest.getFireStationsByStationNumber("14");
-			assertTrue(resultFireStations .isEmpty());
-	
+			assertTrue(resultFireStations.isEmpty());
+
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> fireStationServiceUnderTest.getFireStationsByStationNumber("14"));
-		}catch (AssertionError e) {
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	void testGetFireStationsByAddress() throws Exception{
+	void testGetFireStationsByAddress() throws Exception {
 		try {
-			List<FireStation> resultFireStations = fireStationServiceUnderTest.getFireStationsByAddress("17 impasse de la caserne");
+			List<FireStation> resultFireStations = fireStationServiceUnderTest
+					.getFireStationsByAddress("17 impasse de la caserne");
 
 			String expectedStationNumber3 = fireStationTest3.getStationNumber();
-			String expectedStationNumber4 =  fireStationTest4.getStationNumber();
+			String expectedStationNumber4 = fireStationTest4.getStationNumber();
 
 			int expectedCountFireStationByAddress = 0;
 			for (FireStation fireStationFoundByStationNumber : resultFireStations) {
 				expectedCountFireStationByAddress++;
-				assertTrue(fireStationFoundByStationNumber.getStationNumber() ==  expectedStationNumber3 
-						|| fireStationFoundByStationNumber.getStationNumber() ==expectedStationNumber4 );
+				assertTrue(fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber3
+						|| fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber4);
 			}
-			System.out.println("expectedCountFireStationByAddress" +expectedCountFireStationByAddress);
+			System.out.println("expectedCountFireStationByAddress" + expectedCountFireStationByAddress);
 			assertTrue(expectedCountFireStationByAddress == 2);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
@@ -357,15 +358,41 @@ class FireStationServiceTest {
 	}
 
 	@Test
-	void testGetFireStationsByAddress_WithNoExistingAddress() throws Exception {
+	void testGetFireStationsByAddress_WithAddressNotFound() throws Exception {
 		try {
-			List<FireStation> resultFireStations = fireStationServiceUnderTest.getFireStationsByAddress("17 No existing address");
-			
-			assertTrue(resultFireStations .isEmpty());
+			List<FireStation> resultFireStations = fireStationServiceUnderTest
+					.getFireStationsByAddress("17 No existing address");
+
+			assertTrue(resultFireStations.isEmpty());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> fireStationServiceUnderTest.getFireStationsByAddress("17 No existing address"));
-		}catch (AssertionError e) {
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+@Test
+void testGetAllFireStations() throws Exception { 
+	try {
+		List<FireStation> resultAllFireStations = fireStationServiceUnderTest.getAllFireStations();
+
+		assertNotNull(resultAllFireStations);
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+}
+
+	@Test
+	void testGetAllFireStations_NotFound() throws Exception {
+		fireStations.clear();
+		try {
+			List<FireStation> resultAllFireStations = fireStationServiceUnderTest.getAllFireStations();
+
+			assertNotNull(resultAllFireStations);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest.getAllFireStations());
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
