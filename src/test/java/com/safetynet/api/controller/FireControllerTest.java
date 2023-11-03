@@ -276,13 +276,13 @@ class FireControllerTest {
 	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByAddress_ThenRemoveFireStation()
 			throws Exception {
 		try {
-			given(fireStationService.deleteOneFireStationByAddress("748 Townings Dr")).willReturn(true);
+			given(fireStationService.deleteFireStationByAddress("748 Townings Dr")).willReturn(true);
 
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.delete("/firestation").param("address", "748 Townings Dr"))
 					.andReturn().getResponse();
 
-			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
+			verify(fireStationService).deleteFireStationByAddress(any(String.class));
 			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -297,11 +297,11 @@ class FireControllerTest {
 					.perform(MockMvcRequestBuilders.delete("/firestation").param("address", "no existing address"))
 					.andReturn().getResponse();
 
-			verify(fireStationService).deleteOneFireStationByAddress(any(String.class));
+			verify(fireStationService).deleteFireStationByAddress(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> fireStationService.deleteOneFireStationByAddress("no existing address"));
+					() -> fireStationService.deleteFireStationByAddress("no existing address"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

@@ -93,7 +93,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteFireStationByAddress(@RequestParam String address) {
 		try {
-			boolean fireStationIsRemoved = fireStationService.deleteOneFireStationByAddress(address);
+			boolean fireStationIsRemoved = fireStationService.deleteFireStationByAddress(address);
 			if (!fireStationIsRemoved) {
 				throw new NullPointerException(" Firestation with this address: " + address + "  to delete not found");
 			}

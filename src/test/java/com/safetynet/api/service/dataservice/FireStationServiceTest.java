@@ -262,7 +262,7 @@ class FireStationServiceTest {
 	}
 
 	@Test
-	void testDeleteFireStationByStationNumber__WithNoExistingFireStationByStationNumber() throws Exception {
+	void testDeleteFireStationByStationNumber_WithNoExistingFireStationByStationNumber() throws Exception {
 		try {
 			boolean resultPersonRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("12");
 			assertFalse(resultPersonRemoved);
@@ -273,4 +273,24 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
+
+@Test
+void testDeleteFireStationByAddress() throws Exception {
+	try {
+		boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByAddress("16 rue du quartiers des combatants");
+		assertTrue(resultFireStationRemoved);
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+}
+
+@Test
+void testDeleteFireStationByAddress_WithNoExistingFireStationByAddress() throws Exception {
+	try {
+		boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByAddress("16 rue du quartiers des combatants");
+		assertTrue(resultFireStationRemoved);
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+}
 }

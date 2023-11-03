@@ -114,7 +114,7 @@ public class FireStationService {
 		return result;
 	}
 
-	public boolean deleteOneFireStationByAddress(String address) throws NullPointerException {
+	public boolean deleteFireStationByAddress(String address) throws NullPointerException {
 		log.debug("Deleting firestation for  address {}", address);
 
 		boolean result = false;
