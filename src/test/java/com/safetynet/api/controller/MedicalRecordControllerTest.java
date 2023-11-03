@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
-import com.safetynet.api.service.dataservice.PersonService;
 
 @AutoConfigureJsonTesters
 @WebMvcTest(controllers = MedicalRecordController.class)
@@ -156,4 +155,37 @@ class MedicalRecordControllerTest {
 			fail(e.getMessage());
 		}
 	}
+
+	@Test
+	public void givenExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecordObjec_ThenRemoveMedicalRecord() throws Exception {
+		try {
+			given(medicalRecordService.deleteOneMedicalRecordById("John Boyd")).willReturn(true);
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/medicalRecord").param("id", "John Boyd")).andReturn()
+					.getResponse();
+
+			verify(medicalRecordService).deleteOneMedicalRecordById(any(String.class));
+			assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void givenNoExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecord_ThenReturn404() throws Exception {
+		try {		
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.delete("/medicalRecord").param("id", "John Lenon")).andReturn()
+					.getResponse();
+
+			verify(medicalRecordService).deleteOneMedicalRecordById(any(String.class));
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		}catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> medicalRecordService.deleteOneMedicalRecordById("John Lenon"));
+		}catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}	
 }

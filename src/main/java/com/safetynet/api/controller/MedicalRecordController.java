@@ -54,7 +54,10 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	@DeleteMapping("/medicalRecord")
 	public ResponseEntity<?> deleteOneMedicalRecordByName(@RequestParam  String id) {
 		try {
-			medicalRecordService.deleteOneMedicalRecordById(id);
+			boolean personIsRemoved=	medicalRecordService.deleteOneMedicalRecordById(id);
+			if(!personIsRemoved){
+				throw new NullPointerException(" Medical record of " + id + "  to delete not found");
+			}
 			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

@@ -52,8 +52,7 @@ public class MedicalRecordService {
 		boolean result = false;
 		result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getId().equals(id));
 		if (!result) {
-			log.error("Failed to delete medical record for {}", id);
-			throw new NullPointerException(" Medical record of " + id + "  to delete not found");
+			log.error("Failed to delete medical record for {}", id);	
 		} else {
 			log.info("Medical record deleted successfully for {}", id);
 		}

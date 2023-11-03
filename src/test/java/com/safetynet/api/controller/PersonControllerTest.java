@@ -159,7 +159,10 @@ class PersonControllerTest {
 
 			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
-		} catch (AssertionError e) {
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> personService.deleteOnePersonById("John Lenon")); 
+		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
