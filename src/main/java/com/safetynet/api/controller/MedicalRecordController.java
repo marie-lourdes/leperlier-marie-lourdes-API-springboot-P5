@@ -64,32 +64,4 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-	@GetMapping("/medicalRecord/{id}")
-	@ResponseBody
-	public ResponseEntity<?> getOneMedicalRecord(@PathVariable String id) {
-		MedicalRecord medicalRecordFoundById;
-
-		try {
-			medicalRecordFoundById = medicalRecordService.getOneMedicalRecordById(id);
-			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}
-	}
-
-	@GetMapping("/medicalRecord")
-	@ResponseBody
-	public ResponseEntity<?> getAllMedicalRecords() {
-		List<MedicalRecord> allMedicalRecords;
-
-		try {
-			allMedicalRecords = medicalRecordService.getAllMedicalRecords();
-			return ResponseEntity.status(HttpStatus.OK).body(allMedicalRecords);
-		} catch (NullPointerException e) {
-			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
-		}
-	}
 }
