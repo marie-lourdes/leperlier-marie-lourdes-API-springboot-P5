@@ -224,10 +224,10 @@ class FireStationServiceTest {
 					assertSame(existingFireStationFoundByAddress, resultFireStationUpdatedRetrieved);
 					// checking if id of existing firestation updated don't change when updating
 					assertEquals(idOfExistingFireStation, existingFireStationFoundByAddress.getId());
-					// and checking if address of existing firestation don'change when updating
+					// checking if address of existing firestation don'change when updating
 					// station number
 					assertEquals(expectedAddress, existingFireStationFoundByAddress.getAddress());
-					// and checking station number of existing firestation change when updating	
+					// checking station number of existing firestation change when updating	
 					assertNotEquals(expectedStationNumber, existingFireStationFoundByAddress.getStationNumber());
 				}
 			}
@@ -237,10 +237,11 @@ class FireStationServiceTest {
 	}
 
 	@Test
-	void testUpdateFireStation_WithNoExistingFireStationByStationNumber() throws Exception {
+	void testUpdateFireStation_WithNoExistingFireStationByAddress() throws Exception {
 		try {
 			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest.updateFireStation("45 No existing address",
 					fireStationTest1Updated);
+			
 		assertNull( resultFireStationUpdatedRetrieved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest
@@ -250,4 +251,14 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
+
+@Test
+void testDeleteFireStationByStationNumber() throws Exception{
+	try {
+		boolean resultFireStationRemoved = fireStationServiceUnderTest.deleteFireStationByStationNumber("6");
+		assertTrue( resultFireStationRemoved);
+	} catch (AssertionError e) {
+		fail(e.getMessage());
+	}
+}
 }

@@ -103,7 +103,7 @@ public class FireStationService {
 		log.debug("Deleting firestation for station number{}", stationNumber);
 
 		boolean result = false;
-		result = fireStations.removeIf(fireStation -> fireStation.getId().equals(stationNumber));
+		result = fireStations.removeIf(fireStation -> fireStation.getStationNumber().equals(stationNumber));
 
 		if (!result) {
 			log.error("Failed to delete firestation for station number {}", stationNumber);
