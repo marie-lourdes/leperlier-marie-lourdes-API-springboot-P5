@@ -75,9 +75,8 @@ class PersonControllerTest {
 	
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
-		Person existingPersonUpdated = new Person("John Boyd", "John", "Boyd", "14 address modified", "Culver", "97451",
+		Person existingPersonUpdated = new Person("John", "Leperlier", "14 address modified", "Culver", "97451",
 				"841-874-6512", "jaboyd@email.com");
-
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
 					.param("id", "John Boyd").contentType(MediaType.APPLICATION_JSON)

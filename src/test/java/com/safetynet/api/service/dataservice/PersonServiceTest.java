@@ -204,7 +204,6 @@ class PersonServiceTest {
 				expectedCountPersonByLastName++;
 				assertEquals(expectedLastName, personFoundByLastName.getLastName());
 			}
-			System.out.println("count lastname test" + expectedCountPersonByLastName);
 			assertTrue(expectedCountPersonByLastName == 2);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
