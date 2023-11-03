@@ -19,9 +19,6 @@ public class PersonService {
 	private List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) throws NullPointerException {
-		if (person == null) {
-			throw new NullPointerException("Person created is empty");
-		}
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 
 		person.setId(person.getFirstName() + " " + person.getLastName());

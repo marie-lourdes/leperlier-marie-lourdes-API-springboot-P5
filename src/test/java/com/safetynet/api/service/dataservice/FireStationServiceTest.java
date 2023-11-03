@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -91,13 +93,15 @@ class FireStationServiceTest {
 
 			fireStationServiceUnderTest.addStationNumberOfExistingFireStation("46  rue de la mairie",
 					fireStationCreatedWithNewStationNumber);
-			// After replacing the firestation with new firestation and new station number
-			FireStation resultFireStationCreatedRetrievedWithNewStationNumber = fireStationServiceUnderTest
+			
+			// After replacing the ancien firestation found by address
+			FireStation	resultFireStationCreatedRetrievedWithNewStationNumber= fireStationServiceUnderTest
 					.getOneFireStationByAddress("46  rue de la mairie");
 			String expectedStationNumberCreated = fireStationCreatedWithNewStationNumber.getStationNumber();
 			assertAll(
 					"assertion of new station number of firestation created which replace existing firestation found by address",
 					() -> assertNotNull(resultFireStationCreatedRetrievedWithNewStationNumber),
+					() -> assertTrue(fireStations.contains(resultFireStationCreatedRetrievedWithNewStationNumber)),
 					// checking ancien firestation is removed and replaced by new firestation with
 					// new station number created
 					() -> assertFalse(fireStations.contains(existingFireStationFoundByAddress)),
@@ -113,4 +117,29 @@ class FireStationServiceTest {
 		}
 	}
 
+	@Test
+	void testAddStationNumberOfExistingFireStation_WithNoExistingFireStationByAddress() throws Exception {
+		FireStation fireStationCreatedWithNewStationNumber = new FireStation("8", "45 No existing address");
+		try {
+
+fireStationServiceUnderTest.addStationNumberOfExistingFireStation(" 45 No existing address",
+					fireStationCreatedWithNewStationNumber);
+
+			FireStation resultFireStationCreatedRetrievedWithNewStationNumber=fireStationServiceUnderTest.getOneFireStationByAddress("45 No existing address");
+			
+			assertAll(
+					"assertion of new station number of firestation created which replace existing firestation found by address",
+					() -> assertNull(resultFireStationCreatedRetrievedWithNewStationNumber),
+					// checking the firestation created is no present in the list of firestation
+					() -> assertFalse(fireStations.contains(resultFireStationCreatedRetrievedWithNewStationNumber)));
+					
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> fireStationServiceUnderTest.addStationNumberOfExistingFireStation(" 45 No existing address",
+							fireStationCreatedWithNewStationNumber));
+		}catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
 }

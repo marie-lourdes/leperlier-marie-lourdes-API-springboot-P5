@@ -35,22 +35,19 @@ public class FireStationService {
 		log.debug("Replacing a firestation with new station number based on address existing firestation: {}", address);
 
 		FireStation fireStationByAddress = new FireStation();
+		try {
+			fireStationByAddress = getOneFireStationByAddress(address);
+			fireStations.removeIf(
+					fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
+			fireStation.setAddress(fireStationByAddress.getAddress());
+			this.generateId(fireStation);
 
-		fireStationByAddress = getOneFireStationByAddress(address);
-		fireStations
-				.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getAddress().equals(address));
-
-		if (fireStation == null) {
+			fireStations.add(fireStation);
+			log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
+		} catch (NullPointerException e) {
 			throw new NullPointerException(
 					"Failed to replace firestation with new station number , the address: " + address + " not found");
 		}
-
-		fireStation.setAddress(fireStationByAddress.getAddress());
-		this.generateId(fireStation);
-
-		fireStations.add(fireStation);
-
-		log.info("Firestation replaced with new station number and  added successfully: {}", fireStation);
 
 		return fireStation;
 	}
@@ -60,24 +57,26 @@ public class FireStationService {
 		log.debug("Replacing a firestation with new address based onstation number existing firestation: {}",
 				stationNumber);
 		FireStation createdFireStation = new FireStation();
+		try {
+			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
+			fireStations.removeIf(fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber()
+					.equals(stationNumber));
 
-		List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
-		fireStations.removeIf(
-				fireStationByAddressToRemove -> fireStationByAddressToRemove.getStationNumber().equals(stationNumber));
-		createdFireStation = fireStationsByStationNumber.stream().filter(
-				fireStationByStationNumber -> fireStationByStationNumber.getStationNumber().equals(stationNumber))
-				.findFirst().map(existingFireStation -> {
-					fireStation.setStationNumber(existingFireStation.getStationNumber());
-					this.generateId(fireStation);
-					return fireStation;
-				}).orElse(null);
-		if (createdFireStation == null) {
+			createdFireStation = fireStationsByStationNumber.stream().filter(
+					fireStationByStationNumber -> fireStationByStationNumber.getStationNumber().equals(stationNumber))
+					.findFirst().map(existingFireStation -> {
+						fireStation.setStationNumber(existingFireStation.getStationNumber());
+						this.generateId(fireStation);
+						return fireStation;
+					}).orElse(null);
+
+			fireStations.add(createdFireStation);
+			log.info("Firestation replaced with new address  and  added successfully: {}", fireStation);
+		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to replace firestation with new address , the station number: "
 					+ stationNumber + " not found");
 		}
-		fireStations.add(createdFireStation);
 
-		log.info("Firestation replaced with new address  and  added successfully: {}", fireStation);
 		return createdFireStation;
 	}
 
