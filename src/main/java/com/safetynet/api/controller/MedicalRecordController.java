@@ -36,9 +36,8 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
-		MedicalRecord medicalRecordFoundById= new MedicalRecord();
-
 		try {
+			MedicalRecord medicalRecordFoundById= new MedicalRecord();
 			medicalRecordFoundById = medicalRecordService.updateOneMedicalRecordById(id, medicalRecord);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {

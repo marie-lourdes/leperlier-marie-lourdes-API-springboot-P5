@@ -29,10 +29,8 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 public class AlertsController implements IResponseHTTPEmpty {
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
 	@Autowired
-	FireStationService fireStationService;
-	@Autowired
 	ResidentsOfStationNumberService residentsOfStationNumberService;
-
+	
 	@Autowired
 	ChildAlertService childAlertService;
 

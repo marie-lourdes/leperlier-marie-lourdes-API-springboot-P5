@@ -98,7 +98,7 @@ class MedicalRecordControllerTest {
 							.content(jsonMedicalRecord.write(medicalRecordUpdated).getJson()))
 					.andReturn().getResponse();
 
-		//	verify(medicalRecordService).updateMedicalRecord(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService).updateOneMedicalRecordById(any(String.class),any(MedicalRecord.class));
 			assertEquals(HttpStatus.OK.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
