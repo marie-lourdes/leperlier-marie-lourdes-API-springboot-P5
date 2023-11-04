@@ -2,10 +2,12 @@ package com.safetynet.api.service.dataservice;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
@@ -95,7 +97,7 @@ class MedicalRecordServiceTest {
 
 			// existing medicalRecordTest1 after updating
 			MedicalRecord resultMedicalRecordUpdatedRetrieved = medicalRecordServiceUnderTest
-					.updateMedicalRecord("John Leperlier", medicalRecordTest1Updated);
+					.updateMedicalRecordById("John Leperlier", medicalRecordTest1Updated);
 
 			String expectedFirstName = medicalRecordRetrievedById.getFirstName();
 			String expectedLastName = medicalRecordRetrievedById.getLastName();
@@ -128,13 +130,75 @@ class MedicalRecordServiceTest {
 		medicationsTest1Updated.add("aznol:50mg");
 
 		try {
-			MedicalRecord resultMedicalRecordUpdated = medicalRecordServiceUnderTest.updateMedicalRecord("John Lenon",
-					medicalRecordTest1Updated);
+			MedicalRecord resultMedicalRecordUpdated = medicalRecordServiceUnderTest
+					.updateMedicalRecordById("John Lenon", medicalRecordTest1Updated);
 
 			assertNull(resultMedicalRecordUpdated);
 		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> medicalRecordServiceUnderTest
+					.updateMedicalRecordById("John Lenon", medicalRecordTest1Updated));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testDeleteOneMedicalRecordById() throws Exception {
+		try {
+			boolean resultMedicalRecordRemoved = medicalRecordServiceUnderTest
+					.deleteOneMedicalRecordById("John Leperlier");
+
+			assertTrue(resultMedicalRecordRemoved);
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testDeleteOneMedicalRecordById_WithIncorrectId() throws Exception {
+		try {
+			boolean resultMedicalRecordRemoved = medicalRecordServiceUnderTest.deleteOneMedicalRecordById("John Lenon");
+
+			assertFalse(resultMedicalRecordRemoved);
+		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> medicalRecordServiceUnderTest.updateMedicalRecord("John Lenon", medicalRecordTest1Updated));
+					() -> medicalRecordServiceUnderTest.deleteOneMedicalRecordById("John Lenon"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testGetOneMedicalRecordById() throws Exception {
+		try {
+			MedicalRecord resultMedicalRecord = medicalRecordServiceUnderTest.getOneMedicalRecordById("John Leperlier");
+
+			String expectedFirstName = medicalRecordTest1.getFirstName();
+			String expectedLastName = medicalRecordTest1.getLastName();
+			String expectedBirthDate = medicalRecordTest1.getBirthdate();
+			List<String> expectedMedications = medicalRecordTest1.getMedications();
+			List<String> expectedAllergies = medicalRecordTest1.getAllergies();
+			assertAll("assertion all data of medicalRecordTest1 found by id", () -> assertNotNull(resultMedicalRecord),
+					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultMedicalRecord.getId()),
+					() -> assertEquals(expectedFirstName, resultMedicalRecord.getFirstName()),
+					() -> assertEquals(expectedLastName, resultMedicalRecord.getLastName()),
+					() -> assertEquals(expectedBirthDate, resultMedicalRecord.getBirthdate()),
+					() -> assertEquals(expectedMedications, resultMedicalRecord.getMedications()),
+					() -> assertEquals(expectedAllergies, resultMedicalRecord.getAllergies()));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testGetOneMedicalRecordById_WithIdNotFound() throws Exception {
+		try {
+			MedicalRecord resultMedicalRecord = medicalRecordServiceUnderTest.getOneMedicalRecordById("John Lenon");
+
+			assertNull(resultMedicalRecord);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> medicalRecordServiceUnderTest.getOneMedicalRecordById("John Lenon"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

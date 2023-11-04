@@ -39,7 +39,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		MedicalRecord medicalRecordFoundById= new MedicalRecord();
 
 		try {
-			medicalRecordFoundById = medicalRecordService.updateMedicalRecord(id, medicalRecord);
+			medicalRecordFoundById = medicalRecordService.updateMedicalRecordById(id, medicalRecord);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -48,7 +48,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@DeleteMapping("/medicalRecord")
-	public ResponseEntity<?> deleteOneMedicalRecordByName(@RequestParam  String id) {
+	public ResponseEntity<?> deleteOneMedicalRecordById(@RequestParam  String id) {
 		try {
 			boolean personIsRemoved=	medicalRecordService.deleteOneMedicalRecordById(id);
 			if(!personIsRemoved){

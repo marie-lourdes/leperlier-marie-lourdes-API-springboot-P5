@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
 
 @SpringBootTest
 class FireStationServiceTest {

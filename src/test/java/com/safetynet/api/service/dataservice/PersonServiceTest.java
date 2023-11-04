@@ -87,7 +87,7 @@ class PersonServiceTest {
 			Person personRetrievedById = personServiceUnderTest.getOnePersonById("John Leperlier");
 
 			// existing personTest1 after updating
-			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Leperlier", personTest1Updated);
+			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePersonById("John Leperlier", personTest1Updated);
 
 			String expectedFirstName = personRetrievedById.getFirstName();
 			String expectedLastName = personRetrievedById.getLastName();
@@ -121,12 +121,12 @@ class PersonServiceTest {
 	@Test
 	void testUpdatePerson_WithIncorrectId() throws Exception {
 		try {
-			Person resultPersonUpdated = personServiceUnderTest.updatePerson("John Lenon", personTest1Updated);
+			Person resultPersonUpdated = personServiceUnderTest.updatePersonById("John Lenon", personTest1Updated);
 
 			assertNull(resultPersonUpdated);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> personServiceUnderTest.updatePerson("John Lenon", personTest1Updated));
+					() -> personServiceUnderTest.updatePersonById("John Lenon", personTest1Updated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -136,6 +136,7 @@ class PersonServiceTest {
 	void testDeleteOnePersonById() throws Exception {
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("Millie Leperlier");
+			
 			assertTrue(resultPersonRemoved);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -146,6 +147,7 @@ class PersonServiceTest {
 	void testDeleteOnePersonById_WithIncorrectId() throws Exception {
 		try {
 			boolean resultPersonRemoved = personServiceUnderTest.deleteOnePersonById("John Lenon");
+			
 			assertFalse(resultPersonRemoved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> personServiceUnderTest.deleteOnePersonById("John Lenon"));
@@ -166,9 +168,8 @@ class PersonServiceTest {
 			String expectedZip = personTest1.getZip();
 			String expectedPhone = personTest1.getPhone();
 			String expectedEmail = personTest1.getEmail();
-			assertAll("assertion all data of personTest11found by id", () -> assertNotNull(resultPerson),
-					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPerson.getId(),
-							"the id should  be the first name and last name of personTest1"),
+			assertAll("assertion all data of personTest1 found by id", () -> assertNotNull(resultPerson),
+					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPerson.getId()),
 					() -> assertEquals(expectedFirstName, resultPerson.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPerson.getLastName()),
 					() -> assertEquals(expectedAddress, resultPerson.getAddress()),

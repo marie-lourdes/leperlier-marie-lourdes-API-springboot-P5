@@ -120,7 +120,7 @@ class MedicalRecordControllerTest {
 							.content(jsonMedicalRecord.write(medicalRecordUpdated).getJson()))
 					.andReturn().getResponse();
 
-			verify(medicalRecordService,Mockito.times(0)).updateMedicalRecord(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService,Mockito.times(0)).updateMedicalRecordById(any(String.class),any(MedicalRecord.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -138,7 +138,7 @@ class MedicalRecordControllerTest {
 		
 		try {
 			medicalRecordService = new MedicalRecordService();
-			given(medicalRecordService.updateMedicalRecord("John Lenon", NoExistingMedicalRecordUpdated ))
+			given(medicalRecordService.updateMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated ))
 					.willThrow(NullPointerException.class);
 			
 			MockHttpServletResponse result = mockMvc
@@ -146,11 +146,11 @@ class MedicalRecordControllerTest {
 							.content(jsonMedicalRecord.write(NoExistingMedicalRecordUpdated ).getJson()))
 					.andReturn().getResponse();
 
-			verify(medicalRecordService).updateMedicalRecord(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService).updateMedicalRecordById(any(String.class),any(MedicalRecord.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		}catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> medicalRecordService.updateMedicalRecord("John Lenon", NoExistingMedicalRecordUpdated ));
+					() -> medicalRecordService.updateMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated ));
 		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
