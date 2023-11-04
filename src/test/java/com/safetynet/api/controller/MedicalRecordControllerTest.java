@@ -84,13 +84,13 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void  givenExistingMedicalRecordObject_WhenUpdateMedicalRecord_ThenReturnUpdatedMedicalRecord() throws Exception {
+	public void  givenExistingMedicalRecordObject_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturnUpdatedMedicalRecord() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("shellfish");
-		MedicalRecord medicalRecordUpdated = new MedicalRecord("John", "Boyd", "01/08/1981", medications, allergies);
+		MedicalRecord medicalRecordUpdated = new MedicalRecord( medications, allergies);
 		
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -106,7 +106,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void  givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicalRecord_ThenReturn400() throws Exception {
+	public void  givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturn400() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");

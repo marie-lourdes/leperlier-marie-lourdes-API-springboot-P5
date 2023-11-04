@@ -33,7 +33,10 @@ public class MedicalRecord {
 		this.medications= medications;
 		this. allergies=  allergies;
 	}
-	
+	public MedicalRecord(List<String> medications,List<String> allergies) {
+		this.medications= medications;
+		this. allergies=  allergies;
+	}
 	public String getId() {
 		return id;
 	}
