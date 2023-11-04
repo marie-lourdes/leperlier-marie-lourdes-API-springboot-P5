@@ -3,6 +3,9 @@ package com.safetynet.api.service.dataservice;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
@@ -15,12 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
 
 @SpringBootTest
 class MedicalRecordServiceTest {
 	@Autowired
 	private MedicalRecordService medicalRecordServiceUnderTest;
+
 	private MedicalRecord medicalRecordTest1;
 	private List<MedicalRecord> medicalRecords;
 	private List<String> medicationsTest1Updated = new ArrayList<String>();
@@ -34,7 +37,7 @@ class MedicalRecordServiceTest {
 		medications.add("hydrapermazol:100mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("nillacilan");
-		medicalRecordTest1= new MedicalRecord("John", "Leperlier", "05/01/1965", medications, allergies);
+		medicalRecordTest1 = new MedicalRecord("John", "Leperlier", "05/01/1965", medications, allergies);
 		medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1);
 		medicalRecords = medicalRecordServiceUnderTest.getAllMedicalRecords();
 	}
@@ -43,7 +46,7 @@ class MedicalRecordServiceTest {
 	void reInitPerTest() {
 		medicalRecords.clear();
 	}
-	
+
 	@Test
 	void testAddMedicalRecord() throws Exception {
 		List<String> medications = new ArrayList<String>();
@@ -54,15 +57,15 @@ class MedicalRecordServiceTest {
 				allergies);
 
 		medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordCreated);
-		
+
 		try {
 			MedicalRecord resultmedicalRecordCreatedRetrieved = medicalRecordServiceUnderTest
 					.getOneMedicalRecordById("Minnie Cooper");
-			
+
 			String expectedFirstName = medicalRecordCreated.getFirstName();
 			String expectedLastName = medicalRecordCreated.getLastName();
 			String expectedBirthDate = medicalRecordCreated.getBirthdate();
-			List<String> expectedMedications= medicalRecordCreated.getMedications();
+			List<String> expectedMedications = medicalRecordCreated.getMedications();
 			List<String> expectedAllergies = medicalRecordCreated.getAllergies();
 			assertAll("assertion all data of medicalRecordTest1created found by id full name",
 					() -> assertNotNull(resultmedicalRecordCreatedRetrieved),
@@ -75,21 +78,65 @@ class MedicalRecordServiceTest {
 					() -> assertEquals(expectedLastName, resultmedicalRecordCreatedRetrieved.getLastName()),
 					() -> assertEquals(expectedBirthDate, resultmedicalRecordCreatedRetrieved.getBirthdate()),
 					() -> assertEquals(expectedMedications, resultmedicalRecordCreatedRetrieved.getMedications()),
-					() -> assertEquals( expectedAllergies, resultmedicalRecordCreatedRetrieved.getAllergies()));
+					() -> assertEquals(expectedAllergies, resultmedicalRecordCreatedRetrieved.getAllergies()));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
 
-
-/*	@Test
-	void testUpdateMedicalRecord() throws Exception {
-	
+	@Test
+	void testUpdateMedicationsMedicalRecord() throws Exception {
 		medicationsTest1Updated.add("aznol:50mg");
-		medicationsTest1Updated.add("hydrapermazol:50mg");
-		
-		medicationsTest1Updated.add("nillacilan");
-	}*/
-		
 
+		try {
+			// existing medicalRecordTest1 before updating
+			MedicalRecord medicalRecordRetrievedById = medicalRecordServiceUnderTest
+					.getOneMedicalRecordById("John Leperlier");
+
+			// existing medicalRecordTest1 after updating
+			MedicalRecord resultMedicalRecordUpdatedRetrieved = medicalRecordServiceUnderTest
+					.updateMedicalRecord("John Leperlier", medicalRecordTest1Updated);
+
+			String expectedFirstName = medicalRecordRetrievedById.getFirstName();
+			String expectedLastName = medicalRecordRetrievedById.getLastName();
+			String expectedBirthDate = medicalRecordRetrievedById.getBirthdate();
+			List<String> expectedMedications = medicalRecordTest1Updated.getMedications();
+			List<String> expectedAllergies = medicalRecordRetrievedById.getAllergies();
+			assertAll("assertion all data of medicalRecordTest1updated found by id full name",
+					() -> assertNotNull(resultMedicalRecordUpdatedRetrieved),
+					() -> assertSame(medicalRecordRetrievedById, resultMedicalRecordUpdatedRetrieved),
+
+					// checking if id with fullname and all datas except medications of existing
+					// medicalRecordtest1
+					// don't change when updating
+					() -> assertEquals(medicalRecordRetrievedById.getId(), resultMedicalRecordUpdatedRetrieved.getId(),
+							"the id should  be the first name and last name of medicalRecordTest1"),
+					() -> assertEquals(expectedFirstName, resultMedicalRecordUpdatedRetrieved.getFirstName()),
+					() -> assertEquals(expectedLastName, resultMedicalRecordUpdatedRetrieved.getLastName()),
+					() -> assertEquals(expectedBirthDate, resultMedicalRecordUpdatedRetrieved.getBirthdate()),
+					// checking if medications of existing medicalrecordTest1 change when updating
+					// new address
+					() -> assertEquals(expectedMedications, resultMedicalRecordUpdatedRetrieved.getMedications()),
+					() -> assertEquals(expectedAllergies, resultMedicalRecordUpdatedRetrieved.getAllergies()));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testUpdateMedicationsMedicalRecord_WithIncorrectId() throws Exception {
+		medicationsTest1Updated.add("aznol:50mg");
+
+		try {
+			MedicalRecord resultMedicalRecordUpdated = medicalRecordServiceUnderTest.updateMedicalRecord("John Lenon",
+					medicalRecordTest1Updated);
+
+			assertNull(resultMedicalRecordUpdated);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> medicalRecordServiceUnderTest.updateMedicalRecord("John Lenon", medicalRecordTest1Updated));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
 }

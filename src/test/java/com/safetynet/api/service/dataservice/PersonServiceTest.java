@@ -83,10 +83,10 @@ class PersonServiceTest {
 	void testUpdateAddressPerson() throws Exception {
 		try {
 
-			// existing personTest1before updating
+			// existing personTest1 before updating
 			Person personRetrievedById = personServiceUnderTest.getOnePersonById("John Leperlier");
 
-			// existing personTest1after updating
+			// existing personTest1 after updating
 			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePerson("John Leperlier", personTest1Updated);
 
 			String expectedFirstName = personRetrievedById.getFirstName();
@@ -96,7 +96,7 @@ class PersonServiceTest {
 			String expectedZip = personRetrievedById.getZip();
 			String expectedPhone = personRetrievedById.getPhone();
 			String expectedEmail = personRetrievedById.getEmail();
-			assertAll("assertion all data of personTest11updated found by id",
+			assertAll("assertion all data of personTest1updated found by id",
 					() -> assertNotNull(resultPersonUpdatedRetrieved),
 					() -> assertSame(personRetrievedById, resultPersonUpdatedRetrieved),
 
@@ -108,7 +108,7 @@ class PersonServiceTest {
 					() -> assertEquals(expectedFirstName, resultPersonUpdatedRetrieved.getFirstName()),
 					() -> assertEquals(expectedLastName, resultPersonUpdatedRetrieved.getLastName()),
 					// checking if address of existing person change when updating new address
-					() -> assertEquals(expectedAddress,  personRetrievedById.getAddress()),
+					() -> assertEquals(expectedAddress,  resultPersonUpdatedRetrieved.getAddress()),
 					() -> assertEquals(expectedCity, resultPersonUpdatedRetrieved.getCity()),
 					() -> assertEquals(expectedZip, resultPersonUpdatedRetrieved.getZip()),
 					() -> assertEquals(expectedPhone, resultPersonUpdatedRetrieved.getPhone()),
