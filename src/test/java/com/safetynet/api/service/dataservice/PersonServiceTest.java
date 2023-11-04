@@ -50,9 +50,11 @@ class PersonServiceTest {
 	void testAddPerson() throws Exception {
 		Person PersonCreated = new Person("Minnie", "Cooper", "17 boulevard de New-York", "New-York", "10803",
 				"841-874-6512", "millie@email.com");
+		
 		personServiceUnderTest.addPerson(PersonCreated);
 		try {
 			Person resultPersonCreatedRetrieved = personServiceUnderTest.getOnePersonById("Minnie Cooper");
+			
 			String expectedFirstName = PersonCreated.getFirstName();
 			String expectedLastName = PersonCreated.getLastName();
 			String expectedAddress = PersonCreated.getAddress();
@@ -60,7 +62,7 @@ class PersonServiceTest {
 			String expectedZip = PersonCreated.getZip();
 			String expectedPhone = PersonCreated.getPhone();
 			String expectedEmail = PersonCreated.getEmail();
-			assertAll("assertion all data of personTest11created found by id",
+			assertAll("assertion all data of person created found by id full name",
 					() -> assertNotNull(resultPersonCreatedRetrieved),
 					// checking setting id with fullname in method addPerson() of PersonService
 					() -> assertEquals(expectedFirstName + " " + expectedLastName, resultPersonCreatedRetrieved.getId(),
