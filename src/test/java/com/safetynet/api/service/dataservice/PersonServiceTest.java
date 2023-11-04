@@ -87,7 +87,7 @@ class PersonServiceTest {
 			Person personRetrievedById = personServiceUnderTest.getOnePersonById("John Leperlier");
 
 			// existing personTest1 after updating
-			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updatePersonById("John Leperlier", personTest1Updated);
+			Person resultPersonUpdatedRetrieved = personServiceUnderTest.updateOnePersonById("John Leperlier", personTest1Updated);
 
 			String expectedFirstName = personRetrievedById.getFirstName();
 			String expectedLastName = personRetrievedById.getLastName();
@@ -121,12 +121,12 @@ class PersonServiceTest {
 	@Test
 	void testUpdatePerson_WithIncorrectId() throws Exception {
 		try {
-			Person resultPersonUpdated = personServiceUnderTest.updatePersonById("John Lenon", personTest1Updated);
+			Person resultPersonUpdated = personServiceUnderTest.updateOnePersonById("John Lenon", personTest1Updated);
 
 			assertNull(resultPersonUpdated);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> personServiceUnderTest.updatePersonById("John Lenon", personTest1Updated));
+					() -> personServiceUnderTest.updateOnePersonById("John Lenon", personTest1Updated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -262,7 +262,6 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Dax");
 
 			String expectedCity = personTest1.getCity();
-
 			int expectedCountPersonByCity = 0;
 			for (Person personFoundByCity : resultPersons) {
 				expectedCountPersonByCity++;
@@ -292,14 +291,17 @@ class PersonServiceTest {
 	void testGetAllPersons() throws Exception {
 		try {
 			List<Person> resultAllPersons = personServiceUnderTest.getAllPersons();
-
-			assertNotNull(resultAllPersons);
+			
+			assertAll(
+					"assertion of all persons retrieved",
+		()->	assertNotNull(resultAllPersons),
+		()->	assertTrue(resultAllPersons.contains(personTest1)),
+		()->	assertTrue(resultAllPersons.contains(personTest2)));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
 
-	// assertnull or asserttrue isEmpty? test no stable
 	@Test
 	void testGetAllPersons_NotFound() throws Exception {
 		persons.clear();

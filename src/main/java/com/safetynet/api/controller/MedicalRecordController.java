@@ -39,7 +39,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		MedicalRecord medicalRecordFoundById= new MedicalRecord();
 
 		try {
-			medicalRecordFoundById = medicalRecordService.updateMedicalRecordById(id, medicalRecord);
+			medicalRecordFoundById = medicalRecordService.updateOneMedicalRecordById(id, medicalRecord);
 			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

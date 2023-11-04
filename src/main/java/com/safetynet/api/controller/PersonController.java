@@ -38,7 +38,7 @@ public class PersonController implements IResponseHTTPEmpty {
 	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		Person personFoundById= new Person();
 		try {
-			personFoundById = personService.updatePersonById(id, person);
+			personFoundById = personService.updateOnePersonById(id, person);
 			return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		} catch (NullPointerException e) {	
 			log.error(e.getMessage());

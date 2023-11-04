@@ -205,7 +205,7 @@ class FireStationServiceTest {
 			}
 
 			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest
-					.updateFireStation("46  rue de la mairie", fireStationTest1Updated);
+					.updateFireStationByAddress("46  rue de la mairie", fireStationTest1Updated);
 
 			// existing fireStationTest1 after updating
 			List<FireStation> existingFireStationsUpdatedByAddress = fireStationServiceUnderTest
@@ -238,12 +238,12 @@ class FireStationServiceTest {
 	void testUpdateFireStation_WithNoExistingFireStationByAddress() throws Exception {
 		try {
 			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest
-					.updateFireStation("45 No existing address", fireStationTest1Updated);
+					.updateFireStationByAddress("45 No existing address", fireStationTest1Updated);
 
 			assertNull(resultFireStationUpdatedRetrieved);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest
-					.updateFireStation("45 No existing address", fireStationTest1Updated));
+					.updateFireStationByAddress("45 No existing address", fireStationTest1Updated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -375,8 +375,14 @@ class FireStationServiceTest {
 void testGetAllFireStations() throws Exception { 
 	try {
 		List<FireStation> resultAllFireStations = fireStationServiceUnderTest.getAllFireStations();
-
-		assertNotNull(resultAllFireStations);
+		
+		assertAll(
+				"assertion of all fireStations retrieved",
+		()->assertNotNull(resultAllFireStations),
+		()->assertTrue(resultAllFireStations.contains(fireStationTest1)),
+		()->assertTrue(resultAllFireStations.contains(fireStationTest2)),
+		()->assertTrue(resultAllFireStations.contains(fireStationTest3)),
+		()->assertTrue(resultAllFireStations.contains(fireStationTest4)));
 	} catch (AssertionError e) {
 		fail(e.getMessage());
 	}

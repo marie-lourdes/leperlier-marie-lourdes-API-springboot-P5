@@ -28,7 +28,7 @@ public class PersonService {
 		return person;
 	}
 
-	public Person updatePersonById(String id, Person updatedPerson) throws NullPointerException {
+	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
 		Person existingPersonUpdated =null;
 		 existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()

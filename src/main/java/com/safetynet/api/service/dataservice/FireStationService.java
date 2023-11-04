@@ -83,7 +83,7 @@ public class FireStationService {
 	}
 
 	// update only station number not address of firestation
-	public FireStation updateFireStation(String address, FireStation updatedFireStation) throws NullPointerException {
+	public FireStation updateFireStationByAddress(String address, FireStation updatedFireStation) throws NullPointerException {
 		log.debug("Updating station number of fireStation  for address : {}", address);
 
 		FireStation existingFireStationUpdated = new FireStation();

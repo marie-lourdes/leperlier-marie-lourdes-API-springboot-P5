@@ -29,7 +29,7 @@ public class MedicalRecordService {
 		return medicalRecord;
 	}
 
-	public MedicalRecord updateMedicalRecordById(String id, MedicalRecord updatedMedicalRecord) throws NullPointerException {
+	public MedicalRecord updateOneMedicalRecordById(String id, MedicalRecord updatedMedicalRecord) throws NullPointerException {
 		log.debug("Updating medical record for: {}", id);
 
 		MedicalRecord existingMedicalRecordUpdated = new MedicalRecord();

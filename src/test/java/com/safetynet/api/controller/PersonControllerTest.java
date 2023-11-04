@@ -82,7 +82,7 @@ class PersonControllerTest {
 					.param("id", "John Boyd").contentType(MediaType.APPLICATION_JSON)
 					.content(jsonPerson.write(existingPersonUpdated).getJson())).andReturn().getResponse();
 
-			verify(personService).updatePersonById(any(String.class), any(Person.class));
+			verify(personService).updateOnePersonById(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.OK.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -103,7 +103,7 @@ class PersonControllerTest {
 
 			// verify if constraint validation in model and in controller with @valid stop
 			// the instruction post before call PersonService
-			verify(personService, Mockito.times(0)).updatePersonById(any(String.class), any(Person.class));
+			verify(personService, Mockito.times(0)).updateOnePersonById(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -117,18 +117,18 @@ class PersonControllerTest {
 
 		try {
 			personService = new PersonService();
-			given(personService.updatePersonById("John Lenon", NoExistingPersonUpdated))
+			given(personService.updateOnePersonById("John Lenon", NoExistingPersonUpdated))
 					.willThrow(NullPointerException.class);
 
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.put("/person")
 					.param("id", "John Lenon").contentType(MediaType.APPLICATION_JSON)
 					.content(jsonPerson.write(NoExistingPersonUpdated).getJson())).andReturn().getResponse();
 
-			verify(personService).updatePersonById(any(String.class), any(Person.class));
+			verify(personService).updateOnePersonById(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> personService.updatePersonById("John Lenon", NoExistingPersonUpdated));
+					() -> personService.updateOnePersonById("John Lenon", NoExistingPersonUpdated));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
