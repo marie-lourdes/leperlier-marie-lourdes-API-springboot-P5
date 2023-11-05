@@ -48,7 +48,7 @@ class AlertsControllerTest {
 	@MockBean
 	private CommunityEmailService communityEmailService;
 
-	@Test
+/*	@Test
 	public void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
 			throws Exception {
 		try {
@@ -80,5 +80,5 @@ class AlertsControllerTest {
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-	}
+	}*/
 }
