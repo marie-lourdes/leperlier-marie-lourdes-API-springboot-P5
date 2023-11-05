@@ -87,9 +87,6 @@ class CalculatorAgeOfResidentImplTest {
 	@Test
 	@DisplayName("Given The birthdate when calculate age of no existing resident  the method should return 0 and error")
 	void testCalculateAgeOfResident_WithNoExistingResident() throws Exception {
-		List<String> medications = new ArrayList<String>();
-		List<String> allergies = new ArrayList<String>();
-		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "01/01/1965", medications, allergies);
 		try {
 		medicalRecordService= new MedicalRecordService();
 		when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
@@ -109,7 +106,7 @@ class CalculatorAgeOfResidentImplTest {
 	}
 
 	@Test
-	@DisplayName("Given The birthdate with incorrect format when calculate age of resident  the method should return 0 ")
+	@DisplayName("Given The birthdate with incorrect format when calculate age of resident  the method should return 0 and error ")
 	void testCalculateAgeOfResident_WithIncorrectFormatOfBirthDate() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		List<String> allergies = new ArrayList<String>();
