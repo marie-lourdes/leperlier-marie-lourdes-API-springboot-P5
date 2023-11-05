@@ -27,6 +27,22 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 
 		// format date birthdate
+		Date birthDateOfPersonFormatted = this.formatDate(birthDateOfPerson);
+
+		// calcul age
+		try {
+			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
+			Long ageOfPerson = new Date().getTime() -  birthDateOfPersonFormatted.getTime();
+			age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
+			System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
+		} catch (Exception e) {
+			log.error("An error has occured in calculating age");
+		}
+
+		return age;
+	}
+
+	public Date formatDate(String birthDateOfPerson) {
 		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
 		try {
@@ -36,17 +52,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		} catch (Exception e) {
 			log.error("An error has occured in formating birthdate of person");
 		}
-
-		// calcul age
-		try {
-			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
-			Long ageOfPerson = new Date().getTime() - birthdate.getTime();
-			age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
-			System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
-		} catch (Exception e) {
-			log.error("An error has occured in calculating age");
-		}
-
-		return age;
+		return birthdate;
 	}
+
 }
