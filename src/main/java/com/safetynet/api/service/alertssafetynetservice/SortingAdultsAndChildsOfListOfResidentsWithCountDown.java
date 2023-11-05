@@ -16,9 +16,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
-	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
 	public Map<String, Integer> sortAdultsAndChilds(String request,

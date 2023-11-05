@@ -8,5 +8,9 @@ public interface IResponseHTTPEmpty {
 	default ResponseEntity<?> returnResponseEntityEmptyAndCode404() {
 		ResponseEntity<?> responseEmpty = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new String(" "));
 		return responseEmpty;
+	}	
+	default ResponseEntity<?> returnResponseEntityEmptyAndCode500() {
+		ResponseEntity<?> responseEmpty = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new String(" "));
+		return responseEmpty;
 	}
 }

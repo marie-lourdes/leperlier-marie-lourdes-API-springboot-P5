@@ -24,7 +24,7 @@ public class FireService {
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 	//private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
-	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
+	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws Exception  {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
 		 List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 		try {

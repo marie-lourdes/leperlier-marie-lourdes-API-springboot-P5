@@ -1,5 +1,6 @@
 package com.safetynet.api.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
-import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
@@ -99,12 +99,18 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
 		try {
-			List<Object> listOfResidentsAndFireStationNearFire = fireService
-					.getListOfResidentsAndFireStationNearFire(address);
+			List<Object> listOfResidentsAndFireStationNearFire;
+			
+				listOfResidentsAndFireStationNearFire = fireService
+						.getListOfResidentsAndFireStationNearFire(address);
+			
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return  returnResponseEntityEmptyAndCode500();
 		}
 	}
 

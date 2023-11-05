@@ -5,6 +5,7 @@ import java.util.List;
 import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
@@ -15,7 +16,7 @@ public class MedicalRecord {
 
 	@NotNull
 	private String lastName;
-
+    
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_DATE)
 	private String birthdate;
