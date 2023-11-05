@@ -191,7 +191,7 @@ public class FireStationService {
 	}
 
 	public void generateId(FireStation fireStationCreated) {
-		log.debug("generating id for firestation created  : {}", fireStationCreated);
+		log.debug("Generating id for firestation created  : {}", fireStationCreated);
 
 			String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 			String numberOfAddress = addressSplit[0];

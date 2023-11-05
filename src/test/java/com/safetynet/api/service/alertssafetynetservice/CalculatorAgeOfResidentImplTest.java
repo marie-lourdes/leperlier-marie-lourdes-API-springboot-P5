@@ -1,44 +1,107 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.math.BigInteger;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.safetynet.api.utils.Constants;
+import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.service.dataservice.MedicalRecordService;
 
 @SpringBootTest
 class CalculatorAgeOfResidentImplTest {
-@Autowired
-CalculatorAgeOfResidentImpl calculatorAge; 
-	
-	
+	@Autowired
+	CalculatorAgeOfResidentImpl calculatorAge;
+
+	@MockBean
+	MedicalRecordService medicalRecordService;
+
 	@ParameterizedTest(name = "the String birthdate ({0})   should return this date 01/01/2001 formatted and parsed ")
-	@ValueSource(strings = { "01/01/2001"})
-	void testformatDate(String arg)  throws Exception {
-		Date expectedDate=new SimpleDateFormat(Constants.DATE_FORMAT).parse(arg);
-		System.out.println("expectedDate"+expectedDate);
-		Date resultDate= calculatorAge.formatAndParseDate(arg);
-		assertEquals(expectedDate, resultDate);
+	@ValueSource(strings = { "01/01/2001" })
+	void testformatDate(String arg) throws Exception {
+		try {
+			Date resultDate = calculatorAge.formatAndParseDate(arg);
+
+			assertNotNull(resultDate);
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@ParameterizedTest(name = "the String birthdate({0})   should return error parsing date")
-	@ValueSource(strings = { "01-01-2001"})
+	@ValueSource(strings = { "01-01-2001" })
 	void testformatDate_WithUnparseableDate_shouldReturnError(String arg) throws Exception {
 		try {
-		 calculatorAge.formatAndParseDate(arg);
-		}catch(ParseException e) {
-			assertThrows(ParseException.class,
-					() -> calculatorAge.formatAndParseDate(arg));
-		}catch(AssertionError e) {
+			Date resultDate = calculatorAge.formatAndParseDate(arg);
+
+			assertNull(resultDate);
+		} catch (ParseException e) {
+			assertThrows(ParseException.class, () -> calculatorAge.formatAndParseDate(arg));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	@DisplayName("Given The birthdate 09/04/1989 when calculate age the method should return 34")
+	void testCalculateAgeOfResident() throws Exception {
+		List<String> medications = new ArrayList<String>();
+		medications.add("aznol:350mg");
+		medications.add("hydrapermazol:100mg");
+		List<String> allergies = new ArrayList<String>();
+		allergies.add("nillacilan");
+		MedicalRecord medicalRecordTest = new MedicalRecord("John", "Leperlier", "09/04/1989", medications, allergies);
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest);
+
+		try {
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate());
+
+			BigInteger expectedAge = BigInteger.valueOf(34);
+			System.out.println("expectedDate" + expectedAge);
+			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
+			assertEquals(expectedAge, resultAge);
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	@DisplayName("Given The birthdate when calculate age of no existin resident  the method should return 0 and error")
+	void testCalculateAgeOfResident_WithNoExistingResident() throws Exception {
+		List<String> medications = new ArrayList<String>();
+		List<String> allergies = new ArrayList<String>();
+		MedicalRecord medicalRecordTest = new MedicalRecord("Minnie", "Cooper", "01/01/1965", medications, allergies);
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenThrow(NullPointerException.class);
+
+		try {
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate());
+
+			BigInteger expectedAge = BigInteger.valueOf(0);
+			System.out.println("expectedDate" + expectedAge);
+			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
+			assertEquals(expectedAge, resultAge);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate()));
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}

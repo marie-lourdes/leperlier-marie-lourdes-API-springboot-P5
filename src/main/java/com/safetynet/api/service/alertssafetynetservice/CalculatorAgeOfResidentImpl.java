@@ -22,8 +22,8 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	MedicalRecordService medicalRecordService;
 
 	@Override
-	public BigInteger calculateAgeOfResident(String idFirstAndLastName)  {
-	log.debug("calculating age of person");
+	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
+		log.debug("calculating age of person");
 		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 
 		// format date birthdate
@@ -31,23 +31,21 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		Date birthDateOfPersonFormatted = new Date();
 		try {
 			birthDateOfPersonFormatted = this.formatAndParseDate(birthDateOfPerson);
-			log.debug("Birthdate of person formatted succesfully: {}", 	birthDateOfPersonFormatted);
+			log.debug("Birthdate of person formatted succesfully: {}", birthDateOfPersonFormatted);
 		} catch (Exception e) {
-			log.error(e.getMessage());		
+			log.error(e.getMessage());
 		}
 
 		// calcul age
 		try {
-		//	if(birthDateOfPersonFormatted) {
-				BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
-				Long ageOfPerson = new Date().getTime() - birthDateOfPersonFormatted.getTime();
-				age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
-				if(age==BigInteger.valueOf(0)) {
-					throw new Exception(" Birthdate of person provided is incorrect");
-				}
-				System.out.println("age calculated " + BigInteger.valueOf(ageOfPerson).divide(yearInMs));
-			//}
-				log.debug("Age of person calculated successfully {}", age);
+			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
+			Long ageOfPerson = new Date().getTime() - birthDateOfPersonFormatted.getTime();
+			age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
+			if (age == BigInteger.valueOf(0)) {
+				throw new Exception(" Birthdate of person provided is incorrect");
+			}
+
+			log.debug("Age of person calculated successfully {}", age);
 		} catch (Exception e) {
 			log.error("An error has occured in calculating age");
 			log.error(e.getMessage());
@@ -62,6 +60,8 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		try {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (Exception e) {
+			log.error(e.getMessage());
+			birthdate=null;
 			throw new ParseException("An error has occured in  parsing birthdate", 0);
 		}
 		return birthdate;

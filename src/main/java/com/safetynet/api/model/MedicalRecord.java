@@ -5,7 +5,6 @@ import java.util.List;
 import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
 public class MedicalRecord {
