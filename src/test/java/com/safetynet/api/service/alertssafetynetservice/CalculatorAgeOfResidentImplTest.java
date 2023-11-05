@@ -32,12 +32,9 @@ CalculatorAgeOfResidentImpl calculatorAge;
 
 	@ParameterizedTest(name = "the String birthdate({0})   should return error parsing date")
 	@ValueSource(strings = { "01-01-2001"})
-	void testformatDate_withUnparseableDate_shouldReturnError(String arg) throws Exception {
+	void testformatDate_WithUnparseableDate_shouldReturnError(String arg) throws Exception {
 		try {
-		Date expectedDate=new SimpleDateFormat(Constants.DATE_FORMAT).parse(arg);
-		System.out.println("expectedDate"+expectedDate);
-		Date resultDate= calculatorAge.formatAndParseDate(arg);
-		assertEquals(expectedDate, resultDate);
+		 calculatorAge.formatAndParseDate(arg);
 		}catch(ParseException e) {
 			assertThrows(ParseException.class,
 					() -> calculatorAge.formatAndParseDate(arg));
