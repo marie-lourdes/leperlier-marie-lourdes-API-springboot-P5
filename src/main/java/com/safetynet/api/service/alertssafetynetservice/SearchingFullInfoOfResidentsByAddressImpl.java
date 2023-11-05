@@ -25,7 +25,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 	private List<Person> residentsFoundByAddress = new ArrayList<Person>();
 
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String address)throws Exception {
+	public List<Map<String, String>> searchInfoOfResident(String address) {
 		List<Map<String, String>> listOfresidentsWithSameAddress = new ArrayList<Map<String, String>>();
 		try {
 
@@ -40,19 +40,20 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				residentFoundByAddress.put("zip", person.getZip());
 				residentFoundByAddress.put("phone", person.getPhone());
 				residentFoundByAddress.put("email", person.getEmail());
-				String age =calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
-				residentFoundByAddress.put("age",age );
-				if(age =="0" ){
-					log.error("Age not provided for this resident {} {}",	residentFoundByAddress.get("firstName"),residentFoundByAddress.get("lastName"));
-					residentFoundByAddress = new LinkedHashMap<String, String>();
+				String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
 				
-				}	
-				System.out.println(" residents with same address" + residentFoundByAddress);
+				if (age == "0") {
+					log.error("Age not provided for this resident {} {}", residentFoundByAddress.get("firstName"),
+							residentFoundByAddress.get("lastName"));
+					residentFoundByAddress.put("age", " error! ");
+				} else {
+					residentFoundByAddress.put("age", age);
+				}
 				listOfresidentsWithSameAddress.add(residentFoundByAddress);
 			}
 		} catch (Exception e) {
 			log.error("An error has occured in searching  full info of residents with the same address");
-		
+
 		}
 		System.out.println("listOfresidentsWithSameAddress" + listOfresidentsWithSameAddress);
 		return listOfresidentsWithSameAddress;

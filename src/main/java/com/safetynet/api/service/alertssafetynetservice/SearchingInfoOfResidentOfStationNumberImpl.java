@@ -28,13 +28,12 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 	@Autowired
 	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-	
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
-		
-		  List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-		 List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
+
+		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
+		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
 		try {
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
@@ -50,8 +49,16 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 						residentOfStationNumber.put("lastName", person.getLastName());
 						residentOfStationNumber.put("address", person.getAddress());
 						residentOfStationNumber.put("phone", person.getPhone());
-						residentOfStationNumber.put("age",
-								calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString());
+						String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
+						
+						if (age == "0") {
+							log.error("Age not provided for this resident {} {}",
+									residentOfStationNumber.get("firstName"), residentOfStationNumber.get("lastName"));
+							residentOfStationNumber.put("age", " error! ");
+						} else {
+							residentOfStationNumber.put("age", age);
+						}
+
 						System.out.println(" residentOfStationNumber" + residentOfStationNumber);
 						listOfResidentOfStationNumber.add(residentOfStationNumber);
 					}

@@ -31,10 +31,15 @@ public class ChildAlertService {
 		for (Map<String, String> resident : listOfResidentChildAndMembersOfHouseHold) {
 			// get list age parsed of residents found by address to sort and remove info age
 			// for adults
-			allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));
-			if (Integer.parseInt(resident.get("age")) > 18) {
-				resident.remove("age");
+			try {
+				allMemberOfHouseHoldWithAge.add(Integer.parseInt(resident.get("age")));
+				if (Integer.parseInt(resident.get("age")) > 18) {
+					resident.remove("age");
+				}
+			}catch(NumberFormatException e) {
+				log.error("Error has occured with format of age of a  member of household : {} {}",resident.get("firstName"), resident.get("lastName"));
 			}
+			
 		}
 
 		log.debug("Checking if there's child  at this address: {}", address);

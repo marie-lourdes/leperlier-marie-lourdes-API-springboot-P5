@@ -24,7 +24,7 @@ public class FireService {
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 	//private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
-	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws Exception  {
+	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException  {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
 		 List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 		try {
@@ -40,10 +40,10 @@ public class FireService {
 
 			listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents  and firestation not found near fire address");
-		}
+		} 
 
 		log.info(" All residents with its fireStation retrieved  near fire address : {}",
 				listOfResidentAndFireStationNearFire);

@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	private static final Logger log = LogManager.getLogger(SortingAdultsAndChildsOfListOfResidentsWithCountDown.class);
 
-	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
-
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
 	public Map<String, Integer> sortAdultsAndChilds(String request,

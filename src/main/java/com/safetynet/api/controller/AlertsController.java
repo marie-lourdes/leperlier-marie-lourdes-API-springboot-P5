@@ -108,9 +108,6 @@ public class AlertsController implements IResponseHTTPEmpty {
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return  returnResponseEntityEmptyAndCode500();
 		}
 	}
 
