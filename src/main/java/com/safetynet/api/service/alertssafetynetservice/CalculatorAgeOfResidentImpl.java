@@ -24,20 +24,20 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
 		log.debug("calculating age of person");
-		String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
-
-		// format date birthdate
-		log.debug("formating birthdate of person");
-		Date birthDateOfPersonFormatted = new Date();
-		try {
-			birthDateOfPersonFormatted = this.formatAndParseDate(birthDateOfPerson);
-			log.debug("Birthdate of person formatted succesfully: {}", birthDateOfPersonFormatted);
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-
 		// calcul age
 		try {
+			String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
+
+			// format date birthdate
+			log.debug("formating birthdate of person");
+			Date birthDateOfPersonFormatted = new Date();
+			try {
+				birthDateOfPersonFormatted = this.formatAndParseDate(birthDateOfPerson);
+				log.debug("Birthdate of person formatted succesfully: {}", birthDateOfPersonFormatted);
+			} catch (ParseException e) {
+				log.error(e.getMessage());
+			}
+
 			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
 			Long ageOfPerson = new Date().getTime() - birthDateOfPersonFormatted.getTime();
 			age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
@@ -54,14 +54,14 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		return age;
 	}
 
-	public Date formatAndParseDate(String birthDateOfPerson) throws Exception {
+	public Date formatAndParseDate(String birthDateOfPerson) throws ParseException {
 		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
 		try {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			birthdate=null;
+			birthdate = null;
 			throw new ParseException("An error has occured in  parsing birthdate", 0);
 		}
 		return birthdate;

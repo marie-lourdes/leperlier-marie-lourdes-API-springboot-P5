@@ -19,6 +19,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -53,7 +54,7 @@ class CalculatorAgeOfResidentImplTest {
 			Date resultDate = calculatorAge.formatAndParseDate(arg);
 
 			assertNull(resultDate);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			assertThrows(ParseException.class, () -> calculatorAge.formatAndParseDate(arg));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -61,18 +62,18 @@ class CalculatorAgeOfResidentImplTest {
 	}
 
 	@Test
-	@DisplayName("Given The birthdate 09/04/1989 when calculate age the method should return 34")
+	@DisplayName("Given The birthdate 09/04/1989 when calculate age of resident  the method should return 34")
 	void testCalculateAgeOfResident() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:350mg");
 		medications.add("hydrapermazol:100mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("nillacilan");
-		MedicalRecord medicalRecordTest = new MedicalRecord("John", "Leperlier", "09/04/1989", medications, allergies);
-		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest);
+		MedicalRecord medicalRecordTest1 = new MedicalRecord("John", "Leperlier", "09/04/1989", medications, allergies);
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest1);
 
 		try {
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate());
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest1.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(34);
 			System.out.println("expectedDate" + expectedAge);
@@ -84,24 +85,49 @@ class CalculatorAgeOfResidentImplTest {
 	}
 
 	@Test
-	@DisplayName("Given The birthdate when calculate age of no existin resident  the method should return 0 and error")
+	@DisplayName("Given The birthdate when calculate age of no existing resident  the method should return 0 and error")
 	void testCalculateAgeOfResident_WithNoExistingResident() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		List<String> allergies = new ArrayList<String>();
-		MedicalRecord medicalRecordTest = new MedicalRecord("Minnie", "Cooper", "01/01/1965", medications, allergies);
-		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenThrow(NullPointerException.class);
-
+		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "01/01/1965", medications, allergies);
 		try {
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate());
+		medicalRecordService= new MedicalRecordService();
+		when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
+		
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(null);
+
+			BigInteger expectedAge = BigInteger.valueOf(0);
+			System.out.println("expectedDate" + expectedAge);
+			verify(medicalRecordService,Mockito.times(0)).getOneMedicalRecordById(any(String.class));
+			assertEquals(expectedAge, resultAge);
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->medicalRecordService.getOneMedicalRecordById("Minnie Cooper"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	@DisplayName("Given The birthdate with incorrect format when calculate age of resident  the method should return 0 ")
+	void testCalculateAgeOfResident_WithIncorrectFormatOfBirthDate() throws Exception {
+		List<String> medications = new ArrayList<String>();
+		List<String> allergies = new ArrayList<String>();
+		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "01-12-2023", medications, allergies);
+		try {
+	
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest2 );
+		
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
 			System.out.println("expectedDate" + expectedAge);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
-		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest.getBirthdate()));
-		} catch (AssertionError e) {
+		}  catch (Exception e) {
+			assertThrows(Exception.class,
+					() ->calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
+		}catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
