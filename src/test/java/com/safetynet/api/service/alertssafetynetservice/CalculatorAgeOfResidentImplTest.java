@@ -85,7 +85,7 @@ class CalculatorAgeOfResidentImplTest {
 
 	@Test
 	@DisplayName("Given The birthdate when calculate age of no existing resident  the method should return 0 and error")
-	void testCalculateAgeOfResident_WithNoExistingResident() throws Exception {
+	void testCalculateAgeOfResident_WithResidentNotFound() throws Exception {
 		try {
 			medicalRecordService = new MedicalRecordService();
 			when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
