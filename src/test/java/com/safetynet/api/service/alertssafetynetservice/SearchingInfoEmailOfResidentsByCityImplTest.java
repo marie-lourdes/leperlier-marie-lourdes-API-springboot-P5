@@ -19,7 +19,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @SpringBootTest
-class SearchingInfoEmailOfResidentsByCitymplTest {
+class SearchingInfoEmailOfResidentsByCityImplTest {
 	@Autowired
 	SearchingInfoEmailOfResidentsByCitympl searchingFullInfoOfResidentsByCity;
 
