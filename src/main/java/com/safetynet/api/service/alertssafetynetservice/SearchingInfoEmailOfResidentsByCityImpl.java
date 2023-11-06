@@ -14,8 +14,8 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
 @Component
-public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfResident {
-	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCitympl.class);
+public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOfResident {
+	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCityImpl.class);
 
 	@Autowired
 	PersonService personService;

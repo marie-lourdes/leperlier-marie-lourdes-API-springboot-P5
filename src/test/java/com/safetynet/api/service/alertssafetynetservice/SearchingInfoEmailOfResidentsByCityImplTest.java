@@ -21,7 +21,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingInfoEmailOfResidentsByCityImplTest {
 	@Autowired
-	SearchingInfoEmailOfResidentsByCitympl searchingFullInfoOfResidentsByCity;
+	SearchingInfoEmailOfResidentsByCityImpl searchingFullInfoOfResidentsByCity;
 
 	@MockBean
 	PersonService personService;

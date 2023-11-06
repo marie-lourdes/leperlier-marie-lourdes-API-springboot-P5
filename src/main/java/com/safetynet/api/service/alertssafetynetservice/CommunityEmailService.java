@@ -14,7 +14,7 @@ public class CommunityEmailService {
 	private static final Logger log = LogManager.getLogger(CommunityEmailService.class);
 
 	@Autowired
-	SearchingInfoEmailOfResidentsByCitympl infoEmailOfResidentsByCity;
+	SearchingInfoEmailOfResidentsByCityImpl infoEmailOfResidentsByCity;
 
 	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 
