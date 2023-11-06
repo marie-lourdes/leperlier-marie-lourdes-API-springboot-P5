@@ -20,11 +20,9 @@ public class SearchingInfoEmailOfResidentsByCitympl implements ISearchingInfoOfR
 	@Autowired
 	PersonService personService;
 
-	private List<Person> residentsFoundByCity = new ArrayList<Person>();
-
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
-
+		List<Person> residentsFoundByCity = new ArrayList<Person>();
 		List<Map<String, String>> listOfResidentsFoundByCity = new ArrayList<Map<String, String>>();
 		try {
 			residentsFoundByCity = personService.getPersonsByCity(city);
