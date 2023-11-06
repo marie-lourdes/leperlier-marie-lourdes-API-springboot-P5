@@ -76,7 +76,6 @@ class CalculatorAgeOfResidentImplTest {
 			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest1.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(34);
-			System.out.println("expectedDate" + expectedAge);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
 		} catch (AssertionError e) {
@@ -88,18 +87,17 @@ class CalculatorAgeOfResidentImplTest {
 	@DisplayName("Given The birthdate when calculate age of no existing resident  the method should return 0 and error")
 	void testCalculateAgeOfResident_WithNoExistingResident() throws Exception {
 		try {
-		medicalRecordService= new MedicalRecordService();
-		when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
-		
+			medicalRecordService = new MedicalRecordService();
+			when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
+
 			BigInteger resultAge = calculatorAge.calculateAgeOfResident(null);
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
-			System.out.println("expectedDate" + expectedAge);
-			verify(medicalRecordService,Mockito.times(0)).getOneMedicalRecordById(any(String.class));
+			verify(medicalRecordService, Mockito.times(0)).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() ->medicalRecordService.getOneMedicalRecordById("Minnie Cooper"));
+					() -> medicalRecordService.getOneMedicalRecordById("Minnie Cooper"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -110,21 +108,39 @@ class CalculatorAgeOfResidentImplTest {
 	void testCalculateAgeOfResident_WithIncorrectFormatOfBirthDate() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		List<String> allergies = new ArrayList<String>();
-		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "01-12-2023", medications, allergies);
+		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "02-12-1996", medications, allergies);
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest2);
 		try {
-	
-		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest2 );
-		
 			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
-			System.out.println("expectedDate" + expectedAge);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			assertThrows(Exception.class,
-					() ->calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
-		}catch (AssertionError e) {
+					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	@DisplayName("Given birthdate after date actual when calculate age of resident  the method should return 0 and error ")
+	void testCalculateAgeOfResident_WithBirthdateAfterDateActual() throws Exception {
+		List<String> medications = new ArrayList<String>();
+		List<String> allergies = new ArrayList<String>();
+		MedicalRecord medicalRecordTest3 = new MedicalRecord("Rachel", "Friends", "01/12/2023", medications, allergies);
+		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest3);
+		try {
+			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest3.getBirthdate());
+			
+			BigInteger expectedAge = BigInteger.valueOf(0);
+			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
+			assertEquals(expectedAge, resultAge);
+		} catch (Exception e) {
+			assertThrows(Exception.class,
+					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest3.getBirthdate()));
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
