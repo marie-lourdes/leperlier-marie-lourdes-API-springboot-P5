@@ -29,19 +29,19 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 			String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
 			// format date birthdate
 			log.debug("formating birthdate of person");
-			
+
 			Date birthDateOfPersonFormatted = new Date();
 			try {
-				birthDateOfPersonFormatted = this.formatAndParseDate(birthDateOfPerson);
+				birthDateOfPersonFormatted = this.formatDate(birthDateOfPerson);
 				log.debug("Birthdate of person formatted succesfully: {}", birthDateOfPersonFormatted);
 			} catch (ParseException e) {
 				log.error(e.getMessage());
 			}
 			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
 			long dateActualMilliSeconds = new Date().getTime();
-			age=BigInteger.valueOf(0);
-			
-			if ((dateActualMilliSeconds > birthDateOfPersonFormatted.getTime())) {	
+			age = BigInteger.valueOf(0);
+
+			if ((dateActualMilliSeconds > birthDateOfPersonFormatted.getTime())) {
 				Long ageOfPerson = dateActualMilliSeconds - birthDateOfPersonFormatted.getTime();
 				age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
 			} else {
@@ -61,14 +61,14 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		return age;
 	}
 
-	public Date formatAndParseDate(String birthDateOfPerson) throws ParseException {
+	public Date formatDate(String birthDateOfPerson) throws ParseException {
 		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
 		try {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			
+
 			throw new ParseException("An error has occured in  parsing birthdate", 0);
 		}
 		return birthdate;
