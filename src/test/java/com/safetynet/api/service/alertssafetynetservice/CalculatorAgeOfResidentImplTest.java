@@ -133,7 +133,7 @@ class CalculatorAgeOfResidentImplTest {
 		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest3);
 		try {
 			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest3.getBirthdate());
-			
+
 			BigInteger expectedAge = BigInteger.valueOf(0);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);

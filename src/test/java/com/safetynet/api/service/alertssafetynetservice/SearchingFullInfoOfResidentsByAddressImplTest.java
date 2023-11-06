@@ -2,6 +2,7 @@ package com.safetynet.api.service.alertssafetynetservice;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,7 +60,7 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 					.searchInfoOfResident("112 address");
 			verify(personService).getPersonsByAddress(any(String.class));
 			verify(calculatorAge).calculateAgeOfResident(any(String.class));
-			assertNotNull(listOfResidentsWithSameAddress);
+			assertFalse(listOfResidentsWithSameAddress.isEmpty());
 			
 			for (Map<String, String> resident : listOfResidentsWithSameAddress) {
 				assertAll(

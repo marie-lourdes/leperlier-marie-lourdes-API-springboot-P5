@@ -41,7 +41,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				residentFoundByAddress.put("phone", person.getPhone());
 				residentFoundByAddress.put("email", person.getEmail());
 				String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
-				
+
 				if (age == "0") {
 					log.error("Age not provided for this resident {} {}", residentFoundByAddress.get("firstName"),
 							residentFoundByAddress.get("lastName"));
@@ -49,13 +49,13 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				} else {
 					residentFoundByAddress.put("age", age);
 				}
-				 listOfResidentsWithSameAddress.add(residentFoundByAddress);
+				listOfResidentsWithSameAddress.add(residentFoundByAddress);
 			}
 		} catch (Exception e) {
 			log.error("An error has occured in searching  full info of residents with the same address");
 
 		}
-		System.out.println("listOfresidentsWithSameAddress" +  listOfResidentsWithSameAddress);
-		return  listOfResidentsWithSameAddress;
+		System.out.println("listOfresidentsWithSameAddress" + listOfResidentsWithSameAddress);
+		return listOfResidentsWithSameAddress;
 	}
 }
