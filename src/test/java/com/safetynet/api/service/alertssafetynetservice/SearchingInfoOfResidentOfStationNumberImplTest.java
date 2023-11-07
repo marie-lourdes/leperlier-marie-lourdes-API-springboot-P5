@@ -28,10 +28,11 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.PersonService;
+
 @SpringBootTest
 class SearchingInfoOfResidentOfStationNumberImplTest {
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl searchingFullInfoOfResidentsByStationNumber;
+	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentsByStationNumberUnderTest;
 
 	@MockBean
 	PersonService personService;
@@ -54,6 +55,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 		personTest.setId("Millie Leperlier");
 		listOfPersonsTest = new ArrayList<Person>();
 		listOfPersonsTest.add(personTest);
+		
 		firestationTest= new FireStation("5", "112 address");
 		firestationTest.setId("112-5-65");
 		listOfFireStationsTest = new ArrayList<FireStation>();
@@ -66,7 +68,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 		when(fireStationService.getFireStationsByStationNumber( "5")).thenReturn(listOfFireStationsTest);
 		when(calculatorAge.calculateAgeOfResident("Millie Leperlier")).thenReturn(BigInteger.valueOf(34));
 		try {
-			List<Map<String, String>> listOfResidentsOfStationNumber= searchingFullInfoOfResidentsByStationNumber
+			List<Map<String, String>> listOfResidentsOfStationNumber= infoOfResidentsByStationNumberUnderTest
 					.searchInfoOfResident("5");
 			
 			verify(personService).getAllPersons();
@@ -93,7 +95,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 		when(fireStationService.getFireStationsByStationNumber( "6")).thenThrow(NullPointerException.class);
 		
 		try {
-			List<Map<String, String>> listOfResidentsOfStationNumber= searchingFullInfoOfResidentsByStationNumber
+			List<Map<String, String>> listOfResidentsOfStationNumber= infoOfResidentsByStationNumberUnderTest
 					.searchInfoOfResident("6");
 			
 			verify(personService).getAllPersons();
@@ -102,7 +104,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 			assertTrue(listOfResidentsOfStationNumber.isEmpty());
 		}catch (NullPointerException e) {
 					assertThrows(NullPointerException.class,
-							() -> searchingFullInfoOfResidentsByStationNumber
+							() -> infoOfResidentsByStationNumberUnderTest
 							.searchInfoOfResident("6"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -117,7 +119,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 		when(fireStationService.getFireStationsByStationNumber( "5")).thenReturn(listOfFireStationsTest);
 		when(calculatorAge.calculateAgeOfResident("Millie Leperlier")).thenReturn(BigInteger.valueOf(0));
 		try {
-			List<Map<String, String>> listOfResidentsWithSameAddress = searchingFullInfoOfResidentsByStationNumber
+			List<Map<String, String>> listOfResidentsWithSameAddress =infoOfResidentsByStationNumberUnderTest
 					.searchInfoOfResident("5");
 			
 			verify(personService).getAllPersons();
@@ -129,7 +131,7 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 			}
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> searchingFullInfoOfResidentsByStationNumber.searchInfoOfResident("5"));
+					() -> infoOfResidentsByStationNumberUnderTest.searchInfoOfResident("5"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

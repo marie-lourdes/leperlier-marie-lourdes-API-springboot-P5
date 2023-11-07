@@ -36,7 +36,7 @@ class FireStationServiceTest {
 	@BeforeEach
 	void setUpPerTest() {
 		fireStationTest1 = new FireStation("5", "46  rue de la mairie");
-		fireStationTest2 = new FireStation("6", "16 rue du quartiers des combatants");
+		fireStationTest2 = new FireStation("6", "16 rue du quartiers des combattants");
 		fireStationTest3 = new FireStation("6", "17 impasse de la caserne");
 		fireStationTest4 = new FireStation("7", "17 impasse de la caserne");
 		fireStationServiceUnderTest.addFireStation(fireStationTest1);
@@ -281,7 +281,7 @@ class FireStationServiceTest {
 	void testDeleteFireStationByAddress() throws Exception {
 		try {
 			boolean resultFireStationRemoved = fireStationServiceUnderTest
-					.deleteFireStationByAddress("16 rue du quartiers des combatants");
+					.deleteFireStationByAddress("16 rue du quartiers des combattants");
 
 			assertTrue(resultFireStationRemoved);
 		} catch (AssertionError e) {

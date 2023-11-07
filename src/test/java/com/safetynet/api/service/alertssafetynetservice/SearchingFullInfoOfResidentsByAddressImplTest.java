@@ -30,7 +30,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingFullInfoOfResidentsByAddressImplTest {
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentsByAddressUnderTest;
 
 	@MockBean
 	PersonService personService;
@@ -56,7 +56,7 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 		when(calculatorAge.calculateAgeOfResident("Millie Leperlier")).thenReturn(BigInteger.valueOf(34));
 
 		try {
-			List<Map<String, String>> listOfResidentsWithSameAddress = searchingFullInfoOfResidentsByAddress
+			List<Map<String, String>> listOfResidentsWithSameAddress = fullInfoOfResidentsByAddressUnderTest
 					.searchInfoOfResident("112 address");
 			verify(personService).getPersonsByAddress(any(String.class));
 			verify(calculatorAge).calculateAgeOfResident(any(String.class));
@@ -85,13 +85,13 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 		when(personService.getPersonsByAddress("112 address")).thenThrow(NullPointerException.class);
 		
 		try {
-			List<Map<String, String>> listOfResidentsWithSameAddress = searchingFullInfoOfResidentsByAddress.searchInfoOfResident("112 address");
+			List<Map<String, String>> listOfResidentsWithSameAddress = fullInfoOfResidentsByAddressUnderTest.searchInfoOfResident("112 address");
 			verify(personService).getPersonsByAddress(any(String.class));
 			verify(calculatorAge, Mockito.times(0)).calculateAgeOfResident(any(String.class));
 			assertTrue(  listOfResidentsWithSameAddress.isEmpty());
 		}catch (NullPointerException e) {
 					assertThrows(NullPointerException.class,
-							() -> searchingFullInfoOfResidentsByAddress
+							() -> fullInfoOfResidentsByAddressUnderTest
 							.searchInfoOfResident("112 address"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -105,7 +105,7 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 		when(calculatorAge.calculateAgeOfResident("Millie Leperlier")).thenReturn(BigInteger.valueOf(0));
 		
 		try {
-			List<Map<String, String>> listOfResidentsWithSameAddress = searchingFullInfoOfResidentsByAddress
+			List<Map<String, String>> listOfResidentsWithSameAddress = fullInfoOfResidentsByAddressUnderTest
 					.searchInfoOfResident("112 address");
 		verify(personService).getPersonsByAddress(any(String.class));
 			verify(calculatorAge).calculateAgeOfResident(any(String.class));
@@ -115,7 +115,7 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 			}
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
-					() -> searchingFullInfoOfResidentsByAddress.searchInfoOfResident("112 address"));
+					() -> fullInfoOfResidentsByAddressUnderTest.searchInfoOfResident("112 address"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

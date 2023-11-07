@@ -30,7 +30,7 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 @SpringBootTest
 class CalculatorAgeOfResidentImplTest {
 	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAge;
+	CalculatorAgeOfResidentImpl calculatorAgeUnderTest;
 
 	@MockBean
 	MedicalRecordService medicalRecordService;
@@ -39,7 +39,7 @@ class CalculatorAgeOfResidentImplTest {
 	@ValueSource(strings = { "01/01/2001" })
 	void testformatDate(String arg) throws Exception {
 		try {
-			Date resultDate = calculatorAge.formatDate(arg);
+			Date resultDate = calculatorAgeUnderTest.formatDate(arg);
 
 			assertNotNull(resultDate);
 		} catch (AssertionError e) {
@@ -51,11 +51,11 @@ class CalculatorAgeOfResidentImplTest {
 	@ValueSource(strings = { "01-01-2001" })
 	void testformatDate_WithUnparseableDate_ShouldReturnError(String arg) throws Exception {
 		try {
-			Date resultDate = calculatorAge.formatDate(arg);
+			Date resultDate = calculatorAgeUnderTest.formatDate(arg);
 
 			assertNull(resultDate);
 		} catch (Exception e) {
-			assertThrows(ParseException.class, () -> calculatorAge.formatDate(arg));
+			assertThrows(ParseException.class, () -> calculatorAgeUnderTest.formatDate(arg));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -73,7 +73,7 @@ class CalculatorAgeOfResidentImplTest {
 		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest1);
 
 		try {
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest1.getBirthdate());
+			BigInteger resultAge = calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest1.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(34);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
@@ -90,7 +90,7 @@ class CalculatorAgeOfResidentImplTest {
 			medicalRecordService = new MedicalRecordService();
 			when(medicalRecordService.getOneMedicalRecordById("Minnie Cooper")).thenThrow(NullPointerException.class);
 
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(null);
+			BigInteger resultAge = calculatorAgeUnderTest.calculateAgeOfResident(null);
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
 			verify(medicalRecordService, Mockito.times(0)).getOneMedicalRecordById(any(String.class));
@@ -111,14 +111,14 @@ class CalculatorAgeOfResidentImplTest {
 		MedicalRecord medicalRecordTest2 = new MedicalRecord("Minnie", "Cooper", "02-12-1996", medications, allergies);
 		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest2);
 		try {
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate());
+			BigInteger resultAge = calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest2.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
 		} catch (Exception e) {
 			assertThrows(Exception.class,
-					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
+					() ->calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -132,14 +132,14 @@ class CalculatorAgeOfResidentImplTest {
 		MedicalRecord medicalRecordTest3 = new MedicalRecord("Rachel", "Friends", "01/12/2023", medications, allergies);
 		when(medicalRecordService.getOneMedicalRecordById(any(String.class))).thenReturn(medicalRecordTest3);
 		try {
-			BigInteger resultAge = calculatorAge.calculateAgeOfResident(medicalRecordTest3.getBirthdate());
+			BigInteger resultAge = calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest3.getBirthdate());
 
 			BigInteger expectedAge = BigInteger.valueOf(0);
 			verify(medicalRecordService).getOneMedicalRecordById(any(String.class));
 			assertEquals(expectedAge, resultAge);
 		} catch (Exception e) {
 			assertThrows(Exception.class,
-					() -> calculatorAge.calculateAgeOfResident(medicalRecordTest3.getBirthdate()));
+					() -> calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest3.getBirthdate()));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
