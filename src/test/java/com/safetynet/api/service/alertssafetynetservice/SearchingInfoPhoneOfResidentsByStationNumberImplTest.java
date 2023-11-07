@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,14 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 	@MockBean
 	PersonService personService;
 	
-	
 	private static Person personTest1;
 	private static Person personTest2;
 	private static List<Person> listOfPersonsTest;
 	private static FireStation firestationTest1;
 	private static FireStation firestationTest2;
-	private static List<FireStation> listOfFireStationsTest;
+	private static FireStation firestationTest3;
+	private static List<FireStation> listOfFireStationsTest1;
+	private static List<FireStation> listOfFireStationsTest2;
 	
 	@BeforeAll
 	static void setUp() {
@@ -58,16 +60,20 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 		firestationTest1= new FireStation("5", "45 quartier du port de Vannes");
 		firestationTest1.setId("45-5-65");
 		firestationTest2= new FireStation("5", "112 address");
-		firestationTest1.setId("112-5-41");
-		listOfFireStationsTest = new ArrayList<FireStation>();
-		listOfFireStationsTest.add(firestationTest1);
-		listOfFireStationsTest.add(firestationTest2);
+		firestationTest2.setId("112-5-41");
+		firestationTest3= new FireStation("7", "78 boulevard du soldat inconnu");
+		firestationTest3.setId("78-7-23");
+		listOfFireStationsTest1 = new ArrayList<FireStation>();
+		listOfFireStationsTest1.add(firestationTest1);
+		listOfFireStationsTest1.add(firestationTest2);
+		listOfFireStationsTest2 = new ArrayList<FireStation>();
+		listOfFireStationsTest2.add(firestationTest3);
 	}
 	
 	@Test
 	void testSearchInfoOfResident() throws Exception {
 		when(personService.getAllPersons()).thenReturn(listOfPersonsTest);
-		when(fireStationService.getFireStationsByStationNumber( "5")).thenReturn(listOfFireStationsTest);
+		when(fireStationService.getFireStationsByStationNumber( "5")).thenReturn(listOfFireStationsTest1);
 		
 		try {
 			List<Map<String, String>> listOfPhonesOfResidentsOfStationNumber= infoPhoneOfResidentsByStationNumberUnderTest
@@ -84,8 +90,9 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 		}
 	}
 
-	void testSearchInfoOfResident_WithPhonesNotFoundByStationNumber() throws Exception {
-		when(personService.getAllPersons()).thenThrow(NullPointerException.class);
+	@Test
+	@DisplayName("Given no existing stationNumber 6  when generate a map with info of resident  the method should error and null ")
+	void testSearchInfoOfResident_WithStationNumberNotFound() throws Exception {
 		when(fireStationService.getFireStationsByStationNumber( "6")).thenThrow(NullPointerException.class);
 		
 		try {
@@ -99,6 +106,28 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 					assertThrows(NullPointerException.class,
 							() -> infoPhoneOfResidentsByStationNumberUnderTest
 							.searchInfoOfResident("6"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}	
+	}
+	
+@Test
+	@DisplayName("Given existing stationNumber without residents registered  when generate a map with info of no existing resident  the method should error and null ")
+	void testSearchInfoOfResident_WithResidentAndPhonesNotFoundByStationNumber() throws Exception {
+		when(personService.getAllPersons()).thenReturn(listOfPersonsTest);
+		when(fireStationService.getFireStationsByStationNumber( "7")).thenReturn(listOfFireStationsTest2);
+		
+		try {
+			List<Map<String, String>> listOfPhonesOfResidentsOfStationNumber= infoPhoneOfResidentsByStationNumberUnderTest
+					.searchInfoOfResident("7");
+			
+			verify(personService).getAllPersons();
+			verify(fireStationService).getFireStationsByStationNumber(any(String.class));
+			assertTrue(listOfPhonesOfResidentsOfStationNumber.isEmpty());
+		}catch (NullPointerException e) {
+					assertThrows(NullPointerException.class,
+							() -> infoPhoneOfResidentsByStationNumberUnderTest
+							.searchInfoOfResident("7"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}	
