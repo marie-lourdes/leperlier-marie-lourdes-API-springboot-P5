@@ -33,11 +33,9 @@ public class ResidentsOfStationNumberService {
 				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
 			log.info(" List of residents retrieved successfully of station number {}", listOfResidentOfStationNumber);
-		} catch (NullPointerException e) {
-			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 		} catch (Exception e) {
-			log.error("An error has occured in getting residents of station number");
-		}
+			log.error("Failed to retrieve all residents of station number {}", stationNumber);
+		} 
 
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {
 			// residents.remove("age");
