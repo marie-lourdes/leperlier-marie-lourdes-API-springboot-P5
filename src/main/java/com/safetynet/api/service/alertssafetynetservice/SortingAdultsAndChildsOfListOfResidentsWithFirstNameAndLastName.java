@@ -22,25 +22,23 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
 
-	public List<Map<String, String>> sortAdultsAndChilds(String request) {
-		try {
-			listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(request);
+	public List<Map<String, String>> sortAdultsAndChilds(String address) throws Exception {
+		log.debug("Sorting  Adults And Childs at this address : {} ",address);
+		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(address);
 
-			for (Map<String, String> resident : listOfResidentsFoundByAddress) {
-				if (Integer.parseInt(resident.get("age")) <= 18) {
-					resident.remove("address");
-					resident.remove("city");
-					resident.remove("phone");
-					resident.remove("email");
-					listOfAdultsAndChild.add(resident);
-				} else {
-					// resident.remove("age");
-					listOfAdultsAndChild.add(resident);
-				}
+		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
+			if (Integer.parseInt(resident.get("age")) <= 18) {
+				resident.remove("address");
+				resident.remove("city");
+				resident.remove("phone");
+				resident.remove("email");
+				listOfAdultsAndChild.add(resident);
+			} else {
+				// resident.remove("age");
+				listOfAdultsAndChild.add(resident);
 			}
-		} catch (Exception e) {
-			log.error("An error has occured in sorting residents with full name of childs and all info of adults");
 		}
+
 		log.debug("List of residents sorted  with full name of childs and all info of adults :" + listOfAdultsAndChild);
 		return listOfResidentsFoundByAddress;
 	}

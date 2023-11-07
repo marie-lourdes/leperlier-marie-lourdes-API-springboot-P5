@@ -15,25 +15,24 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
-	public Map<String, Integer> sortAdultsAndChilds(String request,
-			List<Map<String, String>> ResidentsOfStationNumber) {
-		try {
-			Integer indexChild = 1;
-			Integer indexAdult = 1;
+	public Map<String, Integer> sortAdultsAndChilds(List<Map<String, String>> ResidentsOfStationNumber,String stationNumber)
+			throws Exception {
+		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ",stationNumber);
 
-			for (Map<String, String> resident : ResidentsOfStationNumber) {
-				if (Integer.parseInt(resident.get("age")) <= 18) {
-					mapOfAdultsAndChild.put("childs", indexChild++);
-					resident.remove("age");
-				} else {
-					mapOfAdultsAndChild.put("adults", indexAdult++);
-					resident.remove("age");
-				}
+		Integer indexChild = 1;
+		Integer indexAdult = 1;
+		for (Map<String, String> resident : ResidentsOfStationNumber) {
+			if (Integer.parseInt(resident.get("age")) <= 18) {
+				mapOfAdultsAndChild.put("childs", indexChild++);
+				resident.remove("age");
+			} else {
+				mapOfAdultsAndChild.put("adults", indexAdult++);
+				resident.remove("age");
 			}
-		} catch (Exception e) {
-			log.error("An error has occured in sorting residents with countdown of adults and childs");
 		}
-		log.debug("List of residents  sorted with coundDown of Adults And Childs: " + mapOfAdultsAndChild);
+
+		log.debug(
+				"Residents  sorted with coundDown of Adults And Childs successfully retrieved: " + mapOfAdultsAndChild);
 		return mapOfAdultsAndChild;
 	}
 }

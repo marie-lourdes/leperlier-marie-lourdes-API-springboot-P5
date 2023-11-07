@@ -25,8 +25,9 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
+		log.debug("Searching emails of residents by city");
+		
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-
 		try {
 			List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
 					.searchInfoOfResident(address);

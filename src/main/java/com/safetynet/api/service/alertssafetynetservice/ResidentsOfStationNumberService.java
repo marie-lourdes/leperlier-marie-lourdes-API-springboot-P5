@@ -47,18 +47,21 @@ public class ResidentsOfStationNumberService {
 		return listOfResidentOfStationNumber;
 	}
 
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber)
-			throws NullPointerException {
-		log.debug("Sorting  all residents with countdown of adult and child of station number {}", stationNumber);
-		Map<String, Integer> mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
-				.sortAdultsAndChilds(stationNumber, listOfResidentOfStationNumber);
-		if (mapCountDownOfAdultsAndChilds.isEmpty()) {
-			throw new NullPointerException(
-					"Error has occured sorting with countdown of adult and childs  because not found at this station number");
-		} else {
-			log.debug("all residents  sorted with countdown of adult and child of station number {}", stationNumber);
+	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
+		Map<String, Integer> mapCountDownOfAdultsAndChilds = null;
+		try {
+			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
+					.sortAdultsAndChilds(listOfResidentOfStationNumber, stationNumber);
+			if (mapCountDownOfAdultsAndChilds.isEmpty()) {
+				throw new NullPointerException(
+						"Error has occured sorting with countdown of adult and childs  because not found at this station number");
+			} else {
+				log.debug("all residents  sorted with countdown of adult and child of station number {}",
+						stationNumber);			
+			}
+		} catch (Exception e) {
+			log.debug(e.getMessage());
 		}
-
 		return mapCountDownOfAdultsAndChilds;
 	}
 }

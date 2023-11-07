@@ -26,6 +26,8 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
+		log.debug("Searching info of residents  by address with medical record ");
+		
 		List<Map<String, String>> listOfPersonWithMedicalRecord = new ArrayList<Map<String, String>>();
 		try {
 			List<Map<String, String>> listOfPersonByAddress = searchingFullInfoOfResidentsByAddress
@@ -54,6 +56,8 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of person found by address with medical records");
 		}
+		
+		log.debug("Info of residents  by address with medical record succesfully retrieved : {}", listOfPersonWithMedicalRecord);
 		return listOfPersonWithMedicalRecord;
 	}
 }

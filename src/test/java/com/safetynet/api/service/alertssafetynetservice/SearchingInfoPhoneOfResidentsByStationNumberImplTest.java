@@ -85,6 +85,7 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 	}
 
 	void testSearchInfoOfResident_WithPhonesNotFoundByStationNumber() throws Exception {
+		when(personService.getAllPersons()).thenThrow(NullPointerException.class);
 		when(fireStationService.getFireStationsByStationNumber( "6")).thenThrow(NullPointerException.class);
 		
 		try {

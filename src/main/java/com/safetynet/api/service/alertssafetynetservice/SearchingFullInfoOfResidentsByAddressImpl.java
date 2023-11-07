@@ -26,6 +26,8 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
+		log.debug("Searching  full info of residents with the same address");
+		
 		List<Map<String, String>> listOfResidentsWithSameAddress = new ArrayList<Map<String, String>>();
 		try {
 
@@ -55,7 +57,8 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			log.error("An error has occured in searching  full info of residents with the same address");
 
 		}
-		System.out.println("listOfresidentsWithSameAddress" + listOfResidentsWithSameAddress);
+		
+		log.debug(" Full info of residents with the same address successfully retrieved : {}",listOfResidentsWithSameAddress);
 		return listOfResidentsWithSameAddress;
 	}
 }

@@ -31,7 +31,8 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
-
+		log.debug("Searching info of residents by station number");
+		
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
@@ -59,7 +60,6 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 							residentOfStationNumber.put("age", age);
 						}
 
-						System.out.println(" residentOfStationNumber" + residentOfStationNumber);
 						listOfResidentOfStationNumber.add(residentOfStationNumber);
 					}
 				}
@@ -67,7 +67,8 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of residents of station number");
 		}
-		System.out.println("listOfResidentsOfStationNumber" + listOfResidentOfStationNumber);
+		
+		log.debug(" Info of residents by station number successfully retrieved : {}",listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
 

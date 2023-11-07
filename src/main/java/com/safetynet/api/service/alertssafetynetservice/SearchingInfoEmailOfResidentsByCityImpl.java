@@ -22,8 +22,10 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
+		log.debug("Searching emails of residents by city");
+		
 		List<Person> residentsFoundByCity = new ArrayList<Person>();
-		List<Map<String, String>> listOfResidentsFoundByCity = new ArrayList<Map<String, String>>();
+		List<Map<String, String>> listOfEmailsResidentsFoundByCity = new ArrayList<Map<String, String>>();
 		try {
 			residentsFoundByCity = personService.getPersonsByCity(city);
 
@@ -31,13 +33,13 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 				Map<String, String> residentFoundByCity = new HashMap<String, String>();
 				residentFoundByCity.put("email", person.getEmail());
 
-				System.out.println("residentFoundByCity" + residentFoundByCity);
-				listOfResidentsFoundByCity.add(residentFoundByCity);
+				listOfEmailsResidentsFoundByCity.add(residentFoundByCity);
 			}
 		} catch (Exception e) {
 			log.error("An error has occured in searching  full info  emails of residents of the city");
 		}
-		System.out.println(" listOfResidentsFoundByCity" + listOfResidentsFoundByCity);
-		return listOfResidentsFoundByCity;
+		
+		log.debug(" Emails of residents by city successfully retrieved : {}",listOfEmailsResidentsFoundByCity);
+		return listOfEmailsResidentsFoundByCity;
 	}
 }

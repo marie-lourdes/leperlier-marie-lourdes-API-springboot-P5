@@ -27,7 +27,9 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	PersonService personService;
 
 	@Override
-	public List<Map<String, String>> searchInfoOfResident(String stationNumber) throws NullPointerException {
+	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
+		log.debug("Searching phones of residents  by  station number ");
+		
 		List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		try {
@@ -52,6 +54,8 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 		} catch (Exception e) {
 			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
+		
+		log.debug("Phones of residents  by  station number successfull retrieved ; {}",listOfPhonesOfResidentOfStationNumber );
 		return listOfPhonesOfResidentOfStationNumber;
 	}
 }
