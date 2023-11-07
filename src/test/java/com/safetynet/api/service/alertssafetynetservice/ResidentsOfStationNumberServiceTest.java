@@ -33,6 +33,7 @@ class ResidentsOfStationNumberServiceTest {
 	private static Map<String, String>residentFoundByStationNumberTest1;
 	private static Map<String, String>residentFoundByStationNumberTest2;
 	private static List<Map<String, String>>listOfResidentsFoundByStationNumberTest;
+
 	@BeforeAll
 	static void setUp() {
 		residentFoundByStationNumberTest1 = new HashMap<String, String>();
@@ -42,16 +43,16 @@ class ResidentsOfStationNumberServiceTest {
 		residentFoundByStationNumberTest1.put("phone", "841-874-6512");
 		residentFoundByStationNumberTest1.put("age", "34");
 		residentFoundByStationNumberTest2 = new HashMap<String, String>();
-		residentFoundByStationNumberTest2.put("firstName", "Millie");
+		residentFoundByStationNumberTest2.put("firstName", "Maelys");
 		residentFoundByStationNumberTest2.put("lastName", "Leperlier");
 		residentFoundByStationNumberTest2.put("address", "112 address");
 		residentFoundByStationNumberTest2.put("phone", "841-874-6512");
-		residentFoundByStationNumberTest2.put("age", "34");
+		residentFoundByStationNumberTest2.put("age", "8");
 		listOfResidentsFoundByStationNumberTest = new ArrayList<Map<String, String>>();
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest1);
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest2);
-
 	}
+	
 	@Test
 	void testGetListOfResidentsOfStationNumber() throws Exception {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("5")).thenReturn(listOfResidentsFoundByStationNumberTest);
@@ -84,4 +85,5 @@ class ResidentsOfStationNumberServiceTest {
 			fail(e.getMessage());
 		}
 	}
+	
 }

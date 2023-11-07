@@ -39,7 +39,6 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 		residentAdultTestExpected1.put("lastName", "Leperlier");
 		residentAdultTestExpected1.put("address", "112 address");
 		residentAdultTestExpected1.put("city", "City");
-		residentAdultTestExpected1.put("zip", "45569");
 		residentAdultTestExpected1.put("phone", "841-874-6512");
 		residentAdultTestExpected1.put("email", "millie@email.com");
 		residentAdultTestExpected1.put("age", "34");
@@ -49,7 +48,6 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 		residentChildTestExpected2.put("lastName", "Leperlier");
 		residentChildTestExpected2.put("address", "112 address");
 		residentChildTestExpected2.put("city", "City");
-		residentChildTestExpected2.put("zip", "45569");
 		residentChildTestExpected2.put("phone", "841-874-6512");
 		residentChildTestExpected2.put("email", "millie@email.com");
 		residentChildTestExpected2.put("age", "8");

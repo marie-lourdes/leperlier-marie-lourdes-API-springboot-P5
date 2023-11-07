@@ -48,7 +48,6 @@ class SearchingInfoOfResidentsByAddressWithMedicalRecordImplTest {
 		residentTest.put("lastName", "Leperlier");
 		residentTest.put("address", "112 address");
 		residentTest.put("city", "City");
-		residentTest.put("zip", "45569");
 		residentTest.put("phone", "841-874-6512");
 		residentTest.put("email", "millie@email.com");
 		residentTest.put("age", "34");

@@ -39,7 +39,6 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 				MedicalRecord medicalRecordFoundByFullName = medicalRecordService
 						.getOneMedicalRecordById(fullNamePerson);
 				resident.remove("firstName");
-				resident.remove("zip");
 				resident.remove("city");
 				resident.remove("email");
 				resident.remove("address");

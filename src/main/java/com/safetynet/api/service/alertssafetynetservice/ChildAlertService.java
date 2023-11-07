@@ -40,7 +40,7 @@ public class ChildAlertService {
 					resident.remove("age");
 				}
 			}catch(Exception e) {
-				log.error("Error has occured in getting  childs and members Of houseHold at this address: {}", address);
+				log.error("Error has occured in getting  childs and members Of houseHold at this address: {}", address);		
 			}
 			
 		}

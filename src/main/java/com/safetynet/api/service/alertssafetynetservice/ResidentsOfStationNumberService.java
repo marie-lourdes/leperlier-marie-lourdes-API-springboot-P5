@@ -1,6 +1,7 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
-		Map<String, Integer> mapCountDownOfAdultsAndChilds = null;
+		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String,Integer>() ;
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
 					.sortAdultsAndChilds(listOfResidentOfStationNumber, stationNumber);

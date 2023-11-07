@@ -39,7 +39,6 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				residentFoundByAddress.put("lastName", person.getLastName());
 				residentFoundByAddress.put("address", person.getAddress());
 				residentFoundByAddress.put("city", person.getCity());
-				residentFoundByAddress.put("zip", person.getZip());
 				residentFoundByAddress.put("phone", person.getPhone());
 				residentFoundByAddress.put("email", person.getEmail());
 				String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();

@@ -69,7 +69,6 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 						() -> assertEquals(personTest.getLastName(), resident.get("lastName")),
 						() -> assertEquals(personTest.getAddress(), resident.get("address")),
 						() -> assertEquals(personTest.getCity(), resident.get("city")),
-						() -> assertEquals(personTest.getZip(), resident.get("zip")),
 						() -> assertEquals(personTest.getPhone(), resident.get("phone")),
 						() -> assertEquals(personTest.getEmail(), resident.get("email")),
 						() -> assertEquals("34", resident.get("age")));
