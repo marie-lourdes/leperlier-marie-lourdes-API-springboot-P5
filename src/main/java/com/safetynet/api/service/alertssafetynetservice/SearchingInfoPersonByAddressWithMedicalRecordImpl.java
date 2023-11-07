@@ -40,9 +40,9 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 				MedicalRecord medicalRecordFoundByFullName = medicalRecordService
 						.getOneMedicalRecordById(fullNamePerson);
 				person.remove("firstName");
-
 				person.remove("zip");
 				person.remove("city");
+				person.remove("phone");
 
 				mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
 				mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());

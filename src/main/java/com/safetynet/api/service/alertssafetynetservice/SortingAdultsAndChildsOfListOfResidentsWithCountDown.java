@@ -15,19 +15,22 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
-	public Map<String, Integer> sortAdultsAndChilds(List<Map<String, String>> ResidentsOfStationNumber,String stationNumber)
-			throws Exception {
-		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ",stationNumber);
+	public Map<String, Integer> sortAdultsAndChilds(List<Map<String, String>> ResidentsOfStationNumber,
+			String stationNumber) throws Exception {
+		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ", stationNumber);
 
 		Integer indexChild = 1;
 		Integer indexAdult = 1;
 		for (Map<String, String> resident : ResidentsOfStationNumber) {
-			if (Integer.parseInt(resident.get("age")) <= 18) {
-				mapOfAdultsAndChild.put("childs", indexChild++);
-				resident.remove("age");
-			} else {
-				mapOfAdultsAndChild.put("adults", indexAdult++);
-				resident.remove("age");
+			if (resident.get("age") != null) {
+				
+				if (Integer.parseInt(resident.get("age")) <= 18) {
+					mapOfAdultsAndChild.put("childs", indexChild++);
+					resident.remove("age");
+				} else {
+					mapOfAdultsAndChild.put("adults", indexAdult++);
+					resident.remove("age");
+				}		
 			}
 		}
 

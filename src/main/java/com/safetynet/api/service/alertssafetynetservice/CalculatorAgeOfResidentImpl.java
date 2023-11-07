@@ -23,7 +23,8 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {
-		log.debug("calculating age of person");
+		log.debug("Calculating age of person");
+		
 		// calcul age
 		try {
 			String birthDateOfPerson = medicalRecordService.getOneMedicalRecordById(idFirstAndLastName).getBirthdate();
@@ -37,10 +38,10 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 			} catch (ParseException e) {
 				log.error(e.getMessage());
 			}
+			
 			BigInteger yearInMs = new BigInteger(Constants.YEAR_IN_MILLISECONDS);// millisecondes par an
 			long dateActualMilliSeconds = new Date().getTime();
 			age = BigInteger.valueOf(0);
-
 			if ((dateActualMilliSeconds > birthDateOfPersonFormatted.getTime())) {
 				Long ageOfPerson = dateActualMilliSeconds - birthDateOfPersonFormatted.getTime();
 				age = BigInteger.valueOf(ageOfPerson).divide(yearInMs);
@@ -64,11 +65,11 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	public Date formatDate(String birthDateOfPerson) throws ParseException {
 		DateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
 		Date birthdate = new Date();
+		
 		try {
 			birthdate = format.parse(birthDateOfPerson);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-
 			throw new ParseException("An error has occured in  parsing birthdate", 0);
 		}
 		return birthdate;
