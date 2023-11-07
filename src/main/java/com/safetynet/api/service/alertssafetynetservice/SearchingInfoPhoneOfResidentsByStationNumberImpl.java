@@ -36,18 +36,21 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 			List<Person> persons = personService.getAllPersons();
 		
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
-			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
+			
+			if(!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
+				Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
-			while (itrFireStations.hasNext()) {
-				FireStation itrFireStation = itrFireStations.next();
+				while (itrFireStations.hasNext()) {
+					FireStation itrFireStation = itrFireStations.next();
 
-				for (Person person : persons) {
-					if (person.getAddress().equals(itrFireStation.getAddress())) {
-						Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
-						residentOfStationNumber.put("phone", person.getPhone());
-						log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
+					for (Person person : persons) {
+						if (person.getAddress().equals(itrFireStation.getAddress())) {
+							Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
+							residentOfStationNumber.put("phone", person.getPhone());
+							log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
 
-						listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+						}
 					}
 				}
 			}

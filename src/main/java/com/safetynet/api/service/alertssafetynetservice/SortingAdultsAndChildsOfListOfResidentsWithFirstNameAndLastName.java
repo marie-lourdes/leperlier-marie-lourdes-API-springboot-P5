@@ -34,7 +34,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 				resident.remove("email");
 				listOfAdultsAndChild.add(resident);
 			} else {
-				// resident.remove("age");
 				listOfAdultsAndChild.add(resident);
 			}
 		}
