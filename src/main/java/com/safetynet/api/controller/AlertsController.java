@@ -1,6 +1,5 @@
 package com.safetynet.api.controller;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

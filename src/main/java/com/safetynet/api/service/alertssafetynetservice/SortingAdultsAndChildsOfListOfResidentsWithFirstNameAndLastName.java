@@ -16,9 +16,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 
-	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
-
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
 
