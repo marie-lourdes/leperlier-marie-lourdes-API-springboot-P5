@@ -170,7 +170,7 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
-
+	
 	@Test
 	void testAddAddressOfFireStationWithExistingStationNumber_WithNoExistingStationNumber() throws Exception {
 		FireStation fireStationCreatedWithNewAddress = new FireStation("11", "4 boulevard du soldat inconnu");
@@ -186,7 +186,7 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
-
+	
 	@Test
 	void testUpdateFireStation() throws Exception {
 		try {
@@ -236,8 +236,8 @@ class FireStationServiceTest {
 			fail(e.getMessage());
 		}
 	}
-
-	@Test
+	
+	@Test	
 	void testUpdateFireStation_WithNoExistingFireStationByAddress() throws Exception {
 		try {
 			FireStation resultFireStationUpdatedRetrieved = fireStationServiceUnderTest

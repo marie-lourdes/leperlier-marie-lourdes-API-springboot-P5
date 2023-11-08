@@ -45,10 +45,10 @@ class PhoneAlertServiceTest {
 		when(infoPhoneOfResidentsByStationNumber.searchInfoOfResident("5")).thenReturn(listOfphonesOfResidentFoundByStationNumberTest1);
 		
 		try {
-			List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold=phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("5");
+			List<Map<String, String>> resultListOfResidentChildAndMembersOfHouseHold=phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("5");
 			
 			verify(infoPhoneOfResidentsByStationNumber).searchInfoOfResident(any(String.class));
-			assertEquals(listOfphonesOfResidentFoundByStationNumberTest1,listOfResidentChildAndMembersOfHouseHold);
+			assertEquals(listOfphonesOfResidentFoundByStationNumberTest1,resultListOfResidentChildAndMembersOfHouseHold);
 			} catch (AssertionError e) {
 				fail(e.getMessage());
 			}
@@ -56,13 +56,12 @@ class PhoneAlertServiceTest {
 
 	@Test
 	void testGetListOfPhonesOfResidentsOfStationNumber_WithPhonesNotFoundByStationNumber() throws Exception {
-		when(infoPhoneOfResidentsByStationNumber.searchInfoOfResident("6")).thenReturn(new ArrayList<Map<String, String>>());
-		
+		when(infoPhoneOfResidentsByStationNumber.searchInfoOfResident("6")).thenThrow(NullPointerException.class);
 		try {
-			List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold=phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("6");
+			List<Map<String, String>> resultListOfResidentChildAndMembersOfHouseHold=phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("6");
 			
 			verify(infoPhoneOfResidentsByStationNumber).searchInfoOfResident(any(String.class));
-			assertTrue(listOfResidentChildAndMembersOfHouseHold.isEmpty());
+			assertTrue(resultListOfResidentChildAndMembersOfHouseHold.isEmpty());
 			}   catch (NullPointerException e) {
 				assertThrows(NullPointerException.class,
 						() ->phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("6"));

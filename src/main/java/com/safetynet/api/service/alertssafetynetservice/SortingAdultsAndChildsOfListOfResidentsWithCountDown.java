@@ -14,8 +14,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
-	public Map<String, Integer> sortAdultsAndChilds(List<Map<String, String>> ResidentsOfStationNumber,
-			String stationNumber) throws Exception {
+	public Map<String, Integer> sortAdultsAndChilds(String stationNumber,List<Map<String, String>> ResidentsOfStationNumber
+			) throws Exception {
 		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ", stationNumber);
 
 		Integer indexChild = 1;

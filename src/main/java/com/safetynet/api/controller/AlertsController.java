@@ -55,7 +55,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
 			Map<String, Integer> mapOfAdultsAndChild = residentsOfStationNumberService
-					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
+					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber,listOfResidentsOfStationNumber);
 
 			for (Map.Entry<String, Integer> entry : mapOfAdultsAndChild.entrySet()) {
 				Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();

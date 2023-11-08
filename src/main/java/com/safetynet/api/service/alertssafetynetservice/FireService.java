@@ -22,11 +22,10 @@ public class FireService {
 
 	@Autowired
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
-	//private List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 
-	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException  {
+	public List<Object> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
-		 List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
+		List<Object> listOfResidentAndFireStationNearFire = new ArrayList<Object>();
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
@@ -34,16 +33,19 @@ public class FireService {
 
 			Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
 			List<FireStation> fireStationsFoundByAddressFire = fireStationService.getFireStationsByAddress(address);
-				for( FireStation	fireStation:fireStationsFoundByAddressFire ) {
-						mapOfFireStationFoundByAddressFire.put("stationNumber", fireStation.getStationNumber());
-				}
+			for (FireStation fireStation : fireStationsFoundByAddressFire) {
+				mapOfFireStationFoundByAddressFire.put("stationNumber", fireStation.getStationNumber());
+			}
+			
+			if (!listOfResidentWithMedicalRecord.isEmpty() && !mapOfFireStationFoundByAddressFire.isEmpty()) {
+				listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
+				listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
+			}
 
-			listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
-			listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 		} catch (Exception e) {
 			log.error("Failed to retrieve residents and its firestation near fire address:  {}", address);
 			throw new NullPointerException("Residents  and firestation not found near fire address");
-		} 
+		}
 
 		log.info(" All residents with its fireStation retrieved  near fire address : {}",
 				listOfResidentAndFireStationNearFire);

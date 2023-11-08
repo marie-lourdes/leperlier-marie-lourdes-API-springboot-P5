@@ -24,16 +24,17 @@ class ResidentsOfStationNumberServiceTest {
 	private ResidentsOfStationNumberService residentsOfStationNumberServiceUnderTest;
 	
 	@MockBean
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
 	@MockBean
-	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
+	private SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 	
 
 	private static Map<String, String>residentFoundByStationNumberTest1;
 	private static Map<String, String>residentFoundByStationNumberTest2;
 	private static List<Map<String, String>>listOfResidentsFoundByStationNumberTest;
-
+	private static Map<String, Integer> countDownTest;
+	
 	@BeforeAll
 	static void setUp() {
 		residentFoundByStationNumberTest1 = new HashMap<String, String>();
@@ -51,6 +52,9 @@ class ResidentsOfStationNumberServiceTest {
 		listOfResidentsFoundByStationNumberTest = new ArrayList<Map<String, String>>();
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest1);
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest2);
+		countDownTest = new HashMap<String,Integer>();
+		countDownTest.put("adults", 1);
+		countDownTest.put("childs", 1);
 	}
 	
 	@Test
@@ -58,11 +62,11 @@ class ResidentsOfStationNumberServiceTest {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("5")).thenReturn(listOfResidentsFoundByStationNumberTest);
 		
 		try {
-		List<Map<String, String>> listOfResidentOfStationNumber=residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("5");
+		List<Map<String, String>> resultListOfResidentOfStationNumber=residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("5");
 		
 		verify(infoOfResidentOfStationNumber).searchInfoOfResident(any(String.class));
-		assertThat(listOfResidentOfStationNumber).contains(residentFoundByStationNumberTest1);
-		assertThat(listOfResidentOfStationNumber).contains(residentFoundByStationNumberTest2);
+		assertThat(resultListOfResidentOfStationNumber).contains(residentFoundByStationNumberTest1);
+		assertThat(resultListOfResidentOfStationNumber).contains(residentFoundByStationNumberTest2);
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -70,15 +74,15 @@ class ResidentsOfStationNumberServiceTest {
 	
 	@Test
 	void testGetListOfResidentsOfStationNumber_WithResidentsNotFoundByStationNumber() throws Exception {
-		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn(new ArrayList<Map<String, String>>());
+		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenThrow(NullPointerException.class);
 		
 		try {
-		List<Map<String, String>> listOfResidentOfStationNumber=residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("6");
+		List<Map<String, String>> resultListOfResidentOfStationNumber=residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("6");
 		
 		verify(infoOfResidentOfStationNumber).searchInfoOfResident(any(String.class));
-		assertThat(listOfResidentOfStationNumber).isEmpty();
+		assertThat(resultListOfResidentOfStationNumber).isEmpty();
 		
-		}  catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() ->residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("6"));
 		}catch (AssertionError e) {

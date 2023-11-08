@@ -46,11 +46,11 @@ public class ResidentsOfStationNumberService {
 		return listOfResidentOfStationNumber;
 	}
 
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
+	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,List<Map<String, String>> listOfResidentsOfStationNumber) {
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String,Integer>() ;
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
-					.sortAdultsAndChilds(listOfResidentOfStationNumber, stationNumber);
+					.sortAdultsAndChilds(stationNumber,listOfResidentOfStationNumber);
 			if (mapCountDownOfAdultsAndChilds.isEmpty()) {
 				throw new NullPointerException(
 						"Error has occured sorting with countdown of adult and childs  because not found at this station number");

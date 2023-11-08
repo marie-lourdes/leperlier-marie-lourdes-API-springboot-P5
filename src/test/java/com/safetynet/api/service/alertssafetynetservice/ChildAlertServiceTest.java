@@ -1,7 +1,9 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,10 +58,10 @@ class ChildAlertServiceTest {
 		when(fullInfoOfResidentsByAddress.searchInfoOfResident("112 address")).thenReturn(listOfChildsAndMembersOfHouseHoldTest);
 	
 		try {
-			List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold=childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address");
+			List<Map<String, String>>resultListOfResidentChildAndMembersOfHouseHold=childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address");
 			
 			verify(fullInfoOfResidentsByAddress).searchInfoOfResident(any(String.class));
-			assertEquals(listOfChildsAndMembersOfHouseHoldTest,listOfResidentChildAndMembersOfHouseHold);
+			assertEquals(listOfChildsAndMembersOfHouseHoldTest,resultListOfResidentChildAndMembersOfHouseHold);
 		
 			} catch (AssertionError e) {
 				fail(e.getMessage());
@@ -68,13 +70,13 @@ class ChildAlertServiceTest {
 
 	@Test
 	void testGetChildsAndMembersOfHouseHold_WithResidentsNotFoundByAddress() throws Exception {
-		when(fullInfoOfResidentsByAddress.searchInfoOfResident("112 address")).thenReturn(new ArrayList<Map<String, String>>());
+		when(fullInfoOfResidentsByAddress.searchInfoOfResident("112 address")).thenThrow(NullPointerException.class);
 	
 		try {
-			List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold=childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address");
+			List<Map<String, String>>resultListOfResidentChildAndMembersOfHouseHold=childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address");
 			
 			verify(fullInfoOfResidentsByAddress).searchInfoOfResident(any(String.class));
-			assertTrue(listOfResidentChildAndMembersOfHouseHold.isEmpty());
+			assertTrue(resultListOfResidentChildAndMembersOfHouseHold.isEmpty());
 		}  catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() ->childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address"));

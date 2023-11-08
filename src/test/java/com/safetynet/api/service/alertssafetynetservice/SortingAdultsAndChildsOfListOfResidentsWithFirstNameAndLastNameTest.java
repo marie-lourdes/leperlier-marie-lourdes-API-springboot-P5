@@ -64,12 +64,12 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 		when(fullInfoOfResidentWithSameAddress.searchInfoOfResident("112 address")).thenReturn(listOfAdultsAndChildsTest1);
 		
 		try {
-			List<Map<String, String>> infoOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest
+			List<Map<String, String>> resultAdultsAndChildsSortedWithInfo= sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest
 					.sortAdultsAndChilds("112 address");
 			
 			verify(fullInfoOfResidentWithSameAddress).searchInfoOfResident(any(String.class));
 			//assertion data of adult sorted
-			assertThat(infoOfAdultsAndChilds).contains(residentAdultTestExpected1)
+			assertThat(resultAdultsAndChildsSortedWithInfo).contains(residentAdultTestExpected1)
 			.filteredOn("firstName","Millie").filteredOn("age","")
 			.filteredOn("lastName","Leperlier")
 			.filteredOn("address", "112 address")
@@ -79,7 +79,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 			.filteredOn("email", "millie@email.com");
 		
 			//assertion data of child sorted
-			assertThat(infoOfAdultsAndChilds).contains(residentChildTestExpected2)
+			assertThat(resultAdultsAndChildsSortedWithInfo).contains(residentChildTestExpected2)
 			.filteredOn("firstName","Maelys")
 			.filteredOn("lastName","Leperlier")
 			.filteredOn("age","8");
@@ -94,12 +94,12 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 		when(fullInfoOfResidentWithSameAddress.searchInfoOfResident("112 address")).thenReturn(listOfAdultsAndChildsTest2);
 		
 		try {
-			List<Map<String, String>>  infoOfAdultsAndChilds  = sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest
+			List<Map<String, String>>  resultAdultsAndChildsSortedWithInfo = sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest
 					.sortAdultsAndChilds("112 address");
 			
 			verify(fullInfoOfResidentWithSameAddress).searchInfoOfResident(any(String.class));
-			assertThat( infoOfAdultsAndChilds ).filteredOn("firstName", "Millie").isEmpty();
-			assertThat( infoOfAdultsAndChilds ).filteredOn("firstName", "Maelys").isNotEmpty();
+			assertThat( resultAdultsAndChildsSortedWithInfo).filteredOn("firstName", "Millie").isEmpty();
+			assertThat( resultAdultsAndChildsSortedWithInfo).filteredOn("firstName", "Maelys").isNotEmpty();
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

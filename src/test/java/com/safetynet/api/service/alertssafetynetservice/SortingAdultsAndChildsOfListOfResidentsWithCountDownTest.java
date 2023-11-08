@@ -44,9 +44,9 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	@Test
 	void testSortAdultsAndChilds() throws Exception {
 		try {
-			Map<String, Integer> countDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds(listOfAdultsAndChildsTest1, "5");
-			assertThat(countDownOfAdultsAndChilds).contains(entry("adults", 1), entry("childs", 1));
+			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
+					.sortAdultsAndChilds( "5",listOfAdultsAndChildsTest1);
+			assertThat(resultCountDownOfAdultsAndChilds).contains(entry("adults", 1), entry("childs", 1));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -55,9 +55,9 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	@Test
 	void testSortAdultsAndChilds_WithAdultsNotFound_ShouldReturnOnlyCountDownOfChilds() throws Exception {
 		try {
-			Map<String, Integer> countDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds(listOfAdultsAndChildsTest2, "5");
-			assertThat(countDownOfAdultsAndChilds).containsOnly(entry("childs", 1));
+			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
+					.sortAdultsAndChilds("5",listOfAdultsAndChildsTest2);
+			assertThat(resultCountDownOfAdultsAndChilds).containsOnly(entry("childs", 1));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -66,9 +66,9 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	@Test
 	void testSortAdultsAndChilds_WithResidentsNotProvided_ShouldReturnMapEmpty() throws Exception {
 		try {
-			Map<String, Integer> countDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds(new ArrayList<Map<String, String>>(), "5");
-			assertThat(countDownOfAdultsAndChilds).isEmpty();
+			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
+					.sortAdultsAndChilds("5",new ArrayList<Map<String, String>>());
+			assertThat(resultCountDownOfAdultsAndChilds).isEmpty();
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
