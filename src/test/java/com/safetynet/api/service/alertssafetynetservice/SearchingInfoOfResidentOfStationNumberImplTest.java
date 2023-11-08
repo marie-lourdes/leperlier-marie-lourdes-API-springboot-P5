@@ -32,16 +32,16 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingInfoOfResidentOfStationNumberImplTest {
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentsByStationNumberUnderTest;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentsByStationNumberUnderTest;
 
 	@MockBean
-	PersonService personService;
+	private PersonService personService;
 	
 	@MockBean
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 	
 	@MockBean
-	CalculatorAgeOfResidentImpl calculatorAge;
+	private CalculatorAgeOfResidentImpl calculatorAge;
 	
 	private static Person personTest;
 	private static List<Person> listOfPersonsTest;

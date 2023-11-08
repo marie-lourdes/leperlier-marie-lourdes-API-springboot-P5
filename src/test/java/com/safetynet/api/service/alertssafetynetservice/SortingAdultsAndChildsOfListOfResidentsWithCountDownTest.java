@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithCountDown sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest;
+	private SortingAdultsAndChildsOfListOfResidentsWithCountDown sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest;
 
 	private static Map<String, String> residentAdultTest1;
 	private static Map<String, String> residentChildTest2;

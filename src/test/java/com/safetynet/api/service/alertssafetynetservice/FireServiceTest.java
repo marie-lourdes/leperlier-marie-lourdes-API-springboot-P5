@@ -26,10 +26,10 @@ import com.safetynet.api.service.dataservice.FireStationService;
 @SpringBootTest
 class FireServiceTest {
 	@Autowired
-	FireService fireServiceUnderTest;
+	private FireService fireServiceUnderTest;
 
 	@MockBean
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@MockBean
 	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl fullInfoOfResidentsWithMedicalRecord;
@@ -84,10 +84,11 @@ class FireServiceTest {
 			verify(fireStationService).getFireStationsByAddress(any(String.class));
 			assertThat(resultListOfResidentAndFireStationNearFire).contains(listOfPersonWithMedicalRecordExpectedTest);
 			assertThat(resultListOfResidentAndFireStationNearFire).contains(mapOfFireStationFoundByAddressFireExpectedTest);	
-			}catch (AssertionError e) {
-				fail(e.getMessage());
-			}
-		}
+		}catch (AssertionError e) {
+			fail(e.getMessage());
+		}	
+			
+	}
 
 	@Test
 	void testGetListOfResidentsAndFireStationNearFire_WithResidentsNotFoundByAddress() throws Exception {

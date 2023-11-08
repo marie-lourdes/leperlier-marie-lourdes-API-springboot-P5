@@ -19,10 +19,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class PhoneAlertServiceTest {
 	@Autowired
-	PhoneAlertService phoneAlertServiceUnderTest;
+	private PhoneAlertService phoneAlertServiceUnderTest;
 
 	@MockBean
-	SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
+	private SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
 
 	private static Map<String, String> phoneOfResidentFoundByStationNumberTest1;
 	private static Map<String, String> phoneOfResidentFoundByStationNumberTest2;
@@ -56,7 +56,7 @@ class PhoneAlertServiceTest {
 
 	@Test
 	void testGetListOfPhonesOfResidentsOfStationNumber_WithPhonesNotFoundByStationNumber() throws Exception {
-		when(infoPhoneOfResidentsByStationNumber.searchInfoOfResident("6")).thenThrow(NullPointerException.class);
+		when(infoPhoneOfResidentsByStationNumber.searchInfoOfResident("6")).thenReturn( new ArrayList<Map<String, String>>());
 		try {
 			List<Map<String, String>> resultListOfResidentChildAndMembersOfHouseHold=phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("6");
 			

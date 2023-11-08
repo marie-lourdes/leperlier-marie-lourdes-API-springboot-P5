@@ -22,10 +22,10 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingInfoEmailOfResidentsByCityImplTest {
 	@Autowired
-	SearchingInfoEmailOfResidentsByCityImpl infoOfResidentsByCityUnderTest;
+	private SearchingInfoEmailOfResidentsByCityImpl infoOfResidentsByCityUnderTest;
 
 	@MockBean
-	PersonService personService;
+	private PersonService personService;
 
 	private static Person personTest;
 	private static List<Person> listOfPersonsTest;

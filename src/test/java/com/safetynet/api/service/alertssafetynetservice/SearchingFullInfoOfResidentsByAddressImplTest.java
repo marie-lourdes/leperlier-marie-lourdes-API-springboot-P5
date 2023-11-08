@@ -30,13 +30,13 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingFullInfoOfResidentsByAddressImplTest {
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentsByAddressUnderTest;
+	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentsByAddressUnderTest;
 
 	@MockBean
-	PersonService personService;
+	private PersonService personService;
 	
 	@MockBean
-	CalculatorAgeOfResidentImpl calculatorAge;
+	private CalculatorAgeOfResidentImpl calculatorAge;
 
 	private static Person personTest;
 	private static List<Person> listOfPersonsTest;

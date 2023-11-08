@@ -35,17 +35,6 @@ class FireStationControllerTest {
 	@Autowired
 	private JacksonTester<FireStation> jsonFireStation;
 
-	/*
-	 * private static FireStation fireStationTest; private static List<FireStation>
-	 * listFireStationsTest;
-	 * 
-	 * /
-	 * 
-	 * @BeforeAll public static void setUp() { fireStationTest = new
-	 * FireStation("9", "9", "112 address "); listFireStationsTest = new
-	 * ArrayList<FireStation>(); listFireStationsTest.add(fireStationTest); }
-	 */
-
 	@Test
 	public void givenFireStationObjectWithNewStationNumber_WhenAddFireStationByExistingAddress_ThenReturnSavedFireStation()
 			throws Exception {

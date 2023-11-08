@@ -21,10 +21,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 	@Autowired
-	 SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName  sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest;
+	private SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName  sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest;
 	
 	@MockBean
-	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
+	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 
 
 	private static Map<String, String> residentAdultTestExpected1;

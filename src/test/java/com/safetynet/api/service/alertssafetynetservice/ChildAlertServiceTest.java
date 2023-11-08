@@ -22,10 +22,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class ChildAlertServiceTest {
 	@Autowired
-	ChildAlertService childAlertServiceUnderTest;
+	private ChildAlertService childAlertServiceUnderTest;
 
 	@MockBean
-	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentsByAddress;
+	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentsByAddress;
 
 	private static Map<String, String> residentFoundByAddressTest1;
 	private static Map<String, String> residentFoundByAddressTest2;
@@ -70,7 +70,7 @@ class ChildAlertServiceTest {
 
 	@Test
 	void testGetChildsAndMembersOfHouseHold_WithResidentsNotFoundByAddress() throws Exception {
-		when(fullInfoOfResidentsByAddress.searchInfoOfResident("112 address")).thenThrow(NullPointerException.class);
+		when(fullInfoOfResidentsByAddress.searchInfoOfResident("112 address")).thenReturn(new ArrayList<Map<String, String>>());
 	
 		try {
 			List<Map<String, String>>resultListOfResidentChildAndMembersOfHouseHold=childAlertServiceUnderTest.getChildsAndMembersOfHouseHold("112 address");

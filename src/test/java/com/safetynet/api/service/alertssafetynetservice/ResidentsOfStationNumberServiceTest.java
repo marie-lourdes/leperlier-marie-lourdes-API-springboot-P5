@@ -74,7 +74,7 @@ class ResidentsOfStationNumberServiceTest {
 	
 	@Test
 	void testGetListOfResidentsOfStationNumber_WithResidentsNotFoundByStationNumber() throws Exception {
-		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenThrow(NullPointerException.class);
+		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn( new ArrayList<Map<String, String>>());
 		
 		try {
 		List<Map<String, String>> resultListOfResidentOfStationNumber=residentsOfStationNumberServiceUnderTest.getListOfResidentsOfStationNumber("6");

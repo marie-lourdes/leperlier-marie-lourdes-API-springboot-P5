@@ -29,13 +29,13 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 @SpringBootTest
 class SearchingInfoOfResidentsByAddressWithMedicalRecordImplTest {
 	@Autowired
-	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl infoOfResidentsByAddressWithMedicalRecordUnderTest;
+	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl infoOfResidentsByAddressWithMedicalRecordUnderTest;
 
 	@MockBean
-	MedicalRecordService medicalRecordService;
+	private MedicalRecordService medicalRecordService;
 
 	@MockBean
-	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
 
 	private static Map<String, String> residentTest;
 	private static List<Map<String, String>> listOfResidentsTest;

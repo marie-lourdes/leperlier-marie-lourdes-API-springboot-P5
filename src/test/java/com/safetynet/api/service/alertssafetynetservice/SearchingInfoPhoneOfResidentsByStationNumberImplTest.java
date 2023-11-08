@@ -27,13 +27,13 @@ import com.safetynet.api.service.dataservice.PersonService;
 @SpringBootTest
 class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 	@Autowired
-	SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumberUnderTest;
+	private SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumberUnderTest;
 
 	@MockBean
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@MockBean
-	PersonService personService;
+	private PersonService personService;
 	
 	private static Person personTest1;
 	private static Person personTest2;

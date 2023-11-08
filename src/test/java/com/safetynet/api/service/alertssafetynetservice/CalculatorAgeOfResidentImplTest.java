@@ -30,10 +30,10 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 @SpringBootTest
 class CalculatorAgeOfResidentImplTest {
 	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAgeUnderTest;
+	private CalculatorAgeOfResidentImpl calculatorAgeUnderTest;
 
 	@MockBean
-	MedicalRecordService medicalRecordService;
+	private MedicalRecordService medicalRecordService;
 
 	@ParameterizedTest(name = "the String birthdate ({0})   should return this date 01/01/2001 formatted and parsed ")
 	@ValueSource(strings = { "01/01/2001" })
