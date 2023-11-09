@@ -48,6 +48,7 @@ class AlertsControllerTest {
 	@MockBean
 	private CommunityEmailService communityEmailService;
 
+	// ---------Test resident of station number URL--------
 	@Test
 	public void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
 			throws Exception {
@@ -67,8 +68,8 @@ class AlertsControllerTest {
 			throws Exception {
 		try {
 			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
-			.willThrow(NullPointerException.class);
-			
+					.willThrow(NullPointerException.class);
+
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber", "0")).andReturn()
 					.getResponse();
@@ -77,6 +78,97 @@ class AlertsControllerTest {
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	// ---------Test childAlert URL--------
+	@Test
+	public void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByAddress_ThenReturnChildsAndMembersOfHouseHoldAdultsInfo()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/childAlert").param("address", "1509 Culver St")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenNoExistingChildsAndOnlyAdults_WhenGetChildsByAddress_ThenReturn404() throws Exception {
+		try {
+			given(childAlertService.getChildsAndMembersOfHouseHold("951 LoneTree Rd"))
+					.willThrow(NullPointerException.class);
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/childAlert").param("address", "951 LoneTree Rd")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> childAlertService.getChildsAndMembersOfHouseHold("951 LoneTree Rd"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByNoExistingAddress_ThenReturn404()
+			throws Exception {
+		try {
+			given(childAlertService.getChildsAndMembersOfHouseHold("45 No existing address"))
+					.willThrow(NullPointerException.class);
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/childAlert").param("address", "45 No existing address"))
+					.andReturn().getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> childAlertService.getChildsAndMembersOfHouseHold("45 No existing address"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	// ---------Test phoneAlert URL--------
+	@Test
+	public void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturnPhonesOfResidents()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/phoneAlert").param("stationNumber", "3")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturn404()
+			throws Exception {
+		try {
+			given(phoneAlertService
+					.getListOfPhonesOfResidentsOfStationNumber("5"))
+					.willThrow(NullPointerException.class);
+
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/phoneAlert").param("stationNumber", "5"))
+					.andReturn().getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() -> phoneAlertService
+					.getListOfPhonesOfResidentsOfStationNumber("5"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
