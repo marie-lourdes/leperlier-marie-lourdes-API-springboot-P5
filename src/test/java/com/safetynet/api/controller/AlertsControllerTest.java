@@ -48,7 +48,7 @@ class AlertsControllerTest {
 	@MockBean
 	private CommunityEmailService communityEmailService;
 
-	// ---------Test resident of station number URL--------
+	// ---------Test resident of station number and countDown of adults and childs URL--------
 	@Test
 	public void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
 			throws Exception {
@@ -173,4 +173,76 @@ class AlertsControllerTest {
 			fail(e.getMessage());
 		}
 	}
+
+	// ---------Test residents and firestations near fire URL--------
+	@Test
+	public void givenResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturnResidentsAndStationNumber()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/fire").param("address", "1509 Culver St")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenNoExistingResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturn404()
+			throws Exception {
+		try {		
+			given(fireService
+					.getListOfResidentsAndFireStationNearFire("45 Address no registered in data residents and firestations"))
+					.willThrow(NullPointerException.class);
+			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/fire").param("address", "45 Address no registered in data residents and firestations")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->fireService
+					.getListOfResidentsAndFireStationNearFire("45 Address no registered in data residents and firestations"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	// ---------Test households of station  number when flood URL--------
+/*	@Test
+	public void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumber_ThenReturnHouseHoldsOfListOfStationNumbers()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/flood/stations").param("stations", "2").param("stations", "3")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumberWithOneNoExistingStationNumber_ThenReturn404()
+			throws Exception {
+		try {
+			given(floodService.getListOfHouseHoldByStationNumber("0"))
+					.willThrow(NullPointerException.class);
+			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/flood/stations").param("stations", "2").param("stations", "0")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->floodService.getListOfHouseHoldByStationNumber("0"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}*/
 }
