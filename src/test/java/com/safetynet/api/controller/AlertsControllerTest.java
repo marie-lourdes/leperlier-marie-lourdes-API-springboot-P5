@@ -282,4 +282,20 @@ class AlertsControllerTest {
 			fail(e.getMessage());
 		}
 	}
+
+
+	// ---------Test personInfo URL--------
+	@Test
+	public void givenEmailsOfResidentsOfCity_WhenGetEmailsOfResidentsByCity_ThenReturnEmailsOfResidents()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/communityEmail").param("city", "Culver")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
 }
