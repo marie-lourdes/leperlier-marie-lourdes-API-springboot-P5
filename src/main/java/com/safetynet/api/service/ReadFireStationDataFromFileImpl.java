@@ -46,5 +46,4 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 		log.debug("List of firestations parsed from Json {}", listOfFireStations);
 		return listOfFireStations;
 	}
-
 }
