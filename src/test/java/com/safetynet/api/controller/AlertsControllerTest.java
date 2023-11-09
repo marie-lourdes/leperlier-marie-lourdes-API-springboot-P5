@@ -284,7 +284,7 @@ class AlertsControllerTest {
 	}
 
 
-	// ---------Test personInfo URL--------
+	// ---------Test communityEmail URL--------
 	@Test
 	public void givenEmailsOfResidentsOfCity_WhenGetEmailsOfResidentsByCity_ThenReturnEmailsOfResidents()
 			throws Exception {
@@ -294,6 +294,28 @@ class AlertsControllerTest {
 					.getResponse();
 
 			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenNoExistingEmailsOfResidentsOfNoExistingCity_WhenGetEmailsOfResidentsByNoExistingCity_ThenReturn404()
+			throws Exception {
+		try {
+			given(communityEmailService
+					.getEmailOfResidentsOfCity("City no registered"))
+			.willThrow(NullPointerException.class);
+			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/communityEmail").param("city", "City no registered")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		}  catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->communityEmailService
+					.getEmailOfResidentsOfCity("City no registered"));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
