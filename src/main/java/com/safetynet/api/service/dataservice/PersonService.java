@@ -30,8 +30,8 @@ public class PersonService {
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
-		Person existingPersonUpdated =new Person();
-		 existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+		Person existingPersonUpdated = new Person();
+		existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
 					existingPerson.setAddress(updatedPerson.getAddress());
 					existingPerson.setCity(updatedPerson.getCity());
@@ -63,16 +63,15 @@ public class PersonService {
 		log.debug("Retrieving  one person for id {}", id);
 
 		Person personFoundById = new Person();
-		
-			personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
-					.map(existingPerson -> {
-						return existingPerson;
-					}).orElse(null);
 
-			if (personFoundById == null) {
-				throw new NullPointerException("Person not found for id: " + id);
-			}
-		
+		personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
+				.map(existingPerson -> {
+					return existingPerson;
+				}).orElse(null);
+
+		if (personFoundById == null) {
+			throw new NullPointerException("Person not found for id: " + id);
+		}
 
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
@@ -171,7 +170,7 @@ public class PersonService {
 		} else {
 			log.info("All persons retrieved successfully: {}", persons);
 		}
-		
+
 		return persons;
 	}
 

@@ -36,7 +36,7 @@ public class ResidentsOfStationNumberService {
 			log.info(" List of residents retrieved successfully of station number {}", listOfResidentOfStationNumber);
 		} catch (Exception e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
-		} 
+		}
 
 		for (Map<String, String> residents : listOfResidentOfStationNumber) {
 			// residents.remove("age");
@@ -46,28 +46,23 @@ public class ResidentsOfStationNumberService {
 		return listOfResidentOfStationNumber;
 	}
 
-	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,List<Map<String, String>> listOfResidentsOfStationNumber) {
-		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String,Integer>() ;
-		Map<String, String> mapOfAdultsAndChildConvertedValueString=null ;
+	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,
+			List<Map<String, String>> listOfResidentsOfStationNumber) {
+		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
+
 		try {
-			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
-					.sortAdultsAndChilds(stationNumber,listOfResidentOfStationNumber);
+			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber,
+					listOfResidentOfStationNumber);
 			if (mapCountDownOfAdultsAndChilds.isEmpty()) {
 				throw new NullPointerException(
 						"Error has occured sorting with countdown of adult and childs  because not found at this station number");
 			} else {
 				log.debug("all residents  sorted with countdown of adult and child of station number {}",
-						stationNumber);			
+						stationNumber);
 			}
-			
-			for (Map.Entry<String, Integer> entry : mapCountDownOfAdultsAndChilds.entrySet()) {
-			    mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
-				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());		
-			}
-			
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		return mapOfAdultsAndChildConvertedValueString;
+		return mapCountDownOfAdultsAndChilds;
 	}
 }

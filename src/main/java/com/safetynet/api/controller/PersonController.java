@@ -36,10 +36,10 @@ public class PersonController implements IResponseHTTPEmpty {
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<?> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
-		Person personFoundById= new Person();
+		Person personFoundById = new Person();
 		try {
-			personFoundById = personService.updateOnePersonById(id, person);	
-		} catch (NullPointerException e) {	
+			personFoundById = personService.updateOnePersonById(id, person);
+		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
@@ -52,7 +52,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);
 			if (!personIsRemoved) {
 				throw new NullPointerException(" Person " + id + "  to delete not found");
-			}	
+			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);

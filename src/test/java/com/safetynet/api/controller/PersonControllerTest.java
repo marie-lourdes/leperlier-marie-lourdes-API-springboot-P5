@@ -72,7 +72,7 @@ class PersonControllerTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
 		Person existingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver", "97451",
@@ -91,8 +91,8 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObjectWithAddressNoValid_WhenUpdateOfPerson_ThenReturn400() throws Exception {
-		Person existingPersonUpdatedAddressNoValid = new Person( "John", "Boyd",
-				"quatorze  address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+		Person existingPersonUpdatedAddressNoValid = new Person("John", "Boyd", "quatorze  address modified", "Culver",
+				"97451", "841-874-6512", "jaboyd@email.com");
 
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -112,11 +112,11 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
-		Person NoExistingPersonUpdated = new Person( "John", "Boyd",
-				"14 address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
+		Person NoExistingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver", "97451",
+				"841-874-6512", "jaboyd@email.com");
 
 		try {
-			personService = new PersonService();	
+			personService = new PersonService();
 			given(personService.updateOnePersonById("John Lenon", NoExistingPersonUpdated))
 					.willThrow(NullPointerException.class);
 
@@ -124,9 +124,8 @@ class PersonControllerTest {
 					.param("id", "John Lenon").contentType(MediaType.APPLICATION_JSON)
 					.content(jsonPerson.write(NoExistingPersonUpdated).getJson())).andReturn().getResponse();
 
-		
 			verify(personService).getOnePersonById(any(String.class));
-			verify(personService,Mockito.times(0)).updateOnePersonById(any(String.class), any(Person.class));
+			verify(personService, Mockito.times(0)).updateOnePersonById(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
@@ -162,9 +161,8 @@ class PersonControllerTest {
 			verify(personService).deleteOnePersonById(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() -> personService.deleteOnePersonById("John Lenon")); 
-		}catch (AssertionError e) {
+			assertThrows(NullPointerException.class, () -> personService.deleteOnePersonById("John Lenon"));
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}

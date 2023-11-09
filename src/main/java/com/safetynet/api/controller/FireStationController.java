@@ -33,7 +33,8 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addStationNumberOfFireStationWithExistingAddress(address,fireStation);		
+			fireStationCreated = fireStationService.addStationNumberOfFireStationWithExistingAddress(address,
+					fireStation);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
@@ -48,8 +49,9 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addAddressOfFireStationWithExistingStationNumber(stationNumber,fireStation);
-			
+			fireStationCreated = fireStationService.addAddressOfFireStationWithExistingStationNumber(stationNumber,
+					fireStation);
+
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
@@ -61,10 +63,10 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
 			@RequestParam String address) {
-		FireStation firestationFoundByAddress =new FireStation();
+		FireStation firestationFoundByAddress = new FireStation();
 
 		try {
-			firestationFoundByAddress = fireStationService.updateFireStationByAddress(address, firestation);		
+			firestationFoundByAddress = fireStationService.updateFireStationByAddress(address, firestation);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
@@ -93,7 +95,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 			boolean fireStationIsRemoved = fireStationService.deleteFireStationByAddress(address);
 			if (!fireStationIsRemoved) {
 				throw new NullPointerException(" Firestation with this address: " + address + "  to delete not found");
-			}		
+			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
