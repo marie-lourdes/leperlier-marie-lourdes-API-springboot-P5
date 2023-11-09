@@ -212,7 +212,7 @@ class AlertsControllerTest {
 	}
 
 	// ---------Test households of station  number when flood URL--------
-/*	@Test
+	@Test
 	public void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumber_ThenReturnHouseHoldsOfListOfStationNumbers()
 			throws Exception {
 		try {
@@ -244,5 +244,5 @@ class AlertsControllerTest {
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-	}*/
+	}
 }
