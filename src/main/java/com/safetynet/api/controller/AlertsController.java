@@ -51,18 +51,21 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@GetMapping("/firestation")
 	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
+		Map<String, Integer> mapOfAdultsAndChildSorted = new HashMap<String, Integer>();
+		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+
 		try {
-			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
+			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
-			Map<String, Integer> mapOfAdultsAndChildSorted = residentsOfStationNumberService
+			mapOfAdultsAndChildSorted = residentsOfStationNumberService
 					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
 
 			for (Map.Entry<String, Integer> entry : mapOfAdultsAndChildSorted.entrySet()) {
-				Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
 				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
-				listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
 			}
 
+			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

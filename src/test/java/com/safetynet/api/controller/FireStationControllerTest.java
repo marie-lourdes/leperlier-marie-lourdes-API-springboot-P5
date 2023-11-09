@@ -86,7 +86,7 @@ class FireStationControllerTest {
 		try {
 			fireStationService = new FireStationService();
 			given(fireStationService.addStationNumberOfFireStationWithExistingAddress("1509 Culver S",
-					NoExistingAddressOfFireStationCreated)).willThrow(NullPointerException.class);
+					NoExistingAddressOfFireStationCreated)).willReturn(null);
 
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/firestation").param("address", "1509 Culver S")

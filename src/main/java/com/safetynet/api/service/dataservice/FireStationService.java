@@ -70,7 +70,7 @@ public class FireStationService {
 						fireStation.setStationNumber(existingFireStation.getStationNumber());
 						this.generateId(fireStation);
 						return fireStation;
-					}).orElse(new FireStation());
+					}).orElse(null);
 
 			fireStations.add(createdFireStation);
 			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
