@@ -30,7 +30,7 @@ public class PersonService {
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
-		Person existingPersonUpdated =null;
+		Person existingPersonUpdated =new Person();
 		 existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
 					existingPerson.setAddress(updatedPerson.getAddress());

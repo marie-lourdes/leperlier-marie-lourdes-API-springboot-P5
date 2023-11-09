@@ -51,17 +51,15 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@GetMapping("/firestation")
 	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
+		Map<String,String> mapOfAdultsAndChild = new HashMap<String, String>();
 		try {
-			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
+			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
-			Map<String, Integer> mapOfAdultsAndChild = residentsOfStationNumberService
-					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber,listOfResidentsOfStationNumber);
+			mapOfAdultsAndChild = residentsOfStationNumberService
+					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
 
-			for (Map.Entry<String, Integer> entry : mapOfAdultsAndChild.entrySet()) {
-				Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
-				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
-				listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
-			}
+			listOfResidentsOfStationNumber.add(mapOfAdultsAndChild);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -72,8 +70,9 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@GetMapping("/childAlert")
 	@ResponseBody
 	public ResponseEntity<?> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
+		List<Map<String, String>> childs= new ArrayList<Map<String, String>>();
 		try {
-			List<Map<String, String>> childs = childAlertService.getChildsAndMembersOfHouseHold(address);
+		 childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());

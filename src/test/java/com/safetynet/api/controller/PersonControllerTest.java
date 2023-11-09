@@ -112,11 +112,11 @@ class PersonControllerTest {
 
 	@Test
 	public void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
-		Person NoExistingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver",
-				"97451", "841-874-6512", "jaboyd@email.com");
+		Person NoExistingPersonUpdated = new Person( "John", "Boyd",
+				"14 address modified", "Culver", "97451", "841-874-6512", "jaboyd@email.com");
 
 		try {
-			personService = new PersonService();
+			personService = new PersonService();	
 			given(personService.updateOnePersonById("John Lenon", NoExistingPersonUpdated))
 					.willThrow(NullPointerException.class);
 
@@ -124,7 +124,9 @@ class PersonControllerTest {
 					.param("id", "John Lenon").contentType(MediaType.APPLICATION_JSON)
 					.content(jsonPerson.write(NoExistingPersonUpdated).getJson())).andReturn().getResponse();
 
-			verify(personService).updateOnePersonById(any(String.class), any(Person.class));
+		
+			verify(personService).getOnePersonById(any(String.class));
+			verify(personService,Mockito.times(0)).updateOnePersonById(any(String.class), any(Person.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,

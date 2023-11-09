@@ -36,14 +36,15 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
-		try {
-			MedicalRecord medicalRecordFoundById= new MedicalRecord();
-			medicalRecordFoundById = medicalRecordService.updateOneMedicalRecordById(id, medicalRecord);
-			return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
+		MedicalRecord medicalRecordFoundById= new MedicalRecord();
+		
+		try {	
+			medicalRecordFoundById = medicalRecordService.updateOneMedicalRecordById(id, medicalRecord);		
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
+		return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 	}
 
 	@DeleteMapping("/medicalRecord")
@@ -52,11 +53,11 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			boolean personIsRemoved=	medicalRecordService.deleteOneMedicalRecordById(id);
 			if(!personIsRemoved){
 				throw new NullPointerException(" Medical record of " + id + "  to delete not found");
-			}
-			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+			}		
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 }

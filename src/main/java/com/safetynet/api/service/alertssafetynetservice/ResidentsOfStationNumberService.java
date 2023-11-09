@@ -46,8 +46,9 @@ public class ResidentsOfStationNumberService {
 		return listOfResidentOfStationNumber;
 	}
 
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,List<Map<String, String>> listOfResidentsOfStationNumber) {
+	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,List<Map<String, String>> listOfResidentsOfStationNumber) {
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String,Integer>() ;
+		Map<String, String> mapOfAdultsAndChildConvertedValueString=null ;
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds
 					.sortAdultsAndChilds(stationNumber,listOfResidentOfStationNumber);
@@ -58,9 +59,15 @@ public class ResidentsOfStationNumberService {
 				log.debug("all residents  sorted with countdown of adult and child of station number {}",
 						stationNumber);			
 			}
+			
+			for (Map.Entry<String, Integer> entry : mapCountDownOfAdultsAndChilds.entrySet()) {
+			    mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());		
+			}
+			
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		return mapCountDownOfAdultsAndChilds;
+		return mapOfAdultsAndChildConvertedValueString;
 	}
 }

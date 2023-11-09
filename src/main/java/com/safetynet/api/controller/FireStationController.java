@@ -33,12 +33,12 @@ public class FireStationController implements IResponseHTTPEmpty {
 		FireStation fireStationCreated = new FireStation();
 
 		try {
-			fireStationCreated = fireStationService.addStationNumberOfFireStationWithExistingAddress(address,fireStation);
-			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+			fireStationCreated = fireStationService.addStationNumberOfFireStationWithExistingAddress(address,fireStation);		
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
@@ -49,26 +49,27 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 		try {
 			fireStationCreated = fireStationService.addAddressOfFireStationWithExistingStationNumber(stationNumber,fireStation);
-			return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+			
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
 
 	@PutMapping("/firestation")
 	@ResponseBody
 	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
 			@RequestParam String address) {
-		FireStation firestationFoundByAddress;
+		FireStation firestationFoundByAddress =new FireStation();
 
 		try {
-			firestationFoundByAddress = fireStationService.updateFireStationByAddress(address, firestation);
-			return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
+			firestationFoundByAddress = fireStationService.updateFireStationByAddress(address, firestation);		
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
+		return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
 	}
 
 	@DeleteMapping("/firestation/{stationNumber}")
@@ -79,12 +80,11 @@ public class FireStationController implements IResponseHTTPEmpty {
 				throw new NullPointerException(
 						" Firestation with this station number: " + stationNumber + "  to delete not found");
 			}
-			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
-
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping("/firestation")
@@ -93,11 +93,11 @@ public class FireStationController implements IResponseHTTPEmpty {
 			boolean fireStationIsRemoved = fireStationService.deleteFireStationByAddress(address);
 			if (!fireStationIsRemoved) {
 				throw new NullPointerException(" Firestation with this address: " + address + "  to delete not found");
-			}
-			return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+			}		
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
 		}
+		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 }
