@@ -245,4 +245,41 @@ class AlertsControllerTest {
 			fail(e.getMessage());
 		}
 	}
+
+	// ---------Test personInfo URL--------
+	@Test
+	public void givenInfoOfPerson_WhenGetInfoOfPersonByFirstNameAndLastName_ThenReturnInfoOfPersonAndPersonsWithSameLastName()
+			throws Exception {
+		try {
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/personInfo").param("firstName", "John").param("lastName", "Boyd")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.OK.value(), result.getStatus());
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void givenNoExistingInfoOfPerson_WhenGetInfoOfNoExistingPersonByFirstNameAndLastName_ThenReturn404()
+			throws Exception {
+		try {
+			given(personInfoService
+					.getInfoAndMedicalRecordOfPersonByFullName("John", "Lenon"))
+			.willThrow(NullPointerException.class);
+			
+			MockHttpServletResponse result = mockMvc
+					.perform(MockMvcRequestBuilders.get("/personInfo").param("firstName", "John").param("lastName", "Lenon")).andReturn()
+					.getResponse();
+
+			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
+		}  catch (NullPointerException e) {
+			assertThrows(NullPointerException.class,
+					() ->personInfoService
+					.getInfoAndMedicalRecordOfPersonByFullName("John", "Lenon"));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
 }
