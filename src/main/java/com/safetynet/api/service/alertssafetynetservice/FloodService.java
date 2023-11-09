@@ -13,49 +13,48 @@ import org.springframework.stereotype.Service;
 @Service
 public class FloodService {
 	private static final Logger log = LogManager.getLogger(FloodService.class);
-	@Autowired
-	ResidentsOfStationNumberService residentsOfStationNumberService;
 
 	@Autowired
-	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
-	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException  {
+	@Autowired
+	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+
+	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
 
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 
-			List<Map<String, String>> listOfResidentsOfStationNumber = residentsOfStationNumberService
-					.getListOfResidentsOfStationNumber(stationNumber);
-			
-			// creating list of address commun between addresses found in each info of
-			// resident
-			ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber
-					.listIterator();
-			List<String> listOfAddress = new ArrayList<String>();
-			while (itrResidentsOfStationNumber.hasNext()) {
-				Map<String, String> itrResidentNext = itrResidentsOfStationNumber.next();
+		List<Map<String, String>> listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 
-				if (!listOfAddress.contains(itrResidentNext.get("address"))) {
-					listOfAddress.add(itrResidentNext.get("address"));
-				}
-			}
+		// creating list of address commun between addresses found in each info of
+		// resident
+		ListIterator<Map<String, String>> itrResidentsOfStationNumber = listOfResidentsOfStationNumber.listIterator();
+		List<String> listOfAddress = new ArrayList<String>();
+		while (itrResidentsOfStationNumber.hasNext()) {
+			Map<String, String> itrResidentNext = itrResidentsOfStationNumber.next();
 
-			// getting medicalrecords searching with address of each resident
-			for (String address : listOfAddress) {
-				List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-				listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
-						.searchInfoOfResident(address);
-				
-				listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
-				
+			if (!listOfAddress.contains(itrResidentNext.get("address"))) {
+				listOfAddress.add(itrResidentNext.get("address"));
 			}
-			
-			log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
-					listOfHouseHoldOfStationNumber);
-			if (listOfHouseHoldOfStationNumber.isEmpty()) {
-				throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
-			}
-		
+		}
+
+		// getting medicalrecords searching with address of each resident
+		for (String address : listOfAddress) {
+			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
+			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
+					.searchInfoOfResident(address);
+
+			listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
+
+		}
+
+		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
+				listOfHouseHoldOfStationNumber);
+		if (listOfHouseHoldOfStationNumber.isEmpty()) {
+			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
+		}
+
 		return listOfHouseHoldOfStationNumber;
 	}
 }
