@@ -1,6 +1,5 @@
 package com.safetynet.api.model;
 
-public class FireStation {
+public class PersonEntity {
 
-	
 }
