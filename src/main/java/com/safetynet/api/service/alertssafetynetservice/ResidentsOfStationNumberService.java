@@ -20,49 +20,44 @@ public class ResidentsOfStationNumberService {
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 
-	private List<Map<String, String>> listOfResidentOfStationNumber;
+	private List<Map<String, String>> listOfResidentsOfStationNumber;
 
-	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber)
-			throws NullPointerException {
+	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) {
 		log.debug("Retrieving  all residents of station number {}", stationNumber);
 
 		try {
-			listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
-			listOfResidentOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+			listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
+			listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 
-			if (listOfResidentOfStationNumber.isEmpty()) {
-				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
+			for (Map<String, String> residents : listOfResidentsOfStationNumber) {
+				residents.remove("age");
 			}
-			log.info(" List of residents retrieved successfully of station number {}", listOfResidentOfStationNumber);
+
+			log.info(" List of residents retrieved successfully of station number {}", listOfResidentsOfStationNumber);
+
 		} catch (Exception e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
 		}
 
-		for (Map<String, String> residents : listOfResidentOfStationNumber) {
-			// residents.remove("age");
-			System.out.println("residents" + residents);
-		}
-
-		return listOfResidentOfStationNumber;
+		return listOfResidentsOfStationNumber;
 	}
 
-	public Map<String, Integer> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,
-			List<Map<String, String>> listOfResidentsOfStationNumber) {
+	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,
+			List<Map<String, String>> residentsOfStationNumber) {
+		
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
-
+		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber,
-					listOfResidentOfStationNumber);
-			if (mapCountDownOfAdultsAndChilds.isEmpty()) {
-				throw new NullPointerException(
-						"Error has occured sorting with countdown of adult and childs  because not found at this station number");
-			} else {
-				log.debug("all residents  sorted with countdown of adult and child of station number {}",
-						stationNumber);
+					residentsOfStationNumber);
+
+			for (Map.Entry<String, Integer> entry : mapCountDownOfAdultsAndChilds.entrySet()) {
+				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
 			}
+
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		return mapCountDownOfAdultsAndChilds;
+		return mapOfAdultsAndChildConvertedValueString;
 	}
 }

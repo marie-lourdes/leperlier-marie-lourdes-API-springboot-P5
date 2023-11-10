@@ -52,20 +52,18 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
-		Map<String, Integer> mapOfAdultsAndChildSorted = new HashMap<String, Integer>();
-		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
 
 		try {
 			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
-			mapOfAdultsAndChildSorted = residentsOfStationNumberService
+			Map<String, String> mapOfAdultsAndChildSorted = residentsOfStationNumberService
 					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
 
-			for (Map.Entry<String, Integer> entry : mapOfAdultsAndChildSorted.entrySet()) {
-				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
+			if (listOfResidentsOfStationNumber.isEmpty() && mapOfAdultsAndChildSorted.isEmpty()) {
+				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
 
-			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildConvertedValueString);
+			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildSorted);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
