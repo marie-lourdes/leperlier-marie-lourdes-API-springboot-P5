@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -47,12 +52,19 @@ class AlertsControllerTest {
 
 	@MockBean
 	private CommunityEmailService communityEmailService;
+	
+	private static Map<String, String> residentAdultTest1;
+	private static Map<String, String> residentChildTest2;
+	private static List<Map<String, String>> listOfAdultsAndChildsTest1;
+	private static List<Map<String, String>> listOfAdultsAndChildsTest2;
 
 	// ---------Test resident of station number and countDown of adults and childs URL--------
 	@Test
 	public void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
 			throws Exception {
 		try {
+		/*	given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
+			.willThrow(NullPointerException.class);*/
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber", "3")).andReturn()
 					.getResponse();
@@ -67,8 +79,8 @@ class AlertsControllerTest {
 	public void givenNoExistingResidentsNearNoExistingFireStation_WhenGetNoExistingFireStationByStationNumber_ThenReturn404()
 			throws Exception {
 		try {
-			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
-					.willThrow(NullPointerException.class);
+		/*	given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
+					.willThrow(NullPointerException.class);*/
 
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber", "0")).andReturn()

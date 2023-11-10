@@ -22,6 +22,7 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
+import com.safetynet.api.service.alertssafetynetservice.SortingAdultsAndChildsOfListOfResidentsWithCountDown;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
@@ -47,7 +48,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@Autowired
 	CommunityEmailService communityEmailService;
-
+	
 	@GetMapping("/firestation")
 	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
@@ -59,7 +60,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			Map<String, String> mapOfAdultsAndChildSorted = residentsOfStationNumberService
 					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
 
-			if (listOfResidentsOfStationNumber.isEmpty() && mapOfAdultsAndChildSorted.isEmpty()) {
+			if (listOfResidentsOfStationNumber.isEmpty()) {
 				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
 

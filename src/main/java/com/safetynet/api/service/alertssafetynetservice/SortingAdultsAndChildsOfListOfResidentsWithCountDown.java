@@ -14,10 +14,11 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	private static final Logger log = LogManager.getLogger(SortingAdultsAndChildsOfListOfResidentsWithCountDown.class);
 	@Autowired
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 	
 	public Map<String, Integer> sortAdultsAndChilds(String stationNumber,List<Map<String, String>>	residentsOfStationNumber) {
 		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ", stationNumber);
-		Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
+		
 			residentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 		
 		Integer indexChild = 1;
