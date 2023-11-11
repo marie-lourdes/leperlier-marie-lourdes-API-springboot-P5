@@ -53,11 +53,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 		try {
 			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
 					.sortAdultsAndChilds( "5",listOfAdultsAndChildsTest1);
-	
-			
-				assertThat(resultCountDownOfAdultsAndChilds ).contains(entry("adults", 1), entry("childs", 1));
-			
-		
+				assertThat(resultCountDownOfAdultsAndChilds ).contains(entry("adults", 1), entry("childs", 1));	
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

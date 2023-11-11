@@ -21,7 +21,7 @@ public class ResidentsOfStationNumberService {
 	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 
 
-	List<Map<String, String>>	listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
+	private List<Map<String, String>>	listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) {
 		log.debug("Retrieving  all residents of station number {}", stationNumber);
 	

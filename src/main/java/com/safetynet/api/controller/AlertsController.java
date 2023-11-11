@@ -53,16 +53,15 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<?> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
-
+		Map<String, String> mapOfAdultsAndChildSorted= new HashMap<String, String>();
 		try {
 			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
-			Map<String, String> mapOfAdultsAndChildSorted = residentsOfStationNumberService
-					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
-
 			if (listOfResidentsOfStationNumber.isEmpty()) {
 				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
+			 mapOfAdultsAndChildSorted = residentsOfStationNumberService
+					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
 
 			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildSorted);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
