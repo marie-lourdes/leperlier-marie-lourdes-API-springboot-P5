@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
@@ -18,6 +19,7 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 import jakarta.validation.Valid;
 
+@RestController
 public class MedicalRecordController implements IResponseHTTPEmpty {
 	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
 	@Autowired
@@ -59,4 +61,3 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 }
-
