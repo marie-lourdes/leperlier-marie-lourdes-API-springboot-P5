@@ -5,11 +5,14 @@ import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeReposi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class ActuatorHttpTraceConfig {
-
+	
 	@Bean
-	public  HttpExchangeRepository httpTraceRepository() {
+	 HttpExchangeRepository httpTraceRepository() {
 		return new InMemoryHttpExchangeRepository();
 	}
+    
+   
 }
