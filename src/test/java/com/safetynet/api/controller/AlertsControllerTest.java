@@ -58,6 +58,9 @@ class AlertsControllerTest {
 	private static Map<String, String> residentChildTest2;
 	private static List<Map<String, String>> listOfAdultsAndChildsTest1;
 	private static Map<String, String> mapOfAdultsAndChildsSortedTest;
+	private static Map<String, String>mapOfEmailOfResidentTest1;
+	private static Map<String, String>mapOfEmailOfResidentTest2;
+	private static List<Map<String, String>> listEmailsOfResidentsOfCityTest;
 
 	@BeforeAll
 	static void setUp() {
@@ -75,6 +78,15 @@ class AlertsControllerTest {
 		mapOfAdultsAndChildsSortedTest = new HashMap<String, String>();
 		mapOfAdultsAndChildsSortedTest.put("adults", "1");
 		mapOfAdultsAndChildsSortedTest.put("childs", "1");
+		
+		mapOfEmailOfResidentTest1= new HashMap<String, String>();
+		mapOfEmailOfResidentTest1.put("email","maelys@email.com");
+		mapOfEmailOfResidentTest2= new HashMap<String, String>();
+		mapOfEmailOfResidentTest2.put("email","millie@email.com");
+	 listEmailsOfResidentsOfCityTest= new ArrayList<Map<String, String>>();
+	 listEmailsOfResidentsOfCityTest.add(	mapOfEmailOfResidentTest1);
+	 listEmailsOfResidentsOfCityTest.add(	mapOfEmailOfResidentTest2);
+		
 	}
 
 	// ---------Test resident of station number and countDown of adults and childs
@@ -318,6 +330,9 @@ class AlertsControllerTest {
 	public void givenEmailsOfResidentsOfCity_WhenGetEmailsOfResidentsByCity_ThenReturnEmailsOfResidents()
 			throws Exception {
 		try {
+			given(communityEmailService.getEmailOfResidentsOfCity("Culver"))
+			.willReturn( listEmailsOfResidentsOfCityTest);
+			
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.get("/communityEmail").param("city", "Culver")).andReturn()
 					.getResponse();

@@ -18,14 +18,13 @@ public class CommunityEmailService {
 
 	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 
-	public List<Map<String, String>> getEmailOfResidentsOfCity(String city) throws NullPointerException {
+	public List<Map<String, String>> getEmailOfResidentsOfCity(String city) {
 		log.debug("Retrieving all emails of residents of the city : {}", city);
 
 		try {
 			listEmailsOfResidentsOfCity = infoEmailOfResidentsByCity.searchInfoOfResident(city);
-		} catch (NullPointerException e) {
-			log.error("Failed to retrieve emails of residents of the city : {}", city);
-			throw new NullPointerException("List of email not found of residents of  this city : " + city);
+		} catch (Exception e) {
+			log.error("Failed to retrieve emails of residents of the city : {}", city);	
 		}
 
 		log.info(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
