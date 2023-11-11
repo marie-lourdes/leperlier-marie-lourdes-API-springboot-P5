@@ -134,7 +134,7 @@ public class PersonService {
 		return personsFoundByAddress;
 	}
 
-	public List<Person> getPersonsByCity(String city) {
+	public List<Person> getPersonsByCity(String city)  throws NullPointerException {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
@@ -153,11 +153,10 @@ public class PersonService {
 			} else {
 				log.info("Person retrieved successfully for city {}", city);
 			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 
-		log.info("List of persons retrieved by city successfully : {}", personsFoundByCity);
 		return personsFoundByCity;
 	}
 

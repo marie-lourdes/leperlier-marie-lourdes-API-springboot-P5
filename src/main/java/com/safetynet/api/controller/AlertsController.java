@@ -159,13 +159,11 @@ public class AlertsController implements IResponseHTTPEmpty {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
-			if (listOfEmailsOfResidentsOfCity.isEmpty()) {
-				throw new NullPointerException("List of email not found of residents of  this city : " + city);
-			}
-			return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
+			
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();
 		}
+		return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
 	}
 }
