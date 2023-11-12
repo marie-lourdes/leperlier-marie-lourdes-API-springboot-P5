@@ -34,44 +34,44 @@ https://www.eclipse.org/community/eclipse_newsletter/2018/february/springboot.ph
 ### Running App
 
 Post installation of Java, Maven and Spring Tools 4, you will have to run app to load data and all application with  Boot DashBoard of Spring Tools 
-or with your CLI , 'mvn spring-boot:run '.
+or with your CLI , mvn spring-boot:run .
 
 Finally, you will be ready to  use API and request 
-The host and port is :'http://localhost:8080/'
+The host and port is :http://localhost:8080/
 
 ### Endpoints  CRUD DataServices(except READ)
 
 ## Person service
 
-- POST:** /person**
-- PUT: **/person?id=<firstname lastname>**
-- DELETE:** person?id=<firstname lastname>**
+- POST:** /person **
+- PUT: ** /person?id=<firstname lastname> **
+- DELETE:** /person?id=<firstname lastname> **
 
 ## Firestation Service
 
-- POST:** /firestation/<station number>**
-- POST:** /firestation/<address of firestation>**
-- PUT: **/person?address=<address of firestation>**
-- DELETE: ** /firestation/<station number>**
-- DELETE:** /firestation/<address of firestation>**
+- POST:** /firestation/<station number> **
+- POST:** /firestation/<address of firestation> **
+- PUT: **/person?address=<address of firestation> **
+- DELETE: ** /firestation/<station number> **
+- DELETE:** /firestation/<address of firestation> **
 
 ## MedicalRecord service
 
-- POST:** /person**
-- PUT: **/person?id=<firstname lastname>**
-- DELETE:** person?id=<firstname lastname>**
+- POST:** /medicalRecord **
+- PUT: ** /medicalRecord?id=<firstname lastname> **
+- DELETE:** /medicalRecord?id=<firstname lastname> **
 
 ### URL AlertsSafetyNetService(only Read)
 
-- GET **/firestation?stationNumber=<station_number>**
-- GET **/childAlert?address=<address>
-- GET **/phoneAlert?firestation=<firestation_number>**
-- GET **/fire?address=<address>**
-- GET **/flood/stations?stations=<a list of station_numbers>**
-- GET **/personInfo?firstName=<firstName>&lastName=<lastName>**
-- GET **/communityEmail?city=<city>**
+- GET ** /firestation?stationNumber=<station_number>**
+- GET ** /childAlert?address=<address>
+- GET ** /phoneAlert?firestation=<firestation_number> **
+- GET ** /fire?address=<address> **
+- GET ** /flood/stations?stations=<a list of station_numbers> **
+- GET ** /personInfo?firstName=<firstName>&lastName=<lastName> **
+- GET ** /communityEmail?city=<city> **
 
 ### Testing
 
  For testing use:
-`run as` , then, 'Maven test' for unit test
+`run as` , then, Maven test for unit test
