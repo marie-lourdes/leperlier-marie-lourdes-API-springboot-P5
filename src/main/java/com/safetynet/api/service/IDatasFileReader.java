@@ -45,7 +45,6 @@ public interface IDatasFileReader<T> {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
 		}finally {
-		
 			jsonReader.close();
 		}
 		log.debug("Datas {} successfully read from file json", dataNameJson);
