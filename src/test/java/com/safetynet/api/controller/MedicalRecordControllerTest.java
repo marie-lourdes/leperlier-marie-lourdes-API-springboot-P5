@@ -39,7 +39,7 @@ class MedicalRecordControllerTest {
 	private JacksonTester<MedicalRecord> jsonMedicalRecord;
 
 	@Test
-	public void givenMedicalRecordObject_WhenCreateMedicalRecord_ThenReturnSavedMedical() throws Exception {
+	 void givenMedicalRecordObject_WhenCreateMedicalRecord_ThenReturnSavedMedical() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:350mg");
 		medications.add("hydrapermazol:100mg");
@@ -61,7 +61,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void givenMedicalRecordObjectWithBirthDateNoValid_WhenCreateMedicalRecord_ThenReturn400() throws Exception {
+	 void givenMedicalRecordObjectWithBirthDateNoValid_WhenCreateMedicalRecord_ThenReturn400() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("hydrapermazol:100mg");
 		List<String> allergies = new ArrayList<String>();
@@ -84,7 +84,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void  givenExistingMedicalRecordObject_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturnUpdatedMedicalRecord() throws Exception {
+	 void  givenExistingMedicalRecordObject_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturnUpdatedMedicalRecord() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
@@ -106,7 +106,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void  givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturn400() throws Exception {
+	 void  givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturn400() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
@@ -128,7 +128,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void  givenExistingMedicalRecordObject_WhenUpdateNoExistingMedicalRecord_ThenReturn404() throws Exception {
+	 void  givenExistingMedicalRecordObject_WhenUpdateNoExistingMedicalRecord_ThenReturn404() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
@@ -157,7 +157,7 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	public void givenExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecordObjec_ThenRemoveMedicalRecord() throws Exception {
+	 void givenExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecordObjec_ThenRemoveMedicalRecord() throws Exception {
 		try {
 			given(medicalRecordService.deleteOneMedicalRecordById("John Boyd")).willReturn(true);
 
@@ -173,7 +173,7 @@ class MedicalRecordControllerTest {
 	}
 	
 	@Test
-	public void givenNoExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecord_ThenReturn404() throws Exception {
+	 void givenNoExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecord_ThenReturn404() throws Exception {
 		try {		
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.delete("/medicalRecord").param("id", "John Lenon")).andReturn()

@@ -49,10 +49,8 @@ public class JsonDataLoader implements CommandLineRunner {
 			addAllDatasFromFileJson(personsFromFile, fireStationsFromFile, medicalRecordsFromFile);
 
 		} catch (IOException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("An error has occured loading datas Json ");
 		}
 	}
