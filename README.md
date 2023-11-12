@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+# leperlier-marie-lourdes-API-springboot-P5
+=======
+>>>>>>> HotFix
 # API SafetyNet Alerts
 
 An API RESTful  for managing datas of residents with their medical record 
@@ -21,7 +27,7 @@ A step by step series of examples that tell you how to get a development env run
 
 1.Install Java:
 
-https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
+https://java.tutorials24x7.com/blog/how-to-install-java-17-on-windows
 
 2.Install Maven:
 
@@ -75,3 +81,7 @@ The host and port is :http://localhost:8080
 
  For testing use:
 `run as` , then, 'Maven test' for unit test
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> HotFix
