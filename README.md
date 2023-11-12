@@ -33,7 +33,7 @@ https://www.eclipse.org/community/eclipse_newsletter/2018/february/springboot.ph
 
 ### Running App
 
-Post installation of MySQL, Java and Maven, you will have to run app to load data and all application with  Boot DashBoard of Spring Tools 
+Post installation of Java, Maven and Spring Tools 4, you will have to run app to load data and all application with  Boot DashBoard of Spring Tools 
 or with your CLI , 'mvn spring-boot:run '.
 
 Finally, you will be ready to  use API and request 
