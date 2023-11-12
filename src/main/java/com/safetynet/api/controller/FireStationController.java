@@ -28,7 +28,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PostMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<?> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
+	public ResponseEntity<Object> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		FireStation fireStationCreated = new FireStation();
 
@@ -44,7 +44,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PostMapping("/firestation/{stationNumber}")
 	@ResponseBody
-	public ResponseEntity<?> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
+	public ResponseEntity<Object> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
 		FireStation fireStationCreated = new FireStation();
 
@@ -60,7 +60,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PutMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<?> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
+	public ResponseEntity<Object> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
 			@RequestParam String address) {
 		FireStation firestationFoundByAddress = new FireStation();
 

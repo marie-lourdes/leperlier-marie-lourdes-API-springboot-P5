@@ -34,7 +34,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 
 	@PutMapping("/medicalRecord")
 	@ResponseBody
-	public ResponseEntity<?> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
+	public ResponseEntity<Object>updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
 		MedicalRecord medicalRecordFoundById = new MedicalRecord();
 
@@ -48,7 +48,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 	}
 
 	@DeleteMapping("/medicalRecord")
-	public ResponseEntity<?> deleteOneMedicalRecordById(@RequestParam String id) {
+	public ResponseEntity<Long> deleteOneMedicalRecordById(@RequestParam String id) {
 		try {
 			boolean personIsRemoved = medicalRecordService.deleteOneMedicalRecordById(id);
 			if (!personIsRemoved) {
