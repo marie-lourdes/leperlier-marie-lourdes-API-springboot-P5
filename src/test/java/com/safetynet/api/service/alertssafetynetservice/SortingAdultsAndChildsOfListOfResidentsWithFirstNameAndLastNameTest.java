@@ -26,7 +26,6 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 	@MockBean
 	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 
-
 	private static Map<String, String> residentAdultTestExpected1;
 	private static Map<String, String> residentChildTestExpected2;
 	private static List<Map<String, String>> listOfAdultsAndChildsTest1;

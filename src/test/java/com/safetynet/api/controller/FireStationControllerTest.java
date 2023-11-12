@@ -36,7 +36,7 @@ class FireStationControllerTest {
 	private JacksonTester<FireStation> jsonFireStation;
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumber_WhenAddFireStationByExistingAddress_ThenReturnSavedFireStation()
+	 void givenFireStationObjectWithNewStationNumber_WhenAddFireStationByExistingAddress_ThenReturnSavedFireStation()
 			throws Exception {
 		FireStation fireStationCreatedWithNewStationNumber = new FireStation("3", "1509 Culver St");
 
@@ -56,7 +56,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumberNoValid_WhenAddFireStationByExistingAddress_ThenReturn400()
+	 void givenFireStationObjectWithNewStationNumberNoValid_WhenAddFireStationByExistingAddress_ThenReturn400()
 			throws Exception {
 		FireStation fireStationCreatedWithNewStationNumberNoValid = new FireStation("1509 Culver St");
 
@@ -79,7 +79,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewStationNumber_WhenAddFireStationByNoExistingAddress_ThenReturn404()
+	 void givenFireStationObjectWithNewStationNumber_WhenAddFireStationByNoExistingAddress_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingAddressOfFireStationCreated = new FireStation("8", "1509 Culver St");
 
@@ -107,7 +107,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddress_WhenAddFireStationByExistingStationNumber_ThenReturnSavedFireStation()
+	 void givenFireStationObjectWithNewAddress_WhenAddFireStationByExistingStationNumber_ThenReturnSavedFireStation()
 			throws Exception {
 		FireStation fireStationCreatedWithNewAddress = new FireStation("9", "112 address modified");
 
@@ -126,7 +126,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddressNoValid_WhenAddFireStationByExistingStationNumber_ThenReturn400()
+	 void givenFireStationObjectWithNewAddressNoValid_WhenAddFireStationByExistingStationNumber_ThenReturn400()
 			throws Exception {
 		FireStation fireStationCreatedWithNewAddressNoValid = new FireStation("9", "address modified");
 
@@ -147,7 +147,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenFireStationObjectWithNewAddress_WhenAddFireStationByNoExistingStationNumber_ThenReturn404()
+	 void givenFireStationObjectWithNewAddress_WhenAddFireStationByNoExistingStationNumber_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingStationNumberOfFireStationCreated = new FireStation("9", "112 address modified");
 
@@ -174,7 +174,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByAddress_ThenReturnUpdatedFireStation()
+	 void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByAddress_ThenReturnUpdatedFireStation()
 			throws Exception {
 		FireStation existingFireStationUpdated = new FireStation("5", "748 Townings Dr");
 
@@ -193,7 +193,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStationByAddress_ThenReturn400()
+	 void givenExistingFireStationObjectWithStationNumberNoValid_WhenUpdateStationNumberOfFireStationByAddress_ThenReturn400()
 			throws Exception {
 		FireStation existingFireStationUpdatedStationNumberNoValid = new FireStation("748 Townings Dr");
 
@@ -214,7 +214,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByNoExistingAddress_ThenReturn404()
+	 void givenExistingFireStationObject_WhenUpdateStationNumberOfFireStationByNoExistingAddress_ThenReturn404()
 			throws Exception {
 		FireStation NoExistingfireStationUpdated = new FireStation("5", "748 Townings Dr");
 
@@ -240,7 +240,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByStationNumber_ThenRemoveFireStation()
+	 void givenExistingFireStationObject_WhenRemoveExistingFireStationByStationNumber_ThenRemoveFireStation()
 			throws Exception {
 		try {
 			given(fireStationService.deleteFireStationByStationNumber("3")).willReturn(true);
@@ -256,7 +256,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByStationNumber_ThenReturn404()
+	 void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByStationNumber_ThenReturn404()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc.perform(MockMvcRequestBuilders.delete("/firestation/8"))
@@ -272,7 +272,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenExistingFireStationObject_WhenRemoveExistingFireStationByAddress_ThenRemoveFireStation()
+	 void givenExistingFireStationObject_WhenRemoveExistingFireStationByAddress_ThenRemoveFireStation()
 			throws Exception {
 		try {
 			given(fireStationService.deleteFireStationByAddress("748 Townings Dr")).willReturn(true);
@@ -289,7 +289,7 @@ class FireStationControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByAddress_ThenReturn404()
+	 void givenNoExistingFireStationObject_WhenRemoveNoExistingFireStationByAddress_ThenReturn404()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc

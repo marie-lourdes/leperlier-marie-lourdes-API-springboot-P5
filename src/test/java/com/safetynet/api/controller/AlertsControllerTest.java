@@ -92,7 +92,7 @@ class AlertsControllerTest {
 	// ---------Test resident of station number and countDown of adults and childs
 	// URL--------
 	@Test
-	public void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
+	 void givenResidentsNearFireStation_WhenGetFireStationByStationNumber_ThenReturnStationNumberWithInfoAndCountDownOfAdultsAndChilds()
 			throws Exception {
 		try {
 			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("5"))
@@ -110,7 +110,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingResidentsNearNoExistingFireStation_WhenGetNoExistingFireStationByStationNumber_ThenReturn404()
+	 void givenNoExistingResidentsNearNoExistingFireStation_WhenGetNoExistingFireStationByStationNumber_ThenReturn404()
 			throws Exception {
 		try {
 			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
@@ -133,7 +133,7 @@ class AlertsControllerTest {
 
 	// ---------Test childAlert URL--------
 	@Test
-	public void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByAddress_ThenReturnChildsAndMembersOfHouseHoldAdultsInfo()
+	 void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByAddress_ThenReturnChildsAndMembersOfHouseHoldAdultsInfo()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -147,7 +147,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingChildsAndOnlyAdults_WhenGetChildsByAddress_ThenReturn404() throws Exception {
+	 void givenNoExistingChildsAndOnlyAdults_WhenGetChildsByAddress_ThenReturn404() throws Exception {
 		try {
 			given(childAlertService.getChildsAndMembersOfHouseHold("951 LoneTree Rd"))
 					.willThrow(NullPointerException.class);
@@ -166,7 +166,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByNoExistingAddress_ThenReturn404()
+	 void givenChildsAndMembersOfHouseHoldAdults_WhenGetChildsByNoExistingAddress_ThenReturn404()
 			throws Exception {
 		try {
 			given(childAlertService.getChildsAndMembersOfHouseHold("45 No existing address"))
@@ -187,7 +187,7 @@ class AlertsControllerTest {
 
 	// ---------Test phoneAlert URL--------
 	@Test
-	public void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturnPhonesOfResidents()
+	 void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturnPhonesOfResidents()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -201,7 +201,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturn404()
+	 void givenPhonesOfResidentsOfStationNumber_WhenGetPhonesResidentByStationNumber_ThenReturn404()
 			throws Exception {
 		try {
 			given(phoneAlertService.getListOfPhonesOfResidentsOfStationNumber("5"))
@@ -222,7 +222,7 @@ class AlertsControllerTest {
 
 	// ---------Test residents and firestations near fire URL--------
 	@Test
-	public void givenResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturnResidentsAndStationNumber()
+	 void givenResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturnResidentsAndStationNumber()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -236,7 +236,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturn404()
+	 void givenNoExistingResidentsAndFireStationNearFireAddress_WhenGetResidentsAndFireStationByFireAddress_ThenReturn404()
 			throws Exception {
 		try {
 			given(fireService.getListOfResidentsAndFireStationNearFire(
@@ -257,7 +257,7 @@ class AlertsControllerTest {
 
 	// ---------Test households of station number when flood URL--------
 	@Test
-	public void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumber_ThenReturnHouseHoldsOfListOfStationNumbers()
+	 void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumber_ThenReturnHouseHoldsOfListOfStationNumbers()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -272,7 +272,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumberWithOneNoExistingStationNumber_ThenReturn404()
+	 void givenFloodAndHouseHoldsOfStationsNumber_WhenGetHouseHoldsBySeveralsStationsNumberWithOneNoExistingStationNumber_ThenReturn404()
 			throws Exception {
 		try {
 			given(floodService.getListOfHouseHoldByStationNumber("0")).willThrow(NullPointerException.class);
@@ -292,7 +292,7 @@ class AlertsControllerTest {
 
 	// ---------Test personInfo URL--------
 	@Test
-	public void givenInfoOfPerson_WhenGetInfoOfPersonByFirstNameAndLastName_ThenReturnInfoOfPersonAndPersonsWithSameLastName()
+	 void givenInfoOfPerson_WhenGetInfoOfPersonByFirstNameAndLastName_ThenReturnInfoOfPersonAndPersonsWithSameLastName()
 			throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc.perform(
@@ -306,7 +306,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingInfoOfPerson_WhenGetInfoOfNoExistingPersonByFirstNameAndLastName_ThenReturn404()
+	 void givenNoExistingInfoOfPerson_WhenGetInfoOfNoExistingPersonByFirstNameAndLastName_ThenReturn404()
 			throws Exception {
 		try {
 			given(personInfoService.getInfoAndMedicalRecordOfPersonByFullName("John", "Lenon"))
@@ -327,7 +327,7 @@ class AlertsControllerTest {
 
 	// ---------Test communityEmail URL--------
 	@Test
-	public void givenEmailsOfResidentsOfCity_WhenGetEmailsOfResidentsByCity_ThenReturnEmailsOfResidents()
+	 void givenEmailsOfResidentsOfCity_WhenGetEmailsOfResidentsByCity_ThenReturnEmailsOfResidents()
 			throws Exception {
 		try {
 			given(communityEmailService.getEmailOfResidentsOfCity("Culver"))
@@ -344,7 +344,7 @@ class AlertsControllerTest {
 	}
 
 	@Test
-	public void givenNoExistingEmailsOfResidentsOfNoExistingCity_WhenGetEmailsOfResidentsByNoExistingCity_ThenReturn404()
+	 void givenNoExistingEmailsOfResidentsOfNoExistingCity_WhenGetEmailsOfResidentsByNoExistingCity_ThenReturn404()
 			throws Exception {
 		try {
 			given(communityEmailService.getEmailOfResidentsOfCity("City no registered"))
