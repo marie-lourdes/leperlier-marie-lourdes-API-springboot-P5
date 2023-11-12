@@ -18,7 +18,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
-
+ 
 	public List<Map<String, String>> sortAdultsAndChilds(String address) throws Exception {
 		log.debug("Sorting  Adults And Childs at this address : {} ",address);
 		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(address);
@@ -35,7 +35,7 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 			}
 		}
 
-		log.debug("List of residents sorted  with full name of childs and all info of adults :" + listOfAdultsAndChild);
+		log.debug("List of residents sorted  with full name of childs and all info of adults : {} ",listOfAdultsAndChild);
 		return listOfResidentsFoundByAddress;
 	}
 }

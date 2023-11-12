@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
+import com.safetynet.api.utils.Constants;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +40,7 @@ public class PersonService {
 					existingPerson.setPhone(updatedPerson.getPhone());
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
-				}).orElseThrow(() -> new NullPointerException("Failed to update person,the id: " + id + " not found"));
+				}).orElseThrow(() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
 
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
@@ -70,7 +71,7 @@ public class PersonService {
 				}).orElse(null);
 
 		if (personFoundById == null) {
-			throw new NullPointerException("Person not found for id: " + id);
+			throw new NullPointerException("Person for id: " + id + Constants.NOT_FOUND);
 		}
 
 		log.info("Person retrieved successfully for id : {}", id);
@@ -94,7 +95,7 @@ public class PersonService {
 
 			if (personsFoundByLastName.isEmpty()) {
 				log.error("Failed to retrieve person  for last name {}", lastName);
-				throw new NullPointerException("Person(s) not found for lastName: " + lastName);
+				throw new NullPointerException("Person(s)  for lastName: " + lastName + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved  successfully for last name  {}", lastName);
 			}
@@ -122,7 +123,7 @@ public class PersonService {
 
 			if (personsFoundByAddress.isEmpty()) {
 				log.error("Failed to retrieve person  for address {}", address);
-				throw new NullPointerException("Person(s) not found by address: " + address);
+				throw new NullPointerException("Person(s) by address: " + address +Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved  successfully for address {}", address);
 			}
@@ -149,7 +150,7 @@ public class PersonService {
 
 			if (personsFoundByCity.isEmpty()) {
 				log.error("Failed to retrieve person for city {}", city);
-				throw new NullPointerException("Person(s) not found by city" + city);
+				throw new NullPointerException("Person(s)  by city :" + city + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved successfully for city {}", city);
 			}

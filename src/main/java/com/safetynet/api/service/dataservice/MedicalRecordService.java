@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.utils.Constants;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +41,7 @@ public class MedicalRecordService {
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update medical record, " + updatedMedicalRecord.getId() + " not found"));
+						"Failed to update medical record, " + updatedMedicalRecord.getId() +  Constants.NOT_FOUND));
 
 		log.info("Medical record updated successfully for: {}", updatedMedicalRecord);
 		return existingMedicalRecordUpdated;
@@ -67,7 +68,7 @@ public class MedicalRecordService {
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("Medical record not found for: " + id));
+				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + Constants.NOT_FOUND));
 
 		log.info("Medical record retrieved successfully for: {}", id);
 		return personFoundById;

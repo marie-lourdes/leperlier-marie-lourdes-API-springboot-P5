@@ -57,7 +57,7 @@ public class ChildAlertService {
 			log.error("Failed to retrieve all childs and members of household at this address: {}", address);
 			throw new NullPointerException("No child found at this address " + address);
 		} else {
-			log.debug(numberOfChild + " childs found for  this address :{}", address);
+			log.debug(" {} childs found for  this address :{}", numberOfChild,address);
 		}
 
 		log.info(" List of childs and members of household retrieved successfully by address {}",

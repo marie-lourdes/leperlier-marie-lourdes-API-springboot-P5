@@ -38,7 +38,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 
 				int indexMedications = 0;
 				for (JsonValue value : medicationsArray) {
-					listOfMedications.add(indexMedications++, (String) value.toString());
+					listOfMedications.add(indexMedications++, value.toString());
 				}
 				medicalRecord.setMedications(listOfMedications);
 
@@ -48,7 +48,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 
 				int indexAllergies = 0;
 				for (JsonValue value : allergiesArray) {
-					listOfAllergies.add(indexAllergies++, (String) value.toString());
+					listOfAllergies.add(indexAllergies++,  value.toString());
 				}
 				medicalRecord.setAllergies(listOfAllergies);
 

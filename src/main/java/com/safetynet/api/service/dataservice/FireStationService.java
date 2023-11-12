@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.utils.Constants;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class FireStationService {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
 	private List<FireStation> fireStations = new ArrayList<>();
-
+	
+	   
 	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
@@ -50,7 +52,7 @@ public class FireStationService {
 			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException(
-					"Failed to add  firestation with new station number , the address: " + address + " not found");
+					"Failed to add  firestation with new station number , the address: " + address + Constants.NOT_FOUND);
 		}
 
 		return fireStation;
@@ -76,7 +78,7 @@ public class FireStationService {
 			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
-					+ stationNumber + " not found");
+					+ stationNumber +  Constants.NOT_FOUND);
 		}
 
 		return createdFireStation;
@@ -93,7 +95,7 @@ public class FireStationService {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
 					return existingFireStation;
 				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update station number of fireStation, the address :" + address + " not found"));
+						"Failed to update station number of fireStation, the address :" + address +  Constants.NOT_FOUND));
 
 		log.info("FireStation updated successfully for address: {}", updatedFireStation);
 		return existingFireStationUpdated;
