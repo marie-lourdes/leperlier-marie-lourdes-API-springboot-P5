@@ -36,18 +36,18 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 
 	@MockBean
 	private PersonService personService;
-	
+
 	@MockBean
 	private FireStationService fireStationService;
-	
+
 	@MockBean
 	private CalculatorAgeOfResidentImpl calculatorAge;
-	
+
 	private static Person personTest;
 	private static List<Person> listOfPersonsTest;
 	private static FireStation firestationTest;
 	private static List<FireStation> listOfFireStationsTest;
-	
+
 	@BeforeAll
 	static void setUp() {
 		personTest = new Person("Millie", "Leperlier", "112 address", "city", "97451", "841-874-2512",
@@ -55,13 +55,13 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 		personTest.setId("Millie Leperlier");
 		listOfPersonsTest = new ArrayList<Person>();
 		listOfPersonsTest.add(personTest);
-		
-		firestationTest= new FireStation("5", "112 address");
+
+		firestationTest = new FireStation("5", "112 address");
 		firestationTest.setId("112-5-65");
 		listOfFireStationsTest = new ArrayList<FireStation>();
 		listOfFireStationsTest.add(firestationTest);
 	}
-	
+
 	@Test
 	void testSearchInfoOfResident() throws Exception {
 		when(personService.getAllPersons()).thenReturn(listOfPersonsTest);
@@ -110,7 +110,6 @@ class SearchingInfoOfResidentOfStationNumberImplTest {
 			fail(e.getMessage());
 		}	
 	}
-
 
 	@Test
 	@DisplayName("Given resident found by stationNumber with birthdate incorrect when generate a map with info of resident  the method should return 'error!' in key'age' instead age '0' ")

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,26 +26,27 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 @RestController
 public class AlertsController implements IResponseHTTPEmpty {
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
-	@Autowired
-	ResidentsOfStationNumberService residentsOfStationNumberService;
 
-	@Autowired
-	ChildAlertService childAlertService;
+	private ResidentsOfStationNumberService residentsOfStationNumberService;
+	private ChildAlertService childAlertService;
+	private PhoneAlertService phoneAlertService;
+	private FireService fireService;
+	private FloodService floodService;
+	private PersonInfoService personInfoService;
+	private CommunityEmailService communityEmailService;
 
-	@Autowired
-	PhoneAlertService phoneAlertService;
-
-	@Autowired
-	FireService fireService;
-
-	@Autowired
-	FloodService floodService;
-
-	@Autowired
-	PersonInfoService personInfoService;
-
-	@Autowired
-	CommunityEmailService communityEmailService;
+	public AlertsController(ResidentsOfStationNumberService residentsOfStationNumberService,
+			ChildAlertService childAlertService, PhoneAlertService phoneAlertService, FireService fireService,
+			FloodService floodService, PersonInfoService personInfoService,
+			CommunityEmailService communityEmailService) {
+		this.residentsOfStationNumberService = residentsOfStationNumberService;
+		this.childAlertService = childAlertService;
+		this.phoneAlertService = phoneAlertService;
+		this.fireService = fireService;
+		this.floodService = floodService;
+		this.personInfoService = personInfoService;
+		this.communityEmailService = communityEmailService;
+	}
 
 	@GetMapping("/firestation")
 	@ResponseBody
@@ -159,7 +159,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
-			
+
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return returnResponseEntityEmptyAndCode404();

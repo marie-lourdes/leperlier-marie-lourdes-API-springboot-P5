@@ -24,6 +24,7 @@ import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.PersonService;
+
 @SpringBootTest
 class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 	@Autowired
@@ -34,7 +35,7 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 
 	@MockBean
 	private PersonService personService;
-	
+
 	private static Person personTest1;
 	private static Person personTest2;
 	private static List<Person> listOfPersonsTest;
@@ -43,11 +44,11 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 	private static FireStation firestationTest3;
 	private static List<FireStation> listOfFireStationsTest1;
 	private static List<FireStation> listOfFireStationsTest2;
-	
+
 	@BeforeAll
 	static void setUp() {
-		personTest1 = new Person("Millie", "Leperlier", "45 quartier du port de Vannes","Vannes", "56000","841-874-2512",
-				"millie@email.com");
+		personTest1 = new Person("Millie", "Leperlier", "45 quartier du port de Vannes", "Vannes", "56000",
+				"841-874-2512", "millie@email.com");
 		personTest1.setId("Millie Leperlier");
 		personTest2 = new Person("Minnie", "Cooper", "12 rue des combattants", "Vannes", "40100", "841-874-7784",
 				"millie@email.com");
@@ -55,12 +56,12 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 		listOfPersonsTest = new ArrayList<Person>();
 		listOfPersonsTest.add(personTest1);
 		listOfPersonsTest.add(personTest2);
-		
-		firestationTest1= new FireStation("5", "45 quartier du port de Vannes");
+
+		firestationTest1 = new FireStation("5", "45 quartier du port de Vannes");
 		firestationTest1.setId("45-5-65");
-		firestationTest2= new FireStation("5", "112 address");
+		firestationTest2 = new FireStation("5", "112 address");
 		firestationTest2.setId("112-5-41");
-		firestationTest3= new FireStation("7", "78 boulevard du soldat inconnu");
+		firestationTest3 = new FireStation("7", "78 boulevard du soldat inconnu");
 		firestationTest3.setId("78-7-23");
 		listOfFireStationsTest1 = new ArrayList<FireStation>();
 		listOfFireStationsTest1.add(firestationTest1);
@@ -68,7 +69,7 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 		listOfFireStationsTest2 = new ArrayList<FireStation>();
 		listOfFireStationsTest2.add(firestationTest3);
 	}
-	
+
 	@Test
 	void testSearchInfoOfResident() throws Exception {
 		when(personService.getAllPersons()).thenReturn(listOfPersonsTest);
@@ -109,7 +110,7 @@ class SearchingInfoPhoneOfResidentsByStationNumberImplTest {
 			fail(e.getMessage());
 		}	
 	}
-	
+
 @Test
 	@DisplayName("Given existing stationNumber without residents registered  when generate a map with info of no existing resident  the method should error and null ")
 	void testSearchInfoOfResident_WithResidentAndPhonesNotFoundByStationNumber() throws Exception {

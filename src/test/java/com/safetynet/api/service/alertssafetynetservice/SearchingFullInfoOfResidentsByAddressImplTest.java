@@ -34,7 +34,7 @@ class SearchingFullInfoOfResidentsByAddressImplTest {
 
 	@MockBean
 	private PersonService personService;
-	
+
 	@MockBean
 	private CalculatorAgeOfResidentImpl calculatorAge;
 

@@ -36,12 +36,11 @@ class SearchingInfoPersonByAddressWithMedicalRecordImplTest {
 
 	@MockBean
 	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
-	
 
 	private static Map<String, String> residentTest;
 	private static List<Map<String, String>> listOfResidentsTest;
 	private static MedicalRecord medicalRecordTest;
-	
+
 	@BeforeAll
 	static void setUp() {
 		residentTest = new HashMap<String, String>();
@@ -62,7 +61,7 @@ class SearchingInfoPersonByAddressWithMedicalRecordImplTest {
 		allergies.add("nillacilan");
 		medicalRecordTest = new MedicalRecord("Millie", "Leperlier", "09/04/1989", medications, allergies);
 	}
-	
+
 	@Test
 	void testSearchInfoOfResident() throws Exception {
 		when(searchingFullInfoOfResidentsByAddress.searchInfoOfResident( "112 address")).thenReturn(listOfResidentsTest);
