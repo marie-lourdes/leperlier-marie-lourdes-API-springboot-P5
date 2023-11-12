@@ -35,7 +35,7 @@ public interface IDatasFileReader<T> {
 				log.debug("Parsing data Json  {}", dataNameJson);
 				JsonObject datasJsonObject = jsonReader.readObject();
 				jsonArray = datasJsonObject.getJsonArray(dataNameJson);
-
+				is.close();
 				log.debug("Datas {} read and parsed from file json", dataNameJson);
 				log.debug("All datas Json  {}  from file json : {}", dataNameJson, jsonArray);
 			}
@@ -44,7 +44,6 @@ public interface IDatasFileReader<T> {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
 		}finally {
-			is.close();
 			jsonReader.close();
 		}
 		log.debug("Datas {} successfully read from file json", dataNameJson);
