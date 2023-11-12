@@ -3,6 +3,7 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -194,11 +195,11 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
-
+            double random=Math.random() ;
 			String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 			String numberOfAddress = addressSplit[0];
 			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
-					+ Math.round(Math.random() * 100 + 1);
+					+ Math.round(random * 100 + 1);
 
 			fireStationCreated.setId(ID);
 			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
