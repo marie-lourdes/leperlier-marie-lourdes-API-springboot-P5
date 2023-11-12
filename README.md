@@ -41,20 +41,37 @@ The host and port is :'http://localhost:8080/'
 
 ### Endpoints  CRUD DataServices(except READ)
 
--/person
--/firestation
--/medicalrecord
+## Person service
+
+- POST:** /person**
+- PUT: **/person?id=<firstname lastname>**
+- DELETE:** person?id=<firstname lastname>**
+
+## Firestation Service
+
+- POST:** /firestation/<station number>**
+- POST:** /firestation/<address of firestation>**
+- PUT: **/person?address=<address of firestation>**
+- DELETE: ** /firestation/<station number>**
+- DELETE:** /firestation/<address of firestation>**
+
+## MedicalRecord service
+
+- POST:** /person**
+- PUT: **/person?id=<firstname lastname>**
+- DELETE:** person?id=<firstname lastname>**
 
 ### URL AlertsSafetyNetService(only Read)
 
--/firestation?stationNumber=<station_number>
--/childAlert?address=<address>
--/phoneAlert?firestation=<firestation_number>
--fire?address=<address>
--/flood/stations?stations=<a list of station_numbers>
--personInfo?firstName=<firstName>&lastName=<lastName>
--/communityEmail?city=<city>
+- GET **/firestation?stationNumber=<station_number>**
+- GET **/childAlert?address=<address>
+- GET **/phoneAlert?firestation=<firestation_number>**
+- GET **/fire?address=<address>**
+- GET **/flood/stations?stations=<a list of station_numbers>**
+- GET **/personInfo?firstName=<firstName>&lastName=<lastName>**
+- GET **/communityEmail?city=<city>**
 
 ### Testing
+
  For testing use:
 `run as` , then, 'Maven test' for unit test
