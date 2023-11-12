@@ -37,7 +37,7 @@ Post installation of Java, Maven and Spring Tools 4, you will have to run app to
 or with your CLI , mvn spring-boot:run .
 
 Finally, you will be ready to  use API and request 
-The host and port is :http://localhost:8080/
+The host and port is :http://localhost:8080
 
 ### Endpoints  CRUD DataServices(except READ)
 
