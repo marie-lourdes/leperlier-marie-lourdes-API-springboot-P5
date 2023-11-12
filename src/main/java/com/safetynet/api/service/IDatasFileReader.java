@@ -24,7 +24,7 @@ public interface IDatasFileReader<T> {
 
 		JsonArray jsonArray = null;
 		InputStream is =null;
-		JsonReader jsonReader=null;
+		JsonReader jsonReader= null ;
 		try {
 			if (DataSourceConstants.PATH != null) {
 				is = new FileInputStream(DataSourceConstants.PATH);
@@ -38,13 +38,14 @@ public interface IDatasFileReader<T> {
 				
 				log.debug("Datas {} read and parsed from file json", dataNameJson);
 				log.debug("All datas Json  {}  from file json : {}", dataNameJson, jsonArray);
+				is.close();
 			}
 
 		} catch (Exception e) {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
 		}finally {
-			is.close();
+		
 			jsonReader.close();
 		}
 		log.debug("Datas {} successfully read from file json", dataNameJson);
