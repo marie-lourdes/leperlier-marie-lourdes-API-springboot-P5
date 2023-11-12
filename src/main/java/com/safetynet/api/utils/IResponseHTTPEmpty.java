@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 public interface IResponseHTTPEmpty {
 
 	default ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
-		ResponseEntity<Object> responseEmpty = ResponseEntity.status(HttpStatus.NOT_FOUND).body(" ");
-		return responseEmpty;
-	}		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(" ");
+	}
 }
