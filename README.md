@@ -44,22 +44,22 @@ The host and port is :http://localhost:8080/
 ## Person service
 
 - POST: ** /person **
-- PUT:  **/person?id='firstname lastname'**
-- DELETE: ** /person?id='firstname lastname' **
+- PUT:  **/person?id='firstName lastName'**
+- DELETE: ** /person?id='firstName lastName' **
 
 ## Firestation Service
 
-- POST: **/firestation/'station number'**
+- POST: **/firestation/'station_number'**
 - POST: **/firestation/'address of firestation'**
 - PUT: **/person?address='address of firestation'**
-- DELETE: **/firestation/'station number'**
+- DELETE: **/firestation/'station_number'**
 - DELETE: **/firestation/'address of firestation'**
 
 ## MedicalRecord service
 
 - POST: **/medicalRecord**
-- PUT:  **/medicalRecord?id='firstname lastname'**
-- DELETE: **/medicalRecord?id='firstname lastname'**
+- PUT:  **/medicalRecord?id='firstName lastName'**
+- DELETE: **/medicalRecord?id='firstName lastName'**
 
 ### URL AlertsSafetyNetService(only Read)
 
