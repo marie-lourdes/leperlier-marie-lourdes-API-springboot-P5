@@ -11,9 +11,8 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 - Java 17
 - Maven 3.9.4
--SpringBoot 6.0.11
--Spring Tools 4
-
+- SpringBoot 6.0.11
+- Spring Tools 4
 
 ### Installing
 
@@ -48,6 +47,7 @@ The host and port is :'http://localhost:8080/'
 -/medicalrecord
 
 ### URL AlertsSafetyNetService(Only Read)
+
 -/firestation?stationNumber=<station_number>
 -/childAlert?address=<address>
 -/phoneAlert?firestation=<firestation_number>
