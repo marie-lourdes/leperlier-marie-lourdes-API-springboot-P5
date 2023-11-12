@@ -64,7 +64,7 @@ The host and port is :http://localhost:8080/
 ### URL AlertsSafetyNetService(only Read)
 
 - GET ** /firestation?stationNumber=<station_number>**
-- GET ** /childAlert?address=<address>
+- GET ** /childAlert?address=<address> **
 - GET ** /phoneAlert?firestation=<firestation_number> **
 - GET ** /fire?address=<address> **
 - GET ** /flood/stations?stations=<a list of station_numbers> **
