@@ -1,5 +1,6 @@
-# Api SafetyNet Alerts
-An Api  for managing datas of residents with their medical record 
+# API SafetyNet Alerts
+
+An API RESTful  for managing datas of residents with their medical record 
 and  datas of firestations  in order to prevent them in case of danger . 
 
 ## Getting Started
