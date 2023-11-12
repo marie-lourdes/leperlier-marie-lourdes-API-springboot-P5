@@ -38,8 +38,7 @@ public class Person {
 	}
 
 	// use for person service /controller test
-	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
-			String email) {
+	public Person(String firstName, String lastName, String address, String city, String zip, String phone,String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -50,8 +49,7 @@ public class Person {
 	}
 	
 	// use for person service /controller test
-	public Person(String id,String firstName, String lastName, String address, String city, String zip, String phone,
-			String email) {
+	public Person(String id,String firstName, String lastName, String address, String city, String zip, String phone,String email) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -75,8 +73,8 @@ public class Person {
 		return id;
 	}
 
-	public String setId(String id) {
-		return this.id = id;
+	public void setId(String id) {
+		 this.id = id;
 	}
 
 	public String getFirstName() {

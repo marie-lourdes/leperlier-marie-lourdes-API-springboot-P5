@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.safetynet.api.model.MedicalRecord;
 
-public interface IMedicalRecordRepository extends ICRUDDatasRepository<MedicalRecord, Long> {
+public interface IMedicalRecordRepository extends ICRUDDatasRepository<MedicalRecord, String> {
 	@Override
 	List<MedicalRecord> findAll() throws IOException;
 }

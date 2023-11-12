@@ -40,8 +40,8 @@ public class FireStation {
 		return id;
 	}
 
-	public String setId(String string) {
-		return this.id = string;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getAddress() {

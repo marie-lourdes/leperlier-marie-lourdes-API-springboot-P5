@@ -41,8 +41,8 @@ public class MedicalRecord {
 		return id;
 	}
 
-	public String setId(String id) {
-		return this.id = id;
+	public void setId(String id) {
+		 this.id = id;
 	}
 
 	public String getFirstName() {
