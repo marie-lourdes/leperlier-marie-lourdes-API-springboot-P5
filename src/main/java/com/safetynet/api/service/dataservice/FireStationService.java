@@ -195,11 +195,11 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
-            double random=Math.random() ;
+            double random=Math.round(Math.random() * 100 + 1) ;
 			String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 			String numberOfAddress = addressSplit[0];
 			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
-					+ Math.round(random * 100 + 1);
+					+ random;
 
 			fireStationCreated.setId(ID);
 			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
