@@ -16,11 +16,11 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 
-	public Map<String, Integer> sortAdultsAndChilds(String stationNumber,
-			List<Map<String, String>> residentsOfStationNumber) {
+	public Map<String, Integer> sortAdultsAndChilds(String stationNumber)
+			 {
 		log.debug("Sorting residents with coundDown of Adults And Childs of the station number : {} ", stationNumber);
 
-		residentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+		List<Map<String, String>> residentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 
 		Integer indexChild = 1;
 		Integer indexAdult = 1;

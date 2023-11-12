@@ -51,7 +51,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("5")).thenReturn(listOfAdultsAndChildsTest1);
 		try {
 			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds( "5",listOfAdultsAndChildsTest1);
+					.sortAdultsAndChilds( "5");
 				assertThat(resultCountDownOfAdultsAndChilds ).contains(entry("adults", 1), entry("childs", 1));	
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -63,7 +63,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn(listOfAdultsAndChildsTest2);
 		try {
 			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds("6",listOfAdultsAndChildsTest2);
+					.sortAdultsAndChilds("6");
 			assertThat(resultCountDownOfAdultsAndChilds).containsOnly(entry("childs", 1));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -72,9 +72,10 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	
 	@Test
 	void testSortAdultsAndChilds_WithResidentsNotProvided_ShouldReturnMapEmpty() throws Exception {
+		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn(new ArrayList<Map<String, String>>());
 		try {
 			Map<String, Integer> resultCountDownOfAdultsAndChilds = sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest
-					.sortAdultsAndChilds("8",new ArrayList<Map<String, String>>());
+					.sortAdultsAndChilds("8");
 			assertThat(resultCountDownOfAdultsAndChilds).isEmpty();
 		} catch (AssertionError e) {
 			fail(e.getMessage());

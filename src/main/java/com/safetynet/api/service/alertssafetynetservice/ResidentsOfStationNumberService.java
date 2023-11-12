@@ -42,14 +42,12 @@ public class ResidentsOfStationNumberService {
 		return listOfResidentsOfStationNumber;
 	}
 
-	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber,
-			List<Map<String, String>> residentsOfStationNumber) {
+	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
 		
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
 		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
 		try {
-			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber,
-					listOfResidentsOfStationNumber);
+			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber);
 
 			for (Map.Entry<String, Integer> entry : mapCountDownOfAdultsAndChilds.entrySet()) {
 				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());

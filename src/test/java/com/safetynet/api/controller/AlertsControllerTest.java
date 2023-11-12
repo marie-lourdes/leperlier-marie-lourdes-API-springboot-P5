@@ -97,7 +97,7 @@ class AlertsControllerTest {
 		try {
 			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("5"))
 					.willReturn(listOfAdultsAndChildsTest1);
-			given(residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("5", null))
+			given(residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("5"))
 					.willReturn(mapOfAdultsAndChildsSortedTest);
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.get("/firestation").param("stationNumber", "5")).andReturn()
@@ -115,7 +115,7 @@ class AlertsControllerTest {
 		try {
 			given(residentsOfStationNumberService.getListOfResidentsOfStationNumber("0"))
 					.willThrow(NullPointerException.class);
-			given(residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("0", null))
+			given(residentsOfStationNumberService.sortAdultsAndChildsOfListOfResidentsWithCountDown("0"))
 					.willThrow(NullPointerException.class);
 
 			MockHttpServletResponse result = mockMvc

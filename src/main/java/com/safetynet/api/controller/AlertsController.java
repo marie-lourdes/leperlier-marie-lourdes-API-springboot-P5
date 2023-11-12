@@ -61,7 +61,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 				throw new NullPointerException("Residents not found at this station number: " + stationNumber);
 			}
 			mapOfAdultsAndChildSorted = residentsOfStationNumberService
-					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber, listOfResidentsOfStationNumber);
+					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
 
 			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildSorted);
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
