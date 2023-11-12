@@ -30,8 +30,6 @@ https://maven.apache.org/install.html
 
 https://www.eclipse.org/community/eclipse_newsletter/2018/february/springboot.php
 
-Follow this [link](https://www.jmdoudoux.fr/java/dej/chap-jdbc.htm) to help you creating connection with DB. 
-
 ### Running App
 
 Post installation of MySQL, Java and Maven, you will have to run app to load data and all application with  Boot DashBoard of Spring Tools 
