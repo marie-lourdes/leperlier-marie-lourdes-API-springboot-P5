@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Data connection
-/src/main/java/resources/data.json
+!**/src/main/java/resources/data.json
