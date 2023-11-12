@@ -74,4 +74,4 @@ The host and port is :http://localhost:8080
 ### Testing
 
  For testing use:
-`run as` , then, Maven test for unit test
+`run as` , then, 'Maven test' for unit test
