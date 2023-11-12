@@ -37,7 +37,7 @@ class PersonControllerTest {
 	private JacksonTester<Person> jsonPerson;
 
 	@Test
-	 void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {
+	void givenPersonObject_WhenCreatePerson_ThenReturnSavedPerson() throws Exception {
 		Person personCreated = new Person("Millie", "Leperlier", "112 address", "city", "97451", "841-874-2512",
 				"millie@email.com");
 
@@ -55,7 +55,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenPersonObjectWithAddressNoValid_WhenCreatePerson_ThenReturn400() throws Exception {
+	void givenPersonObjectWithAddressNoValid_WhenCreatePerson_ThenReturn400() throws Exception {
 		Person personCreatedWithAddressNovalid = new Person("Millie", "Leperlier", "address", "city", "97451",
 				"841-874-2512", "millie@email.com");
 
@@ -74,7 +74,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
+	void givenExistingPersonObject_WhenUpdateAddressOfPerson_ThenReturnUpdatedPerson() throws Exception {
 		Person existingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver", "97451",
 				"841-874-6512", "jaboyd@email.com");
 		try {
@@ -90,7 +90,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenExistingPersonObjectWithAddressNoValid_WhenUpdateOfPerson_ThenReturn400() throws Exception {
+	void givenExistingPersonObjectWithAddressNoValid_WhenUpdateOfPerson_ThenReturn400() throws Exception {
 		Person existingPersonUpdatedAddressNoValid = new Person("John", "Boyd", "quatorze  address modified", "Culver",
 				"97451", "841-874-6512", "jaboyd@email.com");
 
@@ -111,7 +111,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
+	void givenExistingPersonObject_WhenUpdateNoExistingPerson_ThenReturn404() throws Exception {
 		Person NoExistingPersonUpdated = new Person("John", "Boyd", "14 address modified", "Culver", "97451",
 				"841-874-6512", "jaboyd@email.com");
 
@@ -136,7 +136,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenExistingPersonObject_WhenRemoveExistingPerson_ThenRemovePerson() throws Exception {
+	void givenExistingPersonObject_WhenRemoveExistingPerson_ThenRemovePerson() throws Exception {
 		try {
 			given(personService.deleteOnePersonById("John Boyd")).willReturn(true);
 
@@ -152,7 +152,7 @@ class PersonControllerTest {
 	}
 
 	@Test
-	 void givenNoExistingPersonObject_WhenRemoveNoExistingPerson_ThenReturn404() throws Exception {
+	void givenNoExistingPersonObject_WhenRemoveNoExistingPerson_ThenReturn404() throws Exception {
 		try {
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.delete("/person").param("id", "John Lenon")).andReturn()

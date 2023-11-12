@@ -18,19 +18,20 @@ import lombok.RequiredArgsConstructor;
 public class MedicalRecordService {
 
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
-	private  List<MedicalRecord> medicalRecords = new ArrayList<>();
+	private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-	
-			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-			medicalRecords.add(medicalRecord);
-		
+
+		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		medicalRecords.add(medicalRecord);
+
 		log.info("Medical record added successfully: {}", medicalRecord);
 		return medicalRecord;
 	}
 
-	public MedicalRecord updateOneMedicalRecordById(String id, MedicalRecord updatedMedicalRecord) throws NullPointerException {
+	public MedicalRecord updateOneMedicalRecordById(String id, MedicalRecord updatedMedicalRecord)
+			throws NullPointerException {
 		log.debug("Updating medical record for: {}", id);
 
 		MedicalRecord existingMedicalRecordUpdated = new MedicalRecord();
@@ -41,19 +42,19 @@ public class MedicalRecordService {
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update medical record, " + updatedMedicalRecord.getId() +  Constants.NOT_FOUND));
+						"Failed to update medical record, " + updatedMedicalRecord.getId() + Constants.NOT_FOUND));
 
 		log.info("Medical record updated successfully for: {}", updatedMedicalRecord);
 		return existingMedicalRecordUpdated;
 	}
 
-	public boolean deleteOneMedicalRecordById(String id)	throws NullPointerException {
+	public boolean deleteOneMedicalRecordById(String id) throws NullPointerException {
 		log.debug("Deleting medical record for {}", id);
 
 		boolean result = false;
 		result = medicalRecords.removeIf(medicalRecord -> medicalRecord.getId().equals(id));
 		if (!result) {
-			log.error("Failed to delete medical record for {}", id);	
+			log.error("Failed to delete medical record for {}", id);
 		} else {
 			log.info("Medical record deleted successfully for {}", id);
 		}
@@ -61,7 +62,7 @@ public class MedicalRecordService {
 		return result;
 	}
 
-	public MedicalRecord getOneMedicalRecordById(String id) 	throws  NullPointerException{
+	public MedicalRecord getOneMedicalRecordById(String id) throws NullPointerException {
 		log.debug("Retrieving  one medical record for {}", id);
 
 		MedicalRecord personFoundById = new MedicalRecord();
@@ -74,7 +75,7 @@ public class MedicalRecordService {
 		return personFoundById;
 	}
 
-	public List<MedicalRecord> getAllMedicalRecords() 	throws  NullPointerException{
+	public List<MedicalRecord> getAllMedicalRecords() throws NullPointerException {
 		log.debug("Retrieving all medical records");
 
 		if (medicalRecords.isEmpty()) {
@@ -87,4 +88,3 @@ public class MedicalRecordService {
 		return medicalRecords;
 	}
 }
-

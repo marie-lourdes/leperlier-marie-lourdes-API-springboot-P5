@@ -39,13 +39,14 @@ class MedicalRecordControllerTest {
 	private JacksonTester<MedicalRecord> jsonMedicalRecord;
 
 	@Test
-	 void givenMedicalRecordObject_WhenCreateMedicalRecord_ThenReturnSavedMedical() throws Exception {
+	void givenMedicalRecordObject_WhenCreateMedicalRecord_ThenReturnSavedMedical() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:350mg");
 		medications.add("hydrapermazol:100mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("nillacilan");
-		MedicalRecord medicalRecordCreated = new MedicalRecord("Millie", "Leperlier","03/06/1996", medications, allergies);
+		MedicalRecord medicalRecordCreated = new MedicalRecord("Millie", "Leperlier", "03/06/1996", medications,
+				allergies);
 
 		try {
 			MockHttpServletResponse result = mockMvc
@@ -61,11 +62,11 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	 void givenMedicalRecordObjectWithBirthDateNoValid_WhenCreateMedicalRecord_ThenReturn400() throws Exception {
+	void givenMedicalRecordObjectWithBirthDateNoValid_WhenCreateMedicalRecord_ThenReturn400() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("hydrapermazol:100mg");
 		List<String> allergies = new ArrayList<String>();
-		MedicalRecord medicalRecordCreatedBirthDateNoValid = new MedicalRecord("Millie", "Leperlier","03-06-1996",
+		MedicalRecord medicalRecordCreatedBirthDateNoValid = new MedicalRecord("Millie", "Leperlier", "03-06-1996",
 				medications, allergies);
 
 		try {
@@ -84,21 +85,23 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	 void  givenExistingMedicalRecordObject_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturnUpdatedMedicalRecord() throws Exception {
+	void givenExistingMedicalRecordObject_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturnUpdatedMedicalRecord()
+			throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("shellfish");
-		MedicalRecord medicalRecordUpdated = new MedicalRecord("John"," Boyd","03/06/1984", medications, allergies);
-		
+		MedicalRecord medicalRecordUpdated = new MedicalRecord("John", " Boyd", "03/06/1984", medications, allergies);
+
 		try {
 			MockHttpServletResponse result = mockMvc
-					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id","John Boyd").contentType(MediaType.APPLICATION_JSON)
+					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id", "John Boyd")
+							.contentType(MediaType.APPLICATION_JSON)
 							.content(jsonMedicalRecord.write(medicalRecordUpdated).getJson()))
 					.andReturn().getResponse();
 
-			verify(medicalRecordService).updateOneMedicalRecordById(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService).updateOneMedicalRecordById(any(String.class), any(MedicalRecord.class));
 			assertEquals(HttpStatus.OK.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -106,21 +109,24 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	 void  givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturn400() throws Exception {
+	void givenExistingMedicalRecordObjectWithDataNoValid_WhenUpdateMedicationAndAllergiesOfMedicalRecord_ThenReturn400()
+			throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("shellfish");
 		MedicalRecord medicalRecordUpdated = new MedicalRecord(medications, allergies);
-		
+
 		try {
 			MockHttpServletResponse result = mockMvc
-					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id","John Boyd").contentType(MediaType.APPLICATION_JSON)
+					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id", "John Boyd")
+							.contentType(MediaType.APPLICATION_JSON)
 							.content(jsonMedicalRecord.write(medicalRecordUpdated).getJson()))
 					.andReturn().getResponse();
 
-			verify(medicalRecordService,Mockito.times(0)).updateOneMedicalRecordById(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService, Mockito.times(0)).updateOneMedicalRecordById(any(String.class),
+					any(MedicalRecord.class));
 			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getStatus());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -128,36 +134,39 @@ class MedicalRecordControllerTest {
 	}
 
 	@Test
-	 void  givenExistingMedicalRecordObject_WhenUpdateNoExistingMedicalRecord_ThenReturn404() throws Exception {
+	void givenExistingMedicalRecordObject_WhenUpdateNoExistingMedicalRecord_ThenReturn404() throws Exception {
 		List<String> medications = new ArrayList<String>();
 		medications.add("aznol:50mg");
 		medications.add("hydrapermazol:50mg");
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("shellfish");
-		MedicalRecord NoExistingMedicalRecordUpdated = new MedicalRecord("John", "Lenon", "00/00/0000", medications, allergies);
-		
+		MedicalRecord NoExistingMedicalRecordUpdated = new MedicalRecord("John", "Lenon", "00/00/0000", medications,
+				allergies);
+
 		try {
 			medicalRecordService = new MedicalRecordService();
-			given(medicalRecordService.updateOneMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated ))
+			given(medicalRecordService.updateOneMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated))
 					.willThrow(NullPointerException.class);
-			
+
 			MockHttpServletResponse result = mockMvc
-					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id","John Lenon").contentType(MediaType.APPLICATION_JSON)
-							.content(jsonMedicalRecord.write(NoExistingMedicalRecordUpdated ).getJson()))
+					.perform(MockMvcRequestBuilders.put("/medicalRecord").param("id", "John Lenon")
+							.contentType(MediaType.APPLICATION_JSON)
+							.content(jsonMedicalRecord.write(NoExistingMedicalRecordUpdated).getJson()))
 					.andReturn().getResponse();
 
-			verify(medicalRecordService).updateOneMedicalRecordById(any(String.class),any(MedicalRecord.class));
+			verify(medicalRecordService).updateOneMedicalRecordById(any(String.class), any(MedicalRecord.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
-		}catch (NullPointerException e) {
-			assertThrows(NullPointerException.class,
-					() -> medicalRecordService.updateOneMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated ));
-		}catch (AssertionError e) {
+		} catch (NullPointerException e) {
+			assertThrows(NullPointerException.class, () -> medicalRecordService.updateOneMedicalRecordById("John Lenon",
+					NoExistingMedicalRecordUpdated));
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	 void givenExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecordObjec_ThenRemoveMedicalRecord() throws Exception {
+	void givenExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecordObjec_ThenRemoveMedicalRecord()
+			throws Exception {
 		try {
 			given(medicalRecordService.deleteOneMedicalRecordById("John Boyd")).willReturn(true);
 
@@ -171,21 +180,21 @@ class MedicalRecordControllerTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
-	 void givenNoExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecord_ThenReturn404() throws Exception {
-		try {		
+	void givenNoExistingMedicalRecordObject_WhenRemoveNoExistingMedicalRecord_ThenReturn404() throws Exception {
+		try {
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.delete("/medicalRecord").param("id", "John Lenon")).andReturn()
 					.getResponse();
 
 			verify(medicalRecordService).deleteOneMedicalRecordById(any(String.class));
 			assertEquals(HttpStatus.NOT_FOUND.value(), result.getStatus());
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class,
 					() -> medicalRecordService.deleteOneMedicalRecordById("John Lenon"));
-		}catch (AssertionError e) {
+		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
-	}	
+	}
 }

@@ -15,7 +15,7 @@ public class MedicalRecord {
 
 	@NotNull
 	private String lastName;
-    
+
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_DATE)
 	private String birthdate;
@@ -24,25 +24,29 @@ public class MedicalRecord {
 
 	private List<String> allergies;
 
-	public MedicalRecord() {}
-	
-	public MedicalRecord(String firstName,String lastName,String birthdate,List<String> medications,List<String> allergies) {
-		this.firstName= firstName;
-		this.lastName= lastName;
-		this.birthdate= birthdate;
-		this.medications= medications;
-		this. allergies=  allergies;
+	public MedicalRecord() {
 	}
-	public MedicalRecord(List<String> medications,List<String> allergies) {
-		this.medications= medications;
-		this. allergies=  allergies;
+
+	public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications,
+			List<String> allergies) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthdate = birthdate;
+		this.medications = medications;
+		this.allergies = allergies;
 	}
+
+	public MedicalRecord(List<String> medications, List<String> allergies) {
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
-		 this.id = id;
+		this.id = id;
 	}
 
 	public String getFirstName() {

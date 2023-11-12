@@ -48,7 +48,7 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 
 				int indexAllergies = 0;
 				for (JsonValue value : allergiesArray) {
-					listOfAllergies.add(indexAllergies++,  value.toString());
+					listOfAllergies.add(indexAllergies++, value.toString());
 				}
 				medicalRecord.setAllergies(listOfAllergies);
 

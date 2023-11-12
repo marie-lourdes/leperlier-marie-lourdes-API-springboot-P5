@@ -20,10 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	@Autowired
 	private SortingAdultsAndChildsOfListOfResidentsWithCountDown sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest;
-	
+
 	@MockBean
 	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
-	
+
 	private static Map<String, String> residentAdultTest1;
 	private static Map<String, String> residentChildTest2;
 	private static List<Map<String, String>> listOfAdultsAndChildsTest1;
@@ -69,7 +69,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	void testSortAdultsAndChilds_WithResidentsNotProvided_ShouldReturnMapEmpty() throws Exception {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn(new ArrayList<Map<String, String>>());

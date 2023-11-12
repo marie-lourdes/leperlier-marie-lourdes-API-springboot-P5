@@ -22,19 +22,18 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 class ResidentsOfStationNumberServiceTest {
 	@Autowired
 	private ResidentsOfStationNumberService residentsOfStationNumberServiceUnderTest;
-	
+
 	@MockBean
 	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
 	@MockBean
 	private SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
-	
 
-	private static Map<String, String>residentFoundByStationNumberTest1;
-	private static Map<String, String>residentFoundByStationNumberTest2;
-	private static List<Map<String, String>>listOfResidentsFoundByStationNumberTest;
+	private static Map<String, String> residentFoundByStationNumberTest1;
+	private static Map<String, String> residentFoundByStationNumberTest2;
+	private static List<Map<String, String>> listOfResidentsFoundByStationNumberTest;
 	private static Map<String, Integer> countDownTest;
-	
+
 	@BeforeAll
 	static void setUp() {
 		residentFoundByStationNumberTest1 = new HashMap<String, String>();
@@ -52,11 +51,11 @@ class ResidentsOfStationNumberServiceTest {
 		listOfResidentsFoundByStationNumberTest = new ArrayList<Map<String, String>>();
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest1);
 		listOfResidentsFoundByStationNumberTest.add(residentFoundByStationNumberTest2);
-		countDownTest = new HashMap<String,Integer>();
+		countDownTest = new HashMap<String, Integer>();
 		countDownTest.put("adults", 1);
 		countDownTest.put("childs", 1);
 	}
-	
+
 	@Test
 	void testGetListOfResidentsOfStationNumber() throws Exception {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("5")).thenReturn(listOfResidentsFoundByStationNumberTest);
@@ -71,7 +70,7 @@ class ResidentsOfStationNumberServiceTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	void testGetListOfResidentsOfStationNumber_WithResidentsNotFoundByStationNumber() throws Exception {
 		when(infoOfResidentOfStationNumber.searchInfoOfResident("6")).thenReturn( new ArrayList<Map<String, String>>());
@@ -89,5 +88,5 @@ class ResidentsOfStationNumberServiceTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 }

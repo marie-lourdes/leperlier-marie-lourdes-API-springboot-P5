@@ -102,4 +102,3 @@ public class FireStationController implements IResponseHTTPEmpty {
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 }
-

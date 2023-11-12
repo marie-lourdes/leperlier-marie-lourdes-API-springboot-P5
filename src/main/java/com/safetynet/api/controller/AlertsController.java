@@ -100,7 +100,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/fire")
 	@ResponseBody
-	public ResponseEntity<Object>  getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
+	public ResponseEntity<Object> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
 		try {
 			List<Object> listOfResidentsAndFireStationNearFire = new ArrayList<Object>();
 
@@ -121,7 +121,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	 */
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public ResponseEntity<Object>  getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
+	public ResponseEntity<Object> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
 		List<Object> listOfHouseHoldByStationNumberparams = new ArrayList<Object>();
 
 		try {
@@ -140,7 +140,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/personInfo")
 	@ResponseBody
-	public ResponseEntity<Object>  getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
+	public ResponseEntity<Object> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
 		try {
@@ -155,7 +155,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 	@GetMapping("/communityEmail")
 	@ResponseBody
-	public ResponseEntity<Object>  getEmailOfResidentsOfCity(@RequestParam String city) {
+	public ResponseEntity<Object> getEmailOfResidentsOfCity(@RequestParam String city) {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);

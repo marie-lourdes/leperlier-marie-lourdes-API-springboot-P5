@@ -40,7 +40,8 @@ public class PersonService {
 					existingPerson.setPhone(updatedPerson.getPhone());
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
-				}).orElseThrow(() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
+				}).orElseThrow(
+						() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
 
 		log.info("Person updated successfully for: {}", updatedPerson);
 		return existingPersonUpdated;
@@ -123,7 +124,7 @@ public class PersonService {
 
 			if (personsFoundByAddress.isEmpty()) {
 				log.error("Failed to retrieve person  for address {}", address);
-				throw new NullPointerException("Person(s) by address: " + address +Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s) by address: " + address + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved  successfully for address {}", address);
 			}
@@ -135,7 +136,7 @@ public class PersonService {
 		return personsFoundByAddress;
 	}
 
-	public List<Person> getPersonsByCity(String city)  throws NullPointerException {
+	public List<Person> getPersonsByCity(String city) throws NullPointerException {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
@@ -175,4 +176,3 @@ public class PersonService {
 	}
 
 }
-

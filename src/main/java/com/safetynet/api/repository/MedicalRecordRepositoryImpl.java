@@ -20,4 +20,3 @@ public class MedicalRecordRepositoryImpl implements IMedicalRecordRepository {
 	}
 
 }
-

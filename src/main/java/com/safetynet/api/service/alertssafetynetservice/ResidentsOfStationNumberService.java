@@ -20,14 +20,14 @@ public class ResidentsOfStationNumberService {
 	@Autowired
 	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 
+	private List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 
-	private List<Map<String, String>>	listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 	public List<Map<String, String>> getListOfResidentsOfStationNumber(String stationNumber) {
 		log.debug("Retrieving  all residents of station number {}", stationNumber);
-	
+
 		try {
-		
-		listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+
+			listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
 
 			for (Map<String, String> residents : listOfResidentsOfStationNumber) {
 				residents.remove("age");
@@ -43,7 +43,7 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
-		
+
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
 		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
 		try {

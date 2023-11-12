@@ -118,7 +118,7 @@ class CalculatorAgeOfResidentImplTest {
 			assertEquals(expectedAge, resultAge);
 		} catch (Exception e) {
 			assertThrows(Exception.class,
-					() ->calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
+					() -> calculatorAgeUnderTest.calculateAgeOfResident(medicalRecordTest2.getBirthdate()));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

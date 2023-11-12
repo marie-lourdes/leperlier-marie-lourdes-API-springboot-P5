@@ -36,7 +36,7 @@ public class FireService {
 			for (FireStation fireStation : fireStationsFoundByAddressFire) {
 				mapOfFireStationFoundByAddressFire.put("stationNumber", fireStation.getStationNumber());
 			}
-			
+
 			if (!listOfResidentWithMedicalRecord.isEmpty() && !mapOfFireStationFoundByAddressFire.isEmpty()) {
 				listOfResidentAndFireStationNearFire.add(listOfResidentWithMedicalRecord);
 				listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);

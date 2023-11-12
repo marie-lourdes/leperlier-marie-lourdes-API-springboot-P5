@@ -25,7 +25,8 @@ public class FloodService {
 
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
 
-		List<Map<String, String>> listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
+		List<Map<String, String>> listOfResidentsOfStationNumber = infoOfResidentOfStationNumber
+				.searchInfoOfResident(stationNumber);
 
 		// creating list of address commun between addresses found in each info of
 		// resident

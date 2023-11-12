@@ -3,7 +3,6 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class FireStationService {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
 	private List<FireStation> fireStations = new ArrayList<>();
-	
-	   
+
 	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
@@ -40,10 +38,10 @@ public class FireStationService {
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByAddress = getFireStationsByAddress(address);
-			
-			createdFireStation =  fireStationsByAddress.stream().filter(
-					fireStationByAddress -> fireStationByAddress.getAddress().equals(address))
-					.findFirst().map(existingFireStation -> {
+
+			createdFireStation = fireStationsByAddress.stream()
+					.filter(fireStationByAddress -> fireStationByAddress.getAddress().equals(address)).findFirst()
+					.map(existingFireStation -> {
 						fireStation.setAddress(existingFireStation.getAddress());
 						this.generateId(fireStation);
 						return fireStation;
@@ -52,8 +50,8 @@ public class FireStationService {
 			fireStations.add(createdFireStation);
 			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
 		} catch (NullPointerException e) {
-			throw new NullPointerException(
-					"Failed to add  firestation with new station number , the address: " + address + Constants.NOT_FOUND);
+			throw new NullPointerException("Failed to add  firestation with new station number , the address: "
+					+ address + Constants.NOT_FOUND);
 		}
 
 		return fireStation;
@@ -61,12 +59,11 @@ public class FireStationService {
 
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
 			throws NullPointerException {
-		log.debug("Adding a firestation with new address and existing station number: {}",
-				stationNumber);
+		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
-			
+
 			createdFireStation = fireStationsByStationNumber.stream().filter(
 					fireStationByStationNumber -> fireStationByStationNumber.getStationNumber().equals(stationNumber))
 					.findFirst().map(existingFireStation -> {
@@ -79,14 +76,15 @@ public class FireStationService {
 			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
-					+ stationNumber +  Constants.NOT_FOUND);
+					+ stationNumber + Constants.NOT_FOUND);
 		}
 
 		return createdFireStation;
 	}
 
 	// update only station number not address of firestation
-	public FireStation updateFireStationByAddress(String address, FireStation updatedFireStation) throws NullPointerException {
+	public FireStation updateFireStationByAddress(String address, FireStation updatedFireStation)
+			throws NullPointerException {
 		log.debug("Updating station number of fireStation  for address : {}", address);
 
 		FireStation existingFireStationUpdated = new FireStation();
@@ -95,8 +93,9 @@ public class FireStationService {
 				.map(existingFireStation -> {
 					existingFireStation.setStationNumber(updatedFireStation.getStationNumber());
 					return existingFireStation;
-				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update station number of fireStation, the address :" + address +  Constants.NOT_FOUND));
+				}).orElseThrow(
+						() -> new NullPointerException("Failed to update station number of fireStation, the address :"
+								+ address + Constants.NOT_FOUND));
 
 		log.info("FireStation updated successfully for address: {}", updatedFireStation);
 		return existingFireStationUpdated;
@@ -159,24 +158,23 @@ public class FireStationService {
 	public List<FireStation> getFireStationsByAddress(String address) throws NullPointerException {
 		log.debug("Retrieving  firestation  for address {}", address);
 
-		List<FireStation>  fireStationsFoundByAddress = new ArrayList<>();
+		List<FireStation> fireStationsFoundByAddress = new ArrayList<>();
 		Iterator<FireStation> itrFireStations = fireStations.listIterator();
 		while (itrFireStations.hasNext()) {
 			FireStation itrFireStation = itrFireStations.next();
 			if (itrFireStation.getAddress().equals(address)) {
-				 fireStationsFoundByAddress.add(itrFireStation);
+				fireStationsFoundByAddress.add(itrFireStation);
 			}
 		}
 
-		if (fireStationsFoundByAddress .isEmpty()) {
-			log.error("Failed to retrieve firestation(s) by  address for {}",address);
+		if (fireStationsFoundByAddress.isEmpty()) {
+			log.error("Failed to retrieve firestation(s) by  address for {}", address);
 			throw new NullPointerException("Firestation(s) not found by  address: " + address);
 		} else {
 			log.info("Firestation(s) retrieved  successfully for  address {}", address);
 		}
 
-		log.info("List of firestations retrieved by address successfully : {}",
-				fireStationsFoundByAddress);
+		log.info("List of firestations retrieved by address successfully : {}", fireStationsFoundByAddress);
 		return fireStationsFoundByAddress;
 	}
 
@@ -195,14 +193,12 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
-            double random=Math.round(Math.random() * 100 + 1) ;
-			String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
-			String numberOfAddress = addressSplit[0];
-			final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
-					+ random;
+		double random = Math.round(Math.random() * 100 + 1);
+		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
+		String numberOfAddress = addressSplit[0];
+		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-" + random;
 
-			fireStationCreated.setId(ID);
-			log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
-		}	
+		fireStationCreated.setId(ID);
+		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
+	}
 }
-

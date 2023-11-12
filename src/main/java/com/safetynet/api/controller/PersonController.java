@@ -35,7 +35,7 @@ public class PersonController implements IResponseHTTPEmpty {
 
 	@PutMapping("/person")
 	@ResponseBody
-	public ResponseEntity<Object>updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
+	public ResponseEntity<Object> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		Person personFoundById = new Person();
 		try {
 			personFoundById = personService.updateOnePersonById(id, person);
@@ -60,4 +60,3 @@ public class PersonController implements IResponseHTTPEmpty {
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
 }
-

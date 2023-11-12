@@ -36,8 +36,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 			}
 		}
 
-		log.debug(
-				"Residents  sorted with coundDown of Adults And Childs successfully retrieved: {} ", mapOfAdultsAndChild);
+		log.debug("Residents  sorted with coundDown of Adults And Childs successfully retrieved: {} ",
+				mapOfAdultsAndChild);
 		return mapOfAdultsAndChild;
 	}
 }

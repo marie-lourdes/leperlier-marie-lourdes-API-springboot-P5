@@ -27,7 +27,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		log.debug("Searching  full info of residents with the same address");
-		
+
 		List<Map<String, String>> listOfResidentsWithSameAddress = new ArrayList<Map<String, String>>();
 		try {
 
@@ -43,7 +43,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				residentFoundByAddress.put("email", person.getEmail());
 				String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
 
-				if (age.equals("0") ) {
+				if (age.equals("0")) {
 					log.error("Age not provided for this resident {} {}", residentFoundByAddress.get("firstName"),
 							residentFoundByAddress.get("lastName"));
 					residentFoundByAddress.put("age", " error! ");
@@ -56,8 +56,9 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			log.error("An error has occured in searching  full info of residents with the same address");
 
 		}
-		
-		log.debug(" Full info of residents with the same address successfully retrieved : {}",listOfResidentsWithSameAddress);
+
+		log.debug(" Full info of residents with the same address successfully retrieved : {}",
+				listOfResidentsWithSameAddress);
 		return listOfResidentsWithSameAddress;
 	}
 }

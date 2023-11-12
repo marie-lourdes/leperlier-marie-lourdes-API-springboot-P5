@@ -23,8 +23,8 @@ public interface IDatasFileReader<T> {
 	default JsonArray readDataJson(String dataNameJson) throws IOException {
 
 		JsonArray jsonArray = null;
-		InputStream is =null;
-		JsonReader jsonReader= null ;
+		InputStream is = null;
+		JsonReader jsonReader = null;
 		try {
 			if (DataSourceConstants.PATH != null) {
 				is = new FileInputStream(DataSourceConstants.PATH);
@@ -35,16 +35,16 @@ public interface IDatasFileReader<T> {
 				log.debug("Parsing data Json  {}", dataNameJson);
 				JsonObject datasJsonObject = jsonReader.readObject();
 				jsonArray = datasJsonObject.getJsonArray(dataNameJson);
-				
+
 				log.debug("Datas {} read and parsed from file json", dataNameJson);
 				log.debug("All datas Json  {}  from file json : {}", dataNameJson, jsonArray);
-				
+
 			}
 
 		} catch (Exception e) {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);
-		}finally {
+		} finally {
 			is.close();
 			jsonReader.close();
 		}

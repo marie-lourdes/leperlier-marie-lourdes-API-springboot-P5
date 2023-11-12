@@ -21,8 +21,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 	@Autowired
-	private SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName  sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest;
-	
+	private SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName sortingAdultsAndChildsOfListOfResidentsWithFullNameUnderTest;
+
 	@MockBean
 	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 
@@ -41,7 +41,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 		residentAdultTestExpected1.put("phone", "841-874-6512");
 		residentAdultTestExpected1.put("email", "millie@email.com");
 		residentAdultTestExpected1.put("age", "34");
-		
+
 		residentChildTestExpected2 = new HashMap<String, String>();
 		residentChildTestExpected2.put("firstName", "Maelys");
 		residentChildTestExpected2.put("lastName", "Leperlier");
@@ -87,7 +87,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	void testSortAdultsAndChilds_WithAdultsNotFound_ShouldReturnOnlyChilds() throws Exception {
 		when(fullInfoOfResidentWithSameAddress.searchInfoOfResident("112 address")).thenReturn(listOfAdultsAndChildsTest2);

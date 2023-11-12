@@ -20,4 +20,3 @@ public class FireStationRepositoryImpl implements IFireStationRepository {
 	}
 
 }
-

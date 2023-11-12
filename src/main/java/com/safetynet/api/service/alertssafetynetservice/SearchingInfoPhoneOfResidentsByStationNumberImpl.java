@@ -29,15 +29,15 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
 		log.debug("Searching phones of residents  by  station number ");
-		
+
 		List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		try {
 			List<Person> persons = personService.getAllPersons();
-		
+
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
-			
-			if(!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
+
+			if (!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
 				Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
 				while (itrFireStations.hasNext()) {
@@ -47,7 +47,8 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 						if (person.getAddress().equals(itrFireStation.getAddress())) {
 							Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
 							residentOfStationNumber.put("phone", person.getPhone());
-							log.debug("Phone retrieved for each resident of station number: {}", residentOfStationNumber);
+							log.debug("Phone retrieved for each resident of station number: {}",
+									residentOfStationNumber);
 
 							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
 						}
@@ -57,8 +58,9 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 		} catch (Exception e) {
 			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
-		
-		log.debug("Phones of residents  by  station number successfull retrieved ; {}",listOfPhonesOfResidentOfStationNumber );
+
+		log.debug("Phones of residents  by  station number successfull retrieved ; {}",
+				listOfPhonesOfResidentOfStationNumber);
 		return listOfPhonesOfResidentOfStationNumber;
 	}
 }

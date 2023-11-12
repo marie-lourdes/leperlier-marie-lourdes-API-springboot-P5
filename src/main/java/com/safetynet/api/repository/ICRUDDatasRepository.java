@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
-@NoRepositoryBean 
+@NoRepositoryBean
 public interface ICRUDDatasRepository<T, ID> extends Repository<T, ID> {
 	List<T> findAll() throws IOException;
 }

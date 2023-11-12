@@ -9,4 +9,3 @@ public interface IFireStationRepository extends ICRUDDatasRepository<FireStation
 	@Override
 	List<FireStation> findAll() throws IOException;
 }
-

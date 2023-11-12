@@ -26,7 +26,7 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		log.debug("Searching emails of residents by city");
-		
+
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
 		try {
 			List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
@@ -42,7 +42,7 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 				resident.remove("city");
 				resident.remove("email");
 				resident.remove("address");
-				
+
 				mapOfMedicalRecord.put("medications", medicalRecordFoundByFullName.getMedications().toString());
 				mapOfMedicalRecord.put("allergies", medicalRecordFoundByFullName.getAllergies().toString());
 

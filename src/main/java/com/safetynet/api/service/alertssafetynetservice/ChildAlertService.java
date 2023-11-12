@@ -39,10 +39,10 @@ public class ChildAlertService {
 				if (Integer.parseInt(resident.get("age")) > 18) {
 					resident.remove("age");
 				}
-			}catch(Exception e) {
-				log.error("Error has occured in getting  childs and members Of houseHold at this address: {}", address);		
+			} catch (Exception e) {
+				log.error("Error has occured in getting  childs and members Of houseHold at this address: {}", address);
 			}
-			
+
 		}
 
 		log.debug("Checking if there's child  at this address: {}", address);
@@ -57,7 +57,7 @@ public class ChildAlertService {
 			log.error("Failed to retrieve all childs and members of household at this address: {}", address);
 			throw new NullPointerException("No child found at this address " + address);
 		} else {
-			log.debug(" {} childs found for  this address :{}", numberOfChild,address);
+			log.debug(" {} childs found for  this address :{}", numberOfChild, address);
 		}
 
 		log.info(" List of childs and members of household retrieved successfully by address {}",
@@ -66,18 +66,18 @@ public class ChildAlertService {
 	}
 
 	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address) throws Exception {
-		List<Map<String, String>> listAdultsAndChildsSorted= null;
+		List<Map<String, String>> listAdultsAndChildsSorted = null;
 		try {
-		listAdultsAndChildsSorted=sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
-		 if ( listAdultsAndChildsSorted.isEmpty()) {
+			listAdultsAndChildsSorted = sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
+			if (listAdultsAndChildsSorted.isEmpty()) {
 				throw new NullPointerException(
 						"Error has occured sorting adults and childs  because not found at this address");
 			} else {
 				log.debug("All residents  sorted by adults and childs of address {}", address);
 			}
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		return listAdultsAndChildsSorted;	
+		return listAdultsAndChildsSorted;
 	}
 }
