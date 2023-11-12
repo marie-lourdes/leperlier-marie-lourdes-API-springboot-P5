@@ -76,13 +76,13 @@ class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastNameTest {
 			.filteredOn("city", "City")
 			.filteredOn("zip", "45569")
 			.filteredOn("phone", "841-874-6512")
-			.filteredOn("email", "millie@email.com");
+			.filteredOn("email", "millie@email.com").isNotNull();
 		
 			//assertion data of child sorted
 			assertThat(resultAdultsAndChildsSortedWithInfo).contains(residentChildTestExpected2)
 			.filteredOn("firstName","Maelys")
 			.filteredOn("lastName","Leperlier")
-			.filteredOn("age","8");
+			.filteredOn("age","8").isNotNull();
 			
 		} catch (AssertionError e) {
 			fail(e.getMessage());
