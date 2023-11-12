@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-# leperlier-marie-lourdes-API-springboot-P5
-=======
->>>>>>> HotFix
 # API SafetyNet Alerts
 
 An API RESTful  for managing datas of residents with their medical record 
@@ -47,13 +41,13 @@ The host and port is :http://localhost:8080
 
 ### Endpoints  CRUD DataServices(except READ)
 
-## Person service
+#### Person service
 
 - POST: **/person**
 - PUT:  **/person?id='firstName lastName'**
 - DELETE: **/person?id='firstName lastName' **
 
-## Firestation Service
+#### Firestation Service
 
 - POST: **/firestation/'station_number'**
 - POST: **/firestation/'address of firestation'**
@@ -61,7 +55,7 @@ The host and port is :http://localhost:8080
 - DELETE: **/firestation/'station_number'**
 - DELETE: **/firestation/'address of firestation'**
 
-## MedicalRecord service
+#### MedicalRecord service
 
 - POST: **/medicalRecord**
 - PUT:  **/medicalRecord?id='firstName lastName'**
