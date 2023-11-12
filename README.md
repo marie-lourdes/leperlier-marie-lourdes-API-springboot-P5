@@ -45,7 +45,7 @@ The host and port is :'http://localhost:8080/'
 -/firestation
 -/medicalrecord
 
-### URL AlertsSafetyNetService(Only Read)
+### URL AlertsSafetyNetService(only Read)
 
 -/firestation?stationNumber=<station_number>
 -/childAlert?address=<address>
