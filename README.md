@@ -45,7 +45,7 @@ The host and port is :http://localhost:8080
 
 - POST: **/person**
 - PUT:  **/person?id='firstName lastName'**
-- DELETE: **/person?id='firstName lastName' **
+- DELETE: **/person?id='firstName lastName'**
 
 #### Firestation Service
 
