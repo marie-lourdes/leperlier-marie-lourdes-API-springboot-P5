@@ -7,6 +7,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
 @NoRepositoryBean
-public interface ICRUDDatasRepository<T, ID> extends Repository<T, ID> {
+public interface IReadOnlyRepository<T, ID> extends Repository<T, ID> {
 	List<T> findAll() throws IOException;
 }
