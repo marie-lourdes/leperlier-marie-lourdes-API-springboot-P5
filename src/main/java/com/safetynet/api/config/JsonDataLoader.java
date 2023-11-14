@@ -21,6 +21,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class JsonDataLoader implements CommandLineRunner {
 	private static final Logger log = LogManager.getLogger(JsonDataLoader.class);
+	
 	private final PersonService personService;
 	private final MedicalRecordService medicalRecordService;
 	private final FireStationService fireStationService;
