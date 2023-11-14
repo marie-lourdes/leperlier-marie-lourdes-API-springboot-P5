@@ -16,6 +16,7 @@ import com.safetynet.api.model.FireStation;
 @Component
 public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireStation> {
 	private static final Logger log = LogManager.getLogger(ReadFireStationDataFromFileImpl.class);
+	
 	private JsonArray datasJsonFireStations;
 	private List<FireStation> listOfFireStations;
 

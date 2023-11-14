@@ -16,6 +16,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingFullInfoOfResidentsByAddressImpl.class);
+	
 	@Autowired
 	PersonService personService;
 
@@ -56,7 +57,6 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			log.error("An error has occured in searching  full info of residents with the same address");
 
 		}
-
 		log.debug(" Full info of residents with the same address successfully retrieved : {}",
 				listOfResidentsWithSameAddress);
 		return listOfResidentsWithSameAddress;

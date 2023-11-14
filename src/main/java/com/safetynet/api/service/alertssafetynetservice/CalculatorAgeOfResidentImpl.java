@@ -17,6 +17,7 @@ import com.safetynet.api.utils.Constants;
 @Component
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
+	
 	private BigInteger age;
 	@Autowired
 	MedicalRecordService medicalRecordService;

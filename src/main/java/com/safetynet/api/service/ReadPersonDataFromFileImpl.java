@@ -7,12 +7,16 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.Person;
 
 @Component
 public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
+	private static final Logger log = LogManager.getLogger( ReadPersonDataFromFileImpl.class);
+	
 	private JsonArray datasJsonPersons;
 	private List<Person> listOfPersons;
 

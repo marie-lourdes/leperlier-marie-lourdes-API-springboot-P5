@@ -52,7 +52,6 @@ public class ResidentsOfStationNumberService {
 			for (Map.Entry<String, Integer> entry : mapCountDownOfAdultsAndChilds.entrySet()) {
 				mapOfAdultsAndChildConvertedValueString.put(entry.getKey(), entry.getValue().toString());
 			}
-
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}

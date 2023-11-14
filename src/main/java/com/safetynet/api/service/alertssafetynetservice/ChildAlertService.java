@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChildAlertService {
 	private static final Logger log = LogManager.getLogger(ChildAlertService.class);
+	
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl infoOfChildAndMemberOfHouseHold;
 

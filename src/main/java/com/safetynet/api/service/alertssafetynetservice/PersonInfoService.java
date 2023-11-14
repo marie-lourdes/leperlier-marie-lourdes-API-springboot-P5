@@ -15,6 +15,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Service
 public class PersonInfoService {
 	private static final Logger log = LogManager.getLogger(PersonInfoService.class);
+	
 	@Autowired
 	SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 

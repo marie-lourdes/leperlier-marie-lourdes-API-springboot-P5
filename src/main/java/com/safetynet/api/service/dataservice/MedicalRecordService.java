@@ -14,10 +14,9 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
 public class MedicalRecordService {
-
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
+	
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FireStationService {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
+	
 	private List<FireStation> fireStations = new ArrayList<>();
 
 	public FireStation addFireStation(FireStation fireStation) {
@@ -29,8 +30,6 @@ public class FireStationService {
 		return fireStation;
 	}
 
-//ajouter illegal state argumnt pour le body vide passé en parametre sans entrée et envoyer un code erreur de non creation de donnée ,
-//car les annotation permette de renvoyer erreur 400
 	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Adding a firestation with new station number and existing address: {}", address);

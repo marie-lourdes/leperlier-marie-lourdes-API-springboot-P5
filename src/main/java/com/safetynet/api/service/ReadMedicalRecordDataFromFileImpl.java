@@ -8,12 +8,16 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonValue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
 
 @Component
 public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<MedicalRecord> {
+	private static final Logger log = LogManager.getLogger( ReadMedicalRecordDataFromFileImpl.class);
+	
 	private JsonArray datasJsonMedicalRecords;
 	private List<MedicalRecord> listOfMedicalRecords;
 

@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 @RestController
 public class PersonController implements IResponseHTTPEmpty {
 	private static final Logger log = LogManager.getLogger(PersonController.class);
+	
 	@Autowired
 	private PersonService personService;
 

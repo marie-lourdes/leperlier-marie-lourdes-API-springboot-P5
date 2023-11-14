@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
+	
 	private List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) throws NullPointerException {
@@ -174,5 +175,4 @@ public class PersonService {
 
 		return persons;
 	}
-
 }

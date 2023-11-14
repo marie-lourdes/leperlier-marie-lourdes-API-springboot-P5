@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	private static final Logger log = LogManager
 			.getLogger(SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName.class);
+	
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 

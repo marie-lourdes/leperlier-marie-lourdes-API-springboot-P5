@@ -17,6 +17,7 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager
 			.getLogger(SearchingInfoOfResidentsByAddressWithMedicalRecordImpl.class);
+	
 	@Autowired
 	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
 
