@@ -23,6 +23,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 	@Override
 	public List<FireStation> readFile() throws IOException {
 		listOfFireStations = new LinkedList<FireStation>();
+		
 		try {
 			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 			// use method astract readDataJson from interface generic IDatasFileReader

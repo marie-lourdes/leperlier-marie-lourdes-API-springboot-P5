@@ -30,10 +30,9 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 		log.debug("Searching  full info of residents with the same address");
 
 		List<Map<String, String>> listOfResidentsWithSameAddress = new ArrayList<Map<String, String>>();
+		
 		try {
-
 			residentsFoundByAddress = personService.getPersonsByAddress(address);
-
 			for (Person person : residentsFoundByAddress) {
 				Map<String, String> residentFoundByAddress = new LinkedHashMap<String, String>();
 				residentFoundByAddress.put("firstName", person.getFirstName());
@@ -57,6 +56,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 			log.error("An error has occured in searching  full info of residents with the same address");
 
 		}
+		
 		log.debug(" Full info of residents with the same address successfully retrieved : {}",
 				listOfResidentsWithSameAddress);
 		return listOfResidentsWithSameAddress;

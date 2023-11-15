@@ -38,9 +38,7 @@ public interface IDatasFileReader<T> {
 
 				log.debug("Datas {} read and parsed from file json", dataNameJson);
 				log.debug("All datas Json  {}  from file json : {}", dataNameJson, jsonArray);
-
 			}
-
 		} catch (Exception e) {
 			e.getStackTrace();
 			log.error("An error has occured in reading datas {} from file json", dataNameJson);

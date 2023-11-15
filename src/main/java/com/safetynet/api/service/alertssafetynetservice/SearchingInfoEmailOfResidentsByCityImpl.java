@@ -26,9 +26,9 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 
 		List<Person> residentsFoundByCity = new ArrayList<Person>();
 		List<Map<String, String>> listOfEmailsResidentsFoundByCity = new ArrayList<Map<String, String>>();
+		
 		try {
 			residentsFoundByCity = personService.getPersonsByCity(city);
-
 			for (Person person : residentsFoundByCity) {
 				Map<String, String> residentFoundByCity = new HashMap<String, String>();
 				residentFoundByCity.put("email", person.getEmail());

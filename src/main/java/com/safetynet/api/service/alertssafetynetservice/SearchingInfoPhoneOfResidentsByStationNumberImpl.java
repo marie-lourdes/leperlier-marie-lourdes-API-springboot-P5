@@ -32,11 +32,10 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 
 		List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
+		
 		try {
 			List<Person> persons = personService.getAllPersons();
-
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
-
 			if (!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
 				Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 

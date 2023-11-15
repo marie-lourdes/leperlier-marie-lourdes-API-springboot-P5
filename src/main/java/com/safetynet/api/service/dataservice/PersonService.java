@@ -32,6 +32,7 @@ public class PersonService {
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
+		
 		Person existingPersonUpdated = new Person();
 		existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
@@ -66,7 +67,6 @@ public class PersonService {
 		log.debug("Retrieving  one person for id {}", id);
 
 		Person personFoundById = new Person();
-
 		personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
 					return existingPerson;
@@ -78,13 +78,13 @@ public class PersonService {
 
 		log.info("Person retrieved successfully for id : {}", id);
 		return personFoundById;
-
 	}
 
 	public List<Person> getPersonsByLastName(String lastName) {
 		log.debug("Retrieving  person(s)  for last name {}", lastName);
 
 		List<Person> personsFoundByLastName = new ArrayList<>();
+		
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -114,6 +114,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s)  for address {}", address);
 
 		List<Person> personsFoundByAddress = new ArrayList<>();
+		
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -141,6 +142,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
+		
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {

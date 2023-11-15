@@ -24,7 +24,6 @@ public class FloodService {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
 
 		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
-
 		List<Map<String, String>> listOfResidentsOfStationNumber = infoOfResidentOfStationNumber
 				.searchInfoOfResident(stationNumber);
 

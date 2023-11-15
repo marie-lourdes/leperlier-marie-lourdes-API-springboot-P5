@@ -67,7 +67,8 @@ public class ChildAlertService {
 	}
 
 	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address) throws Exception {
-		List<Map<String, String>> listAdultsAndChildsSorted = null;
+		List<Map<String, String>> listAdultsAndChildsSorted = new ArrayList<Map<String, String>>();
+		
 		try {
 			listAdultsAndChildsSorted = sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
 			if (listAdultsAndChildsSorted.isEmpty()) {

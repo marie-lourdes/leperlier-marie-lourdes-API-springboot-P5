@@ -22,8 +22,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 
 	public List<Map<String, String>> sortAdultsAndChilds(String address) throws Exception {
 		log.debug("Sorting  Adults And Childs at this address : {} ", address);
+		
 		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(address);
-
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 				resident.remove("address");

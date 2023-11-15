@@ -19,6 +19,7 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
 	
 	private BigInteger age;
+	
 	@Autowired
 	MedicalRecordService medicalRecordService;
 
@@ -78,5 +79,4 @@ public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 		}
 		return birthdate;
 	}
-
 }

@@ -29,10 +29,10 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 		log.debug("Searching emails of residents by city");
 
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
+		
 		try {
 			List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
 					.searchInfoOfResident(address);
-
 			for (Map<String, String> resident : listOfResidentsByAddress) {
 				Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
 				Map<String, String> mapOfMedicalRecordOfResidentUpdated = new LinkedHashMap<String, String>();
@@ -58,5 +58,4 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 		}
 		return listOfResidentWithMedicalRecord;
 	}
-
 }

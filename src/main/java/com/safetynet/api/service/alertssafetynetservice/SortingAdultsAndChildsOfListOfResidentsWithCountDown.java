@@ -23,7 +23,6 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 
 		List<Map<String, String>> residentsOfStationNumber = infoOfResidentOfStationNumber
 				.searchInfoOfResident(stationNumber);
-
 		Integer indexChild = 1;
 		Integer indexAdult = 1;
 		for (Map<String, String> resident : residentsOfStationNumber) {

@@ -53,6 +53,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	public ResponseEntity<Object> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 		Map<String, String> mapOfAdultsAndChildSorted = new HashMap<String, String>();
+		
 		try {
 			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
@@ -75,6 +76,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<Object> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
 		List<Map<String, String>> childs = new ArrayList<Map<String, String>>();
+		
 		try {
 			childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
@@ -88,6 +90,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<Object> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = new ArrayList<Map<String, String>>();
+		
 		try {
 			listOfPhonesOfResidentsByStationNumber = phoneAlertService
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
@@ -137,6 +140,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	public ResponseEntity<Object> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
+		
 		try {
 			personByFullNameInfoAndMedicalRecord = personInfoService
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
@@ -151,6 +155,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 	@ResponseBody
 	public ResponseEntity<Object> getEmailOfResidentsOfCity(@RequestParam String city) {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
+		
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
 

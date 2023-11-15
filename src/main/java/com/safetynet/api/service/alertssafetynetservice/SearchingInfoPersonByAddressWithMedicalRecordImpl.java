@@ -29,10 +29,10 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 		log.debug("Searching info of residents  by address with medical record ");
 
 		List<Map<String, String>> listOfPersonWithMedicalRecord = new ArrayList<Map<String, String>>();
+		
 		try {
 			List<Map<String, String>> listOfPersonByAddress = searchingFullInfoOfResidentsByAddress
 					.searchInfoOfResident(address);
-
 			for (Map<String, String> person : listOfPersonByAddress) {
 				Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
 				Map<String, String> mapOfMedicalRecordOfPersonUpdated = new LinkedHashMap<String, String>();
@@ -50,7 +50,6 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 				mapOfMedicalRecordOfPersonUpdated.put("medicalRecord", mapOfMedicalRecord.toString());
 
 				listOfPersonWithMedicalRecord.add(mapOfMedicalRecordOfPersonUpdated);
-
 			}
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of person found by address with medical records");

@@ -36,10 +36,10 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
+		
 		try {
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-
 			while (itrFireStations.hasNext()) {
 				FireStation itrFireStation = itrFireStations.next();
 

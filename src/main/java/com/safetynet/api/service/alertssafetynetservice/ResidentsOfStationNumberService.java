@@ -28,7 +28,6 @@ public class ResidentsOfStationNumberService {
 		try {
 
 			listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
-
 			for (Map<String, String> residents : listOfResidentsOfStationNumber) {
 				residents.remove("age");
 			}
@@ -43,9 +42,9 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
-
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
 		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+		
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber);
 
@@ -55,6 +54,7 @@ public class ResidentsOfStationNumberService {
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
+		
 		return mapOfAdultsAndChildConvertedValueString;
 	}
 }

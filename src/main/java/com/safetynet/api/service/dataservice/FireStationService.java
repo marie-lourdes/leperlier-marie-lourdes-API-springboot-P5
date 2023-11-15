@@ -59,7 +59,9 @@ public class FireStationService {
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
+		
 		FireStation createdFireStation = new FireStation();
+		
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
 
@@ -192,6 +194,7 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
+		
 		double random = Math.round(Math.random() * 100 + 1);
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
