@@ -27,11 +27,11 @@ public class MedicalRecordService {
 		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
 		Optional<MedicalRecord> existingMedicalRecordId = medicalRecords.stream()
 				.filter(medicalRecordExisting -> medicalRecordExisting.getId().equals(fullName)).findFirst();
-		if (existingMedicalRecordId == null) {
-			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-		} else {
+		if (existingMedicalRecordId != null) {
 			throw new IllegalArgumentException(
-					"Failed to add this medical record, this medical record already exist" + medicalRecord);
+					"Failed to add this medical record, this medical record already exist" + medicalRecord);		
+		} else {
+			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 		}
 
 		medicalRecords.add(medicalRecord);

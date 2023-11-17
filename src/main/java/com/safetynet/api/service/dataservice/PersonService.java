@@ -27,10 +27,10 @@ public class PersonService {
 		String fullName = person.getFirstName() + " " + person.getLastName();
 		Optional<Person> existingPersonId = persons.stream()
 				.filter(personExisting -> personExisting.getId().equals(fullName)).findFirst();
-		if (existingPersonId == null) {
-			person.setId(person.getFirstName() + " " + person.getLastName());
+		if (existingPersonId != null) {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
 		} else {
-			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);
+			person.setId(person.getFirstName() + " " + person.getLastName());
 		}
 		persons.add(person);
 

@@ -28,10 +28,16 @@ public class PersonController implements IResponseHTTPEmpty {
 
 	@PostMapping("/person")
 	@ResponseBody
-	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
+	public ResponseEntity<Object> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
-		personCreated = personService.addPerson(person);
-		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+		try {
+			personCreated = personService.addPerson(person);
+		} catch (IllegalArgumentException e) {
+			log.error(e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+		}
+
+	return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
 	@PutMapping("/person")
