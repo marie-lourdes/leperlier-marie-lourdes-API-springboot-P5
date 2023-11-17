@@ -3,6 +3,7 @@ package com.safetynet.api.service.dataservice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,13 +18,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
-	
+
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) throws NullPointerException {
+	public Person addPerson(Person person) throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 
-		person.setId(person.getFirstName() + " " + person.getLastName());
+		String fullName = person.getFirstName() + " " + person.getLastName();
+		Optional<Person> existingPersonId = persons.stream()
+				.filter(personExisting -> personExisting.getId().equals(fullName)).findFirst();
+		if (existingPersonId == null) {
+			person.setId(person.getFirstName() + " " + person.getLastName());
+		} else {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);
+		}
 		persons.add(person);
 
 		log.info("Person added successfully: {}", person);
@@ -32,7 +40,7 @@ public class PersonService {
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
-		
+
 		Person existingPersonUpdated = new Person();
 		existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
@@ -84,7 +92,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s)  for last name {}", lastName);
 
 		List<Person> personsFoundByLastName = new ArrayList<>();
-		
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -114,7 +122,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s)  for address {}", address);
 
 		List<Person> personsFoundByAddress = new ArrayList<>();
-		
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -142,7 +150,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
-		
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {

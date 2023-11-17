@@ -2,6 +2,7 @@ package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,13 +17,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MedicalRecordService {
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
-	
+
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)
+			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
-		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
+		Optional<MedicalRecord> existingMedicalRecordId = medicalRecords.stream()
+				.filter(medicalRecordExisting -> medicalRecordExisting.getId().equals(fullName)).findFirst();
+		if (existingMedicalRecordId == null) {
+			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+		} else {
+			throw new IllegalArgumentException(
+					"Failed to add this medical record, this medical record already exist" + medicalRecord);
+		}
+
 		medicalRecords.add(medicalRecord);
 
 		log.info("Medical record added successfully: {}", medicalRecord);
