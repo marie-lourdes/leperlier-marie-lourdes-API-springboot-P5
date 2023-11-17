@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.service.ReadMedicalRecordDataFromFileImpl;
 
 @Component
 public class MedicalRecordRepositoryImpl implements IMedicalRecordRepository {

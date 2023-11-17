@@ -1,4 +1,4 @@
-package com.safetynet.api.service;
+package com.safetynet.api.repository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
