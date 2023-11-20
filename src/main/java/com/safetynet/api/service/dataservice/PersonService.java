@@ -1,9 +1,10 @@
 package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,37 +12,25 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.IDuplicatedObjectException;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PersonService {
+public class PersonService implements IDuplicatedObjectException<Person>{
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) throws NullPointerException, IllegalArgumentException {
+	public Person addPerson(Person person) throws NullPointerException{
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-		
-		boolean isPersonDuplicated= checkForDuplicatedObjectCreated(persons);
-
-		if(!isPersonDuplicated) {
-			person.setId(person.getFirstName() + " " + person.getLastName());
-			persons.add(person);
-		} else {
-			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);		
-		}
-		
-	/*	person.setId(person.getFirstName() + " " + person.getLastName());
-
-		
-		//if (existingPersonId.get().getId() != person.getId()) {
-			persons.add(person);
-	} else {
-			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);		
-		}*/
 	
+	    this.isObjectDuplicatedById(persons, person);
+	    
+		String fullName = person.getFirstName() + " " + person.getLastName();
+		person.setId(fullName);	
+		persons.add(person);
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -194,19 +183,14 @@ public class PersonService {
 		return persons;
 	}
 
-	private  <T> boolean checkForDuplicatedObjectCreated(List<T>persons)
-	{
-	    T prev = null;
-	    for (T elem: persons)
-	    {
-	        prev = elem;
-	      
-	        if (elem != null && elem.equals(prev)) {
-	            return true;
-	        }
-	    }
-	 
-	    return false;
+	@Override
+	public void isObjectDuplicatedById(List<Person> persons, Person person)  throws IllegalArgumentException{
+		for(Person personExisting:persons) {
+			
+			  if (personExisting.getFirstName().toString().equals(person.getFirstName().toString()) && personExisting.getLastName().toString().equals(person.getLastName().toString())) {
+				
+				  throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
+	            }
+		}
 	}
-
 }

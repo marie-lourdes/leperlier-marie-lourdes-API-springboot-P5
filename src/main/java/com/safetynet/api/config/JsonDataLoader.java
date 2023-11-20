@@ -99,6 +99,7 @@ public class JsonDataLoader implements CommandLineRunner {
 			if (person == null) {
 				throw new IOException(" Failed to add person from file");
 			}
+			person.setId(person.getFirstName() + " " + person.getLastName());
 			personService.addPerson(person);
 		}
 
