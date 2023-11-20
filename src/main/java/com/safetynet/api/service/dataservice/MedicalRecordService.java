@@ -24,17 +24,16 @@ public class MedicalRecordService {
 			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
-		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
-		Optional<MedicalRecord> existingMedicalRecordId = medicalRecords.stream()
-				.filter(medicalRecordExisting -> medicalRecordExisting.getId().equals(fullName)).findFirst();
-		if (existingMedicalRecordId != null) {
-			throw new IllegalArgumentException(
-					"Failed to add this medical record, this medical record already exist" + medicalRecord);		
-		} else {
+		//String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
+	/*	Optional<MedicalRecord> existingMedicalRecordId = medicalRecords.stream()
+				.filter(medicalRecordExisting -> medicalRecordExisting.getId().equals(fullName)).findFirst();*/
+		//if (existingMedicalRecordId.get() == null) {
 			medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-		}
-
-		medicalRecords.add(medicalRecord);
+			medicalRecords.add(medicalRecord);
+		/*} else {
+			throw new IllegalArgumentException(
+					"Failed to add this medical record, this medical record already exist" + medicalRecord);				
+		}*/
 
 		log.info("Medical record added successfully: {}", medicalRecord);
 		return medicalRecord;

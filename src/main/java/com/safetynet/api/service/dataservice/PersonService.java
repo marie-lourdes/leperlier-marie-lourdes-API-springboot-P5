@@ -23,17 +23,25 @@ public class PersonService {
 
 	public Person addPerson(Person person) throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
+		
+		boolean isPersonDuplicated= checkForDuplicatedObjectCreated(persons);
 
-		String fullName = person.getFirstName() + " " + person.getLastName();
-		Optional<Person> existingPersonId = persons.stream()
-				.filter(personExisting -> personExisting.getId().equals(fullName)).findFirst();
-		if (existingPersonId != null) {
-			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
-		} else {
+		if(!isPersonDuplicated) {
 			person.setId(person.getFirstName() + " " + person.getLastName());
+			persons.add(person);
+		} else {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);		
 		}
-		persons.add(person);
+		
+	/*	person.setId(person.getFirstName() + " " + person.getLastName());
 
+		
+		//if (existingPersonId.get().getId() != person.getId()) {
+			persons.add(person);
+	} else {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);		
+		}*/
+	
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -185,4 +193,20 @@ public class PersonService {
 
 		return persons;
 	}
+
+	private  <T> boolean checkForDuplicatedObjectCreated(List<T>persons)
+	{
+	    T prev = null;
+	    for (T elem: persons)
+	    {
+	        prev = elem;
+	      
+	        if (elem != null && elem.equals(prev)) {
+	            return true;
+	        }
+	    }
+	 
+	    return false;
+	}
+
 }
