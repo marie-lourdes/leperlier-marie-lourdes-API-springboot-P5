@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.IResponseHTTPEmpty400;
 import com.safetynet.api.utils.IResponseHTTPEmpty404;

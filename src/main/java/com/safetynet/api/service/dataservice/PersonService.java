@@ -31,6 +31,7 @@ public class PersonService implements IDuplicatedObjectException<Person>{
 		String fullName = person.getFirstName() + " " + person.getLastName();
 		person.setId(fullName);	
 		persons.add(person);
+		
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
