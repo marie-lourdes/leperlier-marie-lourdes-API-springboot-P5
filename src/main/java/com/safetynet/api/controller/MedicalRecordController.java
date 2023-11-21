@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
@@ -75,7 +75,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty <MedicalRecor
 	@Override
 	public ResponseEntity<MedicalRecord> returnResponseEntityEmptyAndCode404() {
 			ModelMapper modelMapper = new ModelMapper();
-			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			DtoEmpty dtoEmpty = new DtoEmpty ("");
 			MedicalRecord medicalRecord= modelMapper.map(dtoEmpty, MedicalRecord.class);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(medicalRecord);
 		}

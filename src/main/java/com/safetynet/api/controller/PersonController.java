@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -74,7 +74,7 @@ public class PersonController implements IResponseHTTPEmpty <Person>{
 	@Override
 	public ResponseEntity<Person> returnResponseEntityEmptyAndCode404() {
 			ModelMapper modelMapper = new ModelMapper();
-			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			DtoEmpty dtoEmpty = new DtoEmpty ("");
 			Person person= modelMapper.map(dtoEmpty, Person.class);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(person);
 		}

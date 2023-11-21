@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.CommunityEmailService;

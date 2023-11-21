@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
@@ -108,7 +108,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 	@Override
 	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode404() {
 			ModelMapper modelMapper = new ModelMapper();
-			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			DtoEmpty dtoEmpty = new DtoEmpty ("");
 			FireStation fireStation= modelMapper.map(dtoEmpty, FireStation.class);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fireStation);
 		}
