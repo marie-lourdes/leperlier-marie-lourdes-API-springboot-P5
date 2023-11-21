@@ -1,16 +1,13 @@
 package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
 import com.safetynet.api.utils.IDuplicatedObjectException;

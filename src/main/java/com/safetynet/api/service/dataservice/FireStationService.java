@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
 import com.safetynet.api.utils.IDuplicatedObjectException;
 
@@ -22,7 +21,7 @@ public class FireStationService implements IDuplicatedObjectException<FireStatio
 
 	private List<FireStation> fireStations = new ArrayList<>();
 
-	public FireStation addFireStation(FireStation fireStation) {
+	public FireStation addFireStation(FireStation fireStation){
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
 		this.isFireStationDuplicatedByAddress(fireStations, fireStation);

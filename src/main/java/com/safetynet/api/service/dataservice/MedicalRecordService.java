@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
 import com.safetynet.api.utils.IDuplicatedObjectException;
 

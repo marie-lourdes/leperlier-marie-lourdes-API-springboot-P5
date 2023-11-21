@@ -56,6 +56,9 @@ public class FireStationController implements IResponseHTTPEmpty404 <FireStation
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode404();
+		}catch (IllegalArgumentException e) {
+			log.error(e.getMessage());
+			return this.returnResponseEntityEmptyAndCode400();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
