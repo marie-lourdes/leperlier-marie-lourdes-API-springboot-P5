@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -79,6 +80,20 @@ class PersonServiceTest {
 		}
 	}
 
+	@Test
+	void testAddPerson_WithPersonDuplicated() throws Exception {
+		try {
+			Person resultPersonCreated =	personServiceUnderTest.addPerson(personTest1);	
+			persons = personServiceUnderTest.getAllPersons();
+			Integer countPersonCreatedDuplicated = Collections.frequency(	persons ,  resultPersonCreated );
+			assertTrue(countPersonCreatedDuplicated >1);
+		}catch (IllegalArgumentException e) {
+				assertThrows(IllegalArgumentException.class,
+						() -> personServiceUnderTest.addPerson(personTest1));
+			} catch (AssertionError e) {
+				fail(e.getMessage());
+			}
+	}
 	@Test
 	void testUpdateAddressPerson() throws Exception {
 		try {

@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.model.Person;
 
 @SpringBootTest
 class MedicalRecordServiceTest {
@@ -86,6 +88,21 @@ class MedicalRecordServiceTest {
 		}
 	}
 
+	@Test
+	void testAddMedicalRecord_WithMedicalRecordDuplicated() throws Exception {
+		try {
+			MedicalRecord resultmedicalRecordCreated=	medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1);	
+			medicalRecords = medicalRecordServiceUnderTest.getAllMedicalRecords();
+			Integer countMedicalRecordCreatedDuplicated = Collections.frequency(medicalRecords ,resultmedicalRecordCreated);
+			assertTrue(countMedicalRecordCreatedDuplicated >1);
+		}catch (IllegalArgumentException e) {
+				assertThrows(IllegalArgumentException.class,
+						() -> medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1));
+			} catch (AssertionError e) {
+				fail(e.getMessage());
+			}
+	}
+	
 	@Test
 	void testUpdateMedicationsMedicalRecord() throws Exception {
 		medicationsTest1Updated.add("aznol:50mg");
