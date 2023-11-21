@@ -2,7 +2,6 @@ package com.safetynet.api.service.dataservice;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +25,7 @@ public class MedicalRecordService implements IDuplicatedObjectException<MedicalR
 			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
-		this.isObjectDuplicatedById(medicalRecords, medicalRecord);
+		this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
 
 		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
 		medicalRecord.setId(fullName);
@@ -94,15 +93,19 @@ public class MedicalRecordService implements IDuplicatedObjectException<MedicalR
 		return medicalRecords;
 	}
 
+	public void isMedicalRecordDuplicatedById(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
+	     this.isObjectDuplicated(medicalRecords,  medicalRecord) ;
+	}
+	
 	@Override
-	public void isObjectDuplicatedById(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord)
+	public void isObjectDuplicated(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord)
 			throws IllegalArgumentException {
 		for (MedicalRecord medicalRecordExisting : medicalRecords) {
 
 			if (medicalRecordExisting.getFirstName().toString().equals(medicalRecord.getFirstName().toString())
 					&& medicalRecordExisting.getLastName().toString().equals(medicalRecord.getLastName().toString())) {
 				throw new IllegalArgumentException(
-						"Failed to add this medicalRecord, medicalRecord already exist" + medicalRecord);
+						"Failed to add this medical record, medical record already exist" + medicalRecord);
 			}
 		}
 	}

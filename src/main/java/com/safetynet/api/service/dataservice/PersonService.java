@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
 import com.safetynet.api.utils.IDuplicatedObjectException;
@@ -26,7 +27,7 @@ public class PersonService implements IDuplicatedObjectException<Person>{
 	public Person addPerson(Person person) throws NullPointerException{
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 	
-	    this.isObjectDuplicatedById(persons, person);
+	    this.isPersonDuplicatedById(persons, person);
 	    
 		String fullName = person.getFirstName() + " " + person.getLastName();
 		person.setId(fullName);	
@@ -184,8 +185,12 @@ public class PersonService implements IDuplicatedObjectException<Person>{
 		return persons;
 	}
 
+	public void isPersonDuplicatedById(List<Person> persons, Person person) {
+	     this.isObjectDuplicated(persons,  person) ;
+	}
+	
 	@Override
-	public void isObjectDuplicatedById(List<Person> persons, Person person)  throws IllegalArgumentException{
+	public void isObjectDuplicated(List<Person> persons, Person person)  throws IllegalArgumentException{
 		for(Person personExisting:persons) {
 			
 			  if (personExisting.getFirstName().toString().equals(person.getFirstName().toString()) && personExisting.getLastName().toString().equals(person.getLastName().toString())) {	

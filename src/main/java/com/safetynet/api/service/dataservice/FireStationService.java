@@ -9,19 +9,23 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.IDuplicatedObjectException;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class FireStationService {
+public class FireStationService implements IDuplicatedObjectException<FireStation> {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
-	
+
 	private List<FireStation> fireStations = new ArrayList<>();
 
 	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
+
+		this.isFireStationDuplicatedByAddress(fireStations, fireStation);
 
 		this.generateId(fireStation);
 		fireStations.add(fireStation);
@@ -59,9 +63,10 @@ public class FireStationService {
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
 			throws NullPointerException {
 		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
-		
+
+		this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+
 		FireStation createdFireStation = new FireStation();
-		
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
 
@@ -194,7 +199,7 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
-		
+
 		double random = Math.round(Math.random() * 100 + 1);
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
@@ -202,5 +207,21 @@ public class FireStationService {
 
 		fireStationCreated.setId(ID);
 		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
+	}
+
+	public void isFireStationDuplicatedByAddress(List<FireStation> fireStations, FireStation fireStation) {
+		this.isObjectDuplicated(fireStations, fireStation);
+	}
+
+	@Override
+	public void isObjectDuplicated(List<FireStation> fireStations, FireStation fireStation)
+			throws IllegalArgumentException {
+		for (FireStation fireStationExisting : fireStations) {
+
+			if (fireStationExisting.getAddress().toString().equals(fireStation.getAddress().toString())) {
+				throw new IllegalArgumentException(
+						"Failed to add this firestation, this firestation already exist" + fireStation);
+			}
+		}
 	}
 }

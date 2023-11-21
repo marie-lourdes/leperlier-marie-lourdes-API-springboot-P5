@@ -38,7 +38,7 @@ class FireStationServiceTest {
 		fireStationTest1 = new FireStation("5", "46  rue de la mairie");
 		fireStationTest2 = new FireStation("6", "16 rue du quartiers des combattants");
 		fireStationTest3 = new FireStation("6", "17 impasse de la caserne");
-		fireStationTest4 = new FireStation("7", "17 impasse de la caserne");
+		fireStationTest4 = new FireStation("7", "17 boulevard");
 		fireStationServiceUnderTest.addFireStation(fireStationTest1);
 		fireStationServiceUnderTest.addFireStation(fireStationTest2);
 		fireStationServiceUnderTest.addFireStation(fireStationTest3);
@@ -352,7 +352,7 @@ class FireStationServiceTest {
 						|| fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber4);
 			}
 			System.out.println("expectedCountFireStationByAddress" + expectedCountFireStationByAddress);
-			assertTrue(expectedCountFireStationByAddress == 2);
+			assertTrue(expectedCountFireStationByAddress == 1);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
