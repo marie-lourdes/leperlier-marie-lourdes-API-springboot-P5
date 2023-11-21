@@ -10,26 +10,30 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
-import com.safetynet.api.utils.IDuplicatedObjectException;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PersonService implements IDuplicatedObjectException<Person>{
+public class PersonService implements ICheckingDuplicatedObject<Person> {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
 
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) throws NullPointerException{
+	public Person addPerson(Person person) throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-	
-	    this.isPersonDuplicatedById(persons, person);
-	    
-		String fullName = person.getFirstName() + " " + person.getLastName();
-		person.setId(fullName);	
-		persons.add(person);
+
+		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 		
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);
+		}
+		
+		String fullName = person.getFirstName() + " " + person.getLastName();
+		person.setId(fullName);
+		persons.add(person);
+
 		log.info("Person added successfully: {}", person);
 		return person;
 	}
@@ -182,17 +186,20 @@ public class PersonService implements IDuplicatedObjectException<Person>{
 		return persons;
 	}
 
-	public void isPersonDuplicatedById(List<Person> persons, Person person) {
-	     this.isObjectDuplicated(persons,  person) ;
+	public boolean isPersonDuplicatedById(List<Person> persons, Person person) {
+		return this.isObjectDuplicated(persons, person);
 	}
-	
+
 	@Override
-	public void isObjectDuplicated(List<Person> persons, Person person)  throws IllegalArgumentException{
-		for(Person personExisting:persons) {
-			
-			  if (personExisting.getFirstName().toString().equals(person.getFirstName().toString()) && personExisting.getLastName().toString().equals(person.getLastName().toString())) {	
-				  throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
-	            }
-		}
+	public boolean isObjectDuplicated(List<Person> persons, Person person) {
+		boolean isObjectDuplicated = false;
+			for (Person personExisting : persons) {
+				if (personExisting.getFirstName().toString().equals(person.getFirstName().toString())
+						&& personExisting.getLastName().toString().equals(person.getLastName().toString())) {
+					isObjectDuplicated = true;
+				}
+			}
+		
+		return isObjectDuplicated;
 	}
 }

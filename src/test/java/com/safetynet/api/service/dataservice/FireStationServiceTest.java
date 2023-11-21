@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -89,6 +90,22 @@ class FireStationServiceTest {
 			String expectedAddress = fireStationCreated.getAddress();
 			assertNotNull(fireStationServiceUnderTest.getFireStationsByStationNumber(expectedStationNumber));
 			assertNotNull(fireStationServiceUnderTest.getFireStationsByAddress(expectedAddress));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testAddFireStation_WithFireStationDuplicatedByAddress() throws Exception {
+		try {
+			FireStation resultFireStationCreated = fireStationServiceUnderTest.addFireStation(fireStationTest1);
+			fireStations = fireStationServiceUnderTest.getAllFireStations();
+
+			Integer countFireStationCreatedDuplicated = Collections.frequency(fireStations, resultFireStationCreated);
+			assertTrue(countFireStationCreatedDuplicated > 1);
+		} catch (IllegalArgumentException e) {
+			assertThrows(IllegalArgumentException.class,
+					() -> fireStationServiceUnderTest.addFireStation(fireStationTest1));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -182,6 +199,27 @@ class FireStationServiceTest {
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest
 					.addAddressOfFireStationWithExistingStationNumber("11", fireStationCreatedWithNewAddress));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testAddAddressOfFireStationWithExistingStationNumber_WithAddressDuplicated() throws Exception {
+		FireStation fireStationCreatedWithNewAddress = new FireStation("6", "46  rue de la mairie");
+		try {
+			FireStation fireStationCreatedRetrievedWithNewAddress = fireStationServiceUnderTest
+					.addAddressOfFireStationWithExistingStationNumber("6", fireStationCreatedWithNewAddress);
+
+			List<FireStation> resultFireStationsByStationNumber = fireStationServiceUnderTest
+					.getFireStationsByAddress("46  rue de la mairie");
+			Integer countFireStationCreatedDuplicated = Collections.frequency(resultFireStationsByStationNumber,
+					fireStationCreatedRetrievedWithNewAddress);
+
+			assertTrue(countFireStationCreatedDuplicated > 1);
+		} catch (IllegalArgumentException e) {
+			assertThrows(IllegalArgumentException.class, () -> fireStationServiceUnderTest
+					.addAddressOfFireStationWithExistingStationNumber("6", fireStationCreatedWithNewAddress));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}

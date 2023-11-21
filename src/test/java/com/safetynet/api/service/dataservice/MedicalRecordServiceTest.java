@@ -91,9 +91,10 @@ class MedicalRecordServiceTest {
 	@Test
 	void testAddMedicalRecord_WithMedicalRecordDuplicated() throws Exception {
 		try {
-			MedicalRecord resultmedicalRecordCreated=	medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1);	
+			MedicalRecord resultMedicalRecordCreated=	medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1);	
 			medicalRecords = medicalRecordServiceUnderTest.getAllMedicalRecords();
-			Integer countMedicalRecordCreatedDuplicated = Collections.frequency(medicalRecords ,resultmedicalRecordCreated);
+			Integer countMedicalRecordCreatedDuplicated = Collections.frequency(medicalRecords ,resultMedicalRecordCreated);
+			
 			assertTrue(countMedicalRecordCreatedDuplicated >1);
 		}catch (IllegalArgumentException e) {
 				assertThrows(IllegalArgumentException.class,

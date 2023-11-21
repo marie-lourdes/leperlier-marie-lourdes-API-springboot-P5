@@ -86,6 +86,7 @@ class PersonServiceTest {
 			Person resultPersonCreated =	personServiceUnderTest.addPerson(personTest1);	
 			persons = personServiceUnderTest.getAllPersons();
 			Integer countPersonCreatedDuplicated = Collections.frequency(	persons ,  resultPersonCreated );
+			
 			assertTrue(countPersonCreatedDuplicated >1);
 		}catch (IllegalArgumentException e) {
 				assertThrows(IllegalArgumentException.class,
@@ -94,6 +95,7 @@ class PersonServiceTest {
 				fail(e.getMessage());
 			}
 	}
+	
 	@Test
 	void testUpdateAddressPerson() throws Exception {
 		try {

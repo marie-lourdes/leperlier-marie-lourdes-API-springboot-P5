@@ -10,21 +10,26 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.utils.Constants;
-import com.safetynet.api.utils.IDuplicatedObjectException;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class FireStationService implements IDuplicatedObjectException<FireStation> {
+public class FireStationService implements ICheckingDuplicatedObject<FireStation> {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
 
 	private List<FireStation> fireStations = new ArrayList<>();
 
-	public FireStation addFireStation(FireStation fireStation){
+	public FireStation addFireStation(FireStation fireStation) throws IllegalArgumentException {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
-		this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException(
+					"Failed to add this firestation, this firestation already exist" + fireStation);
+		}
 
 		this.generateId(fireStation);
 		fireStations.add(fireStation);
@@ -60,11 +65,16 @@ public class FireStationService implements IDuplicatedObjectException<FireStatio
 	}
 
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
-			throws NullPointerException {
+			throws NullPointerException,IllegalArgumentException{
 		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
 
-		this.isFireStationDuplicatedByAddress(fireStations, fireStation);
-
+		boolean isObjectDuplicated=this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+		
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException(
+					"Failed to add this firestation, this firestation already exist" + fireStation);
+		}
+		
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
@@ -208,19 +218,18 @@ public class FireStationService implements IDuplicatedObjectException<FireStatio
 		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
 	}
 
-	public void isFireStationDuplicatedByAddress(List<FireStation> fireStations, FireStation fireStation) {
-		this.isObjectDuplicated(fireStations, fireStation);
+	public boolean isFireStationDuplicatedByAddress(List<FireStation> fireStations, FireStation fireStation) {
+		return this.isObjectDuplicated(fireStations, fireStation);
 	}
 
 	@Override
-	public void isObjectDuplicated(List<FireStation> fireStations, FireStation fireStation)
-			throws IllegalArgumentException {
+	public boolean isObjectDuplicated(List<FireStation> fireStations, FireStation fireStation) {
+		boolean isObjectDuplicated = false;
 		for (FireStation fireStationExisting : fireStations) {
-
 			if (fireStationExisting.getAddress().toString().equals(fireStation.getAddress().toString())) {
-				throw new IllegalArgumentException(
-						"Failed to add this firestation, this firestation already exist" + fireStation);
+				isObjectDuplicated = true;
 			}
 		}
+		return isObjectDuplicated;
 	}
 }

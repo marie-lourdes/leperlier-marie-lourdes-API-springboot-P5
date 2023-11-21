@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.utils.Constants;
-import com.safetynet.api.utils.IDuplicatedObjectException;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MedicalRecordService implements IDuplicatedObjectException<MedicalRecord> {
+public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRecord> {
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
 
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
@@ -24,8 +24,13 @@ public class MedicalRecordService implements IDuplicatedObjectException<MedicalR
 			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
-		this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
-
+		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
+		
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException(
+					"Failed to add this medical record, medical record already exist" + medicalRecord);
+		}
+		
 		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
 		medicalRecord.setId(fullName);
 		medicalRecords.add(medicalRecord);
@@ -92,20 +97,21 @@ public class MedicalRecordService implements IDuplicatedObjectException<MedicalR
 		return medicalRecords;
 	}
 
-	public void isMedicalRecordDuplicatedById(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
-	     this.isObjectDuplicated(medicalRecords,  medicalRecord) ;
+	public boolean isMedicalRecordDuplicatedById(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
+		return this.isObjectDuplicated(medicalRecords, medicalRecord);
 	}
-	
-	@Override
-	public void isObjectDuplicated(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord)
-			throws IllegalArgumentException {
-		for (MedicalRecord medicalRecordExisting : medicalRecords) {
 
-			if (medicalRecordExisting.getFirstName().toString().equals(medicalRecord.getFirstName().toString())
-					&& medicalRecordExisting.getLastName().toString().equals(medicalRecord.getLastName().toString())) {
-				throw new IllegalArgumentException(
-						"Failed to add this medical record, medical record already exist" + medicalRecord);
+	@Override
+	public boolean isObjectDuplicated(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
+		boolean isObjectDuplicated = false;
+			for (MedicalRecord medicalRecordExisting : medicalRecords) {
+				if (medicalRecordExisting.getFirstName().toString().equals(medicalRecord.getFirstName().toString())
+						&& medicalRecordExisting.getLastName().toString()
+								.equals(medicalRecord.getLastName().toString())) {
+					isObjectDuplicated = true;
+				}
 			}
-		}
+		
+		return isObjectDuplicated;
 	}
 }
