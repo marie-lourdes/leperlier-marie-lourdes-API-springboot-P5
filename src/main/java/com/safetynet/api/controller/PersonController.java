@@ -31,7 +31,7 @@ public class PersonController implements IResponseHTTPEmpty <Person>{
 
 	@PostMapping("/person")
 	@ResponseBody
-	public ResponseEntity<Object> createPerson(@Valid @RequestBody Person person) {
+	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
 		try {
 			personCreated = personService.addPerson(person);

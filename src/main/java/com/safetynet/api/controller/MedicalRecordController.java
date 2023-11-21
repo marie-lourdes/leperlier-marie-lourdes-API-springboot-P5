@@ -30,14 +30,14 @@ public class MedicalRecordController implements IResponseHTTPEmpty <MedicalRecor
 
 	@PostMapping("/medicalRecord")
 	@ResponseBody
-	public ResponseEntity<Object> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
+	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord medicalRecordCreated = new MedicalRecord();
 
 		try {
 			medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(medicalRecord);
 		}
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
