@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.DtoEmpty;
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.CommunityEmailService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
@@ -24,10 +21,10 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
-import com.safetynet.api.utils.IResponseHTTPEmpty;
+import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 @RestController
-public class AlertsController implements IResponseHTTPEmpty <Object>{
+public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
 
 	private ResidentsOfStationNumberService residentsOfStationNumberService;

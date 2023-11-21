@@ -2,7 +2,6 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.DtoEmpty;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -32,6 +31,7 @@ public class PersonController implements IResponseHTTPEmpty<Person> {
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
+		
 		try {
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
@@ -73,5 +73,10 @@ public class PersonController implements IResponseHTTPEmpty<Person> {
 	@Override
 	public ResponseEntity<Person> returnResponseEntityEmptyAndCode404() {
 		return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
+	}
+	
+	@Override
+	public ResponseEntity<Person> returnResponseEntityEmptyAndCode400() {
+		return new ResponseEntity<Person>(HttpStatus.BAD_REQUEST);
 	}
 }

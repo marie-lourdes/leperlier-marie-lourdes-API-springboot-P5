@@ -2,7 +2,6 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.FireStation;
-import com.safetynet.api.model.MedicalRecord;
-import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
-import com.safetynet.api.utils.IResponseHTTPEmpty;
+import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class FireStationController implements IResponseHTTPEmpty <FireStation>{
+public class FireStationController implements IResponseHTTPEmpty404 <FireStation>{
 	private static final Logger log = LogManager.getLogger(FireStationController.class);
 	
 	@Autowired

@@ -2,7 +2,6 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
-import com.safetynet.api.utils.IResponseHTTPEmpty;
+import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController implements IResponseHTTPEmpty<MedicalRecord> {
+public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRecord> {
 	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
 
 	@Autowired
@@ -75,5 +73,10 @@ public class MedicalRecordController implements IResponseHTTPEmpty<MedicalRecord
 	@Override
 	public ResponseEntity<MedicalRecord> returnResponseEntityEmptyAndCode404() {
 		return new ResponseEntity<MedicalRecord>(HttpStatus.NOT_FOUND);
+	}
+	
+	@Override
+	public ResponseEntity<MedicalRecord> returnResponseEntityEmptyAndCode400() {
+		return new ResponseEntity<MedicalRecord>(HttpStatus.BAD_REQUEST);
 	}
 }
