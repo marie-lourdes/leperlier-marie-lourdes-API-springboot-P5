@@ -19,13 +19,12 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
-
 import jakarta.validation.Valid;
 
 @RestController
-public class PersonController implements IResponseHTTPEmpty <Person>{
+public class PersonController implements IResponseHTTPEmpty<Person> {
 	private static final Logger log = LogManager.getLogger(PersonController.class);
-	
+
 	@Autowired
 	private PersonService personService;
 
@@ -40,14 +39,14 @@ public class PersonController implements IResponseHTTPEmpty <Person>{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(personCreated);
 		}
 
-	return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		Person personFoundById = new Person();
-		
+
 		try {
 			personFoundById = personService.updateOnePersonById(id, person);
 		} catch (NullPointerException e) {
@@ -73,9 +72,6 @@ public class PersonController implements IResponseHTTPEmpty <Person>{
 
 	@Override
 	public ResponseEntity<Person> returnResponseEntityEmptyAndCode404() {
-			ModelMapper modelMapper = new ModelMapper();
-			DtoEmpty dtoEmpty = new DtoEmpty ("");
-			Person person= modelMapper.map(dtoEmpty, Person.class);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(person);
-		}
+		return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
+	}
 }

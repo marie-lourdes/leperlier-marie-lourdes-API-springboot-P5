@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.DtoEmpty;
-import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -23,8 +22,9 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController implements IResponseHTTPEmpty <MedicalRecord>{
+public class MedicalRecordController implements IResponseHTTPEmpty<MedicalRecord> {
 	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
+
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
@@ -71,12 +71,9 @@ public class MedicalRecordController implements IResponseHTTPEmpty <MedicalRecor
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@Override
 	public ResponseEntity<MedicalRecord> returnResponseEntityEmptyAndCode404() {
-			ModelMapper modelMapper = new ModelMapper();
-			DtoEmpty dtoEmpty = new DtoEmpty ("");
-			MedicalRecord medicalRecord= modelMapper.map(dtoEmpty, MedicalRecord.class);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(medicalRecord);
-		}
+		return new ResponseEntity<MedicalRecord>(HttpStatus.NOT_FOUND);
+	}
 }

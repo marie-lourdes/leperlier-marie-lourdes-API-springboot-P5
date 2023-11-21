@@ -171,6 +171,6 @@ public class AlertsController implements IResponseHTTPEmpty <Object>{
 
 	@Override
 	public ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
 }

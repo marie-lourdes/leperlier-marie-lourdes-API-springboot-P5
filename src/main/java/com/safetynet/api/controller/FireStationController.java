@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.DtoEmpty;
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -24,8 +25,9 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 import jakarta.validation.Valid;
 
 @RestController
-public class FireStationController implements IResponseHTTPEmpty {
+public class FireStationController implements IResponseHTTPEmpty <FireStation>{
 	private static final Logger log = LogManager.getLogger(FireStationController.class);
+	
 	@Autowired
 	private FireStationService fireStationService;
 
@@ -107,9 +109,6 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@Override
 	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode404() {
-			ModelMapper modelMapper = new ModelMapper();
-			DtoEmpty dtoEmpty = new DtoEmpty ("");
-			FireStation fireStation= modelMapper.map(dtoEmpty, FireStation.class);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fireStation);
+			return new ResponseEntity<FireStation>(HttpStatus.NOT_FOUND);
 		}
 }
