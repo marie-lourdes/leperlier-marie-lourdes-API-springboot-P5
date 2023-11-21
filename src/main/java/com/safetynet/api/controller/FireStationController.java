@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
+import com.safetynet.api.utils.IResponseHTTPEmpty400;
 import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class FireStationController implements IResponseHTTPEmpty404 <FireStation>{
+public class FireStationController implements IResponseHTTPEmpty404 <FireStation>,IResponseHTTPEmpty400 <FireStation>{
 	private static final Logger log = LogManager.getLogger(FireStationController.class);
 	
 	@Autowired
@@ -107,4 +109,9 @@ public class FireStationController implements IResponseHTTPEmpty404 <FireStation
 	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode404() {
 			return new ResponseEntity<FireStation>(HttpStatus.NOT_FOUND);
 		}
+
+	@Override
+	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode400() {
+		return new ResponseEntity<FireStation>(HttpStatus.BAD_REQUEST);
+	}
 }

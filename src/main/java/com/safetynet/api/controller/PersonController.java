@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
-import com.safetynet.api.utils.IResponseHTTPEmpty;
+import com.safetynet.api.utils.IResponseHTTPEmpty400;
+import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class PersonController implements IResponseHTTPEmpty<Person> {
+public class PersonController implements IResponseHTTPEmpty404<Person>,IResponseHTTPEmpty400<Person> {
 	private static final Logger log = LogManager.getLogger(PersonController.class);
 
 	@Autowired
@@ -36,7 +36,7 @@ public class PersonController implements IResponseHTTPEmpty<Person> {
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(personCreated);
+			return this.returnResponseEntityEmptyAndCode400();
 		}
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);

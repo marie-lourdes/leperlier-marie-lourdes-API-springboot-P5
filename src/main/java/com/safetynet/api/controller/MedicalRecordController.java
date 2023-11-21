@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
+import com.safetynet.api.utils.IResponseHTTPEmpty400;
 import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRecord> {
+public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRecord>,IResponseHTTPEmpty400<MedicalRecord>  {
 	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
 
 	@Autowired
@@ -35,7 +37,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRec
 			medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(medicalRecord);
+			return this.returnResponseEntityEmptyAndCode400(); 
 		}
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
