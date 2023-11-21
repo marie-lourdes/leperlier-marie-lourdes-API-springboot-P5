@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
 import com.safetynet.api.service.alertssafetynetservice.CommunityEmailService;
 import com.safetynet.api.service.alertssafetynetservice.FireService;
@@ -24,7 +27,7 @@ import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumber
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
 @RestController
-public class AlertsController implements IResponseHTTPEmpty {
+public class AlertsController implements IResponseHTTPEmpty <Object>{
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
 
 	private ResidentsOfStationNumberService residentsOfStationNumberService;
@@ -68,7 +71,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -82,7 +85,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -97,7 +100,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -112,7 +115,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -131,7 +134,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberparams);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -147,7 +150,7 @@ public class AlertsController implements IResponseHTTPEmpty {
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 	}
 
@@ -161,8 +164,13 @@ public class AlertsController implements IResponseHTTPEmpty {
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
 	}
+
+	@Override
+	public ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+		}
 }

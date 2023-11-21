@@ -2,6 +2,7 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.IDtoEmpty;
 import com.safetynet.api.model.FireStation;
+import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
@@ -28,7 +31,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 
 	@PostMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<Object> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
+	public ResponseEntity<FireStation> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		FireStation fireStationCreated = new FireStation();
 
@@ -37,14 +40,14 @@ public class FireStationController implements IResponseHTTPEmpty {
 					fireStation);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
 	@ResponseBody
-	public ResponseEntity<Object> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
+	public ResponseEntity<FireStation> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
 		FireStation fireStationCreated = new FireStation();
 
@@ -53,14 +56,14 @@ public class FireStationController implements IResponseHTTPEmpty {
 					fireStation);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
 	}
 
 	@PutMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<Object> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
+	public ResponseEntity<FireStation> updateOneFireStationByAddress(@Valid @RequestBody FireStation firestation,
 			@RequestParam String address) {
 		FireStation firestationFoundByAddress = new FireStation();
 
@@ -68,7 +71,7 @@ public class FireStationController implements IResponseHTTPEmpty {
 			firestationFoundByAddress = fireStationService.updateFireStationByAddress(address, firestation);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
 	}
@@ -101,4 +104,12 @@ public class FireStationController implements IResponseHTTPEmpty {
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
+
+	@Override
+	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode404() {
+			ModelMapper modelMapper = new ModelMapper();
+			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			FireStation fireStation= modelMapper.map(dtoEmpty, FireStation.class);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fireStation);
+		}
 }

@@ -187,8 +187,7 @@ public class PersonService implements IDuplicatedObjectException<Person>{
 	public void isObjectDuplicatedById(List<Person> persons, Person person)  throws IllegalArgumentException{
 		for(Person personExisting:persons) {
 			
-			  if (personExisting.getFirstName().toString().equals(person.getFirstName().toString()) && personExisting.getLastName().toString().equals(person.getLastName().toString())) {
-				
+			  if (personExisting.getFirstName().toString().equals(person.getFirstName().toString()) && personExisting.getLastName().toString().equals(person.getLastName().toString())) {	
 				  throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
 	            }
 		}

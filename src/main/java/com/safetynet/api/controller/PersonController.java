@@ -2,6 +2,7 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.IDtoEmpty;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
 
+
 import jakarta.validation.Valid;
 
 @RestController
-public class PersonController implements IResponseHTTPEmpty {
+public class PersonController implements IResponseHTTPEmpty <Person>{
 	private static final Logger log = LogManager.getLogger(PersonController.class);
 	
 	@Autowired
@@ -34,7 +37,7 @@ public class PersonController implements IResponseHTTPEmpty {
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(personCreated);
 		}
 
 	return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
@@ -42,14 +45,14 @@ public class PersonController implements IResponseHTTPEmpty {
 
 	@PutMapping("/person")
 	@ResponseBody
-	public ResponseEntity<Object> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
+	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		Person personFoundById = new Person();
 		
 		try {
 			personFoundById = personService.updateOnePersonById(id, person);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 	}
@@ -67,4 +70,12 @@ public class PersonController implements IResponseHTTPEmpty {
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
+
+	@Override
+	public ResponseEntity<Person> returnResponseEntityEmptyAndCode404() {
+			ModelMapper modelMapper = new ModelMapper();
+			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			Person person= modelMapper.map(dtoEmpty, Person.class);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(person);
+		}
 }

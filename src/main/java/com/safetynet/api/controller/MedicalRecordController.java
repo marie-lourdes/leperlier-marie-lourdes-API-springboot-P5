@@ -2,6 +2,7 @@ package com.safetynet.api.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.api.model.IDtoEmpty;
+import com.safetynet.api.model.FireStation;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.IResponseHTTPEmpty;
@@ -20,7 +23,7 @@ import com.safetynet.api.utils.IResponseHTTPEmpty;
 import jakarta.validation.Valid;
 
 @RestController
-public class MedicalRecordController implements IResponseHTTPEmpty {
+public class MedicalRecordController implements IResponseHTTPEmpty <MedicalRecord>{
 	private static final Logger log = LogManager.getLogger(MedicalRecordController.class);
 	@Autowired
 	private MedicalRecordService medicalRecordService;
@@ -42,7 +45,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 
 	@PutMapping("/medicalRecord")
 	@ResponseBody
-	public ResponseEntity<Object> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
+	public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
 		MedicalRecord medicalRecordFoundById = new MedicalRecord();
 
@@ -50,7 +53,7 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 			medicalRecordFoundById = medicalRecordService.updateOneMedicalRecordById(id, medicalRecord);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			return this.returnResponseEntityEmptyAndCode404();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);
 	}
@@ -68,4 +71,12 @@ public class MedicalRecordController implements IResponseHTTPEmpty {
 		}
 		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 	}
+	
+	@Override
+	public ResponseEntity<MedicalRecord> returnResponseEntityEmptyAndCode404() {
+			ModelMapper modelMapper = new ModelMapper();
+			IDtoEmpty dtoEmpty = new IDtoEmpty ("");
+			MedicalRecord medicalRecord= modelMapper.map(dtoEmpty, MedicalRecord.class);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(medicalRecord);
+		}
 }
