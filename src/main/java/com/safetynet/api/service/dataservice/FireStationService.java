@@ -112,7 +112,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 						() -> new NullPointerException("Failed to update station number of fireStation, the address :"
 								+ address + Constants.NOT_FOUND));
 
-		log.info("FireStation updated successfully for address: {}", updatedFireStation);
+		log.info("FireStation updated successfully for address: {}", existingFireStationUpdated);
 		return existingFireStationUpdated;
 	}
 
@@ -209,10 +209,9 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
 
-		double random = Math.round(Math.random() * 100 + 1);
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
-		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-" + random;
+		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-" + Math.round(Math.random() * 100+ 1);
 
 		fireStationCreated.setId(ID);
 		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);

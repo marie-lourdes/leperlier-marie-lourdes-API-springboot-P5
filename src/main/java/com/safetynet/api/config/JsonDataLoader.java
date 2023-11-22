@@ -21,7 +21,7 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Component
 public class JsonDataLoader implements CommandLineRunner {
 	private static final Logger log = LogManager.getLogger(JsonDataLoader.class);
-	
+
 	private final PersonService personService;
 	private final MedicalRecordService medicalRecordService;
 	private final FireStationService fireStationService;
@@ -99,11 +99,10 @@ public class JsonDataLoader implements CommandLineRunner {
 			if (person == null) {
 				throw new IOException(" Failed to add person from file");
 			}
-			person.setId(person.getFirstName() + " " + person.getLastName());
 			personService.addPerson(person);
 		}
 
-		for (FireStation fireStation : fireStationsFromFile) {		
+		for (FireStation fireStation : fireStationsFromFile) {
 			if (fireStation == null) {
 				throw new IOException(" Failed to add firestation  from file");
 			}

@@ -23,7 +23,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 	public Person addPerson(Person person) throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-
+			
 		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 		
 		if (isObjectDuplicated) {
@@ -53,7 +53,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 				}).orElseThrow(
 						() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
 
-		log.info("Person updated successfully for: {}", updatedPerson);
+		log.info("Person updated successfully for: {}", existingPersonUpdated);
 		return existingPersonUpdated;
 	}
 

@@ -53,7 +53,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update medical record, " + updatedMedicalRecord.getId() + Constants.NOT_FOUND));
 
-		log.info("Medical record updated successfully for: {}", updatedMedicalRecord);
+		log.info("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
 		return existingMedicalRecordUpdated;
 	}
 
