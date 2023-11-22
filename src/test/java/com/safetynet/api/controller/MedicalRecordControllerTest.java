@@ -47,7 +47,6 @@ class MedicalRecordControllerTest {
 		allergies.add("nillacilan");
 		MedicalRecord medicalRecordCreated = new MedicalRecord("Millie", "Leperlier", "03/06/1996", medications,
 				allergies);
-		List<MedicalRecord> medicalRecords = new ArrayList<>();
 	
 		try {
 			MockHttpServletResponse result = mockMvc
