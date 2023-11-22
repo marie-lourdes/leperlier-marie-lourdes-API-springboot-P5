@@ -34,10 +34,10 @@ public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRec
 
 		try {
 			medicalRecordCreated = medicalRecordService.addMedicalRecord(medicalRecord);
-			if(medicalRecordCreated ==null) {
+			/*if(medicalRecordCreated ==null) {
 				throw new IllegalArgumentException ("Failed to add this medical record"+ medicalRecord);
-			}
-		} catch (IllegalArgumentException e) {
+			}*/
+		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400(); 
 		}
