@@ -34,6 +34,9 @@ public class PersonController implements IResponseHTTPEmpty404<Person>,IResponse
 		
 		try {
 			personCreated = personService.addPerson(person);
+			if(personCreated ==null) {
+				throw new IllegalArgumentException ("Failed to add this person"+ person);
+			}
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400();

@@ -20,22 +20,24 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord)
-			throws NullPointerException, IllegalArgumentException {
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord){
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
 		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
 		
 		if (isObjectDuplicated) {
-			throw new IllegalArgumentException(
+			log.error(
 					"Failed to add this medical record, medical record already exist" + medicalRecord);
+			return null;
+		}else {
+			String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
+			medicalRecord.setId(fullName);
+			medicalRecords.add(medicalRecord);
+
+			log.info("Medical record added successfully: {}", medicalRecord);
 		}
 		
-		String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
-		medicalRecord.setId(fullName);
-		medicalRecords.add(medicalRecord);
-
-		log.info("Medical record added successfully: {}", medicalRecord);
+		
 		return medicalRecord;
 	}
 

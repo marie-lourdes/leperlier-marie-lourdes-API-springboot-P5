@@ -21,25 +21,24 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 
 	private List<FireStation> fireStations = new ArrayList<>();
 
-	public FireStation addFireStation(FireStation fireStation) throws IllegalArgumentException {
+	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
 
 		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
 
 		if (isObjectDuplicated) {
-			throw new IllegalArgumentException(
+			log.error(
 					"Failed to add this firestation, this firestation already exist" + fireStation);
+		}else {
+			this.generateId(fireStation);
+			fireStations.add(fireStation);
+			log.info("FireStation added successfully: {}", fireStation);
 		}
 
-		this.generateId(fireStation);
-		fireStations.add(fireStation);
-
-		log.info("FireStation added successfully: {}", fireStation);
 		return fireStation;
 	}
 
-	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation)
-			throws NullPointerException {
+	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation) {
 		log.debug("Adding a firestation with new station number and existing address: {}", address);
 
 		FireStation createdFireStation = new FireStation();
