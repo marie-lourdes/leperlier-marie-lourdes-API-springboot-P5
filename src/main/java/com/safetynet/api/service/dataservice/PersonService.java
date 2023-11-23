@@ -32,10 +32,10 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 			String fullName = person.getFirstName() + " " + person.getLastName();
 			person.setId(fullName);
 			persons.add(person);
+			
 			log.info("Person added successfully: {}", person);
 			return person;
 		}
-
 	}
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {

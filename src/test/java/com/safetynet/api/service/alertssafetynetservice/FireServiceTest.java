@@ -78,7 +78,7 @@ class FireServiceTest {
 		when(fireStationService.getFireStationsByAddress("112 address")).thenReturn(listOfFireStationTest);
 		
 		try {
-			List<Object> resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
+			List<Map<String, String>> resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
 			
 			verify(fullInfoOfResidentsWithMedicalRecord).searchInfoOfResident(any(String.class));
 			verify(fireStationService).getFireStationsByAddress(any(String.class));

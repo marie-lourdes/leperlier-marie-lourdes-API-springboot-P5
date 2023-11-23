@@ -33,9 +33,8 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 			medicalRecords.add(medicalRecord);
 
 			log.info("Medical record added successfully: {}", medicalRecord);
+			return medicalRecord;
 		}
-
-		return medicalRecord;
 	}
 
 	public MedicalRecord updateOneMedicalRecordById(String id, MedicalRecord updatedMedicalRecord)

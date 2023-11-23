@@ -50,7 +50,7 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<Object> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 		Map<String, String> mapOfAdultsAndChildSorted = new HashMap<String, String>();
 		
@@ -68,7 +68,7 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/phoneAlert")
 	@ResponseBody
-	public ResponseEntity<Object> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = new ArrayList<Map<String, String>>();
 		
 		try {
@@ -97,22 +97,22 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@GetMapping("/fire")
 	@ResponseBody
-	public ResponseEntity<Object> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
+	public ResponseEntity<List<Map<String, String>> > getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
 		try {
-			List<Object> listOfResidentsAndFireStationNearFire = new ArrayList<Object>();
+			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
 
 			listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
 
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -137,7 +137,7 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/personInfo")
 	@ResponseBody
-	public ResponseEntity<Object> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
+	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
 			@RequestParam String lastName) {
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
 		
@@ -147,13 +147,13 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@GetMapping("/communityEmail")
 	@ResponseBody
-	public ResponseEntity<Object> getEmailOfResidentsOfCity(@RequestParam String city) {
+	public ResponseEntity<	List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		
 		try {
@@ -161,13 +161,13 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
 	}
 
 	@Override
 	public ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
-			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
-		}
+		return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+	}
 }
