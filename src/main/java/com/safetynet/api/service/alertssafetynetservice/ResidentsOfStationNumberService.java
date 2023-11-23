@@ -15,10 +15,10 @@ public class ResidentsOfStationNumberService {
 	private static final Logger log = LogManager.getLogger(ResidentsOfStationNumberService.class);
 
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
+	private SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 
 	private List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 
@@ -44,7 +44,7 @@ public class ResidentsOfStationNumberService {
 	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
 		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
-		
+
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber);
 
@@ -54,7 +54,7 @@ public class ResidentsOfStationNumberService {
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
-		
+
 		return mapOfAdultsAndChildConvertedValueString;
 	}
 }

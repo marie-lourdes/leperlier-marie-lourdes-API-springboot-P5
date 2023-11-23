@@ -14,10 +14,10 @@ public class FireStation {
 	@NotNull
 	@Pattern(regexp = RegexConstants.REGEX_ADDRESS)
 	private String address;
-    private String dataEmpty;
-    
-	public FireStation() {}
-	
+
+	public FireStation() {
+	}
+
 	// use for firestation service /controller test
 	public FireStation(String id, String stationNumber, String address) {
 		this.id = id;

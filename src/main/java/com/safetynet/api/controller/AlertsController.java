@@ -24,7 +24,7 @@ import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumber
 import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 @RestController
-public class AlertsController implements IResponseHTTPEmpty404 <Object>{
+public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
 
 	private ResidentsOfStationNumberService residentsOfStationNumberService;
@@ -50,10 +50,11 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/firestation")
 	@ResponseBody
-	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(
+			@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 		Map<String, String> mapOfAdultsAndChildSorted = new HashMap<String, String>();
-		
+
 		try {
 			listOfResidentsOfStationNumber = residentsOfStationNumberService
 					.getListOfResidentsOfStationNumber(stationNumber);
@@ -76,7 +77,7 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 	@ResponseBody
 	public ResponseEntity<Object> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
 		List<Map<String, String>> childs = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			return ResponseEntity.status(HttpStatus.OK).body(childs);
@@ -88,9 +89,10 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/phoneAlert")
 	@ResponseBody
-	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(
+			@RequestParam String stationNumber) {
 		List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			listOfPhonesOfResidentsByStationNumber = phoneAlertService
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
@@ -103,7 +105,8 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/fire")
 	@ResponseBody
-	public ResponseEntity<List<Map<String, String>> > getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
+	public ResponseEntity<List<Map<String, String>>> getListOfResidentsAndFireStationNearFire(
+			@RequestParam String address) {
 		try {
 			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
 
@@ -118,7 +121,8 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/flood/stations")
 	@ResponseBody
-	public ResponseEntity<List<List<Map<String, String>>>> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
+	public ResponseEntity<List<List<Map<String, String>>>> getListOfHouseHoldByStationNumberIfFlood(
+			@RequestParam List<String> stations) {
 		List<List<Map<String, String>>> listOfHouseHoldByStationNumberParams = new ArrayList<List<Map<String, String>>>();
 
 		try {
@@ -131,16 +135,16 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberParams);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return new ResponseEntity<List<List<Map<String, String>>> >(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<List<Map<String, String>>>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@GetMapping("/personInfo")
 	@ResponseBody
-	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
-			@RequestParam String lastName) {
+	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(
+			@RequestParam String firstName, @RequestParam String lastName) {
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			personByFullNameInfoAndMedicalRecord = personInfoService
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
@@ -153,9 +157,9 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@GetMapping("/communityEmail")
 	@ResponseBody
-	public ResponseEntity<	List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
+	public ResponseEntity<List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
 
@@ -168,6 +172,6 @@ public class AlertsController implements IResponseHTTPEmpty404 <Object>{
 
 	@Override
 	public ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
-		return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
 	}
 }

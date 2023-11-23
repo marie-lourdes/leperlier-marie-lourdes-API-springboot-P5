@@ -11,7 +11,7 @@ import com.safetynet.api.model.MedicalRecord;
 @Component
 public class MedicalRecordRepositoryImpl implements IMedicalRecordRepository {
 	@Autowired
-	ReadMedicalRecordDataFromFileImpl readMedicalRecords;
+	private ReadMedicalRecordDataFromFileImpl readMedicalRecords;
 
 	@Override
 	public List<MedicalRecord> findAll() throws IOException {

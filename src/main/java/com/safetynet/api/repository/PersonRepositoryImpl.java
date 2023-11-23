@@ -11,7 +11,7 @@ import com.safetynet.api.model.Person;
 @Component
 public class PersonRepositoryImpl implements IPersonRepository {
 	@Autowired
-	ReadPersonDataFromFileImpl readPersons;
+	private ReadPersonDataFromFileImpl readPersons;
 
 	@Override
 	public List<Person> findAll() throws IOException {

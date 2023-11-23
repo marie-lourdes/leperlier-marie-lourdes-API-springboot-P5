@@ -38,7 +38,6 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400();
 		}
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 	}
 

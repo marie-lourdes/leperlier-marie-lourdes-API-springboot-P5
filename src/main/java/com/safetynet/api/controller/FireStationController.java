@@ -22,9 +22,9 @@ import com.safetynet.api.utils.IResponseHTTPEmpty404;
 import jakarta.validation.Valid;
 
 @RestController
-public class FireStationController implements IResponseHTTPEmpty404 <FireStation>,IResponseHTTPEmpty400 <FireStation>{
+public class FireStationController implements IResponseHTTPEmpty404<FireStation>, IResponseHTTPEmpty400<FireStation> {
 	private static final Logger log = LogManager.getLogger(FireStationController.class);
-	
+
 	@Autowired
 	private FireStationService fireStationService;
 
@@ -56,7 +56,7 @@ public class FireStationController implements IResponseHTTPEmpty404 <FireStation
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode404();
-		}catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400();
 		}
@@ -109,8 +109,8 @@ public class FireStationController implements IResponseHTTPEmpty404 <FireStation
 
 	@Override
 	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode404() {
-			return new ResponseEntity<FireStation>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<FireStation>(HttpStatus.NOT_FOUND);
+	}
 
 	@Override
 	public ResponseEntity<FireStation> returnResponseEntityEmptyAndCode400() {

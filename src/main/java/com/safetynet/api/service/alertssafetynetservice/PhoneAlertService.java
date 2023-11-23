@@ -14,7 +14,7 @@ public class PhoneAlertService {
 	private static final Logger log = LogManager.getLogger(PhoneAlertService.class);
 
 	@Autowired
-	SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
+	private SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
 
 	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 

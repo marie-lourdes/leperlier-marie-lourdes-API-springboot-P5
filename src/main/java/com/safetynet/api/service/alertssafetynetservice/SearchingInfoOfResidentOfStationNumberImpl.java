@@ -21,13 +21,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	private static final Logger log = LogManager.getLogger(SearchingInfoOfResidentOfStationNumberImpl.class);
 
 	@Autowired
-	PersonService personService;
+	private PersonService personService;
 
 	@Autowired
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
+	private CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
@@ -36,7 +36,7 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
-		
+
 		try {
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();

@@ -18,7 +18,7 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCityImpl.class);
 
 	@Autowired
-	PersonService personService;
+	private PersonService personService;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
@@ -26,7 +26,7 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 
 		List<Person> residentsFoundByCity = new ArrayList<Person>();
 		List<Map<String, String>> listOfEmailsResidentsFoundByCity = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			residentsFoundByCity = personService.getPersonsByCity(city);
 			for (Person person : residentsFoundByCity) {

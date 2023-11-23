@@ -18,28 +18,29 @@ public class FireService {
 	private static final Logger log = LogManager.getLogger(FireService.class);
 
 	@Autowired
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@Autowired
-	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-	public List<Map<String, String>> getListOfResidentsAndFireStationNearFire(String address) throws NullPointerException {
+	public List<Map<String, String>> getListOfResidentsAndFireStationNearFire(String address)
+			throws NullPointerException {
 		log.debug("Retrieving all residents with its fireStation near fire address : {}", address);
 		List<Map<String, String>> listOfResidentAndFireStationNearFire = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
-			
+
 			listOfResidentWithMedicalRecord = searchingFullInfoOfResidentsWithMedicalRecord
 					.searchInfoOfResident(address);
-			 listOfResidentAndFireStationNearFire=listOfResidentWithMedicalRecord ;
+			listOfResidentAndFireStationNearFire = listOfResidentWithMedicalRecord;
 			Map<String, String> mapOfFireStationFoundByAddressFire = new HashMap<String, String>();
 			List<FireStation> fireStationsFoundByAddressFire = fireStationService.getFireStationsByAddress(address);
 			for (FireStation fireStation : fireStationsFoundByAddressFire) {
 				mapOfFireStationFoundByAddressFire.put("stationNumber", fireStation.getStationNumber());
 			}
 
-			if ( !mapOfFireStationFoundByAddressFire.isEmpty()) {	
+			if (!mapOfFireStationFoundByAddressFire.isEmpty()) {
 				listOfResidentAndFireStationNearFire.add(mapOfFireStationFoundByAddressFire);
 			}
 

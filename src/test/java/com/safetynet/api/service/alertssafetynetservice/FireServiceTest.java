@@ -32,7 +32,7 @@ class FireServiceTest {
 	private FireStationService fireStationService;
 
 	@MockBean
-	SearchingInfoOfResidentsByAddressWithMedicalRecordImpl fullInfoOfResidentsWithMedicalRecord;
+	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl fullInfoOfResidentsWithMedicalRecord;
 
 	private static Map<String, String> residentTest;
 	private static MedicalRecord medicalRecordTest;

@@ -47,7 +47,7 @@ class MedicalRecordControllerTest {
 		allergies.add("nillacilan");
 		MedicalRecord medicalRecordCreated = new MedicalRecord("Millie", "Leperlier", "03/06/1996", medications,
 				allergies);
-	
+
 		try {
 			MockHttpServletResponse result = mockMvc
 					.perform(MockMvcRequestBuilders.post("/medicalRecord").contentType(MediaType.APPLICATION_JSON)

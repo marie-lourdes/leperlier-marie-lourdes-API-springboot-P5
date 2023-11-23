@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChildAlertService {
 	private static final Logger log = LogManager.getLogger(ChildAlertService.class);
-	
-	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl infoOfChildAndMemberOfHouseHold;
 
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName sortInfoOfChildsAndAdults;
+	private SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName sortInfoOfChildsAndAdults;
 
 	private List<Map<String, String>> listOfResidentChildAndMembersOfHouseHold;
 
@@ -68,7 +65,7 @@ public class ChildAlertService {
 
 	public List<Map<String, String>> sortAdultsAndChildsOfListOfResidentsWithFullInfo(String address) throws Exception {
 		List<Map<String, String>> listAdultsAndChildsSorted = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			listAdultsAndChildsSorted = sortInfoOfChildsAndAdults.sortAdultsAndChilds(address);
 			if (listAdultsAndChildsSorted.isEmpty()) {

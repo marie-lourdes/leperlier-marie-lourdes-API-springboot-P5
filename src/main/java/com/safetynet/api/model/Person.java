@@ -70,9 +70,11 @@ public class Person {
 		this.phone = phone;
 		this.email = email;
 	}
+
 	public Person(String address) {
 		this.address = address;
 	}
+
 	public String getId() {
 		return id;
 	}

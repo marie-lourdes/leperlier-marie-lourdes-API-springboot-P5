@@ -17,11 +17,11 @@ import com.safetynet.api.utils.Constants;
 @Component
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
-	
+
 	private BigInteger age;
-	
+
 	@Autowired
-	MedicalRecordService medicalRecordService;
+	private MedicalRecordService medicalRecordService;
 
 	@Override
 	public BigInteger calculateAgeOfResident(String idFirstAndLastName) {

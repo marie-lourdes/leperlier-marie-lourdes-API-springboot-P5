@@ -38,7 +38,6 @@ public class MedicalRecordController implements IResponseHTTPEmpty404<MedicalRec
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400();
 		}
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(medicalRecordCreated);
 	}
 

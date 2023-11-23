@@ -19,17 +19,17 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 	private static final Logger log = LogManager.getLogger(SearchingInfoPersonByAddressWithMedicalRecordImpl.class);
 
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
 
 	@Autowired
-	MedicalRecordService medicalRecordService;
+	private MedicalRecordService medicalRecordService;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		log.debug("Searching info of residents  by address with medical record ");
 
 		List<Map<String, String>> listOfPersonWithMedicalRecord = new ArrayList<Map<String, String>>();
-		
+
 		try {
 			List<Map<String, String>> listOfPersonByAddress = searchingFullInfoOfResidentsByAddress
 					.searchInfoOfResident(address);
