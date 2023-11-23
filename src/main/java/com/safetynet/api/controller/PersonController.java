@@ -21,7 +21,7 @@ import com.safetynet.api.utils.IResponseHTTPEmpty404;
 import jakarta.validation.Valid;
 
 @RestController
-public class PersonController implements IResponseHTTPEmpty404<Person>,IResponseHTTPEmpty400<Person> {
+public class PersonController implements IResponseHTTPEmpty404<Person>, IResponseHTTPEmpty400<Person> {
 	private static final Logger log = LogManager.getLogger(PersonController.class);
 
 	@Autowired
@@ -31,13 +31,10 @@ public class PersonController implements IResponseHTTPEmpty404<Person>,IResponse
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		Person personCreated = new Person();
-		
+
 		try {
 			personCreated = personService.addPerson(person);
-		/*	if(personCreated ==null) {
-				throw new IllegalArgumentException ("Failed to add this person"+ person);
-			}*/
-		} catch (NullPointerException e) {
+		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 			return this.returnResponseEntityEmptyAndCode400();
 		}
@@ -77,7 +74,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>,IResponse
 	public ResponseEntity<Person> returnResponseEntityEmptyAndCode404() {
 		return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
 	}
-	
+
 	@Override
 	public ResponseEntity<Person> returnResponseEntityEmptyAndCode400() {
 		return new ResponseEntity<Person>(HttpStatus.BAD_REQUEST);

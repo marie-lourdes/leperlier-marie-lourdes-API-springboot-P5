@@ -21,21 +21,21 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) {
+	public Person addPerson(Person person) throws IllegalArgumentException{
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
 			
 		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 		
 		if (isObjectDuplicated) {
-			log.error("Failed to add this person, this person already exist" + person);
-			return null;
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
 		}else {
 			String fullName = person.getFirstName() + " " + person.getLastName();
 			person.setId(fullName);
 			persons.add(person);
 			log.info("Person added successfully: {}", person);
+			return person;
 		}
-		return person;
+
 	}
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {

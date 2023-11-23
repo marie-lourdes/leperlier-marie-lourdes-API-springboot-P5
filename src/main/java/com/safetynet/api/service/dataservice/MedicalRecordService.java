@@ -20,24 +20,21 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord){
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) throws IllegalArgumentException {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
 
 		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
-		
+
 		if (isObjectDuplicated) {
-			log.error(
-					"Failed to add this medical record, medical record already exist" + medicalRecord);
-			return null;
-		}else {
+			throw new IllegalArgumentException ("Failed to add this medical record, medical record already exist" + medicalRecord);
+		} else {
 			String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
 			medicalRecord.setId(fullName);
 			medicalRecords.add(medicalRecord);
 
 			log.info("Medical record added successfully: {}", medicalRecord);
 		}
-		
-		
+
 		return medicalRecord;
 	}
 
@@ -106,14 +103,13 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 	@Override
 	public boolean isObjectDuplicated(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
 		boolean isObjectDuplicated = false;
-			for (MedicalRecord medicalRecordExisting : medicalRecords) {
-				if (medicalRecordExisting.getFirstName().toString().equals(medicalRecord.getFirstName().toString())
-						&& medicalRecordExisting.getLastName().toString()
-								.equals(medicalRecord.getLastName().toString())) {
-					isObjectDuplicated = true;
-				}
+		for (MedicalRecord medicalRecordExisting : medicalRecords) {
+			if (medicalRecordExisting.getFirstName().toString().equals(medicalRecord.getFirstName().toString())
+					&& medicalRecordExisting.getLastName().toString().equals(medicalRecord.getLastName().toString())) {
+				isObjectDuplicated = true;
 			}
-		
+		}
+
 		return isObjectDuplicated;
 	}
 }

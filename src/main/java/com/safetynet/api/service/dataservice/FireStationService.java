@@ -27,9 +27,9 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
 
 		if (isObjectDuplicated) {
-			log.error(
-					"Failed to add this firestation, this firestation already exist" + fireStation);
-		}else {
+			log.error("Failed to add this firestation, this firestation already exist" + fireStation);
+			return null;
+		} else {
 			this.generateId(fireStation);
 			fireStations.add(fireStation);
 			log.info("FireStation added successfully: {}", fireStation);
@@ -64,16 +64,16 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 	}
 
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
-			throws NullPointerException,IllegalArgumentException{
+			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
 
-		boolean isObjectDuplicated=this.isFireStationDuplicatedByAddress(fireStations, fireStation);
-		
+		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+
 		if (isObjectDuplicated) {
 			throw new IllegalArgumentException(
 					"Failed to add this firestation, this firestation already exist" + fireStation);
 		}
-		
+
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
@@ -210,7 +210,8 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
-		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-" + Math.round(Math.random() * 100+ 1);
+		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
+				+ Math.round(Math.random() * 100 + 1);
 
 		fireStationCreated.setId(ID);
 		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);

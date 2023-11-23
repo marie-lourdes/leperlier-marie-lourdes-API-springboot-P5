@@ -101,8 +101,7 @@ class FireStationServiceTest {
 			FireStation resultFireStationCreated = fireStationServiceUnderTest.addFireStation(fireStationTest1);
 			fireStations = fireStationServiceUnderTest.getAllFireStations();
 
-			Integer countFireStationCreatedDuplicated = Collections.frequency(fireStations, resultFireStationCreated);
-			assertTrue(countFireStationCreatedDuplicated > 1);
+			assertNull(resultFireStationCreated);
 		} catch (IllegalArgumentException e) {
 			assertThrows(IllegalArgumentException.class,
 					() -> fireStationServiceUnderTest.addFireStation(fireStationTest1));
