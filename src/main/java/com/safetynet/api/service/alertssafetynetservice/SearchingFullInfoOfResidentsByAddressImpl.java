@@ -43,7 +43,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 				residentFoundByAddress.put("email", person.getEmail());
 				String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
 
-				if (age.equals("0")) {
+				if ("0".equals(age)) {
 					log.error("Age not provided for this resident {} {}", residentFoundByAddress.get("firstName"),
 							residentFoundByAddress.get("lastName"));
 					residentFoundByAddress.put("age", " error! ");

@@ -52,7 +52,7 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 						residentOfStationNumber.put("phone", person.getPhone());
 						String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
 
-						if (age.equals("0")) {
+						if ("0".equals(age)) {
 							log.error("Age not provided for this resident {} {}",
 									residentOfStationNumber.get("firstName"), residentOfStationNumber.get("lastName"));
 							residentOfStationNumber.put("age", " error! ");
