@@ -36,6 +36,7 @@ class FireServiceTest {
 
 	private static Map<String, String> residentTest;
 	private static MedicalRecord medicalRecordTest;
+	private static Map<String, String> mapMedicalRecordTest;
 	private static List<Map<String, String>> listOfPersonWithMedicalRecordExpectedTest;
 	private static FireStation fireStationTest1;
 	private static List<FireStation> listOfFireStationTest;
@@ -54,7 +55,7 @@ class FireServiceTest {
 		List<String> allergies = new ArrayList<String>();
 		allergies.add("nillacilan");
 		medicalRecordTest = new MedicalRecord("Millie", "Leperlier", "09/04/1989", medications, allergies);
-		Map<String, String> mapMedicalRecordTest = new LinkedHashMap<String, String>();
+		mapMedicalRecordTest = new LinkedHashMap<String, String>();
 		mapMedicalRecordTest.put("medications", medicalRecordTest.getMedications().toString());
 		mapMedicalRecordTest.put("allergies", medicalRecordTest.getAllergies().toString());
 
@@ -82,7 +83,7 @@ class FireServiceTest {
 			
 			verify(fullInfoOfResidentsWithMedicalRecord).searchInfoOfResident(any(String.class));
 			verify(fireStationService).getFireStationsByAddress(any(String.class));
-			assertThat(resultListOfResidentAndFireStationNearFire).contains(listOfPersonWithMedicalRecordExpectedTest);
+			assertThat(resultListOfResidentAndFireStationNearFire).contains(mapMedicalRecordTest);
 			assertThat(resultListOfResidentAndFireStationNearFire).contains(mapOfFireStationFoundByAddressFireExpectedTest);	
 		}catch (AssertionError e) {
 			fail(e.getMessage());
@@ -96,7 +97,7 @@ class FireServiceTest {
 		when(fireStationService.getFireStationsByAddress("112 address")).thenReturn(listOfFireStationTest);
 		
 		try {
-			List<Object> resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
+			List<Map<String, String>>  resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
 			
 			verify(fullInfoOfResidentsWithMedicalRecord).searchInfoOfResident(any(String.class));
 			verify(fireStationService).getFireStationsByAddress(any(String.class));
@@ -115,7 +116,7 @@ class FireServiceTest {
 		when(fireStationService.getFireStationsByAddress("112 address")).thenThrow(NullPointerException.class);
 		
 		try {
-			List<Object> resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
+			List<Map<String, String>>  resultListOfResidentAndFireStationNearFire=fireServiceUnderTest.getListOfResidentsAndFireStationNearFire("112 address");
 			
 			verify(fullInfoOfResidentsWithMedicalRecord).searchInfoOfResident(any(String.class));
 			verify(fireStationService).getFireStationsByAddress(any(String.class));
