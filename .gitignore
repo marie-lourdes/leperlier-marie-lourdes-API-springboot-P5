@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### file log ###
-SafetyNetAlerts.log
+./SafetyNetAlerts.log
 
