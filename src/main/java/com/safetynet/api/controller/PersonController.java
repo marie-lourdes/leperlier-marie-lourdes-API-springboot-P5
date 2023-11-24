@@ -31,9 +31,9 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	@PostMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_PERSON,  person);
-		
-		Person personCreated = new Person();		
+		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_PERSON, person);
+
+		Person personCreated = new Person();
 		try {
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
@@ -43,17 +43,17 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
+		
 		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
 		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityValid);
-
 		return ResponseEntityValid;
 	}
 
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON ,  person);
-		
+		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON, person);
+
 		Person personFoundById = new Person();
 		try {
 			personFoundById = personService.updateOnePersonById(id, person);
@@ -64,16 +64,16 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
+		
 		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityValid);
-
 		return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 	}
 
 	@DeleteMapping("/person")
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_PERSON,  id);
-		
+		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_PERSON, id);
+
 		try {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);
 			if (!personIsRemoved) {
@@ -86,9 +86,9 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
+		
 		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityValid);
-
 		return ResponseEntityValid;
 	}
 
