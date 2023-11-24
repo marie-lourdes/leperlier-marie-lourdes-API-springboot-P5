@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.MedicalRecord;
@@ -30,7 +29,6 @@ public class MedicalRecordController
 	private MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecord")
-	@ResponseBody
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_MEDICALRECORD, medicalRecord);
 
@@ -40,19 +38,18 @@ public class MedicalRecordController
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<MedicalRecord> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<MedicalRecord> responseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<MedicalRecord> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED)
+		ResponseEntity<MedicalRecord> responseEntityValid = ResponseEntity.status(HttpStatus.CREATED)
 				.body(medicalRecordCreated);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@PutMapping("/medicalRecord")
-	@ResponseBody
 	public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, medicalRecord);
@@ -63,14 +60,14 @@ public class MedicalRecordController
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<MedicalRecord> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<MedicalRecord> responseEntityNoValid = this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<MedicalRecord> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);		
-		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<MedicalRecord> responseEntityValid = ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);		
+		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, responseEntityValid );
+		return responseEntityValid ;
 	}
 
 	@DeleteMapping("/medicalRecord")
@@ -85,14 +82,14 @@ public class MedicalRecordController
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<Long> ResponseEntityNoValid =new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<Long> responseEntityNoValid =new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<Long> ResponseEntityValid =  new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Long> responseEntityValid =  new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@Override

@@ -22,12 +22,12 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 	private List<FireStation> fireStations = new ArrayList<>();
 
 	public FireStation addFireStation(FireStation fireStation) {
-		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
+		log.debug("Adding FireStation: {} {}", fireStation.getStationNumber(), fireStation.getAddress());
 
 		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
 
 		if (isObjectDuplicated) {
-			log.error("Failed to add this firestation, this firestation already exist" + fireStation);
+			log.error("Failed to add this firestation, this firestation already exist {} ", fireStation);
 			return null;
 		} else {
 			this.generateId(fireStation);
@@ -225,7 +225,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 	public boolean isObjectDuplicated(List<FireStation> fireStations, FireStation fireStation) {
 		boolean isObjectDuplicated = false;
 		for (FireStation fireStationExisting : fireStations) {
-			if (fireStationExisting.getAddress().toString().equals(fireStation.getAddress().toString())) {
+			if (fireStationExisting.getAddress().equals(fireStation.getAddress())) {
 				isObjectDuplicated = true;
 			}
 		}

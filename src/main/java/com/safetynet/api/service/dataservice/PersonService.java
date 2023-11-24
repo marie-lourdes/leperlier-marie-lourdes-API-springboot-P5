@@ -22,7 +22,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 	private List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) throws IllegalArgumentException {
-		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
+		log.debug("Adding person: {} {}", person.getFirstName(),person.getLastName());
 
 		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 
@@ -194,8 +194,8 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 	public boolean isObjectDuplicated(List<Person> persons, Person person) {
 		boolean isObjectDuplicated = false;
 		for (Person personExisting : persons) {
-			if (personExisting.getFirstName().toString().equals(person.getFirstName().toString())
-					&& personExisting.getLastName().toString().equals(person.getLastName().toString())) {
+			if (personExisting.getFirstName().equals(person.getFirstName())
+					&& personExisting.getLastName().equals(person.getLastName())) {
 				isObjectDuplicated = true;
 			}
 		}

@@ -36,22 +36,18 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 		try {
 			List<Person> persons = personService.getAllPersons();
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
-			if (!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
-				Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
 
-				while (itrFireStations.hasNext()) {
-					FireStation itrFireStation = itrFireStations.next();
-
-					for (Person person : persons) {
-						if (person.getAddress().equals(itrFireStation.getAddress())) {
-							Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
-							residentOfStationNumber.put("phone", person.getPhone());
-
-							if (!listOfPhonesOfResidentOfStationNumber.contains(residentOfStationNumber)) {
-								listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
-								log.debug("Phone retrieved for each resident of station number: {}",
-										residentOfStationNumber);
-							}
+			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
+			while (itrFireStations.hasNext()) {
+				FireStation itrFireStation = itrFireStations.next();
+				for (Person person : persons) {
+					if (person.getAddress().equals(itrFireStation.getAddress())) {
+						Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
+						residentOfStationNumber.put("phone", person.getPhone());
+						if (!listOfPhonesOfResidentOfStationNumber.contains(residentOfStationNumber)) {
+							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+							log.debug("Phone retrieved for each resident of station number: {}",
+									residentOfStationNumber);
 						}
 					}
 				}
