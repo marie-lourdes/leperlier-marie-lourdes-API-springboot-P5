@@ -53,7 +53,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(
 			@RequestParam String stationNumber) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, stationNumber);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, stationNumber);
 		
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 		Map<String, String> mapOfAdultsAndChildSorted = new HashMap<String, String>();
@@ -84,7 +84,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@GetMapping("/childAlert")
 	@ResponseBody
 	public ResponseEntity<Object> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, address);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, address);
 		
 		List<Map<String, String>> childs = new ArrayList<Map<String, String>>();
 		try {
@@ -106,7 +106,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(
 			@RequestParam String stationNumber) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, stationNumber);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, stationNumber);
 		
 		List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = new ArrayList<Map<String, String>>();
 		try {
@@ -129,7 +129,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getListOfResidentsAndFireStationNearFire(
 			@RequestParam String address) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, address);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, address);
 		try {
 			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
 			listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
@@ -150,7 +150,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@ResponseBody
 	public ResponseEntity<List<List<Map<String, String>>>> getListOfHouseHoldByStationNumberIfFlood(
 			@RequestParam List<String> stations) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, stations);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, stations);
 		
 		List<List<Map<String, String>>> listOfHouseHoldByStationNumberParams = new ArrayList<List<Map<String, String>>>();
 		try {
@@ -176,7 +176,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(
 			@RequestParam String firstName, @RequestParam String lastName) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_PERSONINFO_BY_FULLNAME, firstName, lastName);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_PERSONINFO_BY_FULLNAME, firstName, lastName);
 		
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
 		try {
@@ -198,7 +198,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	@GetMapping("/communityEmail")
 	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
-		log.info(ConstantsRequestResponseHttp.REQUEST_GET_EMAIL_OF_RESIDENTS_BY_CITY, city);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_EMAIL_OF_RESIDENTS_BY_CITY, city);
 		
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		try {
