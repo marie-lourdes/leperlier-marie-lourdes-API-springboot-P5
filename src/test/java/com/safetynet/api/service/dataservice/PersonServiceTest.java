@@ -217,12 +217,12 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByLastName("Leperlier");
 
 			String expectedLastName = "Leperlier";
-			int expectedCountPersonByLastName = 0;
+			int countPersonByLastName = 0;
 			for (Person personFoundByLastName : resultPersons) {
-				expectedCountPersonByLastName++;
+				countPersonByLastName++;
 				assertEquals(expectedLastName, personFoundByLastName.getLastName());
 			}
-			assertTrue(expectedCountPersonByLastName == 2);
+			assertEquals(2, countPersonByLastName);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -277,12 +277,12 @@ class PersonServiceTest {
 			List<Person> resultPersons = personServiceUnderTest.getPersonsByCity("Dax");
 
 			String expectedCity = personTest1.getCity();
-			int expectedCountPersonByCity = 0;
+			int countPersonByCity = 0;
 			for (Person personFoundByCity : resultPersons) {
-				expectedCountPersonByCity++;
+				countPersonByCity++;
 				assertEquals(expectedCity, personFoundByCity.getCity());
 			}
-			assertTrue(expectedCountPersonByCity == 2);
+			assertEquals(2, countPersonByCity);
 			assertFalse(resultPersons.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
