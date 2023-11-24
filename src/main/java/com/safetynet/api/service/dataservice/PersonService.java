@@ -21,18 +21,18 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 	private List<Person> persons = new ArrayList<>();
 
-	public Person addPerson(Person person) throws IllegalArgumentException{
+	public Person addPerson(Person person) throws IllegalArgumentException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
-			
+
 		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
-		
+
 		if (isObjectDuplicated) {
-			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);	
-		}else {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);
+		} else {
 			String fullName = person.getFirstName() + " " + person.getLastName();
 			person.setId(fullName);
 			persons.add(person);
-			
+
 			log.info("Person added successfully: {}", person);
 			return person;
 		}
@@ -50,8 +50,8 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 					existingPerson.setPhone(updatedPerson.getPhone());
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
-				}).orElseThrow(
-						() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException(
+						"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND));
 
 		log.info("Person updated successfully for: {}", existingPersonUpdated);
 		return existingPersonUpdated;
@@ -105,7 +105,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 			if (personsFoundByLastName.isEmpty()) {
 				log.error("Failed to retrieve person  for last name {}", lastName);
-				throw new NullPointerException("Person(s)  for lastName: " + lastName + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s)  for lastName: " + lastName + " " + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved  successfully for last name  {}", lastName);
 			}
@@ -134,7 +134,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 			if (personsFoundByAddress.isEmpty()) {
 				log.error("Failed to retrieve person  for address {}", address);
-				throw new NullPointerException("Person(s) by address: " + address + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s) by address: " + address + " " + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved  successfully for address {}", address);
 			}
@@ -162,7 +162,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 
 			if (personsFoundByCity.isEmpty()) {
 				log.error("Failed to retrieve person for city {}", city);
-				throw new NullPointerException("Person(s)  by city :" + city + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s)  by city :" + city + " " + Constants.NOT_FOUND);
 			} else {
 				log.info("Person retrieved successfully for city {}", city);
 			}
@@ -193,13 +193,13 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 	@Override
 	public boolean isObjectDuplicated(List<Person> persons, Person person) {
 		boolean isObjectDuplicated = false;
-			for (Person personExisting : persons) {
-				if (personExisting.getFirstName().toString().equals(person.getFirstName().toString())
-						&& personExisting.getLastName().toString().equals(person.getLastName().toString())) {
-					isObjectDuplicated = true;
-				}
+		for (Person personExisting : persons) {
+			if (personExisting.getFirstName().toString().equals(person.getFirstName().toString())
+					&& personExisting.getLastName().toString().equals(person.getLastName().toString())) {
+				isObjectDuplicated = true;
 			}
-		
+		}
+
 		return isObjectDuplicated;
 	}
 }

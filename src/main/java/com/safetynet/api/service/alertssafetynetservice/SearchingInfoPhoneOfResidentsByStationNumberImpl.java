@@ -56,12 +56,13 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 					}
 				}
 			}
+
+			log.debug("Phones of residents  by  station number successfull retrieved ; {}",
+					listOfPhonesOfResidentOfStationNumber);
 		} catch (Exception e) {
 			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
 
-		log.debug("Phones of residents  by  station number successfull retrieved ; {}",
-				listOfPhonesOfResidentOfStationNumber);
 		return listOfPhonesOfResidentOfStationNumber;
 	}
 }

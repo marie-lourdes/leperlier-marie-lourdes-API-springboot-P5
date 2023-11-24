@@ -57,7 +57,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new station number , the address: "
-					+ address + Constants.NOT_FOUND);
+					+ address + " " + Constants.NOT_FOUND);
 		}
 
 		return fireStation;
@@ -90,7 +90,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
-					+ stationNumber + Constants.NOT_FOUND);
+					+ stationNumber + " " + Constants.NOT_FOUND);
 		}
 
 		return createdFireStation;
@@ -109,7 +109,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 					return existingFireStation;
 				}).orElseThrow(
 						() -> new NullPointerException("Failed to update station number of fireStation, the address :"
-								+ address + Constants.NOT_FOUND));
+								+ address + " " + Constants.NOT_FOUND));
 
 		log.info("FireStation updated successfully for address: {}", existingFireStationUpdated);
 		return existingFireStationUpdated;

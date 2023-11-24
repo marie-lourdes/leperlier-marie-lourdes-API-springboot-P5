@@ -51,12 +51,12 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 
 				listOfPersonWithMedicalRecord.add(mapOfMedicalRecordOfPersonUpdated);
 			}
+			
+			log.debug("Info of residents  by address with medical record succesfully retrieved : {}",
+					listOfPersonWithMedicalRecord);
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of person found by address with medical records");
 		}
-
-		log.debug("Info of residents  by address with medical record succesfully retrieved : {}",
-				listOfPersonWithMedicalRecord);
 		return listOfPersonWithMedicalRecord;
 	}
 }

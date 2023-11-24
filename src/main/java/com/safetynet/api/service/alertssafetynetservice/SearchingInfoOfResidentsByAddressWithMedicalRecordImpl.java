@@ -53,6 +53,9 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 				listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResidentUpdated);
 
 			}
+			
+			log.debug(" Info of residents by address with medical records successfully retrieved : {}",
+					listOfResidentWithMedicalRecord);
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of residents by address with medical records");
 		}

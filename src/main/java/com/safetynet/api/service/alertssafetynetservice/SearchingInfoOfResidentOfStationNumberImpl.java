@@ -64,11 +64,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 					}
 				}
 			}
+
+			log.debug(" Info of residents by station number successfully retrieved : {}",
+					listOfResidentOfStationNumber);
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of residents of station number");
 		}
 
-		log.debug(" Info of residents by station number successfully retrieved : {}", listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
 

@@ -26,7 +26,8 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
 
 		if (isObjectDuplicated) {
-			throw new IllegalArgumentException ("Failed to add this medical record, medical record already exist" + medicalRecord);
+			throw new IllegalArgumentException(
+					"Failed to add this medical record, medical record already exist" + medicalRecord);
 		} else {
 			String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
 			medicalRecord.setId(fullName);
@@ -48,8 +49,8 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 					existingMedicalRecord.setMedications(updatedMedicalRecord.getMedications());
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update medical record, " + updatedMedicalRecord.getId() + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException("Failed to update medical record, "
+						+ updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND));
 
 		log.info("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
 		return existingMedicalRecordUpdated;
@@ -76,7 +77,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + " " + Constants.NOT_FOUND));
 
 		log.info("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
