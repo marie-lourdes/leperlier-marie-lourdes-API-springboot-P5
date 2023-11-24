@@ -46,12 +46,12 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 						if (person.getAddress().equals(itrFireStation.getAddress())) {
 							Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
 							residentOfStationNumber.put("phone", person.getPhone());
-							log.debug("Phone retrieved for each resident of station number: {}",
-									residentOfStationNumber);
+
 							if (!listOfPhonesOfResidentOfStationNumber.contains(residentOfStationNumber)) {
 								listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+								log.debug("Phone retrieved for each resident of station number: {}",
+										residentOfStationNumber);
 							}
-							
 						}
 					}
 				}

@@ -109,9 +109,7 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 			@RequestParam String address) {
 		try {
 			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
-
 			listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
-
 			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
@@ -162,7 +160,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
-
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);

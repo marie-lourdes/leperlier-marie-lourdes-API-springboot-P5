@@ -23,9 +23,8 @@ public class CommunityEmailService {
 
 		listEmailsOfResidentsOfCity = infoEmailOfResidentsByCity.searchInfoOfResident(city);
 
-		log.error("Failed to retrieve emails of residents of the city : {}", city);
 		if (listEmailsOfResidentsOfCity.isEmpty()) {
-			throw new NullPointerException("List of email not found of residents of  this city : " + city);
+			throw new NullPointerException("Failed to retrieve emails of residents of the city :" + city);
 		}
 
 		log.info(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
