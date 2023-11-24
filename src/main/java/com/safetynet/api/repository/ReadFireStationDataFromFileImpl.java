@@ -37,10 +37,6 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 
 				listOfFireStations.add(fireStation);
 			}
-		} catch (ClassCastException e) {
-			log.error(e.getMessage());
-		} catch (NullPointerException e) {
-			log.error("Missing datas firestations from file Json");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
