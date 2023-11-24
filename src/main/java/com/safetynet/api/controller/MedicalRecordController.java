@@ -30,7 +30,6 @@ public class MedicalRecordController
 	private MedicalRecordService medicalRecordService;
 
 	@PostMapping("/medicalRecord")
-	@ResponseBody
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_MEDICALRECORD, medicalRecord);
 
@@ -52,7 +51,6 @@ public class MedicalRecordController
 	}
 
 	@PutMapping("/medicalRecord")
-	@ResponseBody
 	public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, medicalRecord);

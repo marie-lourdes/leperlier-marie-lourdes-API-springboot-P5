@@ -30,7 +30,6 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	private FireStationService fireStationService;
 
 	@PostMapping("/firestation")
-	@ResponseBody
 	public ResponseEntity<FireStation> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_STATIONNUMBER_OF_FIRESTATION, fireStation);
@@ -53,7 +52,6 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
-	@ResponseBody
 	public ResponseEntity<FireStation> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_ADDRESS_OF_FIRESTATION, fireStation);
@@ -82,7 +80,6 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	}
 
 	@PutMapping("/firestation")
-	@ResponseBody
 	public ResponseEntity<FireStation> updateOneFireStationByAddress(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_FIRESTATION, fireStation);

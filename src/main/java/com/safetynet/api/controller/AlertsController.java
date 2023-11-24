@@ -50,7 +50,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/firestation")
-	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(
 			@RequestParam String stationNumber) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, stationNumber);
@@ -82,7 +81,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/childAlert")
-	@ResponseBody
 	public ResponseEntity<Object> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, address);
 		
@@ -103,7 +101,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/phoneAlert")
-	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(
 			@RequestParam String stationNumber) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, stationNumber);
@@ -126,7 +123,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/fire")
-	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getListOfResidentsAndFireStationNearFire(
 			@RequestParam String address) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, address);
@@ -147,7 +143,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/flood/stations")
-	@ResponseBody
 	public ResponseEntity<List<List<Map<String, String>>>> getListOfHouseHoldByStationNumberIfFlood(
 			@RequestParam List<String> stations) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, stations);
@@ -173,7 +168,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/personInfo")
-	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(
 			@RequestParam String firstName, @RequestParam String lastName) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_PERSONINFO_BY_FULLNAME, firstName, lastName);
@@ -196,7 +190,6 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	}
 
 	@GetMapping("/communityEmail")
-	@ResponseBody
 	public ResponseEntity<List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_GET_EMAIL_OF_RESIDENTS_BY_CITY, city);
 		

@@ -29,7 +29,6 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	private PersonService personService;
 
 	@PostMapping("/person")
-	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_PERSON, person);
 
@@ -50,7 +49,6 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	}
 
 	@PutMapping("/person")
-	@ResponseBody
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
 		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON, person);
 
