@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
@@ -68,15 +67,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 
 			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildSorted);
 			
-			ResponseEntity<List<Map<String, String>>>ResponseValid = ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 				
-			ResponseEntity<List<Map<String, String>>>ResponseNoValid =  new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, ResponseNoValid);
-			return ResponseNoValid;
+			ResponseEntity<List<Map<String, String>>>responseNoValid =  new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
@@ -88,15 +87,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 		try {
 			childs = childAlertService.getChildsAndMembersOfHouseHold(address);
 			
-			ResponseEntity<Object>ResponseValid = ResponseEntity.status(HttpStatus.OK).body(childs);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<Object>responseValid = ResponseEntity.status(HttpStatus.OK).body(childs);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 					
-			ResponseEntity<Object>ResponseNoValid =  this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, ResponseNoValid);
-			return ResponseNoValid;
+			ResponseEntity<Object>responseNoValid =  this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
@@ -110,15 +109,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 			listOfPhonesOfResidentsByStationNumber = phoneAlertService
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
 			
-			ResponseEntity<List<Map<String, String>>> ResponseValid = ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<Map<String, String>>> responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 					
-			ResponseEntity<List<Map<String, String>>> ResponseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, ResponseNoValid);
-			return ResponseNoValid;
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
@@ -130,15 +129,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
 			listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
 			
-			ResponseEntity<List<Map<String, String>>> ResponseValid =ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<Map<String, String>>> responseValid =ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<List<Map<String, String>>> ResponseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, ResponseNoValid);
-			return ResponseNoValid;
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
@@ -155,15 +154,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 				listOfHouseHoldByStationNumberParams.addAll(listOfHouseHoldByStationNumber);
 			}
 			
-			ResponseEntity<List<List<Map<String, String>>>> ResponseValid =ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberParams);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<List<Map<String, String>>>> responseValid =ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberParams);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<List<List<Map<String, String>>>> ResponseNoValid = new ResponseEntity<List<List<Map<String, String>>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, ResponseNoValid);
-			return ResponseNoValid;		
+			ResponseEntity<List<List<Map<String, String>>>> responseNoValid = new ResponseEntity<List<List<Map<String, String>>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, responseNoValid);
+			return responseNoValid;		
 		}
 	}
 
@@ -177,15 +176,15 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 			personByFullNameInfoAndMedicalRecord = personInfoService
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
 			
-			ResponseEntity<List<Map<String, String>>>ResponseValid = ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<List<Map<String, String>>> ResponseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, ResponseNoValid);
-			return ResponseNoValid;	
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, responseNoValid);
+			return responseNoValid;	
 		}
 	}
 
@@ -197,14 +196,14 @@ public class AlertsController implements IResponseHTTPEmpty404<Object> {
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
 			
-			ResponseEntity<List<Map<String, String>>>ResponseValid = ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
-			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, ResponseValid);
-			return ResponseValid;
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			ResponseEntity<List<Map<String, String>>> ResponseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, ResponseNoValid);
-			return ResponseNoValid; 
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, responseNoValid);
+			return responseNoValid; 
 		}
 	}
 

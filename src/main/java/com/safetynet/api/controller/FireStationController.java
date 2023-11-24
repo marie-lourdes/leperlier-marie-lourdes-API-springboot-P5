@@ -41,14 +41,14 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<FireStation> ResponseEntityNoValid =  this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_STATIONNUMBER_OF_FIRESTATION, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<FireStation> responseEntityNoValid =  this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_STATIONNUMBER_OF_FIRESTATION, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<FireStation> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_STATIONNUMBER_OF_FIRESTATION, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<FireStation> responseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_STATIONNUMBER_OF_FIRESTATION, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@PostMapping("/firestation/{stationNumber}")
@@ -63,20 +63,20 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<FireStation> ResponseEntityNoValid404 =  this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, ResponseEntityNoValid404);
-			return ResponseEntityNoValid404;		
+			ResponseEntity<FireStation> responseEntityNoValid404 =  this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, responseEntityNoValid404);
+			return responseEntityNoValid404;		
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<FireStation> ResponseEntityNoValid400 =  this.returnResponseEntityEmptyAndCode400();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, ResponseEntityNoValid400 );
-			return ResponseEntityNoValid400;	
+			ResponseEntity<FireStation> responseEntityNoValid400 =  this.returnResponseEntityEmptyAndCode400();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, responseEntityNoValid400 );
+			return responseEntityNoValid400;	
 		}
 		
-		ResponseEntity<FireStation> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<FireStation> responseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(fireStationCreated);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_ADDRESS_OF_FIRESTATION, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@PutMapping("/firestation")
@@ -90,14 +90,14 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<FireStation> ResponseEntityNoValid404 =  this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_FIRESTATION, ResponseEntityNoValid404);
-			return ResponseEntityNoValid404;	
+			ResponseEntity<FireStation> responseEntityNoValid404 =  this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_FIRESTATION, responseEntityNoValid404);
+			return responseEntityNoValid404;	
 		}
 		
-		ResponseEntity<FireStation> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_FIRESTATION, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<FireStation> responseEntityValid = ResponseEntity.status(HttpStatus.OK).body(firestationFoundByAddress);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_FIRESTATION, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@DeleteMapping("/firestation/{stationNumber}")
@@ -113,14 +113,14 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<Long> ResponseEntityNoValid404 =  new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_STATIONNUMBER_OF_FIRESTATION, ResponseEntityNoValid404);
-			return ResponseEntityNoValid404;	
+			ResponseEntity<Long> responseEntityNoValid404 =  new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_STATIONNUMBER_OF_FIRESTATION, responseEntityNoValid404);
+			return responseEntityNoValid404;	
 		}
 		
-		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_STATIONNUMBER_OF_FIRESTATION, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Long> responseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_STATIONNUMBER_OF_FIRESTATION, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@DeleteMapping("/firestation")
@@ -135,14 +135,14 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<Long> ResponseEntityNoValid404 =  new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_ADDRESS_OF_FIRESTATION, ResponseEntityNoValid404);
-			return ResponseEntityNoValid404;	
+			ResponseEntity<Long> responseEntityNoValid404 =  new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_ADDRESS_OF_FIRESTATION, responseEntityNoValid404);
+			return responseEntityNoValid404;	
 		}
 		
-		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_ADDRESS_OF_FIRESTATION, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Long> responseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_ADDRESS_OF_FIRESTATION, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@Override

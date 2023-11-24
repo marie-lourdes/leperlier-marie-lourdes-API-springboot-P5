@@ -39,15 +39,15 @@ public class MedicalRecordController
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<MedicalRecord> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<MedicalRecord> responseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<MedicalRecord> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED)
+		ResponseEntity<MedicalRecord> responseEntityValid = ResponseEntity.status(HttpStatus.CREATED)
 				.body(medicalRecordCreated);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_MEDICALRECORD, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@PutMapping("/medicalRecord")
@@ -61,14 +61,14 @@ public class MedicalRecordController
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<MedicalRecord> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode404();
-			log.error(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<MedicalRecord> responseEntityNoValid = this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<MedicalRecord> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);		
-		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<MedicalRecord> responseEntityValid = ResponseEntity.status(HttpStatus.OK).body(medicalRecordFoundById);		
+		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, responseEntityValid );
+		return responseEntityValid ;
 	}
 
 	@DeleteMapping("/medicalRecord")
@@ -83,14 +83,14 @@ public class MedicalRecordController
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 			
-			ResponseEntity<Long> ResponseEntityNoValid =new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<Long> responseEntityNoValid =new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<Long> ResponseEntityValid =  new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Long> responseEntityValid =  new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_MEDICALRECORD, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@Override

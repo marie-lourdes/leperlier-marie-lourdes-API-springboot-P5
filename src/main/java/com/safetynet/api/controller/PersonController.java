@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
@@ -38,14 +37,14 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<Person> responseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Person> responseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@PutMapping("/person")
@@ -58,13 +57,13 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<Person> responseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(personFoundById);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityValid);
+		ResponseEntity<Person> responseEntityValid = ResponseEntity.status(HttpStatus.OK).body(personFoundById);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, responseEntityValid);
 		return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 	}
 
@@ -80,14 +79,14 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<Long> ResponseEntityNoValid = new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityNoValid);
-			return ResponseEntityNoValid;
+			ResponseEntity<Long> responseEntityNoValid = new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, responseEntityNoValid);
+			return responseEntityNoValid;
 		}
 		
-		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityValid);
-		return ResponseEntityValid;
+		ResponseEntity<Long> responseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, responseEntityValid);
+		return responseEntityValid;
 	}
 
 	@Override
