@@ -33,8 +33,15 @@ public class ConstantsRequestResponseHttp {
 	public static final String REQUEST_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER  = "Request GET: '/phoneAlert', {}";
 	public static final String REQUEST_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE = "Request GET: '/fire', {}";
 	public static final String REQUEST_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD = "Request GET: '/flood/stations', {}";
-	public static final String REQUEST_GET_PERSONINFO_BY_FULLNAME = "Request GET: '/personInfo', {}";
+	public static final String REQUEST_GET_PERSONINFO_BY_FULLNAME = "Request GET: '/personInfo', {} {}";
 	public static final String REQUEST_GET_EMAIL_OF_RESIDENTS_BY_CITY = "Request GET: '/communityEmail', {}";
+	public static final String RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER = "Response GET: '/firestation', {}";
+	public static final String RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS = "Response GET: '/childAlert', {}";
+	public static final String RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER  = "Response GET: '/phoneAlert', {}";
+	public static final String RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE = "Response GET: '/fire', {}";
+	public static final String RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD = "Response GET: '/flood/stations', {}";
+	public static final String RESPONSE_GET_PERSONINFO_BY_FULLNAME = "Response GET: '/personInfo', {} {}";
+	public static final String RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY = "Response GET: '/communityEmail', {}";
 	
 	private  ConstantsRequestResponseHttp () {
 		 
