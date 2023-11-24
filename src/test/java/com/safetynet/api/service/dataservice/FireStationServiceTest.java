@@ -345,14 +345,14 @@ class FireStationServiceTest {
 			String expectedAddress2 = fireStationTest2.getAddress();
 			String expectedAddress3 = fireStationTest3.getAddress();
 
-			int expectedCountFireStationByStationNumber = 0;
+			int countFireStationByStationNumber = 0;
 			for (FireStation fireStationFoundByStationNumber : resultFireStations) {
-				expectedCountFireStationByStationNumber++;
-				assertTrue(fireStationFoundByStationNumber.getAddress() == expectedAddress2
-						|| fireStationFoundByStationNumber.getAddress() == expectedAddress3);
+				countFireStationByStationNumber++;
+				assertTrue(expectedAddress2 == fireStationFoundByStationNumber.getAddress()
+						|| expectedAddress3 == fireStationFoundByStationNumber.getAddress());
 			}
-			System.out.println("expectedCountFireStationByStationNumber" + expectedCountFireStationByStationNumber);
-			assertTrue(expectedCountFireStationByStationNumber == 2);
+			System.out.println("expectedCountFireStationByStationNumber" + countFireStationByStationNumber);
+			assertEquals(2, countFireStationByStationNumber);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -382,14 +382,13 @@ class FireStationServiceTest {
 			String expectedStationNumber3 = fireStationTest3.getStationNumber();
 			String expectedStationNumber4 = fireStationTest4.getStationNumber();
 
-			int expectedCountFireStationByAddress = 0;
+			int countFireStationByAddress = 0;
 			for (FireStation fireStationFoundByStationNumber : resultFireStations) {
-				expectedCountFireStationByAddress++;
-				assertTrue(fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber3
-						|| fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber4);
+				countFireStationByAddress++;
+				assertTrue(expectedStationNumber3 == fireStationFoundByStationNumber.getStationNumber()
+						|| expectedStationNumber4 == fireStationFoundByStationNumber.getStationNumber());
 			}
-			System.out.println("expectedCountFireStationByAddress" + expectedCountFireStationByAddress);
-			assertTrue(expectedCountFireStationByAddress == 1);
+			assertEquals(1, countFireStationByAddress);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
