@@ -36,9 +36,15 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode400();
+
+			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error("Response POST: /person {}", ResponseEntityNoValid);
+			return ResponseEntityNoValid;
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+		log.info("Response POST: /person {}", ResponseEntityValid);
+
+		return ResponseEntityValid;
 	}
 
 	@PutMapping("/person")
@@ -50,8 +56,14 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			personFoundById = personService.updateOnePersonById(id, person);
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return this.returnResponseEntityEmptyAndCode404();
+
+			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			log.error("Response PUT: /person {}", ResponseEntityNoValid);
+			return ResponseEntityNoValid;
 		}
+		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(personFoundById);
+		log.info("Response PUT: /person {}", ResponseEntityValid);
+
 		return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 	}
 
@@ -64,9 +76,15 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+
+			ResponseEntity<Long> ResponseEntityNoValid = new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
+			log.error("Response DELETE: /person {}", ResponseEntityNoValid);
+			return ResponseEntityNoValid;
 		}
-		return new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
+		log.info("Response DELETE: /person {}", ResponseEntityValid);
+		
+		return ResponseEntityValid;
 	}
 
 	@Override
