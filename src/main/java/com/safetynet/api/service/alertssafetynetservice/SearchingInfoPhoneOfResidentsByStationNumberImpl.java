@@ -48,8 +48,10 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 							residentOfStationNumber.put("phone", person.getPhone());
 							log.debug("Phone retrieved for each resident of station number: {}",
 									residentOfStationNumber);
-
-							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+							if (!listOfPhonesOfResidentOfStationNumber.contains(residentOfStationNumber)) {
+								listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
+							}
+							
 						}
 					}
 				}
