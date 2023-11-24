@@ -30,8 +30,9 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	@PostMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-		Person personCreated = new Person();
-
+		log.debug("Request POST: /person {}",  person);
+		
+		Person personCreated = new Person();		
 		try {
 			personCreated = personService.addPerson(person);
 		} catch (IllegalArgumentException e) {
@@ -50,8 +51,9 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
+		log.debug("Request PUT: /person {}",  person);
+		
 		Person personFoundById = new Person();
-
 		try {
 			personFoundById = personService.updateOnePersonById(id, person);
 		} catch (NullPointerException e) {
@@ -69,6 +71,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 
 	@DeleteMapping("/person")
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
+		log.debug("Request DELETE: /person {}",  id);
 		try {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);
 			if (!personIsRemoved) {
@@ -83,7 +86,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 		}
 		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
 		log.info("Response DELETE: /person {}", ResponseEntityValid);
-		
+
 		return ResponseEntityValid;
 	}
 
