@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
+import com.safetynet.api.utils.ConstantsRequestResponseHttp;
 import com.safetynet.api.utils.IResponseHTTPEmpty400;
 import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
@@ -30,7 +31,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	@PostMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-		log.debug("Request POST: /person {}",  person);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_PERSON,  person);
 		
 		Person personCreated = new Person();		
 		try {
@@ -39,11 +40,11 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(e.getMessage());
 
 			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error("Response POST: /person {}", ResponseEntityNoValid);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
 		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
-		log.info("Response POST: /person {}", ResponseEntityValid);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_POST_PERSON, ResponseEntityValid);
 
 		return ResponseEntityValid;
 	}
@@ -51,7 +52,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 	@PutMapping("/person")
 	@ResponseBody
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
-		log.debug("Request PUT: /person {}",  person);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON ,  person);
 		
 		Person personFoundById = new Person();
 		try {
@@ -60,18 +61,19 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(e.getMessage());
 
 			ResponseEntity<Person> ResponseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
-			log.error("Response PUT: /person {}", ResponseEntityNoValid);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
 		ResponseEntity<Person> ResponseEntityValid = ResponseEntity.status(HttpStatus.OK).body(personFoundById);
-		log.info("Response PUT: /person {}", ResponseEntityValid);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, ResponseEntityValid);
 
 		return ResponseEntity.status(HttpStatus.OK).body(personFoundById);
 	}
 
 	@DeleteMapping("/person")
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
-		log.debug("Request DELETE: /person {}",  id);
+		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_PERSON,  id);
+		
 		try {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);
 			if (!personIsRemoved) {
@@ -81,11 +83,11 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 			log.error(e.getMessage());
 
 			ResponseEntity<Long> ResponseEntityNoValid = new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-			log.error("Response DELETE: /person {}", ResponseEntityNoValid);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityNoValid);
 			return ResponseEntityNoValid;
 		}
 		ResponseEntity<Long> ResponseEntityValid = new ResponseEntity<Long>(HttpStatus.NO_CONTENT);
-		log.info("Response DELETE: /person {}", ResponseEntityValid);
+		log.info(ConstantsRequestResponseHttp.RESPONSE_DELETE_PERSON, ResponseEntityValid);
 
 		return ResponseEntityValid;
 	}
