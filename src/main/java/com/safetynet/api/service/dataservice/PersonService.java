@@ -33,7 +33,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 			person.setId(fullName);
 			persons.add(person);
 
-			log.debug("Person added successfully: {}", person);
+			log.info("Person added successfully: {}", person);
 			return person;
 		}
 	}
