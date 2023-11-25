@@ -29,7 +29,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 
 	@PostMapping("/person")
 	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_PERSON, person);
+		log.info(ConstantsRequestResponseHttp.REQUEST_POST_PERSON, person);
 
 		Person personCreated = new Person();
 		try {
@@ -49,7 +49,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 
 	@PutMapping("/person")
 	public ResponseEntity<Person> updateOnePersonById(@Valid @RequestBody Person person, @RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON, person);
+		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_PERSON, person);
 
 		Person personFoundById = new Person();
 		try {
@@ -69,7 +69,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 
 	@DeleteMapping("/person")
 	public ResponseEntity<Long> deleteOnePersonById(@RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_PERSON, id);
+		log.info(ConstantsRequestResponseHttp.REQUEST_DELETE_PERSON, id);
 
 		try {
 			boolean personIsRemoved = personService.deleteOnePersonById(id);

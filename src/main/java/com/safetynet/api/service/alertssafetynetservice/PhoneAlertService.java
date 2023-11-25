@@ -28,7 +28,7 @@ public class PhoneAlertService {
 			throw new NullPointerException("Not phone of resident found of this firestation : " + stationNumber);
 		}
 
-		log.info("List of phones of residents of firestation retrieved successfully : {}",
+		log.debug("List of phones of residents of firestation retrieved successfully : {}",
 				listOfPhonesOfResidentOfStationNumber);
 		return listOfPhonesOfResidentOfStationNumber;
 	}

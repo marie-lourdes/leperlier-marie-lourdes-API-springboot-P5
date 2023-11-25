@@ -32,7 +32,7 @@ public class ResidentsOfStationNumberService {
 				residents.remove("age");
 			}
 
-			log.info(" List of residents retrieved successfully of station number {}", listOfResidentsOfStationNumber);
+			log.debug(" List of residents retrieved successfully of station number {}", listOfResidentsOfStationNumber);
 
 		} catch (Exception e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);

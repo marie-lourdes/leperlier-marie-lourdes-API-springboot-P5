@@ -33,7 +33,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 			person.setId(fullName);
 			persons.add(person);
 
-			log.info("Person added successfully: {}", person);
+			log.debug("Person added successfully: {}", person);
 			return person;
 		}
 	}
@@ -53,7 +53,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 				}).orElseThrow(() -> new NullPointerException(
 						"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND));
 
-		log.info("Person updated successfully for: {}", existingPersonUpdated);
+		log.debug("Person updated successfully for: {}", existingPersonUpdated);
 		return existingPersonUpdated;
 	}
 
@@ -65,7 +65,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 		if (!result) {
 			log.error("Failed to delete person for {}", id);
 		} else {
-			log.info("Person deleted successfully for {}", id);
+			log.debug("Person deleted successfully for {}", id);
 		}
 
 		return result;
@@ -84,7 +84,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 			throw new NullPointerException("Person for id: " + id + Constants.NOT_FOUND);
 		}
 
-		log.info("Person retrieved successfully for id : {}", id);
+		log.debug("Person retrieved successfully for id : {}", id);
 		return personFoundById;
 	}
 
@@ -107,14 +107,14 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 				log.error("Failed to retrieve person  for last name {}", lastName);
 				throw new NullPointerException("Person(s)  for lastName: " + lastName + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved  successfully for last name  {}", lastName);
+				log.debug("Person retrieved  successfully for last name  {}", lastName);
 			}
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		}
 
-		log.info("List of persons retrieved by last name successfully : {}", personsFoundByLastName);
+		log.debug("List of persons retrieved by last name successfully : {}", personsFoundByLastName);
 		return personsFoundByLastName;
 	}
 
@@ -136,13 +136,13 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 				log.error("Failed to retrieve person  for address {}", address);
 				throw new NullPointerException("Person(s) by address: " + address + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved  successfully for address {}", address);
+				log.debug("Person retrieved  successfully for address {}", address);
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		}
 
-		log.info("List of persons retrieved by address successfully : {}", personsFoundByAddress);
+		log.debug("List of persons retrieved by address successfully : {}", personsFoundByAddress);
 		return personsFoundByAddress;
 	}
 
@@ -164,7 +164,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 				log.error("Failed to retrieve person for city {}", city);
 				throw new NullPointerException("Person(s)  by city :" + city + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved successfully for city {}", city);
+				log.debug("Person retrieved successfully for city {}", city);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -180,7 +180,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 			log.error("Failed to retrieve all  persons");
 			throw new NullPointerException("None person registered!");
 		} else {
-			log.info("All persons retrieved successfully: {}", persons);
+			log.debug("All persons retrieved successfully: {}", persons);
 		}
 
 		return persons;

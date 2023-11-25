@@ -31,7 +31,7 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	@PostMapping("/firestation")
 	public ResponseEntity<FireStation> createStationNumberOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_STATIONNUMBER_OF_FIRESTATION, fireStation);
+		log.info(ConstantsRequestResponseHttp.REQUEST_POST_STATIONNUMBER_OF_FIRESTATION, fireStation);
 		
 		FireStation fireStationCreated = new FireStation();
 		try {
@@ -53,7 +53,7 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	@PostMapping("/firestation/{stationNumber}")
 	public ResponseEntity<FireStation> createAddressOfFireStation(@Valid @RequestBody FireStation fireStation,
 			@PathVariable String stationNumber) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_ADDRESS_OF_FIRESTATION, fireStation);
+		log.info(ConstantsRequestResponseHttp.REQUEST_POST_ADDRESS_OF_FIRESTATION, fireStation);
 		
 		FireStation fireStationCreated = new FireStation();
 		try {
@@ -81,7 +81,7 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 	@PutMapping("/firestation")
 	public ResponseEntity<FireStation> updateOneFireStationByAddress(@Valid @RequestBody FireStation fireStation,
 			@RequestParam String address) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_FIRESTATION, fireStation);
+		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_FIRESTATION, fireStation);
 		
 		FireStation firestationFoundByAddress = new FireStation();
 		try {
@@ -101,7 +101,7 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 
 	@DeleteMapping("/firestation/{stationNumber}")
 	public ResponseEntity<Long> deleteFireStationByStationNumber(@PathVariable String stationNumber) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_STATIONNUMBER_OF_FIRESTATION, stationNumber);
+		log.info(ConstantsRequestResponseHttp.REQUEST_DELETE_STATIONNUMBER_OF_FIRESTATION, stationNumber);
 		
 		try {
 			boolean fireStationIsRemoved = fireStationService.deleteFireStationByStationNumber(stationNumber);
@@ -124,7 +124,7 @@ public class FireStationController implements IResponseHTTPEmpty404<FireStation>
 
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Long> deleteFireStationByAddress(@RequestParam String address) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_ADDRESS_OF_FIRESTATION, address);
+		log.info(ConstantsRequestResponseHttp.REQUEST_DELETE_ADDRESS_OF_FIRESTATION, address);
 		
 		try {
 			boolean fireStationIsRemoved = fireStationService.deleteFireStationByAddress(address);

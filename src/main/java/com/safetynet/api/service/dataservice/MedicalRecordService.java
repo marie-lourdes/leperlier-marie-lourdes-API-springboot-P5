@@ -33,7 +33,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 			medicalRecord.setId(fullName);
 			medicalRecords.add(medicalRecord);
 
-			log.info("Medical record added successfully: {}", medicalRecord);
+			log.debug("Medical record added successfully: {}", medicalRecord);
 			return medicalRecord;
 		}
 	}
@@ -52,7 +52,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 				}).orElseThrow(() -> new NullPointerException("Failed to update medical record, "
 						+ updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND));
 
-		log.info("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
+		log.debug("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
 		return existingMedicalRecordUpdated;
 	}
 
@@ -64,7 +64,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 		if (!result) {
 			log.error("Failed to delete medical record for {}", id);
 		} else {
-			log.info("Medical record deleted successfully for {}", id);
+			log.debug("Medical record deleted successfully for {}", id);
 		}
 
 		return result;
@@ -79,7 +79,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 					return existingMedicalRecord;
 				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + " " + Constants.NOT_FOUND));
 
-		log.info("Medical record retrieved successfully for: {}", id);
+		log.debug("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
 	}
 
@@ -90,7 +90,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 			log.error("Failed to retrieve all  medical records ");
 			throw new NullPointerException("None medical record registered!");
 		} else {
-			log.info("All medical records retrieved successfully: {}", medicalRecords);
+			log.debug("All medical records retrieved successfully: {}", medicalRecords);
 		}
 
 		return medicalRecords;

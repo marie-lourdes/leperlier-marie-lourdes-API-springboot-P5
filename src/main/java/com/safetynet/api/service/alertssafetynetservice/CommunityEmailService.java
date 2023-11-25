@@ -27,7 +27,7 @@ public class CommunityEmailService {
 			throw new NullPointerException("Failed to retrieve emails of residents of the city :" + city);
 		}
 
-		log.info(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
+		log.debug(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
 		return listEmailsOfResidentsOfCity;
 	}
 }

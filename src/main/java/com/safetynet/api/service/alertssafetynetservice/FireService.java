@@ -49,7 +49,7 @@ public class FireService {
 			throw new NullPointerException("Residents  and firestation not found near fire address");
 		}
 
-		log.info(" All residents with its fireStation retrieved  near fire address : {}",
+		log.debug(" All residents with its fireStation retrieved  near fire address : {}",
 				listOfResidentAndFireStationNearFire);
 		return listOfResidentAndFireStationNearFire;
 

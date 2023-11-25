@@ -32,7 +32,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 		} else {
 			this.generateId(fireStation);
 			fireStations.add(fireStation);
-			log.info("FireStation added successfully: {}", fireStation);
+			log.debug("FireStation added successfully: {}", fireStation);
 		}
 
 		return fireStation;
@@ -54,7 +54,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 					}).orElse(null);
 
 			fireStations.add(createdFireStation);
-			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
+			log.debug("Firestation created successfully with new station number  and existing address: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new station number , the address: "
 					+ address + " " + Constants.NOT_FOUND);
@@ -87,7 +87,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 					}).orElse(null);
 
 			fireStations.add(createdFireStation);
-			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
+			log.debug("Firestation created successfully with new address  and existing station number: {}", fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
 					+ stationNumber + " " + Constants.NOT_FOUND);
@@ -111,7 +111,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 						() -> new NullPointerException("Failed to update station number of fireStation, the address :"
 								+ address + " " + Constants.NOT_FOUND));
 
-		log.info("FireStation updated successfully for address: {}", existingFireStationUpdated);
+		log.debug("FireStation updated successfully for address: {}", existingFireStationUpdated);
 		return existingFireStationUpdated;
 	}
 
@@ -124,7 +124,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 		if (!result) {
 			log.error("Failed to delete firestation for station number {}", stationNumber);
 		} else {
-			log.info("Firestation deleted  successfully for station number {}", stationNumber);
+			log.debug("Firestation deleted  successfully for station number {}", stationNumber);
 		}
 
 		return result;
@@ -138,7 +138,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 		if (!result) {
 			log.error("Failed to delete firestation for address {}", address);
 		} else {
-			log.info("Firestation deleted successfully for address  {}", address);
+			log.debug("Firestation deleted successfully for address  {}", address);
 		}
 
 		return result;
@@ -160,10 +160,10 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 			log.error("Failed to retrieve firestation(s) by  station number for {}", stationNumber);
 			throw new NullPointerException("Firestation(s) not found by  station number: " + stationNumber);
 		} else {
-			log.info("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
+			log.debug("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
 		}
 
-		log.info("List of firestations retrieved by station number successfully : {}",
+		log.debug("List of firestations retrieved by station number successfully : {}",
 				fireStationsFoundByStationNumber);
 		return fireStationsFoundByStationNumber;
 
@@ -185,10 +185,10 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 			log.error("Failed to retrieve firestation(s) by  address for {}", address);
 			throw new NullPointerException("Firestation(s) not found by  address: " + address);
 		} else {
-			log.info("Firestation(s) retrieved  successfully for  address {}", address);
+			log.debug("Firestation(s) retrieved  successfully for  address {}", address);
 		}
 
-		log.info("List of firestations retrieved by address successfully : {}", fireStationsFoundByAddress);
+		log.debug("List of firestations retrieved by address successfully : {}", fireStationsFoundByAddress);
 		return fireStationsFoundByAddress;
 	}
 
@@ -199,7 +199,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 			log.error("Failed to retrieve all  firestations ");
 			throw new NullPointerException("None firestation registered!");
 		} else {
-			log.info("All firestations retrieved successfully: {}", fireStations);
+			log.debug("All firestations retrieved successfully: {}", fireStations);
 		}
 
 		return fireStations;

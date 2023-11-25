@@ -58,7 +58,7 @@ public class PersonInfoService {
 			log.error("An error has occured in getting info of person ");
 		}
 
-		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",
+		log.debug("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",
 				fullName, lastName, listOfResidentsWithMedicalRecord);
 		return listOfResidentsWithMedicalRecord;
 	}

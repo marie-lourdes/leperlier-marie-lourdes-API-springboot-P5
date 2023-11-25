@@ -30,7 +30,7 @@ public class MedicalRecordController
 
 	@PostMapping("/medicalRecord")
 	public ResponseEntity<MedicalRecord> createMedicalRecord(@Valid @RequestBody MedicalRecord medicalRecord) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_POST_MEDICALRECORD, medicalRecord);
+		log.info(ConstantsRequestResponseHttp.REQUEST_POST_MEDICALRECORD, medicalRecord);
 
 		MedicalRecord medicalRecordCreated = new MedicalRecord();
 		try {
@@ -52,7 +52,7 @@ public class MedicalRecordController
 	@PutMapping("/medicalRecord")
 	public ResponseEntity<MedicalRecord> updateOneMedicalRecordById(@Valid @RequestBody MedicalRecord medicalRecord,
 			@RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, medicalRecord);
+		log.info(ConstantsRequestResponseHttp.REQUEST_PUT_MEDICALRECORD, medicalRecord);
 		
 		MedicalRecord medicalRecordFoundById = new MedicalRecord();
 		try {
@@ -72,7 +72,7 @@ public class MedicalRecordController
 
 	@DeleteMapping("/medicalRecord")
 	public ResponseEntity<Long> deleteOneMedicalRecordById(@RequestParam String id) {
-		log.debug(ConstantsRequestResponseHttp.REQUEST_DELETE_MEDICALRECORD, id);
+		log.info(ConstantsRequestResponseHttp.REQUEST_DELETE_MEDICALRECORD, id);
 		
 		try {
 			boolean personIsRemoved = medicalRecordService.deleteOneMedicalRecordById(id);

@@ -58,7 +58,7 @@ public class ChildAlertService {
 			log.debug(" {} childs found for  this address :{}", numberOfChild, address);
 		}
 
-		log.info(" List of childs and members of household retrieved successfully by address {}",
+		log.debug(" List of childs and members of household retrieved successfully by address {}",
 				listOfResidentChildAndMembersOfHouseHold);
 		return listOfResidentChildAndMembersOfHouseHold;
 	}

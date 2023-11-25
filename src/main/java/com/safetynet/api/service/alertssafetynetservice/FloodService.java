@@ -48,7 +48,7 @@ public class FloodService {
 			listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
 		}
 
-		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
+		log.debug("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
 				listOfHouseHoldOfStationNumber);
 		if (listOfHouseHoldOfStationNumber.isEmpty()) {
 			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);
