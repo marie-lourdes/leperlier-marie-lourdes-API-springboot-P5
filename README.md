@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 - Java 17
 - Maven 3.9.4
-- SpringBoot 6.0.11
+- SpringBoot 6.0.14
 - Spring Tools 4
 
 ### Installing
