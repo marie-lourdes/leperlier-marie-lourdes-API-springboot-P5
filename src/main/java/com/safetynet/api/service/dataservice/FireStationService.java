@@ -32,7 +32,7 @@ public class FireStationService implements ICheckingDuplicatedObject<FireStation
 		} else {
 			this.generateId(fireStation);
 			fireStations.add(fireStation);
-			log.info("FireStation added successfully: {}", fireStation);
+			log.debug("FireStation added successfully: {}", fireStation);
 		}
 
 		return fireStation;

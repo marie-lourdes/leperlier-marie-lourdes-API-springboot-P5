@@ -33,7 +33,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 			medicalRecord.setId(fullName);
 			medicalRecords.add(medicalRecord);
 
-			log.info("Medical record added successfully: {}", medicalRecord);
+			log.debug("Medical record added successfully: {}", medicalRecord);
 			return medicalRecord;
 		}
 	}

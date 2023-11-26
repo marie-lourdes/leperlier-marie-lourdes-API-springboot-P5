@@ -58,7 +58,7 @@ public class PersonController implements IResponseHTTPEmpty404<Person>, IRespons
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 
-			ResponseEntity<Person> responseEntityNoValid = this.returnResponseEntityEmptyAndCode400();
+			ResponseEntity<Person> responseEntityNoValid = this.returnResponseEntityEmptyAndCode404();
 			log.error(ConstantsRequestResponseHttp.RESPONSE_PUT_PERSON, responseEntityNoValid);
 			return responseEntityNoValid;
 		}
