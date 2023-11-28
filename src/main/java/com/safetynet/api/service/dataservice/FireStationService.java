@@ -10,33 +10,35 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
 import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class FireStationService {
+public class FireStationService implements ICheckingDuplicatedObject<FireStation> {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
-<<<<<<< Updated upstream
-	
-	private List<FireStation> fireStations = new ArrayList<>();
-=======
 
 	private final List<FireStation> fireStations = new ArrayList<>();
->>>>>>> Stashed changes
 
 	public FireStation addFireStation(FireStation fireStation) {
-		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());
+		log.debug("Adding FireStation: {} {}", fireStation.getStationNumber(), fireStation.getAddress());
 
-		this.generateId(fireStation);
-		fireStations.add(fireStation);
+		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
 
-		log.info("FireStation added successfully: {}", fireStation);
+		if (isObjectDuplicated) {
+			log.error("Failed to add this firestation, this firestation already exist {} ", fireStation);
+			return null;
+		} else {
+			this.generateId(fireStation);
+			fireStations.add(fireStation);
+			log.debug("FireStation added successfully: {}", fireStation);
+		}
+
 		return fireStation;
 	}
 
-	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation)
-			throws NullPointerException {
+	public FireStation addStationNumberOfFireStationWithExistingAddress(String address, FireStation fireStation) {
 		log.debug("Adding a firestation with new station number and existing address: {}", address);
 
 		FireStation createdFireStation = new FireStation();
@@ -52,18 +54,27 @@ public class FireStationService {
 					}).orElse(null);
 
 			fireStations.add(createdFireStation);
-			log.info("Firestation created successfully with new station number  and existing address: {}", fireStation);
+			log.debug("Firestation created successfully with new station number  and existing address: {}",
+					fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new station number , the address: "
-					+ address + Constants.NOT_FOUND);
+					+ address + " " + Constants.NOT_FOUND);
 		}
 
 		return fireStation;
 	}
 
 	public FireStation addAddressOfFireStationWithExistingStationNumber(String stationNumber, FireStation fireStation)
-			throws NullPointerException {
+			throws NullPointerException, IllegalArgumentException {
 		log.debug("Adding a firestation with new address and existing station number: {}", stationNumber);
+
+		boolean isObjectDuplicated = this.isFireStationDuplicatedByAddress(fireStations, fireStation);
+
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException(
+					"Failed to add this firestation, this firestation already exist" + fireStation);
+		}
+
 		FireStation createdFireStation = new FireStation();
 		try {
 			List<FireStation> fireStationsByStationNumber = getFireStationsByStationNumber(stationNumber);
@@ -77,10 +88,11 @@ public class FireStationService {
 					}).orElse(null);
 
 			fireStations.add(createdFireStation);
-			log.info("Firestation created successfully with new address  and existing station number: {}", fireStation);
+			log.debug("Firestation created successfully with new address  and existing station number: {}",
+					fireStation);
 		} catch (NullPointerException e) {
 			throw new NullPointerException("Failed to add  firestation with new address , the station number: "
-					+ stationNumber + Constants.NOT_FOUND);
+					+ stationNumber + " " + Constants.NOT_FOUND);
 		}
 
 		return createdFireStation;
@@ -99,9 +111,9 @@ public class FireStationService {
 					return existingFireStation;
 				}).orElseThrow(
 						() -> new NullPointerException("Failed to update station number of fireStation, the address :"
-								+ address + Constants.NOT_FOUND));
+								+ address + " " + Constants.NOT_FOUND));
 
-		log.info("FireStation updated successfully for address: {}", updatedFireStation);
+		log.debug("FireStation updated successfully for address: {}", existingFireStationUpdated);
 		return existingFireStationUpdated;
 	}
 
@@ -114,7 +126,7 @@ public class FireStationService {
 		if (!result) {
 			log.error("Failed to delete firestation for station number {}", stationNumber);
 		} else {
-			log.info("Firestation deleted  successfully for station number {}", stationNumber);
+			log.debug("Firestation deleted  successfully for station number {}", stationNumber);
 		}
 
 		return result;
@@ -128,7 +140,7 @@ public class FireStationService {
 		if (!result) {
 			log.error("Failed to delete firestation for address {}", address);
 		} else {
-			log.info("Firestation deleted successfully for address  {}", address);
+			log.debug("Firestation deleted successfully for address  {}", address);
 		}
 
 		return result;
@@ -150,10 +162,10 @@ public class FireStationService {
 			log.error("Failed to retrieve firestation(s) by  station number for {}", stationNumber);
 			throw new NullPointerException("Firestation(s) not found by  station number: " + stationNumber);
 		} else {
-			log.info("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
+			log.debug("Firestation(s) retrieved  successfully for  station number {}", stationNumber);
 		}
 
-		log.info("List of firestations retrieved by station number successfully : {}",
+		log.debug("List of firestations retrieved by station number successfully : {}",
 				fireStationsFoundByStationNumber);
 		return fireStationsFoundByStationNumber;
 
@@ -175,10 +187,10 @@ public class FireStationService {
 			log.error("Failed to retrieve firestation(s) by  address for {}", address);
 			throw new NullPointerException("Firestation(s) not found by  address: " + address);
 		} else {
-			log.info("Firestation(s) retrieved  successfully for  address {}", address);
+			log.debug("Firestation(s) retrieved  successfully for  address {}", address);
 		}
 
-		log.info("List of firestations retrieved by address successfully : {}", fireStationsFoundByAddress);
+		log.debug("List of firestations retrieved by address successfully : {}", fireStationsFoundByAddress);
 		return fireStationsFoundByAddress;
 	}
 
@@ -189,7 +201,7 @@ public class FireStationService {
 			log.error("Failed to retrieve all  firestations ");
 			throw new NullPointerException("None firestation registered!");
 		} else {
-			log.info("All firestations retrieved successfully: {}", fireStations);
+			log.debug("All firestations retrieved successfully: {}", fireStations);
 		}
 
 		return fireStations;
@@ -197,12 +209,28 @@ public class FireStationService {
 
 	public void generateId(FireStation fireStationCreated) {
 		log.debug("Generating id for firestation created  : {}", fireStationCreated);
-		double random = Math.round(Math.random() * 100 + 1);
+
 		String[] addressSplit = fireStationCreated.getAddress().split(" ", -1);
 		String numberOfAddress = addressSplit[0];
-		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-" + random;
+		final String ID = numberOfAddress + "-" + fireStationCreated.getStationNumber() + "-"
+				+ Math.round(Math.random() * 100 + 1);
 
 		fireStationCreated.setId(ID);
 		log.debug("Id : {} generated successfully for firestation created  : {}", ID, fireStationCreated);
+	}
+
+	public boolean isFireStationDuplicatedByAddress(List<FireStation> fireStations, FireStation fireStation) {
+		return this.isObjectDuplicated(fireStations, fireStation);
+	}
+
+	@Override
+	public boolean isObjectDuplicated(List<FireStation> fireStations, FireStation fireStation) {
+		boolean isObjectDuplicated = false;
+		for (FireStation fireStationExisting : fireStations) {
+			if (fireStationExisting.getAddress().equals(fireStation.getAddress())) {
+				isObjectDuplicated = true;
+			}
+		}
+		return isObjectDuplicated;
 	}
 }

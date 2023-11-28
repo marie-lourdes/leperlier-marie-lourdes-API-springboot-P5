@@ -15,10 +15,10 @@ public class ResidentsOfStationNumberService {
 	private static final Logger log = LogManager.getLogger(ResidentsOfStationNumberService.class);
 
 	@Autowired
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
 	@Autowired
-	SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
+	private SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
 
 	private List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 
@@ -28,12 +28,11 @@ public class ResidentsOfStationNumberService {
 		try {
 
 			listOfResidentsOfStationNumber = infoOfResidentOfStationNumber.searchInfoOfResident(stationNumber);
-
 			for (Map<String, String> residents : listOfResidentsOfStationNumber) {
 				residents.remove("age");
 			}
 
-			log.info(" List of residents retrieved successfully of station number {}", listOfResidentsOfStationNumber);
+			log.debug(" List of residents retrieved successfully of station number {}", listOfResidentsOfStationNumber);
 
 		} catch (Exception e) {
 			log.error("Failed to retrieve all residents of station number {}", stationNumber);
@@ -43,9 +42,9 @@ public class ResidentsOfStationNumberService {
 	}
 
 	public Map<String, String> sortAdultsAndChildsOfListOfResidentsWithCountDown(String stationNumber) {
-
 		Map<String, Integer> mapCountDownOfAdultsAndChilds = new HashMap<String, Integer>();
 		Map<String, String> mapOfAdultsAndChildConvertedValueString = new HashMap<String, String>();
+
 		try {
 			mapCountDownOfAdultsAndChilds = countDownOfAdultsAndChilds.sortAdultsAndChilds(stationNumber);
 
@@ -55,6 +54,7 @@ public class ResidentsOfStationNumberService {
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
+
 		return mapOfAdultsAndChildConvertedValueString;
 	}
 }

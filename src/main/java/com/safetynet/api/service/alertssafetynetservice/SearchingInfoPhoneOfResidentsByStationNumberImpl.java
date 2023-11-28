@@ -21,10 +21,10 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 	private static final Logger log = LogManager.getLogger(SearchingInfoPhoneOfResidentsByStationNumberImpl.class);
 
 	@Autowired
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@Autowired
-	PersonService personService;
+	private PersonService personService;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
@@ -32,35 +32,33 @@ public class SearchingInfoPhoneOfResidentsByStationNumberImpl implements ISearch
 
 		List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
+
 		try {
 			List<Person> persons = personService.getAllPersons();
-
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 
-			if (!persons.isEmpty() && !fireStationFoundByStationNumber.isEmpty()) {
-				Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-
-				while (itrFireStations.hasNext()) {
-					FireStation itrFireStation = itrFireStations.next();
-
-					for (Person person : persons) {
-						if (person.getAddress().equals(itrFireStation.getAddress())) {
-							Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
-							residentOfStationNumber.put("phone", person.getPhone());
+			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
+			while (itrFireStations.hasNext()) {
+				FireStation itrFireStation = itrFireStations.next();
+				for (Person person : persons) {
+					if (person.getAddress().equals(itrFireStation.getAddress())) {
+						Map<String, String> residentOfStationNumber = new LinkedHashMap<String, String>();
+						residentOfStationNumber.put("phone", person.getPhone());
+						if (!listOfPhonesOfResidentOfStationNumber.contains(residentOfStationNumber)) {
+							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
 							log.debug("Phone retrieved for each resident of station number: {}",
 									residentOfStationNumber);
-
-							listOfPhonesOfResidentOfStationNumber.add(residentOfStationNumber);
 						}
 					}
 				}
 			}
+
+			log.debug("Phones of residents  by  station number successfull retrieved ; {}",
+					listOfPhonesOfResidentOfStationNumber);
 		} catch (Exception e) {
 			log.error("An error has occured in searching phones of residents of the  station number ");
 		}
 
-		log.debug("Phones of residents  by  station number successfull retrieved ; {}",
-				listOfPhonesOfResidentOfStationNumber);
 		return listOfPhonesOfResidentOfStationNumber;
 	}
 }

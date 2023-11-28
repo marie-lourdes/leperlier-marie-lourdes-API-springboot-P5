@@ -1,4 +1,4 @@
-package com.safetynet.api.service;
+package com.safetynet.api.repository;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -42,10 +42,6 @@ public class ReadPersonDataFromFileImpl implements IDatasFileReader<Person> {
 
 				listOfPersons.add(person);
 			}
-		} catch (ClassCastException e) {
-			log.error(e.getMessage());
-		} catch (NullPointerException e) {
-			log.error("Missing data persons from file Json");
 		} catch (Exception e) {
 			log.error("An error has occured in reading datas persons from Json");
 		}

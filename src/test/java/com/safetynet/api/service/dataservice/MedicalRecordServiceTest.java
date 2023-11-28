@@ -87,6 +87,22 @@ class MedicalRecordServiceTest {
 	}
 
 	@Test
+	void testAddMedicalRecord_WithMedicalRecordDuplicated() throws Exception {
+		try {
+			MedicalRecord resultMedicalRecordCreated = medicalRecordServiceUnderTest
+					.addMedicalRecord(medicalRecordTest1);
+			medicalRecords = medicalRecordServiceUnderTest.getAllMedicalRecords();
+
+			assertNull(resultMedicalRecordCreated);
+		} catch (IllegalArgumentException e) {
+			assertThrows(IllegalArgumentException.class,
+					() -> medicalRecordServiceUnderTest.addMedicalRecord(medicalRecordTest1));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
 	void testUpdateMedicationsMedicalRecord() throws Exception {
 		medicationsTest1Updated.add("aznol:50mg");
 

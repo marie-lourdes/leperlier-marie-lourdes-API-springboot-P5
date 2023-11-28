@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -38,7 +39,7 @@ class FireStationServiceTest {
 		fireStationTest1 = new FireStation("5", "46  rue de la mairie");
 		fireStationTest2 = new FireStation("6", "16 rue du quartiers des combattants");
 		fireStationTest3 = new FireStation("6", "17 impasse de la caserne");
-		fireStationTest4 = new FireStation("7", "17 impasse de la caserne");
+		fireStationTest4 = new FireStation("7", "17 boulevard");
 		fireStationServiceUnderTest.addFireStation(fireStationTest1);
 		fireStationServiceUnderTest.addFireStation(fireStationTest2);
 		fireStationServiceUnderTest.addFireStation(fireStationTest3);
@@ -89,6 +90,21 @@ class FireStationServiceTest {
 			String expectedAddress = fireStationCreated.getAddress();
 			assertNotNull(fireStationServiceUnderTest.getFireStationsByStationNumber(expectedStationNumber));
 			assertNotNull(fireStationServiceUnderTest.getFireStationsByAddress(expectedAddress));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testAddFireStation_WithFireStationDuplicatedByAddress() throws Exception {
+		try {
+			FireStation resultFireStationCreated = fireStationServiceUnderTest.addFireStation(fireStationTest1);
+			fireStations = fireStationServiceUnderTest.getAllFireStations();
+
+			assertNull(resultFireStationCreated);
+		} catch (IllegalArgumentException e) {
+			assertThrows(IllegalArgumentException.class,
+					() -> fireStationServiceUnderTest.addFireStation(fireStationTest1));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -182,6 +198,27 @@ class FireStationServiceTest {
 		} catch (NullPointerException e) {
 			assertThrows(NullPointerException.class, () -> fireStationServiceUnderTest
 					.addAddressOfFireStationWithExistingStationNumber("11", fireStationCreatedWithNewAddress));
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testAddAddressOfFireStationWithExistingStationNumber_WithAddressDuplicated() throws Exception {
+		FireStation fireStationCreatedWithNewAddress = new FireStation("6", "46  rue de la mairie");
+		try {
+			FireStation fireStationCreatedRetrievedWithNewAddress = fireStationServiceUnderTest
+					.addAddressOfFireStationWithExistingStationNumber("6", fireStationCreatedWithNewAddress);
+
+			List<FireStation> resultFireStationsByStationNumber = fireStationServiceUnderTest
+					.getFireStationsByAddress("46  rue de la mairie");
+			Integer countFireStationCreatedDuplicated = Collections.frequency(resultFireStationsByStationNumber,
+					fireStationCreatedRetrievedWithNewAddress);
+
+			assertTrue(countFireStationCreatedDuplicated > 1);
+		} catch (IllegalArgumentException e) {
+			assertThrows(IllegalArgumentException.class, () -> fireStationServiceUnderTest
+					.addAddressOfFireStationWithExistingStationNumber("6", fireStationCreatedWithNewAddress));
 		} catch (AssertionError e) {
 			fail(e.getMessage());
 		}
@@ -308,14 +345,14 @@ class FireStationServiceTest {
 			String expectedAddress2 = fireStationTest2.getAddress();
 			String expectedAddress3 = fireStationTest3.getAddress();
 
-			int expectedCountFireStationByStationNumber = 0;
+			int countFireStationByStationNumber = 0;
 			for (FireStation fireStationFoundByStationNumber : resultFireStations) {
-				expectedCountFireStationByStationNumber++;
-				assertTrue(fireStationFoundByStationNumber.getAddress() == expectedAddress2
-						|| fireStationFoundByStationNumber.getAddress() == expectedAddress3);
+				countFireStationByStationNumber++;
+				assertTrue(expectedAddress2 == fireStationFoundByStationNumber.getAddress()
+						|| expectedAddress3 == fireStationFoundByStationNumber.getAddress());
 			}
-			System.out.println("expectedCountFireStationByStationNumber" + expectedCountFireStationByStationNumber);
-			assertTrue(expectedCountFireStationByStationNumber == 2);
+			System.out.println("expectedCountFireStationByStationNumber" + countFireStationByStationNumber);
+			assertEquals(2, countFireStationByStationNumber);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());
@@ -345,14 +382,13 @@ class FireStationServiceTest {
 			String expectedStationNumber3 = fireStationTest3.getStationNumber();
 			String expectedStationNumber4 = fireStationTest4.getStationNumber();
 
-			int expectedCountFireStationByAddress = 0;
+			int countFireStationByAddress = 0;
 			for (FireStation fireStationFoundByStationNumber : resultFireStations) {
-				expectedCountFireStationByAddress++;
-				assertTrue(fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber3
-						|| fireStationFoundByStationNumber.getStationNumber() == expectedStationNumber4);
+				countFireStationByAddress++;
+				assertTrue(expectedStationNumber3 == fireStationFoundByStationNumber.getStationNumber()
+						|| expectedStationNumber4 == fireStationFoundByStationNumber.getStationNumber());
 			}
-			System.out.println("expectedCountFireStationByAddress" + expectedCountFireStationByAddress);
-			assertTrue(expectedCountFireStationByAddress == 2);
+			assertEquals(1, countFireStationByAddress);
 			assertFalse(resultFireStations.isEmpty());
 		} catch (AssertionError e) {
 			fail(e.getMessage());

@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 - Java 17
 - Maven 3.9.4
-- SpringBoot 6.0.11
+- SpringBoot 6.0.14
 - Spring Tools 4
 
 ### Installing
@@ -73,6 +73,13 @@ The host and port is :http://localhost:8080
 
 ### Testing
 
- For testing use:
+ For testing application use:
 `run as` , then, 'Maven test' for unit test
+
+ For testing request:
+See the file of logging in folder log of project or use Postman after running application
+
+### Debugging
+ For testing request:
+Use  Maven CLI 'mvn clean package -Denvironnement=dev' and run again 
 

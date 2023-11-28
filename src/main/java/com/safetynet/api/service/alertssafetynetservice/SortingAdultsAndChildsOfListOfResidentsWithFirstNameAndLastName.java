@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 	private static final Logger log = LogManager
 			.getLogger(SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName.class);
-	
+
 	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
+	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
 
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();
 
 	public List<Map<String, String>> sortAdultsAndChilds(String address) throws Exception {
 		log.debug("Sorting  Adults And Childs at this address : {} ", address);
-		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(address);
 
+		listOfResidentsFoundByAddress = fullInfoOfResidentWithSameAddress.searchInfoOfResident(address);
 		for (Map<String, String> resident : listOfResidentsFoundByAddress) {
 			if (Integer.parseInt(resident.get("age")) <= 18) {
 				resident.remove("address");

@@ -10,33 +10,37 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
 import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PersonService {
+public class PersonService implements ICheckingDuplicatedObject<Person> {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
-<<<<<<< Updated upstream
-	
-	private List<Person> persons = new ArrayList<>();
-=======
 
 	private final List<Person> persons = new ArrayList<>();
->>>>>>> Stashed changes
 
-	public Person addPerson(Person person) throws NullPointerException {
-		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
+	public Person addPerson(Person person) throws IllegalArgumentException {
+		log.debug("Adding person: {} {}", person.getFirstName(),person.getLastName());
 
-		person.setId(person.getFirstName() + " " + person.getLastName());
-		persons.add(person);
+		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 
-		log.info("Person added successfully: {}", person);
-		return person;
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException("Failed to add this person, this person already exist" + person);
+		} else {
+			String fullName = person.getFirstName() + " " + person.getLastName();
+			person.setId(fullName);
+			persons.add(person);
+
+			log.debug("Person added successfully: {}", person);
+			return person;
+		}
 	}
 
 	public Person updateOnePersonById(String id, Person updatedPerson) throws NullPointerException {
 		log.debug("Updating person for: {}", id);
+
 		Person existingPersonUpdated = new Person();
 		existingPersonUpdated = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
@@ -46,10 +50,10 @@ public class PersonService {
 					existingPerson.setPhone(updatedPerson.getPhone());
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
-				}).orElseThrow(
-						() -> new NullPointerException("Failed to update person,the id: " + id + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException(
+						"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND));
 
-		log.info("Person updated successfully for: {}", updatedPerson);
+		log.debug("Person updated successfully for: {}", existingPersonUpdated);
 		return existingPersonUpdated;
 	}
 
@@ -61,7 +65,7 @@ public class PersonService {
 		if (!result) {
 			log.error("Failed to delete person for {}", id);
 		} else {
-			log.info("Person deleted successfully for {}", id);
+			log.debug("Person deleted successfully for {}", id);
 		}
 
 		return result;
@@ -71,7 +75,6 @@ public class PersonService {
 		log.debug("Retrieving  one person for id {}", id);
 
 		Person personFoundById = new Person();
-
 		personFoundById = persons.stream().filter(person -> person.getId().equals(id)).findFirst()
 				.map(existingPerson -> {
 					return existingPerson;
@@ -81,15 +84,15 @@ public class PersonService {
 			throw new NullPointerException("Person for id: " + id + Constants.NOT_FOUND);
 		}
 
-		log.info("Person retrieved successfully for id : {}", id);
+		log.debug("Person retrieved successfully for id : {}", id);
 		return personFoundById;
-
 	}
 
 	public List<Person> getPersonsByLastName(String lastName) {
 		log.debug("Retrieving  person(s)  for last name {}", lastName);
 
 		List<Person> personsFoundByLastName = new ArrayList<>();
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -102,16 +105,16 @@ public class PersonService {
 
 			if (personsFoundByLastName.isEmpty()) {
 				log.error("Failed to retrieve person  for last name {}", lastName);
-				throw new NullPointerException("Person(s)  for lastName: " + lastName + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s)  for lastName: " + lastName + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved  successfully for last name  {}", lastName);
+				log.debug("Person retrieved  successfully for last name  {}", lastName);
 			}
 
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		}
 
-		log.info("List of persons retrieved by last name successfully : {}", personsFoundByLastName);
+		log.debug("List of persons retrieved by last name successfully : {}", personsFoundByLastName);
 		return personsFoundByLastName;
 	}
 
@@ -119,6 +122,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s)  for address {}", address);
 
 		List<Person> personsFoundByAddress = new ArrayList<>();
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -130,15 +134,15 @@ public class PersonService {
 
 			if (personsFoundByAddress.isEmpty()) {
 				log.error("Failed to retrieve person  for address {}", address);
-				throw new NullPointerException("Person(s) by address: " + address + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s) by address: " + address + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved  successfully for address {}", address);
+				log.debug("Person retrieved  successfully for address {}", address);
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
 		}
 
-		log.info("List of persons retrieved by address successfully : {}", personsFoundByAddress);
+		log.debug("List of persons retrieved by address successfully : {}", personsFoundByAddress);
 		return personsFoundByAddress;
 	}
 
@@ -146,6 +150,7 @@ public class PersonService {
 		log.debug("Retrieving  person(s) for city {}", city);
 
 		List<Person> personsFoundByCity = new ArrayList<>();
+
 		try {
 			Iterator<Person> itrPersons = persons.listIterator();
 			while (itrPersons.hasNext()) {
@@ -157,9 +162,9 @@ public class PersonService {
 
 			if (personsFoundByCity.isEmpty()) {
 				log.error("Failed to retrieve person for city {}", city);
-				throw new NullPointerException("Person(s)  by city :" + city + Constants.NOT_FOUND);
+				throw new NullPointerException("Person(s)  by city :" + city + " " + Constants.NOT_FOUND);
 			} else {
-				log.info("Person retrieved successfully for city {}", city);
+				log.debug("Person retrieved successfully for city {}", city);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -175,9 +180,26 @@ public class PersonService {
 			log.error("Failed to retrieve all  persons");
 			throw new NullPointerException("None person registered!");
 		} else {
-			log.info("All persons retrieved successfully: {}", persons);
+			log.debug("All persons retrieved successfully: {}", persons);
 		}
 
 		return persons;
+	}
+
+	public boolean isPersonDuplicatedById(List<Person> persons, Person person) {
+		return this.isObjectDuplicated(persons, person);
+	}
+
+	@Override
+	public boolean isObjectDuplicated(List<Person> persons, Person person) {
+		boolean isObjectDuplicated = false;
+		for (Person personExisting : persons) {
+			if (personExisting.getFirstName().equals(person.getFirstName())
+					&& personExisting.getLastName().equals(person.getLastName())) {
+				isObjectDuplicated = true;
+			}
+		}
+
+		return isObjectDuplicated;
 	}
 }

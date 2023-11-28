@@ -21,13 +21,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	private static final Logger log = LogManager.getLogger(SearchingInfoOfResidentOfStationNumberImpl.class);
 
 	@Autowired
-	PersonService personService;
+	private PersonService personService;
 
 	@Autowired
-	FireStationService fireStationService;
+	private FireStationService fireStationService;
 
 	@Autowired
-	CalculatorAgeOfResidentImpl calculatorAgeOfResident;
+	private CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {
@@ -36,10 +36,10 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 		List<Map<String, String>> listOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 		List<FireStation> fireStationFoundByStationNumber = new ArrayList<FireStation>();
 		List<Person> persons = personService.getAllPersons();
+
 		try {
 			fireStationFoundByStationNumber = fireStationService.getFireStationsByStationNumber(stationNumber);
 			Iterator<FireStation> itrFireStations = fireStationFoundByStationNumber.listIterator();
-
 			while (itrFireStations.hasNext()) {
 				FireStation itrFireStation = itrFireStations.next();
 
@@ -52,7 +52,7 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 						residentOfStationNumber.put("phone", person.getPhone());
 						String age = calculatorAgeOfResident.calculateAgeOfResident(person.getId()).toString();
 
-						if (age.equals("0")) {
+						if ("0".equals(age)) {
 							log.error("Age not provided for this resident {} {}",
 									residentOfStationNumber.get("firstName"), residentOfStationNumber.get("lastName"));
 							residentOfStationNumber.put("age", " error! ");
@@ -64,11 +64,13 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 					}
 				}
 			}
+
+			log.debug(" Info of residents by station number successfully retrieved : {}",
+					listOfResidentOfStationNumber);
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of residents of station number");
 		}
 
-		log.debug(" Info of residents by station number successfully retrieved : {}", listOfResidentOfStationNumber);
 		return listOfResidentOfStationNumber;
 	}
 

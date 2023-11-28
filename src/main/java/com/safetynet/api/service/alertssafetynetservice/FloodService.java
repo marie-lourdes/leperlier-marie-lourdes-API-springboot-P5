@@ -20,11 +20,10 @@ public class FloodService {
 	@Autowired
 	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
-	public List<Object> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
+	public List<List<Map<String, String>>> getListOfHouseHoldByStationNumber(String stationNumber) throws NullPointerException {
 		log.debug("Retrieving  all HouseHold of firestation {}", stationNumber);
 
-		List<Object> listOfHouseHoldOfStationNumber = new ArrayList<Object>();
-
+		List<List<Map<String, String>>> listOfHouseHoldOfStationNumber = new ArrayList<List<Map<String, String>>>();
 		List<Map<String, String>> listOfResidentsOfStationNumber = infoOfResidentOfStationNumber
 				.searchInfoOfResident(stationNumber);
 
@@ -47,10 +46,9 @@ public class FloodService {
 					.searchInfoOfResident(address);
 
 			listOfHouseHoldOfStationNumber.add(listOfResidentWithMedicalRecord);
-
 		}
 
-		log.info("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
+		log.debug("list Of House Hold found at this firestation {} : {} to prevent for flood ", stationNumber,
 				listOfHouseHoldOfStationNumber);
 		if (listOfHouseHoldOfStationNumber.isEmpty()) {
 			throw new NullPointerException(" HouseHold not found at this firestation : " + stationNumber);

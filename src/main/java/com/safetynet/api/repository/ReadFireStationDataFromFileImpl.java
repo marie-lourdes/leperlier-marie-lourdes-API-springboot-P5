@@ -1,4 +1,4 @@
-package com.safetynet.api.service;
+package com.safetynet.api.repository;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -23,6 +23,7 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 	@Override
 	public List<FireStation> readFile() throws IOException {
 		listOfFireStations = new LinkedList<FireStation>();
+		
 		try {
 			// get JsonArray of data entity from JsonReader of Interface IDatasFileReader
 			// use method astract readDataJson from interface generic IDatasFileReader
@@ -36,10 +37,6 @@ public class ReadFireStationDataFromFileImpl implements IDatasFileReader<FireSta
 
 				listOfFireStations.add(fireStation);
 			}
-		} catch (ClassCastException e) {
-			log.error(e.getMessage());
-		} catch (NullPointerException e) {
-			log.error("Missing datas firestations from file Json");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}

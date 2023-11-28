@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.Person;
-import com.safetynet.api.service.ReadPersonDataFromFileImpl;
 
 @Component
 public class PersonRepositoryImpl implements IPersonRepository {
 	@Autowired
-	ReadPersonDataFromFileImpl readPersons;
+	private ReadPersonDataFromFileImpl readPersons;
 
 	@Override
 	public List<Person> findAll() throws IOException {

@@ -15,12 +15,12 @@ import com.safetynet.api.service.dataservice.PersonService;
 @Service
 public class PersonInfoService {
 	private static final Logger log = LogManager.getLogger(PersonInfoService.class);
-	
-	@Autowired
-	SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	@Autowired
-	PersonService personService;
+	private SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+
+	@Autowired
+	private PersonService personService;
 
 	private List<Person> personsFoundByFullName = new ArrayList<Person>();
 	private List<Person> personsFoundByLastName = new ArrayList<Person>();
@@ -57,7 +57,8 @@ public class PersonInfoService {
 		} catch (Exception e) {
 			log.error("An error has occured in getting info of person ");
 		}
-		log.info("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",
+
+		log.debug("Resident by full name {} with  all residents with the same last name {} retrieved successfully: {}",
 				fullName, lastName, listOfResidentsWithMedicalRecord);
 		return listOfResidentsWithMedicalRecord;
 	}

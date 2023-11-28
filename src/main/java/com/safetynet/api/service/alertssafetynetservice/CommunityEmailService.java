@@ -14,7 +14,7 @@ public class CommunityEmailService {
 	private static final Logger log = LogManager.getLogger(CommunityEmailService.class);
 
 	@Autowired
-	SearchingInfoEmailOfResidentsByCityImpl infoEmailOfResidentsByCity;
+	private SearchingInfoEmailOfResidentsByCityImpl infoEmailOfResidentsByCity;
 
 	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 
@@ -23,12 +23,11 @@ public class CommunityEmailService {
 
 		listEmailsOfResidentsOfCity = infoEmailOfResidentsByCity.searchInfoOfResident(city);
 
-		log.error("Failed to retrieve emails of residents of the city : {}", city);
 		if (listEmailsOfResidentsOfCity.isEmpty()) {
-			throw new NullPointerException("List of email not found of residents of  this city : " + city);
+			throw new NullPointerException("Failed to retrieve emails of residents of the city :" + city);
 		}
 
-		log.info(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
+		log.debug(" All emails of residents retrieved of the city  {} : {}", city, listEmailsOfResidentsOfCity);
 		return listEmailsOfResidentsOfCity;
 	}
 }

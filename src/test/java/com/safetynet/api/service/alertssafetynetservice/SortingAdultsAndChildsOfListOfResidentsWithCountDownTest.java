@@ -22,7 +22,7 @@ class SortingAdultsAndChildsOfListOfResidentsWithCountDownTest {
 	private SortingAdultsAndChildsOfListOfResidentsWithCountDown sortingAdultsAndChildsOfListOfResidentsWithCountDownUnderTest;
 
 	@MockBean
-	SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
 
 	private static Map<String, String> residentAdultTest1;
 	private static Map<String, String> residentChildTest2;

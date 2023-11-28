@@ -17,22 +17,22 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager
 			.getLogger(SearchingInfoOfResidentsByAddressWithMedicalRecordImpl.class);
-	
-	@Autowired
-	SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
 
 	@Autowired
-	MedicalRecordService medicalRecordService;
+	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String address) {
 		log.debug("Searching emails of residents by city");
 
 		List<Map<String, String>> listOfResidentWithMedicalRecord = new ArrayList<Map<String, String>>();
+
 		try {
 			List<Map<String, String>> listOfResidentsByAddress = searchingFullInfoOfResidentsByAddress
 					.searchInfoOfResident(address);
-
 			for (Map<String, String> resident : listOfResidentsByAddress) {
 				Map<String, String> mapOfMedicalRecord = new LinkedHashMap<String, String>();
 				Map<String, String> mapOfMedicalRecordOfResidentUpdated = new LinkedHashMap<String, String>();
@@ -53,10 +53,12 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 				listOfResidentWithMedicalRecord.add(mapOfMedicalRecordOfResidentUpdated);
 
 			}
+			
+			log.debug(" Info of residents by address with medical records successfully retrieved : {}",
+					listOfResidentWithMedicalRecord);
 		} catch (Exception e) {
 			log.error("An error has occured in searching info of residents by address with medical records");
 		}
 		return listOfResidentWithMedicalRecord;
 	}
-
 }

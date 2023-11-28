@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.api.service.alertssafetynetservice.ChildAlertService;
@@ -21,10 +20,11 @@ import com.safetynet.api.service.alertssafetynetservice.FloodService;
 import com.safetynet.api.service.alertssafetynetservice.PersonInfoService;
 import com.safetynet.api.service.alertssafetynetservice.PhoneAlertService;
 import com.safetynet.api.service.alertssafetynetservice.ResidentsOfStationNumberService;
-import com.safetynet.api.utils.IResponseHTTPEmpty;
+import com.safetynet.api.utils.ConstantsRequestResponseHttp;
+import com.safetynet.api.utils.IResponseHTTPEmpty404;
 
 @RestController
-public class AlertsController implements IResponseHTTPEmpty {
+public class AlertsController implements IResponseHTTPEmpty404<Object> {
 	private static final Logger log = LogManager.getLogger(AlertsController.class);
 
 	private ResidentsOfStationNumberService residentsOfStationNumberService;
@@ -49,8 +49,10 @@ public class AlertsController implements IResponseHTTPEmpty {
 	}
 
 	@GetMapping("/firestation")
-	@ResponseBody
-	public ResponseEntity<Object> getAllAdultsAndChildsNearOfFireStations(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getAllAdultsAndChildsNearOfFireStations(
+			@RequestParam String stationNumber) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, stationNumber);
+		
 		List<Map<String, String>> listOfResidentsOfStationNumber = new ArrayList<Map<String, String>>();
 		Map<String, String> mapOfAdultsAndChildSorted = new HashMap<String, String>();
 		try {
@@ -64,106 +66,149 @@ public class AlertsController implements IResponseHTTPEmpty {
 					.sortAdultsAndChildsOfListOfResidentsWithCountDown(stationNumber);
 
 			listOfResidentsOfStationNumber.add(mapOfAdultsAndChildSorted);
-			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
+			
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfResidentsOfStationNumber);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+				
+			ResponseEntity<List<Map<String, String>>>responseNoValid =  new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_ADULTSANDCHILDS_OF_STATIONNUMBER, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
 	@GetMapping("/childAlert")
-	@ResponseBody
 	public ResponseEntity<Object> getChildsAndMembersOfHouseHoldByAddress(@RequestParam String address) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, address);
+		
 		List<Map<String, String>> childs = new ArrayList<Map<String, String>>();
 		try {
 			childs = childAlertService.getChildsAndMembersOfHouseHold(address);
-			return ResponseEntity.status(HttpStatus.OK).body(childs);
+			
+			ResponseEntity<Object>responseValid = ResponseEntity.status(HttpStatus.OK).body(childs);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+					
+			ResponseEntity<Object>responseNoValid =  this.returnResponseEntityEmptyAndCode404();
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_CHILDSANDMEMBERSOFHOUSEHOLD_BY_ADDRESS, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
 	@GetMapping("/phoneAlert")
-	@ResponseBody
-	public ResponseEntity<Object> getPhonesOfResidentsByStationNumber(@RequestParam String stationNumber) {
+	public ResponseEntity<List<Map<String, String>>> getPhonesOfResidentsByStationNumber(
+			@RequestParam String stationNumber) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, stationNumber);
+		
 		List<Map<String, String>> listOfPhonesOfResidentsByStationNumber = new ArrayList<Map<String, String>>();
 		try {
 			listOfPhonesOfResidentsByStationNumber = phoneAlertService
 					.getListOfPhonesOfResidentsOfStationNumber(stationNumber);
-			return ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
+			
+			ResponseEntity<List<Map<String, String>>> responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfPhonesOfResidentsByStationNumber);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+					
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PHONES_OF_RESIDENTS_BY_STATIONNUMBER, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
 	@GetMapping("/fire")
-	@ResponseBody
-	public ResponseEntity<Object> getListOfResidentsAndFireStationNearFire(@RequestParam String address) {
+	public ResponseEntity<List<Map<String, String>>> getListOfResidentsAndFireStationNearFire(
+			@RequestParam String address) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, address);
 		try {
-			List<Object> listOfResidentsAndFireStationNearFire = new ArrayList<Object>();
-
+			List<Map<String, String>> listOfResidentsAndFireStationNearFire = new ArrayList<Map<String, String>>();
 			listOfResidentsAndFireStationNearFire = fireService.getListOfResidentsAndFireStationNearFire(address);
-
-			return ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
+			
+			ResponseEntity<List<Map<String, String>>> responseValid =ResponseEntity.status(HttpStatus.OK).body(listOfResidentsAndFireStationNearFire);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_RESIDENTSANDSTATIONNUMBER_NEAR_FIRE, responseNoValid);
+			return responseNoValid;
 		}
 	}
 
-	/*
-	 * when testing , after resquest all param stations , if request one no existing
-	 * keep all data retrived according to stations param, no fixing this error
-	 * refactoring the method getListOfHouseHoldByStationNumberIfFlood() with
-	 * list.clear() or removeall() "
-	 */
 	@GetMapping("/flood/stations")
-	@ResponseBody
-	public ResponseEntity<Object> getListOfHouseHoldByStationNumberIfFlood(@RequestParam List<String> stations) {
-		List<Object> listOfHouseHoldByStationNumberparams = new ArrayList<Object>();
-
+	public ResponseEntity<List<List<Map<String, String>>>> getListOfHouseHoldByStationNumberIfFlood(
+			@RequestParam List<String> stations) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, stations);
+		
+		List<List<Map<String, String>>> listOfHouseHoldByStationNumberParams = new ArrayList<List<Map<String, String>>>();
 		try {
 			for (String station : stations) {
-				List<Object> listOfHouseHoldByStationNumber = new ArrayList<Object>();
+				List<List<Map<String, String>>> listOfHouseHoldByStationNumber = new ArrayList<List<Map<String, String>>>();
 				listOfHouseHoldByStationNumber = floodService.getListOfHouseHoldByStationNumber(station);
-				listOfHouseHoldByStationNumberparams.add(listOfHouseHoldByStationNumber);
+				listOfHouseHoldByStationNumberParams.addAll(listOfHouseHoldByStationNumber);
 			}
-
-			return ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberparams);
+			
+			ResponseEntity<List<List<Map<String, String>>>> responseValid =ResponseEntity.status(HttpStatus.OK).body(listOfHouseHoldByStationNumberParams);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			
+			ResponseEntity<List<List<Map<String, String>>>> responseNoValid = new ResponseEntity<List<List<Map<String, String>>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_HOUSEHOLD_BY_STATIONNUMBER_IF_FLOOD, responseNoValid);
+			return responseNoValid;		
 		}
 	}
 
 	@GetMapping("/personInfo")
-	@ResponseBody
-	public ResponseEntity<Object> getInfoAndMedicalRecordOfPersonByFullName(@RequestParam String firstName,
-			@RequestParam String lastName) {
+	public ResponseEntity<List<Map<String, String>>> getInfoAndMedicalRecordOfPersonByFullName(
+			@RequestParam String firstName, @RequestParam String lastName) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_PERSONINFO_BY_FULLNAME, firstName, lastName);
+		
 		List<Map<String, String>> personByFullNameInfoAndMedicalRecord = new ArrayList<Map<String, String>>();
 		try {
 			personByFullNameInfoAndMedicalRecord = personInfoService
 					.getInfoAndMedicalRecordOfPersonByFullName(firstName, lastName);
-			return ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
+			
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(personByFullNameInfoAndMedicalRecord);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_PERSONINFO_BY_FULLNAME, responseNoValid);
+			return responseNoValid;	
 		}
 	}
 
 	@GetMapping("/communityEmail")
-	@ResponseBody
-	public ResponseEntity<Object> getEmailOfResidentsOfCity(@RequestParam String city) {
+	public ResponseEntity<List<Map<String, String>>> getEmailOfResidentsOfCity(@RequestParam String city) {
+		log.info(ConstantsRequestResponseHttp.REQUEST_GET_EMAIL_OF_RESIDENTS_BY_CITY, city);
+		
 		List<Map<String, String>> listOfEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 		try {
 			listOfEmailsOfResidentsOfCity = communityEmailService.getEmailOfResidentsOfCity(city);
-
+			
+			ResponseEntity<List<Map<String, String>>>responseValid = ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
+			log.info(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, responseValid);
+			return responseValid;
 		} catch (NullPointerException e) {
 			log.error(e.getMessage());
-			return returnResponseEntityEmptyAndCode404();
+			ResponseEntity<List<Map<String, String>>> responseNoValid = new ResponseEntity<List<Map<String, String>>>(HttpStatus.NOT_FOUND);
+			log.error(ConstantsRequestResponseHttp.RESPONSE_GET_EMAIL_OF_RESIDENTS_BY_CITY, responseNoValid);
+			return responseNoValid; 
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(listOfEmailsOfResidentsOfCity);
+	}
+
+	@Override
+	public ResponseEntity<Object> returnResponseEntityEmptyAndCode404() {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
 	}
 }

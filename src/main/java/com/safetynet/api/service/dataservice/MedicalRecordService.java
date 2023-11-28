@@ -9,29 +9,33 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.utils.Constants;
+import com.safetynet.api.utils.ICheckingDuplicatedObject;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MedicalRecordService {
+public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRecord> {
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
-<<<<<<< Updated upstream
-	
-	private List<MedicalRecord> medicalRecords = new ArrayList<>();
-=======
 
 	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
->>>>>>> Stashed changes
 
-	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
-		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
+	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) throws IllegalArgumentException {
+		log.debug("Adding medical record: {} {}", medicalRecord.getFirstName(),  medicalRecord.getLastName());
 
-		medicalRecord.setId(medicalRecord.getFirstName() + " " + medicalRecord.getLastName());
-		medicalRecords.add(medicalRecord);
+		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
 
-		log.info("Medical record added successfully: {}", medicalRecord);
-		return medicalRecord;
+		if (isObjectDuplicated) {
+			throw new IllegalArgumentException(
+					"Failed to add this medical record, medical record already exist" + medicalRecord);
+		} else {
+			String fullName = medicalRecord.getFirstName() + " " + medicalRecord.getLastName();
+			medicalRecord.setId(fullName);
+			medicalRecords.add(medicalRecord);
+
+			log.debug("Medical record added successfully: {}", medicalRecord);
+			return medicalRecord;
+		}
 	}
 
 	public MedicalRecord updateOneMedicalRecordById(String id, MedicalRecord updatedMedicalRecord)
@@ -45,10 +49,10 @@ public class MedicalRecordService {
 					existingMedicalRecord.setMedications(updatedMedicalRecord.getMedications());
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update medical record, " + updatedMedicalRecord.getId() + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException("Failed to update medical record, "
+						+ updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND));
 
-		log.info("Medical record updated successfully for: {}", updatedMedicalRecord);
+		log.debug("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
 		return existingMedicalRecordUpdated;
 	}
 
@@ -60,7 +64,7 @@ public class MedicalRecordService {
 		if (!result) {
 			log.error("Failed to delete medical record for {}", id);
 		} else {
-			log.info("Medical record deleted successfully for {}", id);
+			log.debug("Medical record deleted successfully for {}", id);
 		}
 
 		return result;
@@ -73,9 +77,9 @@ public class MedicalRecordService {
 		personFoundById = medicalRecords.stream().filter(medicalRecord -> medicalRecord.getId().equals(id)).findFirst()
 				.map(existingMedicalRecord -> {
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + Constants.NOT_FOUND));
+				}).orElseThrow(() -> new NullPointerException("Medical record for: " + id + " " + Constants.NOT_FOUND));
 
-		log.info("Medical record retrieved successfully for: {}", id);
+		log.debug("Medical record retrieved successfully for: {}", id);
 		return personFoundById;
 	}
 
@@ -86,9 +90,26 @@ public class MedicalRecordService {
 			log.error("Failed to retrieve all  medical records ");
 			throw new NullPointerException("None medical record registered!");
 		} else {
-			log.info("All medical records retrieved successfully: {}", medicalRecords);
+			log.debug("All medical records retrieved successfully: {}", medicalRecords);
 		}
 
 		return medicalRecords;
+	}
+
+	public boolean isMedicalRecordDuplicatedById(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
+		return this.isObjectDuplicated(medicalRecords, medicalRecord);
+	}
+
+	@Override
+	public boolean isObjectDuplicated(List<MedicalRecord> medicalRecords, MedicalRecord medicalRecord) {
+		boolean isObjectDuplicated = false;
+		for (MedicalRecord medicalRecordExisting : medicalRecords) {
+			if (medicalRecordExisting.getFirstName().equals(medicalRecord.getFirstName())
+					&& medicalRecordExisting.getLastName().equals(medicalRecord.getLastName())) {
+				isObjectDuplicated = true;
+			}
+		}
+
+		return isObjectDuplicated;
 	}
 }

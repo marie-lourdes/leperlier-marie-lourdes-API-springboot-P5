@@ -18,7 +18,7 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCityImpl.class);
 
 	@Autowired
-	PersonService personService;
+	private PersonService personService;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String city) {
@@ -26,20 +26,22 @@ public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOf
 
 		List<Person> residentsFoundByCity = new ArrayList<Person>();
 		List<Map<String, String>> listOfEmailsResidentsFoundByCity = new ArrayList<Map<String, String>>();
+
 		try {
 			residentsFoundByCity = personService.getPersonsByCity(city);
-
 			for (Person person : residentsFoundByCity) {
 				Map<String, String> residentFoundByCity = new HashMap<String, String>();
 				residentFoundByCity.put("email", person.getEmail());
-
-				listOfEmailsResidentsFoundByCity.add(residentFoundByCity);
+				if (!listOfEmailsResidentsFoundByCity.contains(residentFoundByCity)) {
+					listOfEmailsResidentsFoundByCity.add(residentFoundByCity);
+					log.debug(" Emails of residents by city successfully retrieved : {}",
+							listOfEmailsResidentsFoundByCity);
+				}
 			}
 		} catch (Exception e) {
 			log.error("An error has occured in searching  full info  emails of residents of the city");
 		}
 
-		log.debug(" Emails of residents by city successfully retrieved : {}", listOfEmailsResidentsFoundByCity);
 		return listOfEmailsResidentsFoundByCity;
 	}
 }

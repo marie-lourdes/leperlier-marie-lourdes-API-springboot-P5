@@ -1,4 +1,4 @@
-package com.safetynet.api.service;
+package com.safetynet.api.repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,10 +58,6 @@ public class ReadMedicalRecordDataFromFileImpl implements IDatasFileReader<Medic
 
 				listOfMedicalRecords.add(medicalRecord);
 			}
-		} catch (ClassCastException e) {
-			log.error(e.getMessage());
-		} catch (NullPointerException e) {
-			log.error("Missing data medical records from file Json");
 		} catch (Exception e) {
 			log.error("An error has occuredin reading datas medical records from Json");
 		}
