@@ -4,7 +4,9 @@ import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
 
+@Data
 public class Person {
 	private String id;
 
@@ -71,6 +73,7 @@ public class Person {
 		this.email = email;
 	}
 
+<<<<<<< Updated upstream
 	public String getId() {
 		return id;
 	}
@@ -136,6 +139,12 @@ public class Person {
 		this.email = email;
 	}
 
+=======
+	public Person(String address) {
+		this.address = address;
+	}
+
+>>>>>>> Stashed changes
 	@Override
 	public String toString() {
 

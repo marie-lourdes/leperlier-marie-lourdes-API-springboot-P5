@@ -17,8 +17,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FireStationService {
 	private static final Logger log = LogManager.getLogger(FireStationService.class);
+<<<<<<< Updated upstream
 	
 	private List<FireStation> fireStations = new ArrayList<>();
+=======
+
+	private final List<FireStation> fireStations = new ArrayList<>();
+>>>>>>> Stashed changes
 
 	public FireStation addFireStation(FireStation fireStation) {
 		log.debug("Adding FireStation: {}", fireStation.getStationNumber() + " " + fireStation.getAddress());

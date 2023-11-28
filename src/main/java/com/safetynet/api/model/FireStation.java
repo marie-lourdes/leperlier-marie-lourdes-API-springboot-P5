@@ -4,7 +4,9 @@ import com.safetynet.api.utils.RegexConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
 
+@Data
 public class FireStation {
 	private String id;
 
@@ -34,30 +36,6 @@ public class FireStation {
 	// use for firestation service /controller test
 	public FireStation(String address) {
 		this.address = address;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getStationNumber() {
-		return stationNumber;
-	}
-
-	public void setStationNumber(String stationNumber) {
-		this.stationNumber = stationNumber;
 	}
 
 	@Override

@@ -16,8 +16,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MedicalRecordService {
 	private static final Logger log = LogManager.getLogger(MedicalRecordService.class);
+<<<<<<< Updated upstream
 	
 	private List<MedicalRecord> medicalRecords = new ArrayList<>();
+=======
+
+	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
+>>>>>>> Stashed changes
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
 		log.debug("Adding medical record: {}", medicalRecord.getFirstName() + " " + medicalRecord.getLastName());

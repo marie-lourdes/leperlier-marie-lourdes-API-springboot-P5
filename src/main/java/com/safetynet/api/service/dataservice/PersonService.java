@@ -17,8 +17,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonService {
 	private static final Logger log = LogManager.getLogger(PersonService.class);
+<<<<<<< Updated upstream
 	
 	private List<Person> persons = new ArrayList<>();
+=======
+
+	private final List<Person> persons = new ArrayList<>();
+>>>>>>> Stashed changes
 
 	public Person addPerson(Person person) throws NullPointerException {
 		log.debug("Adding person: {}", person.getFirstName() + " " + person.getLastName());
