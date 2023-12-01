@@ -50,8 +50,12 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 					existingPerson.setPhone(updatedPerson.getPhone());
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
-				}).orElseThrow(() -> new NullPointerException(
-						"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND));
+				}).orElse(null);
+		
+		if (existingPersonUpdated == null) {
+			throw new NullPointerException(
+					"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND);
+		}
 
 		log.debug("Person updated successfully for: {}", existingPersonUpdated);
 		return existingPersonUpdated;
