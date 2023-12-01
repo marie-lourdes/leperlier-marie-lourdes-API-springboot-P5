@@ -62,10 +62,10 @@ class PhoneAlertServiceTest {
 			
 			verify(infoPhoneOfResidentsByStationNumber).searchInfoOfResident(any(String.class));
 			assertTrue(resultListOfResidentChildAndMembersOfHouseHold.isEmpty());
-			}   catch (NullPointerException e) {
+			} catch (NullPointerException e) {
 				assertThrows(NullPointerException.class,
 						() ->phoneAlertServiceUnderTest.getListOfPhonesOfResidentsOfStationNumber("6"));
-			}catch (AssertionError e) {
+			} catch (AssertionError e) {
 				fail(e.getMessage());
 			}
 	}

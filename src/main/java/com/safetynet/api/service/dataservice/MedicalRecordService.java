@@ -21,7 +21,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 	private final List<MedicalRecord> medicalRecords = new ArrayList<>();
 
 	public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) throws IllegalArgumentException {
-		log.debug("Adding medical record: {} {}", medicalRecord.getFirstName(),  medicalRecord.getLastName());
+		log.debug("Adding medical record: {} {}", medicalRecord.getFirstName(), medicalRecord.getLastName());
 
 		boolean isObjectDuplicated = this.isMedicalRecordDuplicatedById(medicalRecords, medicalRecord);
 
@@ -49,8 +49,12 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 					existingMedicalRecord.setMedications(updatedMedicalRecord.getMedications());
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
-				}).orElseThrow(() -> new NullPointerException("Failed to update medical record, "
-						+ updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND));
+				}).orElse(null);
+		
+		if (existingMedicalRecordUpdated == null) {
+			throw new NullPointerException(
+					"Failed to update medical record, " + updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND);
+		}
 
 		log.debug("Medical record updated successfully for: {}", existingMedicalRecordUpdated);
 		return existingMedicalRecordUpdated;

@@ -144,7 +144,6 @@ class MedicalRecordControllerTest {
 				allergies);
 
 		try {
-			medicalRecordService = new MedicalRecordService();
 			given(medicalRecordService.updateOneMedicalRecordById("John Lenon", NoExistingMedicalRecordUpdated))
 					.willThrow(NullPointerException.class);
 
