@@ -1,6 +1,7 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -88,5 +89,19 @@ class ResidentsOfStationNumberServiceTest {
 			fail(e.getMessage());
 		}
 	}
-
+	@Test
+	void testSortAdultsAndChildsOfListOfResidentsWithCountDown_WithAdultsAndChilds() throws Exception {
+		when(countDownOfAdultsAndChilds.sortAdultsAndChilds("5")).thenReturn(countDownTest);
+		try {
+		Map<String, String> resultMapOfAdultsAndChilds=residentsOfStationNumberServiceUnderTest.sortAdultsAndChildsOfListOfResidentsWithCountDown("5");
+		
+	    verify(countDownOfAdultsAndChilds).sortAdultsAndChilds(any(String.class));
+		assertEquals("1",resultMapOfAdultsAndChilds.get("adults"));
+		assertEquals("1",resultMapOfAdultsAndChilds.get("childs"));
+		
+		} catch (AssertionError e) {
+			fail(e.getMessage());
+		}
+	}
+	
 }
