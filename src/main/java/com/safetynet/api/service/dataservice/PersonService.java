@@ -22,7 +22,7 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 	private final List<Person> persons = new ArrayList<>();
 
 	public Person addPerson(Person person) throws IllegalArgumentException {
-		log.debug("Adding person: {} {}", person.getFirstName(),person.getLastName());
+		log.debug("Adding person: {} {}", person.getFirstName(), person.getLastName());
 
 		boolean isObjectDuplicated = this.isPersonDuplicatedById(persons, person);
 
@@ -51,10 +51,9 @@ public class PersonService implements ICheckingDuplicatedObject<Person> {
 					existingPerson.setEmail(updatedPerson.getEmail());
 					return existingPerson;
 				}).orElse(null);
-		
+
 		if (existingPersonUpdated == null) {
-			throw new NullPointerException(
-					"Failed to update person,the id: " + id + " " + Constants.NOT_FOUND);
+			throw new NullPointerException("Failed to update person,the id: " + id + " " + Constants.NOT_FOUND);
 		}
 
 		log.debug("Person updated successfully for: {}", existingPersonUpdated);

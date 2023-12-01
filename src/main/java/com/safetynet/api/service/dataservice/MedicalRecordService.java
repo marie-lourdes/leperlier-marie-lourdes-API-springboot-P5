@@ -50,7 +50,7 @@ public class MedicalRecordService implements ICheckingDuplicatedObject<MedicalRe
 					existingMedicalRecord.setAllergies(updatedMedicalRecord.getAllergies());
 					return existingMedicalRecord;
 				}).orElse(null);
-		
+
 		if (existingMedicalRecordUpdated == null) {
 			throw new NullPointerException(
 					"Failed to update medical record, " + updatedMedicalRecord.getId() + " " + Constants.NOT_FOUND);
