@@ -16,7 +16,7 @@ public class PhoneAlertService {
 
 	@Autowired
 	@Qualifier("InfoPhoneOfResidentsByStationNumber")
-	private SearchingInfoPhoneOfResidentsByStationNumberImpl infoPhoneOfResidentsByStationNumber;
+	private ISearchingInfoOfResident infoPhoneOfResidentsByStationNumber;
 
 	private List<Map<String, String>> listOfPhonesOfResidentOfStationNumber = new ArrayList<Map<String, String>>();
 

@@ -16,7 +16,7 @@ public class CommunityEmailService {
 
 	@Autowired
 	@Qualifier("InfoEmailOfResidentsByCity")
-	private SearchingInfoEmailOfResidentsByCityImpl infoEmailOfResidentsByCity;
+	private ISearchingInfoOfResident infoEmailOfResidentsByCity;
 
 	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();
 

@@ -17,7 +17,7 @@ public class FloodService {
 
 	@Autowired
 	@Qualifier("InfoOfResidentOfStationNumber")
-	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private ISearchingInfoOfResident infoOfResidentOfStationNumber;
 
 	@Autowired
 	@Qualifier("InfoOfResidentsByAddressWithMedicalRecord")

@@ -23,7 +23,7 @@ public class FireService {
 
 	@Autowired
 	@Qualifier("InfoOfResidentsByAddressWithMedicalRecord")
-	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	private ISearchingInfoOfResident searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Map<String, String>> getListOfResidentsAndFireStationNearFire(String address)
 			throws NullPointerException {

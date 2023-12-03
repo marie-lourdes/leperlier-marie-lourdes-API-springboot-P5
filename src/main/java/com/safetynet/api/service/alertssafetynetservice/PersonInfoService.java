@@ -19,7 +19,7 @@ public class PersonInfoService {
 
 	@Autowired
 	@Qualifier("InfoOfResidentsByAddressWithMedicalRecord")
-	private SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
+	private ISearchingInfoOfResident searchingFullInfoOfResidentsWithMedicalRecord;
 
 	@Autowired
 	private PersonService personService;

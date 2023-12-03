@@ -15,7 +15,7 @@ public class ResidentsOfStationNumberService {
 	private static final Logger log = LogManager.getLogger(ResidentsOfStationNumberService.class);
 
 	@Autowired
-	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	private ISearchingInfoOfResident infoOfResidentOfStationNumber;
 
 	@Autowired
 	private SortingAdultsAndChildsOfListOfResidentsWithCountDown countDownOfAdultsAndChilds;
