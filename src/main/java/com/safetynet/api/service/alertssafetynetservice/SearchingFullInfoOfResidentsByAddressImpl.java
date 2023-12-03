@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.Person;
@@ -21,6 +22,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 	private PersonService personService;
 
 	@Autowired
+	@Qualifier("CalculatorAgeOfResident")
 	private CalculatorAgeOfResidentImpl calculatorAgeOfResident;
 
 	private List<Person> residentsFoundByAddress = new ArrayList<Person>();

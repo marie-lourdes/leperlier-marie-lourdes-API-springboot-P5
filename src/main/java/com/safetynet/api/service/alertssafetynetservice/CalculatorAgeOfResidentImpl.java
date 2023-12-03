@@ -15,7 +15,7 @@ import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.Constants;
 
 @Component("CalculatorAgeOfResident")
-public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
+public class CalculatorAgeOfResidentImpl implements ICalculatorAge {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
 
 	private BigInteger age;
