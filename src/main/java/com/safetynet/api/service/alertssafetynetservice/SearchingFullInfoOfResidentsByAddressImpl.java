@@ -23,7 +23,7 @@ public class SearchingFullInfoOfResidentsByAddressImpl implements ISearchingInfo
 
 	@Autowired
 	@Qualifier("CalculatorAgeOfResident")
-	private CalculatorAgeOfResidentImpl calculatorAgeOfResident;
+	private ICalculatorAge  calculatorAgeOfResident;
 
 	private List<Person> residentsFoundByAddress = new ArrayList<Person>();
 

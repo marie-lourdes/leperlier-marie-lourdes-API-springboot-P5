@@ -1,7 +1,6 @@
 package com.safetynet.api.service.alertssafetynetservice;
 
 import java.util.ArrayList;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
@@ -19,7 +19,8 @@ public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearc
 	private static final Logger log = LogManager.getLogger(SearchingInfoPersonByAddressWithMedicalRecordImpl.class);
 
 	@Autowired
-	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+	@Qualifier("FullInfoOfResidentsByAddress")
+	private ISearchingInfoOfResident searchingFullInfoOfResidentsByAddress;
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;

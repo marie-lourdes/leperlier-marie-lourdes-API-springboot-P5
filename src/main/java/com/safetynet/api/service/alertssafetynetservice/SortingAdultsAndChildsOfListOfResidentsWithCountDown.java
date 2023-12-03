@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithCountDown {
 	private static final Logger log = LogManager.getLogger(SortingAdultsAndChildsOfListOfResidentsWithCountDown.class);
 
 	@Autowired
-	private SearchingInfoOfResidentOfStationNumberImpl infoOfResidentOfStationNumber;
+	@Qualifier("InfoOfResidentOfStationNumber")
+	private ISearchingInfoOfResident infoOfResidentOfStationNumber;
 
 	private Map<String, Integer> mapOfAdultsAndChild = new HashMap<String, Integer>();
 

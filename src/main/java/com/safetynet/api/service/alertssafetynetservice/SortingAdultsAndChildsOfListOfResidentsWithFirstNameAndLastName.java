@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,8 @@ public class SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName {
 			.getLogger(SortingAdultsAndChildsOfListOfResidentsWithFirstNameAndLastName.class);
 
 	@Autowired
-	private SearchingFullInfoOfResidentsByAddressImpl fullInfoOfResidentWithSameAddress;
+	@Qualifier("FullInfoOfResidentsByAddress")
+	private ISearchingInfoOfResident fullInfoOfResidentWithSameAddress;
 
 	private List<Map<String, String>> listOfResidentsFoundByAddress = new ArrayList<Map<String, String>>();
 	private List<Map<String, String>> listOfAdultsAndChild = new ArrayList<Map<String, String>>();

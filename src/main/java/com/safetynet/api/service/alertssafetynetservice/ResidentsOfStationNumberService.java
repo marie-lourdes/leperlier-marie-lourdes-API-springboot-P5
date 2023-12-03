@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,7 @@ public class ResidentsOfStationNumberService {
 	private static final Logger log = LogManager.getLogger(ResidentsOfStationNumberService.class);
 
 	@Autowired
+	@Qualifier("InfoOfResidentOfStationNumber")
 	private ISearchingInfoOfResident infoOfResidentOfStationNumber;
 
 	@Autowired

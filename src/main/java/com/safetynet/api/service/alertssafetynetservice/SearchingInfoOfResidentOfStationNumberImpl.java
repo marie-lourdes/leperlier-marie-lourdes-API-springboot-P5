@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.FireStation;
@@ -27,7 +28,8 @@ public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInf
 	private FireStationService fireStationService;
 
 	@Autowired
-	private CalculatorAgeOfResidentImpl calculatorAgeOfResident;
+	@Qualifier("CalculatorAgeOfResident")
+	private ICalculatorAge calculatorAgeOfResident;
 
 	@Override
 	public List<Map<String, String>> searchInfoOfResident(String stationNumber) {

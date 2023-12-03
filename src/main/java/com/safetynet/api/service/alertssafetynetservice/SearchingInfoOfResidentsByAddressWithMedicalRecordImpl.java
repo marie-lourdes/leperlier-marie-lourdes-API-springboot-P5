@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.api.model.MedicalRecord;
@@ -19,7 +20,8 @@ public class SearchingInfoOfResidentsByAddressWithMedicalRecordImpl implements I
 			.getLogger(SearchingInfoOfResidentsByAddressWithMedicalRecordImpl.class);
 
 	@Autowired
-	private SearchingFullInfoOfResidentsByAddressImpl searchingFullInfoOfResidentsByAddress;
+	@Qualifier("FullInfoOfResidentsByAddress")
+	private ISearchingInfoOfResident searchingFullInfoOfResidentsByAddress;
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
