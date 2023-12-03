@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.FireStation;
@@ -21,6 +22,7 @@ public class FireService {
 	private FireStationService fireStationService;
 
 	@Autowired
+	@Qualifier("InfoOfResidentsByAddressWithMedicalRecord")
 	private SearchingInfoOfResidentsByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	public List<Map<String, String>> getListOfResidentsAndFireStationNearFire(String address)

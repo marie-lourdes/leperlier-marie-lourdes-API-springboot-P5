@@ -16,7 +16,7 @@ import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.FireStationService;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@Component
+@Component("InfoOfResidentOfStationNumber")
 public class SearchingInfoOfResidentOfStationNumberImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoOfResidentOfStationNumberImpl.class);
 

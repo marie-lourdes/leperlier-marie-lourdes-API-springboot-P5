@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.model.MedicalRecord;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 
-@Component
+@Component("InfoPersonByAddressWithMedicalRecord")
 public class SearchingInfoPersonByAddressWithMedicalRecordImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoPersonByAddressWithMedicalRecordImpl.class);
 

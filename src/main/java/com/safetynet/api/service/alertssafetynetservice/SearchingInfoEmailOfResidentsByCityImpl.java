@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.model.Person;
 import com.safetynet.api.service.dataservice.PersonService;
 
-@Component
+@Component("InfoEmailOfResidentsByCity")
 public class SearchingInfoEmailOfResidentsByCityImpl implements ISearchingInfoOfResident {
 	private static final Logger log = LogManager.getLogger(SearchingInfoEmailOfResidentsByCityImpl.class);
 

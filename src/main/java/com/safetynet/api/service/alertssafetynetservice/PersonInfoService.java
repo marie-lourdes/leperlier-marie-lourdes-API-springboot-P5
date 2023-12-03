@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.api.model.Person;
@@ -17,6 +18,7 @@ public class PersonInfoService {
 	private static final Logger log = LogManager.getLogger(PersonInfoService.class);
 
 	@Autowired
+	@Qualifier("InfoOfResidentsByAddressWithMedicalRecord")
 	private SearchingInfoPersonByAddressWithMedicalRecordImpl searchingFullInfoOfResidentsWithMedicalRecord;
 
 	@Autowired

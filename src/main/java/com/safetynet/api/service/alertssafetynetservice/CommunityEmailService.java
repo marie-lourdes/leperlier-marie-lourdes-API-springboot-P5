@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class CommunityEmailService {
 	private static final Logger log = LogManager.getLogger(CommunityEmailService.class);
 
 	@Autowired
+	@Qualifier("InfoEmailOfResidentsByCity")
 	private SearchingInfoEmailOfResidentsByCityImpl infoEmailOfResidentsByCity;
 
 	private List<Map<String, String>> listEmailsOfResidentsOfCity = new ArrayList<Map<String, String>>();

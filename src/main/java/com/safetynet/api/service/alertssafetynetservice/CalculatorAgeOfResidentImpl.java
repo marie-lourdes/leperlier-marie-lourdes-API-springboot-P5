@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import com.safetynet.api.service.dataservice.MedicalRecordService;
 import com.safetynet.api.utils.Constants;
 
-@Component
+@Component("CalculatorAgeOfResident")
 public class CalculatorAgeOfResidentImpl implements ICalculatorAgeOfResident {
 	private static final Logger log = LogManager.getLogger(CalculatorAgeOfResidentImpl.class);
 
